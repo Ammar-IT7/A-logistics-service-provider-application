@@ -1,0 +1,146 @@
+<!-- templates/pages/customs-form.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="customs">⬅️</button>
+    <h1 class="header-title">إضافة مكتب تخليص جمركي</h1>
+    <button class="header-action" data-action="save-customs">💾</button>
+</div>
+<div class="content">
+    <div class="card mb-3">
+        <div class="card-content">
+            <form id="customsForm">
+                <div class="form-group">
+                    <label for="officeName" class="form-label">اسم المكتب</label>
+                    <input type="text" id="officeName" class="form-control" placeholder="أدخل اسم المكتب">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">نوع التخليص</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="clearanceType" value="sea"> 
+                            <span class="checkbox-text">تخليص بحري</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="clearanceType" value="air"> 
+                            <span class="checkbox-text">تخليص جوي</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="clearanceType" value="land"> 
+                            <span class="checkbox-text">تخليص بري</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="section-title mt-4 mb-2">معلومات الترخيص</div>
+                
+                <div class="form-group">
+                    <label for="licenseNumber" class="form-label">رقم الترخيص الجمركي</label>
+                    <input type="text" id="licenseNumber" class="form-control" placeholder="أدخل رقم الترخيص">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseIssuer" class="form-label">الجهة المانحة للترخيص</label>
+                    <input type="text" id="licenseIssuer" class="form-control" placeholder="أدخل اسم الجهة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseExpiry" class="form-label">تاريخ انتهاء الترخيص</label>
+                    <input type="date" id="licenseExpiry" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseDocument" class="form-label">صورة الترخيص</label>
+                    <input type="file" id="licenseDocument" class="form-control">
+                </div>
+                
+                <div class="section-title mt-4 mb-2">الموانئ والمنافذ المعتمدة</div>
+                
+                <div class="ports-container mb-3">
+                    <div class="port-item">
+                        <input type="text" class="form-control" placeholder="أدخل اسم المنفذ">
+                        <button type="button" class="btn btn-icon remove-port">×</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm mb-3" id="addPort">إضافة منفذ جديد</button>
+                
+                <div class="section-title mt-4 mb-2">فريق العمل</div>
+                
+                <div class="team-container mb-3">
+                    <div class="team-member">
+                        <div class="form-group">
+                            <label class="form-label">الاسم</label>
+                            <input type="text" class="form-control" placeholder="أدخل اسم الموظف">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">المسمى الوظيفي</label>
+                            <select class="form-control">
+                                <option value="">اختر المسمى الوظيفي</option>
+                                <option value="customs-broker">مخلص جمركي</option>
+                                <option value="representative">مندوب</option>
+                                <option value="manager">مدير</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">رقم التواصل</label>
+                            <input type="tel" class="form-control" placeholder="أدخل رقم الجوال">
+                        </div>
+                        <button type="button" class="btn btn-icon remove-member">×</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm mb-3" id="addTeamMember">إضافة عضو جديد</button>
+                
+                <div class="section-title mt-4 mb-2">لغات التعامل</div>
+                
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="language" value="arabic"> 
+                            <span class="checkbox-text">العربية</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="language" value="english"> 
+                            <span class="checkbox-text">الإنجليزية</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="language" value="french"> 
+                            <span class="checkbox-text">الفرنسية</span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="language" value="other"> 
+                            <span class="checkbox-text">أخرى</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="section-title mt-4 mb-2">أسعار الخدمات</div>
+                
+                <div class="pricing-container mb-3">
+                    <div class="pricing-item">
+                        <div class="form-group">
+                            <label class="form-label">اسم الخدمة</label>
+                            <input type="text" class="form-control" placeholder="أدخل اسم الخدمة">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">السعر (ريال)</label>
+                            <input type="number" class="form-control" placeholder="أدخل السعر">
+                        </div>
+                        <button type="button" class="btn btn-icon remove-price">×</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm mb-3" id="addPriceItem">إضافة خدمة جديدة</button>
+                
+                <div class="form-group">
+                    <label for="specialOffers" class="form-label">عروض خاصة للعملاء الدائمين</label>
+                    <textarea id="specialOffers" class="form-control" rows="3" placeholder="أدخل تفاصيل العروض الخاصة"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="officeAddress" class="form-label">عنوان المكتب</label>
+                    <textarea id="officeAddress" class="form-control" rows="3" placeholder="أدخل العنوان التفصيلي"></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-primary btn-block" data-action="save-customs-form">حفظ المعلومات</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+<!-- templates/pages/warehouse-details.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="warehouses">⬅️</button>
+    <h1 class="header-title">تفاصيل المخزن</h1>
+    <button class="header-action" data-action="edit-warehouse">✏️</button>
+</div>
+<div class="content">
+    <div class="warehouse-image mb-3">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM5OTkiPtin2YTZhdiu2LLZhiDYp9mE2LHYptmK2LPZijwvdGV4dD48L3N2Zz4=" alt="صورة المخزن" class="warehouse-img">
+        <div class="warehouse-status">
+            <span class="status-badge available">متاح</span>
+        </div>
+    </div>
+    
+    <div class="warehouse-header-info mb-3">
+        <h2>مخزن الرياض الرئيسي</h2>
+        <div class="warehouse-key-info">
+            <div class="key-info-item">
+                <div class="info-icon">📐</div>
+                <div class="info-value">2,500 م²</div>
+            </div>
+            <div class="key-info-item">
+                <div class="info-icon">🏷️</div>
+                <div class="info-value">مخزن عام</div>
+            </div>
+            <div class="key-info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-value">الرياض - المنطقة الصناعية</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="occupation-section mb-3">
+        <h3 class="section-title">نسبة الإشغال</h3>
+        <div class="occupation-chart">
+            <div class="occupation-bar-container">
+                <div class="occupation-bar" style="width: 65%"></div>
+            </div>
+            <div class="occupation-stats">
+                <div class="stat">
+                    <div class="stat-value">65%</div>
+                    <div class="stat-label">مشغول</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1,625 م²</div>
+                    <div class="stat-label">المساحة المشغولة</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">875 م²</div>
+                    <div class="stat-label">المساحة المتوفرة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tabs-container mb-3">
+        <div class="tabs-header">
+            <div class="tab active" data-tab="info">معلومات عامة</div>
+            <div class="tab" data-tab="pricing">الأسعار</div>
+            <div class="tab" data-tab="license">التراخيص</div>
+            <div class="tab" data-tab="security">الأمان</div>
+        </div>
+        <div class="tabs-content">
+            <div class="tab-pane active" id="info-tab">
+                <div class="info-section">
+                    <div class="info-item">
+                        <div class="info-label">تاريخ التشغيل:</div>
+                        <div class="info-value">01/01/2022</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">مسؤول المخزن:</div>
+                        <div class="info-value">أحمد محمد</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">رقم التواصل:</div>
+                        <div class="info-value">+966 50 123 4567</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">ساعات العمل:</div>
+                        <div class="info-value">24 ساعة / 7 أيام</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">ظروف التخزين:</div>
+                        <div class="info-value">درجة حرارة: 25°C | رطوبة: 50%</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">ملاحظات إضافية:</div>
+                        <div class="info-value">مجهز للتعامل مع مختلف أنواع البضائع باستثناء المواد الكيميائية</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="pricing-tab">
+                <div class="pricing-section">
+                    <div class="pricing-item">
+                        <div class="pricing-period">يومي</div>
+                        <div class="pricing-value">5 ريال/م²</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="pricing-period">أسبوعي</div>
+                        <div class="pricing-value">30 ريال/م²</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="pricing-period">شهري</div>
+                        <div class="pricing-value">100 ريال/م²</div>
+                    </div>
+                    <div class="pricing-notes">
+                        <p>* الأسعار تشمل خدمات التحميل والتنزيل الأساسية</p>
+                        <p>* خصم 10% للعقود السنوية</p>
+                    </div>
+                    <button class="btn btn-primary btn-block" data-action="request-quote">طلب عرض سعر مخصص</button>
+                </div>
+            </div>
+            <div class="tab-pane" id="license-tab">
+                <div class="license-section">
+                    <div class="license-item">
+                        <div class="license-title">ترخيص المخزن</div>
+                        <div class="license-details">
+                            <div class="license-info">
+                                <div class="info-label">رقم الترخيص:</div>
+                                <div class="info-value">WH-12345-22</div>
+                            </div>
+                            <div class="license-info">
+                                <div class="info-label">تاريخ الإصدار:</div>
+                                <div class="info-value">01/01/2022</div>
+                            </div>
+                            <div class="license-info">
+                                <div class="info-label">تاريخ الانتهاء:</div>
+                                <div class="info-value">31/12/2025</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline" data-action="view-license">عرض الترخيص</button>
+                    </div>
+                    <div class="license-item">
+                        <div class="license-title">شهادة الأمن والسلامة</div>
+                        <div class="license-details">
+                            <div class="license-info">
+                                <div class="info-label">رقم الشهادة:</div>
+                                <div class="info-value">SF-7890-22</div>
+                            </div>
+                            <div class="license-info">
+                                <div class="info-label">تاريخ الإصدار:</div>
+                                <div class="info-value">15/01/2022</div>
+                            </div>
+                            <div class="license-info">
+                                <div class="info-label">تاريخ الانتهاء:</div>
+                                <div class="info-value">14/01/2024</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline" data-action="view-license">عرض الشهادة</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="security-tab">
+                <div class="security-section">
+                    <div class="security-features">
+                        <div class="feature-item active">
+                            <div class="feature-icon">🎥</div>
+                            <div class="feature-name">كاميرات مراقبة</div>
+                        </div>
+                        <div class="feature-item active">
+                            <div class="feature-icon">👮</div>
+                            <div class="feature-name">حراسة أمنية</div>
+                        </div>
+                        <div class="feature-item active">
+                            <div class="feature-icon">🚒</div>
+                            <div class="feature-name">نظام إطفاء</div>
+                        </div>
+                        <div class="feature-item active">
+                            <div class="feature-icon">🚨</div>
+                            <div class="feature-name">نظام إنذار</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🔐</div>
+                            <div class="feature-name">أبواب أمنية</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-name">تحكم بالدخول</div>
+                        </div>
+                    </div>
+                    <div class="security-notes">
+                        <h4>ملاحظات الأمان:</h4>
+                        <p>المخزن مجهز بأنظمة أمان متكاملة ويخضع للمراقبة على مدار 24 ساعة. يتم إجراء فحص دوري لأنظمة السلامة كل 3 أشهر.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="btn btn-primary btn-block" data-action="book-warehouse">حجز مساحة</button>
+        <button class="btn btn-outline btn-block" data-action="contact-manager">التواصل مع المسؤول</button>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<!-- templates/pages/customs.html -->
+<div class="header">
+    <!-- <button class="header-action" data-action="back">⬅️</button> -->
+    <button class="header-action" data-action="navigate" data-page="customs-form">+</button>
+    <h1 class="header-title">مكاتب التخليص الجمركي</h1>
+</div>
+<div class="content">
+    <div class="search-container mb-3">
+        <input type="text" class="search-input" placeholder="بحث في مكاتب التخليص...">
+    </div>
+
+    <div class="filter-section mb-3">
+        <button class="filter-btn active" data-filter="all">الكل</button>
+        <button class="filter-btn" data-filter="sea">بحري</button>
+        <button class="filter-btn" data-filter="air">جوي</button>
+        <button class="filter-btn" data-filter="land">بري</button>
+    </div>
+
+    <div class="customs-office-cards">
+        <div class="customs-office-card" data-action="view-customs-office" data-id="1">
+            <div class="customs-header">
+                <h3>مكتب التخليص الجمركي - جدة</h3>
+                <div class="rating">
+                    <span class="rating-value">4.8</span>
+                    <span class="rating-stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="customs-content">
+                <div class="customs-info">
+                    <div class="info-item">
+                        <div class="info-label">الترخيص:</div>
+                        <div class="info-value">CL-7865-22</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">المنافذ:</div>
+                        <div class="info-value">ميناء جدة، مطار الملك عبدالعزيز</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نوع التخليص:</div>
+                        <div class="info-value badges">
+                            <span class="type-badge sea">بحري</span>
+                            <span class="type-badge air">جوي</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="customs-actions">
+                    <button class="btn btn-sm" data-action="edit-customs-office" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="view-customs-office-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="customs-office-card" data-action="view-customs-office" data-id="2">
+            <div class="customs-header">
+                <h3>مكتب التخليص الجمركي - الرياض</h3>
+                <div class="rating">
+                    <span class="rating-value">4.2</span>
+                    <span class="rating-stars">★★★★☆</span>
+                </div>
+            </div>
+            <div class="customs-content">
+                <div class="customs-info">
+                    <div class="info-item">
+                        <div class="info-label">الترخيص:</div>
+                        <div class="info-value">CL-4532-22</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">المنافذ:</div>
+                        <div class="info-value">مطار الملك خالد</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نوع التخليص:</div>
+                        <div class="info-value badges">
+                            <span class="type-badge air">جوي</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="customs-actions">
+                    <button class="btn btn-sm" data-action="edit-customs-office" data-id="2">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="view-customs-office-details" data-id="2">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="customs-office-card" data-action="view-customs-office" data-id="3">
+            <div class="customs-header">
+                <h3>مكتب التخليص البري - سلوى</h3>
+                <div class="rating">
+                    <span class="rating-value">4.5</span>
+                    <span class="rating-stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="customs-content">
+                <div class="customs-info">
+                    <div class="info-item">
+                        <div class="info-label">الترخيص:</div>
+                        <div class="info-value">CL-9876-22</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">المنافذ:</div>
+                        <div class="info-value">منفذ سلوى البري</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نوع التخليص:</div>
+                        <div class="info-value badges">
+                            <span class="type-badge land">بري</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="customs-actions">
+                    <button class="btn btn-sm" data-action="edit-customs-office" data-id="3">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="view-customs-office-details" data-id="3">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

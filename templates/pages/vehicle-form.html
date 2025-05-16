@@ -1,0 +1,168 @@
+<!-- templates/pages/vehicle-form.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="shipping">⬅️</button>
+    <h1 class="header-title">إضافة وسيلة شحن</h1>
+    <button class="header-action" data-action="save-vehicle">💾</button>
+</div>
+<div class="content">
+    <div class="card mb-3">
+        <div class="card-content">
+            <form id="vehicleForm">
+                <div class="form-group">
+                    <label for="vehicleName" class="form-label">اسم وسيلة الشحن</label>
+                    <input type="text" id="vehicleName" class="form-control" placeholder="أدخل اسم وسيلة الشحن">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vehicleType" class="form-label">نوع وسيلة الشحن</label>
+                    <select id="vehicleType" class="form-control">
+                        <option value="">اختر نوع وسيلة الشحن</option>
+                        <option value="truck">شاحنة نقل كبيرة</option>
+                        <option value="refrigerated">شاحنة مبردة</option>
+                        <option value="van">سيارة نقل متوسطة</option>
+                        <option value="pickup">شاحنة صغيرة</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="licensePlate" class="form-label">رقم اللوحة</label>
+                    <input type="text" id="licensePlate" class="form-control" placeholder="أدخل رقم اللوحة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vehicleStatus" class="form-label">حالة وسيلة الشحن</label>
+                    <select id="vehicleStatus" class="form-control">
+                        <option value="available">متاحة</option>
+                        <option value="busy">في مهمة</option>
+                        <option value="maintenance">تحت الصيانة</option>
+                        <option value="unavailable">غير متاحة</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vehicleImage" class="form-label">صورة وسيلة الشحن</label>
+                    <input type="file" id="vehicleImage" class="form-control">
+                </div>
+                
+                <div class="section-title mt-4 mb-2">مواصفات وسيلة الشحن</div>
+                
+                <div class="form-group">
+                    <label for="maxLoad" class="form-label">الحمولة القصوى (طن)</label>
+                    <input type="number" id="maxLoad" class="form-control" placeholder="أدخل الحمولة القصوى">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dimensions" class="form-label">أبعاد مساحة الشحن (متر)</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="number" class="form-control" placeholder="الطول" id="length">
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="form-control" placeholder="العرض" id="width">
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="form-control" placeholder="الارتفاع" id="height">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fuelType" class="form-label">نوع الوقود</label>
+                    <select id="fuelType" class="form-control">
+                        <option value="diesel">ديزل</option>
+                        <option value="petrol">بنزين</option>
+                        <option value="gas">غاز</option>
+                        <option value="electric">كهرباء</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fuelConsumption" class="form-label">معدل استهلاك الوقود (لتر/100 كم)</label>
+                    <input type="number" id="fuelConsumption" class="form-control" placeholder="أدخل معدل الاستهلاك">
+                </div>
+                
+                <div class="section-title mt-4 mb-2">معلومات الترخيص</div>
+                
+                <div class="form-group">
+                    <label for="licenseNumber" class="form-label">رقم ترخيص التشغيل</label>
+                    <input type="text" id="licenseNumber" class="form-control" placeholder="أدخل رقم الترخيص">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseExpiry" class="form-label">تاريخ انتهاء الترخيص</label>
+                    <input type="date" id="licenseExpiry" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="insuranceNumber" class="form-label">رقم وثيقة التأمين</label>
+                    <input type="text" id="insuranceNumber" class="form-control" placeholder="أدخل رقم وثيقة التأمين">
+                </div>
+                
+                <div class="form-group">
+                    <label for="insuranceExpiry" class="form-label">تاريخ انتهاء التأمين</label>
+                    <input type="date" id="insuranceExpiry" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseDocument" class="form-label">صورة وثائق الترخيص</label>
+                    <input type="file" id="licenseDocument" class="form-control" multiple>
+                </div>
+                
+                <div class="section-title mt-4 mb-2">طاقم القيادة</div>
+                
+                <div class="drivers-container mb-3">
+                    <div class="driver-item">
+                        <div class="form-group">
+                            <label class="form-label">اسم السائق</label>
+                            <input type="text" class="form-control" placeholder="أدخل اسم السائق">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">رقم رخصة القيادة</label>
+                            <input type="text" class="form-control" placeholder="أدخل رقم الرخصة">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">تاريخ انتهاء الرخصة</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">رقم الجوال</label>
+                            <input type="tel" class="form-control" placeholder="أدخل رقم الجوال">
+                        </div>
+                        <button type="button" class="btn btn-icon remove-driver">×</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm mb-3" id="addDriver">إضافة سائق جديد</button>
+                
+                <div class="section-title mt-4 mb-2">جدول الصيانة</div>
+                
+                <div class="maintenance-container mb-3">
+                    <div class="maintenance-item">
+                        <div class="form-group">
+                            <label class="form-label">نوع الصيانة</label>
+                            <input type="text" class="form-control" placeholder="أدخل نوع الصيانة">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">تاريخ آخر صيانة</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">تاريخ الصيانة القادمة</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <button type="button" class="btn btn-icon remove-maintenance">×</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm mb-3" id="addMaintenance">إضافة صيانة جديدة</button>
+                
+                <div class="section-title mt-4 mb-2">شروط النقل الخاصة</div>
+                
+                <div class="form-group">
+                    <label for="specialConditions" class="form-label">شروط خاصة</label>
+                    <textarea id="specialConditions" class="form-control" rows="3" placeholder="أدخل أي شروط نقل خاصة"></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-primary btn-block" data-action="save-vehicle-form">حفظ المعلومات</button>
+            </form>
+        </div>
+    </div>
+</div>

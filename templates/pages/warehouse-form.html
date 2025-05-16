@@ -1,0 +1,123 @@
+<!-- templates/pages/warehouse-form.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="warehouses">⬅️</button>
+    <h1 class="header-title">إضافة مخزن جديد</h1>
+    <button class="header-action" data-action="save-warehouse">💾</button>
+</div>
+<div class="content">
+    <div class="card mb-3">
+        <div class="card-content">
+            <form id="warehouseForm">
+                <div class="form-group">
+                    <label for="warehouseName" class="form-label">اسم المخزن</label>
+                    <input type="text" id="warehouseName" class="form-control" placeholder="أدخل اسم المخزن">
+                </div>
+                
+                <div class="form-group">
+                    <label for="warehouseType" class="form-label">نوع المخزن</label>
+                    <select id="warehouseType" class="form-control">
+                        <option value="">اختر نوع المخزن</option>
+                        <option value="general">مخزن عام</option>
+                        <option value="refrigerated">مخزن مبرد</option>
+                        <option value="dry">مخزن جاف</option>
+                        <option value="hazardous">مخزن مواد خطرة</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="warehouseArea" class="form-label">المساحة الكلية (م²)</label>
+                    <input type="number" id="warehouseArea" class="form-control" placeholder="أدخل المساحة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="warehouseStatus" class="form-label">حالة المخزن</label>
+                    <select id="warehouseStatus" class="form-control">
+                        <option value="available">متاح</option>
+                        <option value="busy">مشغول</option>
+                        <option value="maintenance">تحت الصيانة</option>
+                        <option value="closed">مغلق</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="warehouseAddress" class="form-label">العنوان</label>
+                    <textarea id="warehouseAddress" class="form-control" rows="3" placeholder="أدخل العنوان التفصيلي"></textarea>
+                </div>
+                
+                <div class="section-title mt-4 mb-2">معلومات الترخيص</div>
+                
+                <div class="form-group">
+                    <label for="licenseName" class="form-label">رقم الترخيص</label>
+                    <input type="text" id="licenseName" class="form-control" placeholder="أدخل رقم الترخيص">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseExpiry" class="form-label">تاريخ انتهاء الترخيص</label>
+                    <input type="date" id="licenseExpiry" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseDocument" class="form-label">صورة الترخيص</label>
+                    <input type="file" id="licenseDocument" class="form-control">
+                </div>
+                
+                <div class="section-title mt-4 mb-2">تكاليف التخزين</div>
+                
+                <div class="form-group">
+                    <label for="dailyRate" class="form-label">السعر اليومي (للمتر)</label>
+                    <input type="number" id="dailyRate" class="form-control" placeholder="أدخل السعر">
+                </div>
+                
+                <div class="form-group">
+                    <label for="weeklyRate" class="form-label">السعر الأسبوعي (للمتر)</label>
+                    <input type="number" id="weeklyRate" class="form-control" placeholder="أدخل السعر">
+                </div>
+                
+                <div class="form-group">
+                    <label for="monthlyRate" class="form-label">السعر الشهري (للمتر)</label>
+                    <input type="number" id="monthlyRate" class="form-control" placeholder="أدخل السعر">
+                </div>
+                
+                <div class="section-title mt-4 mb-2">مواصفات الأمن والسلامة</div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="securityFeature" value="cameras"> 
+                        <span class="checkbox-text">كاميرات مراقبة</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="securityFeature" value="guards"> 
+                        <span class="checkbox-text">حراسة أمنية</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="securityFeature" value="fireSystem"> 
+                        <span class="checkbox-text">نظام إطفاء حريق</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="securityFeature" value="alarmSystem"> 
+                        <span class="checkbox-text">نظام إنذار</span>
+                    </label>
+                </div>
+                
+                <div class="section-title mt-4 mb-2">ظروف التخزين الخاصة</div>
+                
+                <div class="form-group">
+                    <label for="temperature" class="form-label">درجة الحرارة (°C)</label>
+                    <input type="number" id="temperature" class="form-control" placeholder="أدخل درجة الحرارة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="humidity" class="form-label">نسبة الرطوبة (%)</label>
+                    <input type="number" id="humidity" class="form-control" placeholder="أدخل نسبة الرطوبة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialConditions" class="form-label">ظروف خاصة أخرى</label>
+                    <textarea id="specialConditions" class="form-control" rows="3" placeholder="أدخل أي ظروف تخزين خاصة أخرى"></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-primary btn-block" data-action="save-warehouse-form">حفظ المعلومات</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<!-- templates/pages/warehouses.html -->
+<div class="header">
+    <!-- <button class="header-action" data-action="back">⬅️</button> -->
+    <button class="header-action" data-action="navigate" data-page="warehouse-form">+</button>
+    <h1 class="header-title">المخازن</h1>
+</div>
+<div class="content">
+    <div class="search-container mb-3">
+        <input type="text" class="search-input" placeholder="بحث في المخازن...">
+    </div>
+
+    <div class="filter-section mb-3">
+        <button class="filter-btn active" data-filter="all">الكل</button>
+        <button class="filter-btn" data-filter="general">عامة</button>
+        <button class="filter-btn" data-filter="refrigerated">مبردة</button>
+        <button class="filter-btn" data-filter="dry">جافة</button>
+    </div>
+
+    <div class="warehouse-cards">
+        <div class="warehouse-card" data-action="view-warehouse" data-id="1">
+            <div class="warehouse-header">
+                <h3>مخزن الرياض الرئيسي</h3>
+                <span class="status-badge available">متاح</span>
+            </div>
+            <div class="warehouse-content">
+                <div class="warehouse-info">
+                    <div class="info-item">
+                        <div class="info-label">النوع:</div>
+                        <div class="info-value">مخزن عام</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">المساحة:</div>
+                        <div class="info-value">2,500 م²</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نسبة الإشغال:</div>
+                        <div class="occupation-indicator">
+                            <div class="occupation-bar" style="width: 65%"></div>
+                            <span>65%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="warehouse-actions">
+                    <button class="btn btn-sm" data-action="edit-warehouse" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="warehouse-card" data-action="view-warehouse" data-id="2">
+            <div class="warehouse-header">
+                <h3>مخزن المنتجات المبردة</h3>
+                <span class="status-badge busy">مشغول</span>
+            </div>
+            <div class="warehouse-content">
+                <div class="warehouse-info">
+                    <div class="info-item">
+                        <div class="info-label">النوع:</div>
+                        <div class="info-value">مخزن مبرد</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">المساحة:</div>
+                        <div class="info-value">1,200 م²</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نسبة الإشغال:</div>
+                        <div class="occupation-indicator">
+                            <div class="occupation-bar" style="width: 90%"></div>
+                            <span>90%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="warehouse-actions">
+                    <button class="btn btn-sm" data-action="edit-warehouse" data-id="2">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="2">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="warehouse-card" data-action="view-warehouse" data-id="3">
+            <div class="warehouse-header">
+                <h3>مخزن المواد الجافة</h3>
+                <span class="status-badge maintenance">تحت الصيانة</span>
+            </div>
+            <div class="warehouse-content">
+                <div class="warehouse-info">
+                    <div class="info-item">
+                        <div class="info-label">النوع:</div>
+                        <div class="info-value">مخزن جاف</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">المساحة:</div>
+                        <div class="info-value">1,800 م²</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نسبة الإشغال:</div>
+                        <div class="occupation-indicator">
+                            <div class="occupation-bar" style="width: 0%"></div>
+                            <span>0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="warehouse-actions">
+                    <button class="btn btn-sm" data-action="edit-warehouse" data-id="3">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="3">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

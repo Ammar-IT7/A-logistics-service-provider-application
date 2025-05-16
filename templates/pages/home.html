@@ -1,0 +1,90 @@
+<!-- templates/pages/home.html -->
+<div class="header">
+    <button class="header-action">☰</button>
+    <h1 class="header-title">الرئيسية</h1>
+    <button class="header-action" data-action="notifications">🔔</button>
+</div>
+<div class="content">
+    <div class="welcome-banner mb-3">
+        <h2>مرحباً بك في نظام مزودي الخدمات اللوجستية</h2>
+        <p>يمكنك إدارة جميع خدماتك اللوجستية من مكان واحد</p>
+    </div>
+
+    <div class="stats-section mb-3">
+        <div class="row">
+            <div class="col-4">
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">الخدمات النشطة</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">طلبات جديدة</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="stat-card">
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">تقييم الخدمة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="section-title mb-2">الخدمات المقدمة</h3>
+    <div class="card mb-3">
+        <div class="card-content">
+            <div class="service-cards">
+                <div class="service-card" data-action="navigate" data-page="warehouses">
+                    <div class="service-icon">🏭</div>
+                    <div class="service-name">المخازن</div>
+                </div>
+                <div class="service-card" data-action="navigate" data-page="customs">
+                    <div class="service-icon">📋</div>
+                    <div class="service-name">مكاتب التخليص الجمركي</div>
+                </div>
+                <div class="service-card" data-action="navigate" data-page="shipping">
+                    <div class="service-icon">🚚</div>
+                    <div class="service-name">وسائل الشحن</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="section-title mb-2">آخر الطلبات</h3>
+    <ul class="list card mb-3">
+        <li class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">طلب تخزين #1253</div>
+                <div class="list-item-subtitle">منتجات غذائية - 3 طن</div>
+            </div>
+            <span class="badge badge-new">جديد</span>
+        </li>
+        <li class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">طلب تخليص #4587</div>
+                <div class="list-item-subtitle">معدات إلكترونية - ميناء جدة</div>
+            </div>
+            <span class="badge badge-pending">قيد التنفيذ</span>
+        </li>
+        <li class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">طلب شحن #8975</div>
+                <div class="list-item-subtitle">الرياض - الدمام</div>
+            </div>
+            <span class="badge badge-completed">مكتمل</span>
+        </li>
+    </ul>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h3 class="card-title">إضافة خدمة جديدة</h3>
+        </div>
+        <div class="card-content">
+            <p>قم بإضافة خدمة جديدة لزيادة فرص عملك</p>
+            <button class="btn btn-primary btn-block" data-action="add-service">إضافة خدمة جديدة</button>
+        </div>
+    </div>
+</div>

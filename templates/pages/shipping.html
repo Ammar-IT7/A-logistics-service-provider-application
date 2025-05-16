@@ -1,0 +1,122 @@
+<!-- templates/pages/shipping.html -->
+<div class="header">
+    <!-- <button class="header-action" data-action="back">⬅️</button> -->
+    <button class="header-action" data-action="navigate" data-page="vehicle-form">+</button>
+    <h1 class="header-title">وسائل الشحن</h1>
+</div>
+<div class="content">
+    <div class="search-container mb-3">
+        <input type="text" class="search-input" placeholder="بحث في وسائل الشحن...">
+    </div>
+
+    <div class="filter-section mb-3">
+        <button class="filter-btn active" data-filter="all">الكل</button>
+        <button class="filter-btn" data-filter="truck">شاحنات</button>
+        <button class="filter-btn" data-filter="refrigerated">مبرد</button>
+        <button class="filter-btn" data-filter="van">سيارات نقل</button>
+    </div>
+
+    <div class="vehicle-cards">
+        <div class="vehicle-card" data-action="view-vehicle" data-id="1">
+            <div class="vehicle-header">
+                <h3>شاحنة نقل كبيرة</h3>
+                <span class="status-badge available">متاحة</span>
+            </div>
+            <div class="vehicle-content">
+                <div class="vehicle-img-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM5OTkiPtin2YTYtNin2K3ZhtipPC90ZXh0Pjwvc3ZnPg==" alt="صورة الشاحنة" class="vehicle-img">
+                </div>
+                <div class="vehicle-info">
+                    <div class="info-item">
+                        <div class="info-label">النوع:</div>
+                        <div class="info-value">شاحنة نقل</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">رقم اللوحة:</div>
+                        <div class="info-value">أ ب ج 1234</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">الحمولة:</div>
+                        <div class="info-value">20 طن</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">إنتهاء الترخيص:</div>
+                        <div class="info-value valid">01/05/2026</div>
+                    </div>
+                </div>
+                <div class="vehicle-actions">
+                    <button class="btn btn-sm" data-action="edit-vehicle" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details"data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="vehicle-card" data-action="view-vehicle" data-id="2">
+            <div class="vehicle-header">
+                <h3>شاحنة مبردة</h3>
+                <span class="status-badge busy">في مهمة</span>
+            </div>
+            <div class="vehicle-content">
+                <div class="vehicle-img-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM5OTkiPti02KfYrdmG2Kkg2YXYqNix2K/YqTwvdGV4dD48L3N2Zz4=" alt="صورة الشاحنة المبردة" class="vehicle-img">
+                </div>
+                <div class="vehicle-info">
+                    <div class="info-item">
+                        <div class="info-label">النوع:</div>
+                        <div class="info-value">شاحنة مبردة</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">رقم اللوحة:</div>
+                        <div class="info-value">هـ و ي 5678</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">الحمولة:</div>
+                        <div class="info-value">15 طن</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">إنتهاء الترخيص:</div>
+                        <div class="info-value valid">15/08/2025</div>
+                    </div>
+                </div>
+                <div class="vehicle-actions">
+                    <button class="btn btn-sm" data-action="edit-vehicle" data-id="2">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="view-vehicle-details" data-id="2">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="vehicle-card" data-action="view-vehicle" data-id="3">
+            <div class="vehicle-header">
+                <h3>سيارة نقل متوسطة</h3>
+                <span class="status-badge maintenance">صيانة</span>
+            </div>
+            <div class="vehicle-content">
+                <div class="vehicle-img-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM5OTkiPti32KfYrdmG2Kkg2YbZgti3PC90ZXh0Pjwvc3ZnPg==" alt="صورة سيارة النقل" class="vehicle-img">
+                </div>
+                <div class="vehicle-info">
+                    <div class="info-item">
+                        <div class="info-label">النوع:</div>
+                        <div class="info-value">سيارة نقل</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">رقم اللوحة:</div>
+                        <div class="info-value">ن م ل 9012</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">الحمولة:</div>
+                        <div class="info-value">5 طن</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">إنتهاء الترخيص:</div>
+                        <div class="info-value warning">30/06/2025</div>
+                    </div>
+                </div>
+                <div class="vehicle-actions">
+                    <button class="btn btn-sm" data-action="edit-vehicle" data-id="3">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="view-vehicle-details" data-id="3">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
