@@ -22,6 +22,9 @@ const Auth = {
         
         // Set up event listeners
         this.setupEventListeners();
+        
+        // Set up multi-step form handling
+        this.setupMultiStepForm();
     },
 
     /**
@@ -43,8 +46,8 @@ const Auth = {
                     case 'login':
                         Auth.handleLogin();
                         break;
-                    case 'register':
-                        Auth.handleRegister();
+                    case 'complete-registration':
+                    Auth.handleRegister();
                         break;
                     case 'back':
                         Auth.loadPage('login');
@@ -121,7 +124,7 @@ const Auth = {
      * Handle register form submission
      */
     handleRegister: function() {
-        const companyName = document.getElementById('companyName').value;
+        const name = document.getElementById('name').value;  // Changed from companyName
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const password = document.getElementById('password').value;
@@ -129,7 +132,7 @@ const Auth = {
         const agreeTerms = document.getElementById('agreeTerms').checked;
         
         // Basic validation
-        if (!companyName || !email || !phone || !password) {
+        if (!name || !email || !phone || !password) {
             Toast.show('Error', 'الرجاء إدخال جميع البيانات المطلوبة', 'danger');
             return;
         }
@@ -194,7 +197,44 @@ const Auth = {
         
         // Show logout toast
         Toast.show('Info', 'تم تسجيل الخروج بنجاح', 'info');
-    }
+    },
 
-    
+    // Add this to Auth.js
+    setupMultiStepForm: function() {
+        document.addEventListener('click', function(e) {
+            if (e.target.dataset.action === 'next-step') {
+                const currentStep = document.querySelector('.form-step.active');
+                const nextStep = document.querySelector(`.form-step[data-step="${parseInt(currentStep.dataset.step) + 1}"]`);
+                
+                if (nextStep) {
+                    currentStep.classList.remove('active');
+                    nextStep.classList.add('active');
+                    
+                    // Update progress indicators
+                    document.querySelectorAll('.progress-step').forEach(step => {
+                        if (parseInt(step.dataset.step) <= parseInt(nextStep.dataset.step)) {
+                            step.classList.add('active');
+                        }
+                    });
+                }
+            }
+            
+            if (e.target.dataset.action === 'prev-step') {
+                const currentStep = document.querySelector('.form-step.active');
+                const prevStep = document.querySelector(`.form-step[data-step="${parseInt(currentStep.dataset.step) - 1}"]`);
+                
+                if (prevStep) {
+                    currentStep.classList.remove('active');
+                    prevStep.classList.add('active');
+                    
+                    // Update progress indicators
+                    document.querySelectorAll('.progress-step').forEach(step => {
+                        if (parseInt(step.dataset.step) > parseInt(prevStep.dataset.step)) {
+                            step.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        });
+    },
 };

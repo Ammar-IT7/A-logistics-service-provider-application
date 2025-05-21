@@ -1,110 +1,130 @@
 <!-- templates/pages/warehouses.html -->
 <div class="header">
-    <!-- <button class="header-action" data-action="back">⬅️</button> -->
-    <button class="header-action" data-action="navigate" data-page="warehouse-form">+</button>
-    <h1 class="header-title">المخازن</h1>
+    <button class="header-action" data-action="menu" aria-label="القائمة">
+        <span class="icon">☰</span>
+    </button>
+    <h1 class="header-title">المستودعات</h1>
+    <button class="header-action" data-action="navigate" data-page="warehouse-form" aria-label="إضافة مستودع">
+        <span class="icon">+</span>
+    </button>
 </div>
 <div class="content">
-    <div class="search-container mb-3">
-        <input type="text" class="search-input" placeholder="بحث في المخازن...">
-    </div>
+    <div class="search-filter-section mb-3">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="بحث في المستودعات...">
+            <span class="search-icon">🔍</span>
+        </div>
 
-    <div class="filter-section mb-3">
-        <button class="filter-btn active" data-filter="all">الكل</button>
-        <button class="filter-btn" data-filter="general">عامة</button>
-        <button class="filter-btn" data-filter="refrigerated">مبردة</button>
-        <button class="filter-btn" data-filter="dry">جافة</button>
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="general">عادي</button>
+            <button class="filter-btn" data-filter="refrigerated">مبرد</button>
+            <button class="filter-btn" data-filter="medical">طبي</button>
+        </div>
     </div>
 
     <div class="warehouse-cards">
-        <div class="warehouse-card" data-action="view-warehouse" data-id="1">
-            <div class="warehouse-header">
-                <h3>مخزن الرياض الرئيسي</h3>
-                <span class="status-badge available">متاح</span>
+        <div class="wh-card" data-action="view-warehouse" data-id="1">
+            <div class="wh-card-header">
+                <h3>مستودع صنعاء المركزي</h3>
+                <span class="wh-status-badge available">متاح</span>
             </div>
-            <div class="warehouse-content">
-                <div class="warehouse-info">
-                    <div class="info-item">
-                        <div class="info-label">النوع:</div>
-                        <div class="info-value">مخزن عام</div>
+            <div class="wh-card-content">
+                <div class="wh-card-info">
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">النوع:</div>
+                        <div class="wh-info-value">مستودع عادي</div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">المساحة:</div>
-                        <div class="info-value">2,500 م²</div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">الموقع:</div>
+                        <div class="wh-info-value">صنعاء، الحي التجاري</div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">نسبة الإشغال:</div>
-                        <div class="occupation-indicator">
-                            <div class="occupation-bar" style="width: 65%"></div>
-                            <span>65%</span>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">المساحة:</div>
+                        <div class="wh-info-value">1,500 م²</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">نسبة الإشغال:</div>
+                        <div class="wh-occupation-indicator">
+                            <div class="wh-occupation-bar" style="width: 35%"></div>
+                            <span>35%</span>
                         </div>
                     </div>
                 </div>
-                <div class="warehouse-actions">
-                    <button class="btn btn-sm" data-action="edit-warehouse" data-id="1">تعديل</button>
+                <div class="wh-card-actions">
                     <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="1">التفاصيل</button>
                 </div>
             </div>
         </div>
 
-        <div class="warehouse-card" data-action="view-warehouse" data-id="2">
-            <div class="warehouse-header">
-                <h3>مخزن المنتجات المبردة</h3>
-                <span class="status-badge busy">مشغول</span>
+        <div class="wh-card" data-action="view-warehouse" data-id="2">
+            <div class="wh-card-header">
+                <h3>مستودع عدن المبرد</h3>
+                <span class="wh-status-badge busy">مشغول</span>
             </div>
-            <div class="warehouse-content">
-                <div class="warehouse-info">
-                    <div class="info-item">
-                        <div class="info-label">النوع:</div>
-                        <div class="info-value">مخزن مبرد</div>
+            <div class="wh-card-content">
+                <div class="wh-card-info">
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">النوع:</div>
+                        <div class="wh-info-value">مستودع مبرد</div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">المساحة:</div>
-                        <div class="info-value">1,200 م²</div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">الموقع:</div>
+                        <div class="wh-info-value">عدن، المنطقة الصناعية</div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">نسبة الإشغال:</div>
-                        <div class="occupation-indicator">
-                            <div class="occupation-bar" style="width: 90%"></div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">المساحة:</div>
+                        <div class="wh-info-value">800 م²</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">نسبة الإشغال:</div>
+                        <div class="wh-occupation-indicator">
+                            <div class="wh-occupation-bar" style="width: 90%"></div>
                             <span>90%</span>
                         </div>
                     </div>
                 </div>
-                <div class="warehouse-actions">
-                    <button class="btn btn-sm" data-action="edit-warehouse" data-id="2">تعديل</button>
+                <div class="wh-card-actions">
                     <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="2">التفاصيل</button>
                 </div>
             </div>
         </div>
 
-        <div class="warehouse-card" data-action="view-warehouse" data-id="3">
-            <div class="warehouse-header">
-                <h3>مخزن المواد الجافة</h3>
-                <span class="status-badge maintenance">تحت الصيانة</span>
+        <div class="wh-card" data-action="view-warehouse" data-id="3">
+            <div class="wh-card-header">
+                <h3>مستودع الحديدة الطبي</h3>
+                <span class="wh-status-badge available">متاح</span>
             </div>
-            <div class="warehouse-content">
-                <div class="warehouse-info">
-                    <div class="info-item">
-                        <div class="info-label">النوع:</div>
-                        <div class="info-value">مخزن جاف</div>
+            <div class="wh-card-content">
+                <div class="wh-card-info">
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">النوع:</div>
+                        <div class="wh-info-value">مستودع طبي</div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">المساحة:</div>
-                        <div class="info-value">1,800 م²</div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">الموقع:</div>
+                        <div class="wh-info-value">الحديدة، حي الميناء</div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">نسبة الإشغال:</div>
-                        <div class="occupation-indicator">
-                            <div class="occupation-bar" style="width: 0%"></div>
-                            <span>0%</span>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">المساحة:</div>
+                        <div class="wh-info-value">600 م²</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">نسبة الإشغال:</div>
+                        <div class="wh-occupation-indicator">
+                            <div class="wh-occupation-bar" style="width: 20%"></div>
+                            <span>20%</span>
                         </div>
                     </div>
                 </div>
-                <div class="warehouse-actions">
-                    <button class="btn btn-sm" data-action="edit-warehouse" data-id="3">تعديل</button>
+                <div class="wh-card-actions">
                     <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="3">التفاصيل</button>
                 </div>
             </div>
         </div>
     </div>
+    
+    <button class="floating-action-button" data-action="navigate" data-page="warehouse-form">
+        <span class="icon">+</span>
+    </button>
 </div>

@@ -1,46 +1,58 @@
-<!-- templates/pages/login.html -->
-
-<div class="header ">
+<div class="header">
+        <button class="header-action" data-action="back" aria-label="رجوع">
+        <span class="icon"></span>
+    </button>
     <h1 class="header-title">تسجيل الدخول</h1>
 </div>
-<div class="content">
-    <div class="card mb-3">
+<div class="auth-screen-content">
+    <div class="auth-screen-card">
         <div class="card-content">
             <form id="loginForm">
-                <div class="form-group">
-                    <label for="username" class="form-label">اسم المستخدم / البريد الإلكتروني</label>
-                    <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم أو البريد الإلكتروني">
+                <div class="auth-screen-form-group">
+                    <label for="username" class="form-label">البريد الإلكتروني / رقم الهاتف</label>
+                    <input type="text" id="username" class="form-control" placeholder="أدخل البريد الإلكتروني أو رقم الهاتف">
                 </div>
-                <div class="form-group">
+                <div class="auth-screen-form-group">
                     <label for="password" class="form-label">كلمة المرور</label>
-                    <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
+                    <div class="auth-screen-password-input-container">
+                        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
+                        <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
+                            <span class="eye-icon">👁️</span>
+                        </button>
+                    </div>
+                    <div class="auth-screen-forgot-password">
+                        <a href="#" data-action="forgot-password">نسيت كلمة المرور؟</a>
+                    </div>
                 </div>
                 <button type="button" class="btn btn-primary btn-block" data-action="login">تسجيل الدخول</button>
             </form>
             
-            <div class="text-center mt-3">
-                <p>أو تسجيل الدخول باستخدام:</p>
-                <div class="row social-login">
+            <div class="auth-screen-text-center mt-3">
+                <p class="auth-screen-or-divider"><span>أو</span></p>
+                <div class="auth-screen-social-login">
                     <div class="col-4">
-                        <button class="btn btn-outline btn-block social-btn" data-provider="google">
+                        <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="google">
+                            <span class="auth-screen-social-icon">G</span>
                             <span>Google</span>
                         </button>
                     </div>
                     <div class="col-4">
-                        <button class="btn btn-outline btn-block social-btn" data-provider="apple">
+                        <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="apple">
+                            <span class="auth-screen-social-icon">A</span>
                             <span>Apple</span>
                         </button>
                     </div>
                     <div class="col-4">
-                        <button class="btn btn-outline btn-block social-btn" data-action="phone-login">
+                        <button class="btn btn-outline btn-block auth-screen-social-btn" data-action="phone-login">
+                            <span class="auth-screen-social-icon">📞</span>
                             <span>الهاتف</span>
                         </button>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mt-3">
-                <p>ليس لديك حساب؟ <a href="#" data-action="show-register">تسجيل حساب جديد</a></p>
+            <div class="auth-screen-text-center mt-4">
+                <p>ليس لديك حساب؟ <a href="#" data-action="show-register" class="auth-screen-link-primary">تسجيل مزود خدمة جديد</a></p>
             </div>
         </div>
     </div>

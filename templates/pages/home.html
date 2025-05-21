@@ -1,90 +1,140 @@
 <!-- templates/pages/home.html -->
 <div class="header">
-    <button class="header-action">☰</button>
+    <button class="header-action" data-action="menu" aria-label="القائمة">
+        <span class="icon">☰</span>
+    </button>
     <h1 class="header-title">الرئيسية</h1>
-    <button class="header-action" data-action="notifications">🔔</button>
+    <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+        <span class="icon">🔔</span>
+        <span class="notification-badge">3</span>
+    </button>
 </div>
 <div class="content">
     <div class="welcome-banner mb-3">
-        <h2>مرحباً بك في نظام مزودي الخدمات اللوجستية</h2>
+        <h2>مرحباً بك، <span class="user-name">أحمد</span></h2>
         <p>يمكنك إدارة جميع خدماتك اللوجستية من مكان واحد</p>
     </div>
 
     <div class="stats-section mb-3">
-        <div class="row">
-            <div class="col-4">
-                <div class="stat-card">
-                    <div class="stat-value">5</div>
-                    <div class="stat-label">الخدمات النشطة</div>
-                </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">الخدمات النشطة</div>
             </div>
-            <div class="col-4">
-                <div class="stat-card">
-                    <div class="stat-value">12</div>
-                    <div class="stat-label">طلبات جديدة</div>
-                </div>
+            <div class="stat-card highlight">
+                <div class="stat-value">12</div>
+                <div class="stat-label">طلبات جديدة</div>
             </div>
-            <div class="col-4">
-                <div class="stat-card">
-                    <div class="stat-value">85%</div>
-                    <div class="stat-label">تقييم الخدمة</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-value">85%</div>
+                <div class="stat-label">تقييم الخدمة</div>
             </div>
         </div>
     </div>
 
-    <h3 class="section-title mb-2">الخدمات المقدمة</h3>
-    <div class="card mb-3">
-        <div class="card-content">
+    <section class="home-section">
+        <div class="section-header">
+            <h3 class="section-title">خدماتك المسجلة</h3>
+            <a href="#" class="section-link" data-action="view-all-services">عرض الكل</a>
+        </div>
+        <div class="service-cards-container">
             <div class="service-cards">
-                <div class="service-card" data-action="navigate" data-page="warehouses">
+                <div class="service-card active" data-action="navigate" data-page="warehouses">
                     <div class="service-icon">🏭</div>
                     <div class="service-name">المخازن</div>
+                    <div class="service-count">3</div>
                 </div>
-                <div class="service-card" data-action="navigate" data-page="customs">
+                <div class="service-card active" data-action="navigate" data-page="customs">
                     <div class="service-icon">📋</div>
-                    <div class="service-name">مكاتب التخليص الجمركي</div>
+                    <div class="service-name">التخليص الجمركي</div>
+                    <div class="service-count">2</div>
                 </div>
-                <div class="service-card" data-action="navigate" data-page="shipping">
+                <div class="service-card active" data-action="navigate" data-page="shipping">
                     <div class="service-icon">🚚</div>
                     <div class="service-name">وسائل الشحن</div>
+                    <div class="service-count">4</div>
+                </div>
+                <div class="service-card" data-action="add-service" data-service="packaging">
+                    <div class="service-icon">📦</div>
+                    <div class="service-name">التغليف</div>
+                    <div class="service-add">+</div>
+                </div>
+                <div class="service-card" data-action="add-service" data-service="lastmile">
+                    <div class="service-icon">🛵</div>
+                    <div class="service-name">التوصيل</div>
+                    <div class="service-add">+</div>
+                </div>
+                <div class="service-card" data-action="navigate" data-page="more-services">
+                    <div class="service-icon">⋯</div>
+                    <div class="service-name">المزيد</div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <h3 class="section-title mb-2">آخر الطلبات</h3>
-    <ul class="list card mb-3">
-        <li class="list-item">
-            <div class="list-item-content">
-                <div class="list-item-title">طلب تخزين #1253</div>
-                <div class="list-item-subtitle">منتجات غذائية - 3 طن</div>
-            </div>
-            <span class="badge badge-new">جديد</span>
-        </li>
-        <li class="list-item">
-            <div class="list-item-content">
-                <div class="list-item-title">طلب تخليص #4587</div>
-                <div class="list-item-subtitle">معدات إلكترونية - ميناء جدة</div>
-            </div>
-            <span class="badge badge-pending">قيد التنفيذ</span>
-        </li>
-        <li class="list-item">
-            <div class="list-item-content">
-                <div class="list-item-title">طلب شحن #8975</div>
-                <div class="list-item-subtitle">الرياض - الدمام</div>
-            </div>
-            <span class="badge badge-completed">مكتمل</span>
-        </li>
-    </ul>
+    <section class="home-section">
+        <div class="section-header">
+            <h3 class="section-title">آخر الطلبات</h3>
+            <a href="#" class="section-link" data-action="view-all-orders">عرض الكل</a>
+        </div>
+        <ul class="orders-list card">
+            <li class="order-item">
+                <div class="order-icon new">
+                    <span class="icon">📦</span>
+                </div>
+                <div class="order-info">
+                    <div class="order-title">طلب تخزين #1253</div>
+                    <div class="order-subtitle">منتجات غذائية - 3 طن</div>
+                    <div class="order-date">منذ ساعتين</div>
+                </div>
+                <span class="badge badge-new">جديد</span>
+            </li>
+            <li class="order-item">
+                <div class="order-icon pending">
+                    <span class="icon">📋</span>
+                </div>
+                <div class="order-info">
+                    <div class="order-title">طلب تخليص #4587</div>
+                    <div class="order-subtitle">معدات إلكترونية - ميناء جدة</div>
+                    <div class="order-date">منذ يوم واحد</div>
+                </div>
+                <span class="badge badge-pending">قيد التنفيذ</span>
+            </li>
+            <li class="order-item">
+                <div class="order-icon completed">
+                    <span class="icon">🚚</span>
+                </div>
+                <div class="order-info">
+                    <div class="order-title">طلب شحن #8975</div>
+                    <div class="order-subtitle">الرياض - الدمام</div>
+                    <div class="order-date">منذ 3 أيام</div>
+                </div>
+                <span class="badge badge-completed">مكتمل</span>
+            </li>
+        </ul>
+    </section>
 
-    <div class="card mb-3">
-        <div class="card-header">
-            <h3 class="card-title">إضافة خدمة جديدة</h3>
+    <section class="home-section">
+        <div class="quick-actions card mb-3">
+            <h3 class="card-title">إجراءات سريعة</h3>
+            <div class="quick-actions-grid">
+                <button class="quick-action-btn" data-action="add-service">
+                    <span class="action-icon">➕</span>
+                    <span class="action-text">إضافة خدمة</span>
+                </button>
+                <button class="quick-action-btn" data-action="view-analytics">
+                    <span class="action-icon">📊</span>
+                    <span class="action-text">الإحصائيات</span>
+                </button>
+                <button class="quick-action-btn" data-action="update-profile">
+                    <span class="action-icon">👤</span>
+                    <span class="action-text">الملف الشخصي</span>
+                </button>
+                <button class="quick-action-btn" data-action="support">
+                    <span class="action-icon">🆘</span>
+                    <span class="action-text">الدعم الفني</span>
+                </button>
+            </div>
         </div>
-        <div class="card-content">
-            <p>قم بإضافة خدمة جديدة لزيادة فرص عملك</p>
-            <button class="btn btn-primary btn-block" data-action="add-service">إضافة خدمة جديدة</button>
-        </div>
-    </div>
+    </section>
 </div>
