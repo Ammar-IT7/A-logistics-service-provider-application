@@ -48,7 +48,7 @@ const Router = {
             })
             .catch(error => {
                 console.error('Error loading page:', error);
-                Toast.show('Error', 'Failed to load page', 'danger');
+                Toast.show('غير جاهزة بعد', 'يتم تصميمها في الوقت الحالي', 'danger');
                 Loader.hide();
             });
     },

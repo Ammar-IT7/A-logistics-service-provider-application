@@ -2358,6 +2358,7 @@ input:checked + .switch-slider:before {
     margin-bottom: 0.5rem;
     transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
     transform-origin: center;
+    background-color: var(--gray-light);
 }
 
 .register-screen-service-name {
