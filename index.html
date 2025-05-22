@@ -7,12 +7,14 @@
     
     <!-- Arabic font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- CSS files -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/utilities.css">
+    
 </head>
 <body>
     <div id="designer-notes">
@@ -36,24 +38,16 @@
         </div>
 
         <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <a href="#" class="nav-item active" data-page="home">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-label">الرئيسية</div>
-            </a>
-            <a href="#" class="nav-item" data-page="warehouses">
-                <div class="nav-icon">🏭</div>
-                <div class="nav-label">المخازن</div>
-            </a>
-            <a href="#" class="nav-item" data-page="customs">
-                <div class="nav-icon">📋</div>
-                <div class="nav-label">التخليص</div>
-            </a>
-            <a href="#" class="nav-item" data-page="shipping">
-                <div class="nav-icon">🚚</div>
-                <div class="nav-label">الشحن</div>
-            </a>
-        </div>
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" data-page="home">
+            <div class="nav-icon"><i class="fas fa-home"></i></div>
+            <div class="nav-label">الرئيسية</div>
+        </a>
+        <a href="#" class="nav-item" data-page="service-providers">
+            <div class="nav-icon"><i class="fas fa-users"></i></div>
+            <div class="nav-label">مقدمي الخدمات</div>
+        </a>
+    </div>
     </div>
 
     <!-- UI Components (Modals, Toasts, etc.) -->
@@ -73,7 +67,6 @@
     <script src="js/pages/shipping-form.js"></script>
     <script src="js/pages/warehouse.js"></script>
     <script src="js/router.js"></script>
-
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
     <script>
@@ -100,7 +93,7 @@
                 const form = document.getElementById('warehouseForm');
                 if (form) {
                     WarehouseFormController.init();
-                    warehouseFormObserver.disconnect(); // Stop observing once initialized
+                    warehouseFormObserver.disconnect(); 
                 }
             }
         });

@@ -1,0 +1,62 @@
+<!-- templates/pages/last-mile-delivery.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="home">                <i class="fas fa-arrow-left"></i></button>
+    <h1 class="header-title">خدمات التوصيل الداخلي الخاصة بي</h1>
+    <button class="header-action" data-action="navigate" data-page="delivery-provider-form" aria-label="إضافة مزود خدمة">
+        <span class="icon"></span>
+    </button>
+</div>
+<div class="content">
+    <div class="search-filter-section mb-3">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="بحث في مقدمي الخدمات...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="motorcycle">دراجات نارية</button>
+            <button class="filter-btn" data-filter="car">سيارات صغيرة</button>
+        </div>
+    </div>
+
+    <div class="ld-provider-cards">
+        <div class="ld-card" data-action="view-provider" data-id="1">
+            <div class="ld-card-header">
+                <h3>الشركة اليمنية للتوصيل السريع</h3>
+                <span class="status-badge available">نشط</span>
+            </div>
+            <div class="ld-card-content">
+                <div class="ld-card-info">
+                    <div class="info-item">
+                        <div class="info-label">نوع المركبات:</div>
+                        <div class="info-value">دراجات نارية</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">نطاق التغطية:</div>
+                        <div class="info-value">صنعاء، عدن، تعز</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">عدد المركبات:</div>
+                        <div class="info-value">45 دراجة</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">معدل التوصيل:</div>
+                        <div class="ld-delivery-indicator">
+                            <div class="ld-delivery-bar" style="width: 85%"></div>
+                            <span>85%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ld-card-actions">
+                    <button class="btn btn-sm btn-primary" data-action="edit-customs-office" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="delivery-provider-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-action-button" data-action="navigate" data-page="delivery-provider-form">
+        <span class="icon">+</span>
+    </button>
+</div>

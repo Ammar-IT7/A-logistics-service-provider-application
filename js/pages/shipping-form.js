@@ -18,16 +18,6 @@ const ShippingVehicleFormController = {
         this.setupDriversAndMaintenance();
         this.setupFormSubmission();
 
-        // Back button handler
-        const backBtn = document.querySelector('[data-action="navigate"][data-page="shipping"]');
-        if (backBtn) {
-            backBtn.addEventListener('click', () => {
-                if (confirm('هل أنت متأكد من الرجوع؟ ستفقد البيانات التي أدخلتها')) {
-                    window.location.href = '#/shipping';
-                }
-            });
-        }
-
         // Save button handler
         const saveBtn = document.querySelector('[data-action="save-vehicle"]');
         if (saveBtn) {

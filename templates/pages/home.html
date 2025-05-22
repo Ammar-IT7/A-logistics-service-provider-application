@@ -1,140 +1,223 @@
-<!-- templates/pages/home.html -->
-<div class="header">
-    <button class="header-action" data-action="menu" aria-label="القائمة">
-        <span class="icon">☰</span>
-    </button>
-    <h1 class="header-title">الرئيسية</h1>
-    <button class="header-action" data-action="notifications" aria-label="الإشعارات">
-        <span class="icon">🔔</span>
-        <span class="notification-badge">3</span>
-    </button>
-</div>
-<div class="content">
-    <div class="welcome-banner mb-3">
-        <h2>مرحباً بك، <span class="user-name">أحمد</span></h2>
-        <p>يمكنك إدارة جميع خدماتك اللوجستية من مكان واحد</p>
+   <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">الرئيسية</h1>
+        <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+        </button>
     </div>
 
-    <div class="stats-section mb-3">
-        <div class="stats-grid">
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Welcome Banner -->
+        <section class="welcome-card">
+            <div class="welcome-content">
+                <h2>مرحباً بك، <span class="user-name">أحمد</span></h2>
+                <p>يمكنك إدارة جميع خدماتك اللوجستية من مكان واحد</p>
+            </div>
+            <div class="welcome-illustration">
+                <i class="fas fa-boxes"></i>
+            </div>
+        </section>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value">5</div>
-                <div class="stat-label">الخدمات النشطة</div>
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">الخدمات النشطة</div>
+                </div>
             </div>
             <div class="stat-card highlight">
-                <div class="stat-value">12</div>
-                <div class="stat-label">طلبات جديدة</div>
+                <div class="stat-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">طلبات جديدة</div>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">85%</div>
-                <div class="stat-label">تقييم الخدمة</div>
-            </div>
-        </div>
-    </div>
-
-    <section class="home-section">
-        <div class="section-header">
-            <h3 class="section-title">خدماتك المسجلة</h3>
-            <a href="#" class="section-link" data-action="view-all-services">عرض الكل</a>
-        </div>
-        <div class="service-cards-container">
-            <div class="service-cards">
-                <div class="service-card active" data-action="navigate" data-page="warehouses">
-                    <div class="service-icon">🏭</div>
-                    <div class="service-name">المخازن</div>
-                    <div class="service-count">3</div>
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
                 </div>
-                <div class="service-card active" data-action="navigate" data-page="customs">
-                    <div class="service-icon">📋</div>
-                    <div class="service-name">التخليص الجمركي</div>
-                    <div class="service-count">2</div>
-                </div>
-                <div class="service-card active" data-action="navigate" data-page="shipping">
-                    <div class="service-icon">🚚</div>
-                    <div class="service-name">وسائل الشحن</div>
-                    <div class="service-count">4</div>
-                </div>
-                <div class="service-card" data-action="add-service" data-service="packaging">
-                    <div class="service-icon">📦</div>
-                    <div class="service-name">التغليف</div>
-                    <div class="service-add">+</div>
-                </div>
-                <div class="service-card" data-action="add-service" data-service="lastmile">
-                    <div class="service-icon">🛵</div>
-                    <div class="service-name">التوصيل</div>
-                    <div class="service-add">+</div>
-                </div>
-                <div class="service-card" data-action="navigate" data-page="more-services">
-                    <div class="service-icon">⋯</div>
-                    <div class="service-name">المزيد</div>
+                <div class="stat-info">
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">تقييم الخدمة</div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="home-section">
-        <div class="section-header">
-            <h3 class="section-title">آخر الطلبات</h3>
-            <a href="#" class="section-link" data-action="view-all-orders">عرض الكل</a>
+        <!-- Services Section -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-th-large section-icon"></i> خدماتك المسجلة
+                </h3>
+                <a href="#" class="section-link">
+                    عرض الكل <i class="fas fa-chevron-left"></i>
+                </a>
+            </div>
+            
+        <div class="services-scroller">
+            <div class="services-grid">
+                <!-- Warehouse Service -->
+                <div class="service-card active" data-action="navigate" data-page="mywarehouses">
+                    <div class="service-icon" data-action="navigate" data-page="mywarehouses">
+                        <i class="fas fa-warehouse" data-action="navigate" data-page="mywarehouses"></i>
+                    </div>
+                    <div class="service-name" data-action="navigate" data-page="mywarehouses">المخازن</div>
+                    <div class="service-badge" data-action="navigate" data-page="mywarehouses">2</div>
+                </div> 
+                
+                <!-- mycustoms Service -->
+                <div class="service-card active" data-action="navigate" data-page="mycustoms">
+                    <div class="service-icon" data-action="navigate" data-page="mycustoms">
+                        <i class="fas fa-clipboard-check" data-action="navigate" data-page="mycustoms"></i>
+                    </div>
+                    <div class="service-name" data-action="navigate" data-page="mycustoms">التخليص الجمركي</div>
+                    <div class="service-badge" data-action="navigate" data-page="mycustoms">3</div>
+                </div>
+                
+                <!-- myshipping Service -->
+                <div class="service-card active" data-action="navigate" data-page="myshipping">
+                    <div class="service-icon" data-action="navigate" data-page="myshipping">
+                        <i class="fas fa-truck" data-action="navigate" data-page="myshipping"></i>
+                    </div>
+                    <div class="service-name" data-action="navigate" data-page="myshipping">وسائل الشحن</div>
+                    <div class="service-badge" data-action="navigate" data-page="myshipping">1</div>
+                </div>
+                
+                <!-- my-packaging Service -->
+                <div class="service-card active" data-action="navigate" data-page="my-packaging">
+                    <div class="service-icon" data-action="navigate" data-page="my-packaging">
+                        <i class="fas fa-box" data-action="navigate" data-page="my-packaging"></i>
+                    </div>
+                    <div class="service-name" data-action="navigate" data-page="my-packaging">التغليف والتعبئة</div>
+                    <div class="service-badge" data-action="navigate" data-page="my-packaging">2</div>
+                </div>
+                
+                <!-- LC Services -->
+                <div class="service-card" data-action="navigate" data-page="my-lc-services">
+                    <div class="service-icon" data-action="navigate" data-page="my-lc-services">
+                        <i class="fas fa-file-invoice-dollar" data-action="navigate" data-page="my-lc-services"></i>
+                    </div>
+                    <div class="service-name" data-action="navigate" data-page="my-lc-services">الاعتمادات المستندية</div>
+                    <div class="service-badge" data-action="navigate" data-page="my-lc-services">0</div>
+                </div>
+                
+                <!-- Add New Service -->
+                <div class="service-card add-new" data-action="show-modal" data-page="add-service">
+                    <div class="service-icon" data-action="navigate" data-page="add-icon">
+                        <i class="fas fa-plus" data-action="navigate" data-page="add-icon"></i>
+                    </div>
+                    <div class="service-name" data-action="navigate" data-page="add-name">إضافة خدمة</div>
+                </div>
+            </div>
         </div>
-        <ul class="orders-list card">
-            <li class="order-item">
-                <div class="order-icon new">
-                    <span class="icon">📦</span>
-                </div>
-                <div class="order-info">
-                    <div class="order-title">طلب تخزين #1253</div>
-                    <div class="order-subtitle">منتجات غذائية - 3 طن</div>
-                    <div class="order-date">منذ ساعتين</div>
-                </div>
-                <span class="badge badge-new">جديد</span>
-            </li>
-            <li class="order-item">
-                <div class="order-icon pending">
-                    <span class="icon">📋</span>
-                </div>
-                <div class="order-info">
-                    <div class="order-title">طلب تخليص #4587</div>
-                    <div class="order-subtitle">معدات إلكترونية - ميناء جدة</div>
-                    <div class="order-date">منذ يوم واحد</div>
-                </div>
-                <span class="badge badge-pending">قيد التنفيذ</span>
-            </li>
-            <li class="order-item">
-                <div class="order-icon completed">
-                    <span class="icon">🚚</span>
-                </div>
-                <div class="order-info">
-                    <div class="order-title">طلب شحن #8975</div>
-                    <div class="order-subtitle">الرياض - الدمام</div>
-                    <div class="order-date">منذ 3 أيام</div>
-                </div>
-                <span class="badge badge-completed">مكتمل</span>
-            </li>
-        </ul>
-    </section>
+        </section>
 
-    <section class="home-section">
-        <div class="quick-actions card mb-3">
-            <h3 class="card-title">إجراءات سريعة</h3>
+        <!-- Recent Orders -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-clock section-icon"></i> آخر الطلبات
+                </h3>
+                <a href="#" class="section-link">
+                    عرض الكل <i class="fas fa-chevron-left"></i>
+                </a>
+            </div>
+            
+            <div class="orders-list">
+                <!-- Order 1 -->
+                <div class="order-card new">
+                    <div class="order-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب تخزين #1253</h4>
+                        <p>منتجات غذائية - 3 طن</p>
+                        <div class="order-meta">
+                            <span class="order-status">جديد</span>
+                            <span class="order-time">منذ ساعتين</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order 2 -->
+                <div class="order-card pending">
+                    <div class="order-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب تخليص #4587</h4>
+                        <p>معدات إلكترونية - ميناء جدة</p>
+                        <div class="order-meta">
+                            <span class="order-status">قيد التنفيذ</span>
+                            <span class="order-time">منذ يوم واحد</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order 3 -->
+                <div class="order-card completed">
+                    <div class="order-icon">
+                        <i class="fas fa-truck-loading"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب شحن #8975</h4>
+                        <p>الرياض - الدمام</p>
+                        <div class="order-meta">
+                            <span class="order-status">مكتمل</span>
+                            <span class="order-time">منذ 3 أيام</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-bolt section-icon"></i> إجراءات سريعة
+                </h3>
+            </div>
+            
             <div class="quick-actions-grid">
-                <button class="quick-action-btn" data-action="add-service">
-                    <span class="action-icon">➕</span>
-                    <span class="action-text">إضافة خدمة</span>
+                <button class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="action-text">إضافة خدمة</div>
                 </button>
-                <button class="quick-action-btn" data-action="view-analytics">
-                    <span class="action-icon">📊</span>
-                    <span class="action-text">الإحصائيات</span>
+                
+                <button class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="action-text">الإحصائيات</div>
                 </button>
-                <button class="quick-action-btn" data-action="update-profile">
-                    <span class="action-icon">👤</span>
-                    <span class="action-text">الملف الشخصي</span>
+                
+                <button class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div class="action-text">الملف الشخصي</div>
                 </button>
-                <button class="quick-action-btn" data-action="support">
-                    <span class="action-icon">🆘</span>
-                    <span class="action-text">الدعم الفني</span>
+                
+                <button class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="action-text">الدعم الفني</div>
                 </button>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>

@@ -1,0 +1,72 @@
+<!-- templates/pages/packaging-services.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="home">                <i class="fas fa-arrow-left"></i></button>
+    <h1 class="header-title">خدمات التغليف والتعبئة الخاصة بي</h1>
+    <button class="header-action" data-action="navigate" data-page="packaging-form" aria-label="إضافة مقدم خدمة">
+        <span class="icon"></span>
+    </button>
+</div>
+<div class="content">
+    <div class="search-filter-section mb-3">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="بحث في خدمات التغليف...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="wood">خشب</button>
+            <button class="filter-btn" data-filter="plastic">بلاستيك</button>
+            <button class="filter-btn" data-filter="bubble">فقاعات هوائية</button>
+            <button class="filter-btn" data-filter="custom">تغليف خاص</button>
+        </div>
+    </div>
+
+    <div class="pkg-service-cards">
+        <div class="pkg-card" data-action="view-service" data-id="1">
+            <div class="pkg-card-header">
+                <h3>شركة اليمن للتغليف</h3>
+                <span class="status-badge available">متاح</span>
+            </div>
+            <div class="pkg-card-content">
+                <div class="pkg-card-info">
+                    <div class="pkg-info-item">
+                        <div class="pkg-info-label">المواد المستخدمة:</div>
+                        <div class="pkg-info-value">خشب، كرتون، بلاستيك</div>
+                    </div>
+                    <div class="pkg-info-item">
+                        <div class="pkg-info-label">التغليف حسب الطلب:</div>
+                        <div class="pkg-info-value">
+                            <span class="pkg-tag">المواد الهشة</span>
+                            <span class="pkg-tag">الإلكترونيات</span>
+                            <span class="pkg-tag">الأثاث</span>
+                        </div>
+                    </div>
+                    <div class="pkg-info-item">
+                        <div class="pkg-info-label">الموقع:</div>
+                        <div class="pkg-info-value">صنعاء، شارع الزبيري</div>
+                    </div>
+                    <div class="pkg-info-item">
+                        <div class="pkg-info-label">التقييم:</div>
+                        <div class="pkg-rating">
+                            <span class="pkg-star filled">★</span>
+                            <span class="pkg-star filled">★</span>
+                            <span class="pkg-star filled">★</span>
+                            <span class="pkg-star filled">★</span>
+                            <span class="pkg-star">★</span>
+                            <span class="pkg-rating-count">(42)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pkg-card-actions">
+                    <button class="btn btn-sm btn-primary" data-action="edit-customs-office" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="packaging-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-action-button" data-action="navigate" data-page="packaging-form">
+        <span class="icon">+</span>
+    </button>
+</div>

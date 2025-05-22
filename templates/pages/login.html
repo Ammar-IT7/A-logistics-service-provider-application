@@ -1,10 +1,11 @@
-<div class="header">
-        <button class="header-action" data-action="back" aria-label="رجوع">
-        <span class="icon"></span>
-    </button>
-    <h1 class="header-title">تسجيل الدخول</h1>
-</div>
 <div class="auth-screen-content">
+    <div class="auth-screen-logo-container">
+        <img src="/logo.png" alt="App Logo" class="auth-screen-logo" />
+    </div>
+    <h1 class="header-title">مرحبا بك</h1>
+    <br>
+    <br>
+    <br>
     <div class="auth-screen-card">
         <div class="card-content">
             <form id="loginForm">
@@ -17,7 +18,7 @@
                     <div class="auth-screen-password-input-container">
                         <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
                         <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
-                            <span class="eye-icon">👁️</span>
+                            <i class="fas fa-eye"></i>
                         </button>
                     </div>
                     <div class="auth-screen-forgot-password">
@@ -30,24 +31,24 @@
             <div class="auth-screen-text-center mt-3">
                 <p class="auth-screen-or-divider"><span>أو</span></p>
                 <div class="auth-screen-social-login">
-                    <div class="col-4">
-                        <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="google">
-                            <span class="auth-screen-social-icon">G</span>
-                            <span>Google</span>
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="apple">
-                            <span class="auth-screen-social-icon">A</span>
-                            <span>Apple</span>
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-outline btn-block auth-screen-social-btn" data-action="phone-login">
-                            <span class="auth-screen-social-icon">📞</span>
-                            <span>الهاتف</span>
-                        </button>
-                    </div>
+                    <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="google">
+                        <span class="auth-screen-social-icon">
+                            <i class="fab fa-google"></i>
+                        </span>
+                        <span>Google</span>
+                    </button>
+                    <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="apple">
+                        <span class="auth-screen-social-icon">
+                            <i class="fab fa-apple"></i>
+                        </span>
+                        <span>Apple</span>
+                    </button>
+                    <button class="btn btn-outline btn-block auth-screen-social-btn" data-action="phone-login">
+                        <span class="auth-screen-social-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </span>
+                        <span>الهاتف</span>
+                    </button>
                 </div>
             </div>
             

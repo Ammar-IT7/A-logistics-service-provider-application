@@ -1,0 +1,57 @@
+<!-- templates/pages/lc-services.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="home">                <i class="fas fa-arrow-left"></i></button>
+    <h1 class="header-title">خدمات الاعتمادات المستندية الخاصة بي</h1>
+    <button class="header-action" data-action="navigate" data-page="lc-service-form" aria-label="إضافة مكتب تجاري">
+        <span class="icon"></span>
+    </button>
+</div>
+<div class="content">
+    <div class="search-filter-section mb-3">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="بحث في مكاتب الاعتمادات المستندية...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="asia">آسيا</button>
+            <button class="filter-btn" data-filter="europe">أوروبا</button>
+            <button class="filter-btn" data-filter="americas">الأمريكتين</button>
+            <button class="filter-btn" data-filter="africa">أفريقيا</button>
+        </div>
+    </div>
+
+    <div class="lcs-cards">
+        <div class="lcs-card" data-action="view-lc-service" data-id="1">
+            <div class="lcs-card-header">
+                <h3>مكتب الصين التجاري - قوانغتشو</h3>
+                <span class="lcs-status-badge available">متاح</span>
+            </div>
+            <div class="lcs-card-content">
+                <div class="lcs-card-info">
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">المنطقة:</div>
+                        <div class="lcs-info-value">آسيا</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">العنوان:</div>
+                        <div class="lcs-info-value">قوانغتشو، حي التجارة الدولية</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">التخصص:</div>
+                        <div class="lcs-info-value">مواد البناء، الأجهزة الإلكترونية</div>
+                    </div>
+                </div>
+                <div class="lcs-card-actions">
+                    <button class="btn btn-sm btn-primary" data-action="edit-customs-office" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-action-button" data-action="navigate" data-page="lc-service-form">
+        <span class="icon">+</span>
+    </button>
+</div>
