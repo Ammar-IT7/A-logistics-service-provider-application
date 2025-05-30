@@ -1531,7 +1531,7 @@ input:checked + .switch-slider:before {
     border-radius: var(--border-radius-md);
     background: white;
     transition: var(--transition);
-    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
     box-shadow: var(--shadow-sm);
     cursor: pointer;
 }
@@ -1542,15 +1542,15 @@ input:checked + .switch-slider:before {
 }
 
 .order-card.new {
-    border-left-color: var(--success);
+    border-right-color: var(--success);
 }
 
 .order-card.pending {
-    border-left-color: var(--warning);
+    border-right-color: var(--warning);
 }
 
 .order-card.completed {
-    border-left-color: var(--primary-color);
+    border-right-color: var(--primary-color);
 }
 
 .order-icon {
