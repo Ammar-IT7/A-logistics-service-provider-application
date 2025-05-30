@@ -1445,7 +1445,7 @@ input:checked + .switch-slider:before {
     border-radius: var(--border-radius-md);
 
     transition: var(--transition);
-    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
     box-shadow: var(--shadow-sm);
     cursor: pointer;
                 transform: translateY(-3px);
