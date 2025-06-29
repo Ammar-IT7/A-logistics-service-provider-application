@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/functional-components.css">
     
 </head>
 <body>
@@ -63,9 +64,31 @@
     <script src="js/components/modal.js"></script>
     <script src="js/components/toast.js"></script>
     <script src="js/components/loader.js"></script>
+    
+    <!-- Page Controllers -->
+    <script src="js/pages/home.js"></script>
+    <script src="js/pages/settings.js"></script>
     <script src="js/pages/shipping.js"></script>
     <script src="js/pages/shipping-form.js"></script>
     <script src="js/pages/warehouse.js"></script>
+    <script src="js/pages/myshipping.js"></script>
+    <script src="js/pages/mycustoms.js"></script>
+    <script src="js/pages/mywarehouses.js"></script>
+    <script src="js/pages/my-packaging.js"></script>
+    <script src="js/pages/my-lc-services.js"></script>
+    <script src="js/pages/my-last-mile.js"></script>
+    <script src="js/pages/service-providers.js"></script>
+    <script src="js/pages/notifications.js"></script>
+    <script src="js/pages/profile.js"></script>
+    
+    <!-- Form Controllers -->
+    <script src="js/pages/warehouse-form.js"></script>
+    <script src="js/pages/customs-form.js"></script>
+    <script src="js/pages/vehicle-form.js"></script>
+    <script src="js/pages/packaging-form.js"></script>
+    <script src="js/pages/lc-service-form.js"></script>
+    <script src="js/pages/delivery-provider-form.js"></script>
+    
     <script src="js/router.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
@@ -73,35 +96,6 @@
         // Initialize the auth module when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             Auth.init();
-            const vehicleFormObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                // Check if the form is loaded
-                const form = document.getElementById('vehicleForm');
-                if (form) {
-                    ShippingVehicleFormController.init();
-                    vehicleFormObserver.disconnect(); // Stop observing once initialized
-                }
-            }
-        });
-    });
-
-        const warehouseFormObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                // Check if the form is loaded
-                const form = document.getElementById('warehouseForm');
-                if (form) {
-                    WarehouseFormController.init();
-                    warehouseFormObserver.disconnect(); 
-                }
-            }
-        });
-    });
-
-    // Start observing the body for changes
-    vehicleFormObserver.observe(document.body, { childList: true, subtree: true });
-    warehouseFormObserver.observe(document.body, { childList: true, subtree: true });
         });
     </script>
 

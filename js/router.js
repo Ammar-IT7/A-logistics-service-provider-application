@@ -41,10 +41,10 @@ const Router = {
                 // Update app state
                 State.update('currentPage', pageId);
                 
-                // Initialize page controller if exists
-                if (window[pageId.charAt(0).toUpperCase() + pageId.slice(1) + 'Controller']) {
-                    window[pageId.charAt(0).toUpperCase() + pageId.slice(1) + 'Controller'].init();
-                }
+                // Initialize page controller if exists - ensure DOM is ready
+                setTimeout(() => {
+                    this.initializePageController(pageId);
+                }, 100);
             })
             .catch(error => {
                 console.error('Error loading page:', error);
@@ -141,6 +141,52 @@ const Router = {
         const activeNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
         if (activeNav) {
             activeNav.classList.add('active');
+        }
+    },
+    
+    /**
+     * Initialize page controller if exists
+     * @param {string} pageId - ID of the page to initialize controller for
+     */
+    initializePageController: function(pageId) {
+        // Map page IDs to controller names
+        const controllerMap = {
+            'warehouse-form': 'WarehouseFormController',
+            'customs-form': 'CustomsFormController',
+            'vehicle-form': 'VehicleFormController',
+            'packaging-form': 'PackagingFormController',
+            'lc-service-form': 'LCServiceFormController',
+            'delivery-provider-form': 'DeliveryProviderFormController',
+            'shipping-form': 'ShippingFormController',
+            'warehouses': 'WarehousesController',
+            'home': 'HomeController',
+            'myshipping': 'MyShippingController',
+            'mycustoms': 'MyCustomsController',
+            'mywarehouses': 'MyWarehousesController',
+            'my-packaging': 'MyPackagingController',
+            'my-lc-services': 'MyLcServicesController',
+            'my-last-mile': 'MyLastMileController',
+            'service-providers': 'ServiceProvidersController',
+            'notifications': 'NotificationsController',
+            'profile': 'ProfileController',
+            'settings': 'SettingsController',
+            'shipping': 'ShippingController'
+        };
+        
+        // Get controller name from map or generate default
+        const controllerName = controllerMap[pageId] || pageId.charAt(0).toUpperCase() + pageId.slice(1) + 'Controller';
+        
+        // Debug: Check what controllers are available
+        console.log(`Looking for controller: ${controllerName}`);
+        console.log('Available controllers:', Object.keys(window).filter(key => key.endsWith('Controller')));
+        
+        // Initialize controller if it exists
+        if (window[controllerName]) {
+            console.log(`Initializing controller: ${controllerName} for page: ${pageId}`);
+            window[controllerName].init();
+        } else {
+            console.log(`Controller not found: ${controllerName} for page: ${pageId}`);
+            console.log('Available controllers:', Object.keys(window).filter(key => key.endsWith('Controller')));
         }
     }
 };

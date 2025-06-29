@@ -1,6 +1,8 @@
 /**
  * Shipping page controller
  */
+console.log('Loading shipping.js file...');
+
 const ShippingController = {
     /**
      * Initialize the shipping page
@@ -46,7 +48,10 @@ const ShippingController = {
     }
 };
 
-// Initialize when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    ShippingController.init();
-});
+// Debug: Check if ShippingController is properly declared
+console.log('ShippingController declared:', typeof ShippingController !== 'undefined');
+console.log('ShippingController in window:', typeof window.ShippingController !== 'undefined');
+
+// Explicitly attach to global scope
+window.ShippingController = ShippingController;
+console.log('ShippingController attached to window:', typeof window.ShippingController !== 'undefined');

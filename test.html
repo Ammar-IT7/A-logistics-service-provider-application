@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test JavaScript Loading</title>
+</head>
+<body>
+    <h1>Testing JavaScript Loading</h1>
+    <div id="output"></div>
+    
+    <script>
+        console.log('Test HTML loaded');
+        document.getElementById('output').innerHTML = 'Test HTML loaded successfully';
+    </script>
+    
+    <script src="js/state.js"></script>
+    <script>
+        console.log('State.js loaded, State object:', typeof State);
+    </script>
+    
+    <script src="js/pages/home.js"></script>
+    <script>
+        console.log('Home.js loaded, HomeController:', typeof HomeController);
+    </script>
+    
+    <script src="js/pages/shipping.js"></script>
+    <script>
+        console.log('Shipping.js loaded, ShippingController:', typeof ShippingController);
+    </script>
+    
+    <script src="js/pages/service-providers.js"></script>
+    <script>
+        console.log('Service-providers.js loaded, ServiceProvidersController:', typeof ServiceProvidersController);
+    </script>
+</body>
+</html> 

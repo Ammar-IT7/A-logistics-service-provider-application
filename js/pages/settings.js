@@ -68,3 +68,6 @@ const SettingsController = {
         }
     }
 };
+
+// Explicitly attach to global scope
+window.SettingsController = SettingsController;

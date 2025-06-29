@@ -1,13 +1,19 @@
 /**
- * Shipping Vehicle Form Controller
+ * Shipping Form Controller
  * Handles form navigation, validation, and dynamic content
  */
 
-const ShippingVehicleFormController = {
+const ShippingFormController = {
     init: function() {
+        // Check if we're on the shipping form page
+        const form = document.getElementById('vehicleForm');
+        if (!form) {
+            return; // Not on the shipping form page
+        }
+        
         console.log('Shipping Vehicle Form initialized');
 
-        this.form = document.getElementById('vehicleForm');
+        this.form = form;
         this.slides = document.querySelectorAll('.shipping-form-slide');
         this.progressSteps = document.querySelectorAll('.shipping-progress-step');
 
@@ -30,9 +36,12 @@ const ShippingVehicleFormController = {
     setupFormNavigation: function() {
         const self = this;
 
-        document.querySelectorAll('[data-action="goto-slide"]').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const targetSlide = e.target.getAttribute('data-target');
+        // Use event delegation for dynamically loaded content
+        document.addEventListener('click', (e) => {
+            const gotoButton = e.target.closest('[data-action="goto-slide"]');
+            if (gotoButton) {
+                e.preventDefault();
+                const targetSlide = gotoButton.getAttribute('data-target');
                 const currentSlide = document.querySelector('.shipping-form-slide.active');
                 const currentSlideId = currentSlide.getAttribute('data-slide');
                 const moveForward = self.getSlideIndex(targetSlide) > self.getSlideIndex(currentSlideId);
@@ -41,8 +50,9 @@ const ShippingVehicleFormController = {
                 //     return;
                 // }
 
+                console.log('Shipping form - Navigating to slide:', targetSlide);
                 self.goToSlide(targetSlide);
-            });
+            }
         });
     },
 
@@ -431,3 +441,6 @@ const ShippingVehicleFormController = {
         }, 3000);
     }
 };
+
+// Explicitly attach to global scope
+window.ShippingFormController = ShippingFormController;
