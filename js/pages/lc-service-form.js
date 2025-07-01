@@ -2,43 +2,157 @@
  * LC Service Form page controller
  */
 const LCServiceFormController = {
+    currentStep: 'basic',
+    banks: [],
+    documents: [],
+
     /**
      * Initialize the LC service form page
      */
     init: function() {
         // Check if we're on the LC service form page
-        const form = document.getElementById('lcServiceForm');
-        if (!form) {
+        const page = document.getElementById('lcServiceForm');
+        if (!page) {
             return; // Not on the LC service form page
         }
-        
-        console.log('LC Service Form page initialized');
-        this.formData = {};
-        this.banks = [];
-        this.documents = [];
+
+        console.log('LC Service Form initialized');
+
         this.setupEventListeners();
-        this.loadExistingData();
-    },
-    
-    /**
-     * Load existing data if editing
-     */
-    loadExistingData: function() {
+        this.setupFormNavigation();
+        this.setupDynamicContent();
+        this.setupFileUploads();
+        this.setupFormSubmission();
+
+        // Check if editing existing service
         const urlParams = new URLSearchParams(window.location.search);
         const lcId = urlParams.get('id');
-        
         if (lcId) {
-            const lcServices = State.get('lcServices');
-            const lc = lcServices.find(l => l.id == lcId);
-            
-            if (lc) {
-                this.formData = { ...lc };
-                this.populateForm(lc);
-                this.updateHeaderTitle('تعديل خدمة الاعتماد المستندي');
-            }
+            this.loadExistingService(lcId);
         }
     },
-    
+
+    setupEventListeners: function() {
+        const page = document.getElementById('lcServiceForm');
+        if (!page) return;
+
+        // Add bank button
+        const addBankBtn = page.querySelector('[data-action="add-bank"]');
+        if (addBankBtn) {
+            addBankBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.addBank();
+            });
+        }
+
+        // Add document button
+        const addDocBtn = page.querySelector('[data-action="add-document"]');
+        if (addDocBtn) {
+            addDocBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.addDocument();
+            });
+        }
+
+        // Remove buttons (delegated event handling)
+        page.addEventListener('click', (e) => {
+            const removeBtn = e.target.closest('.lcf-remove-btn');
+            if (removeBtn) {
+                e.preventDefault();
+                const item = removeBtn.closest('.lcf-bank-item, .lcf-document-item');
+                if (item) {
+                    item.remove();
+                    // Re-validate dynamic items
+                    if (window.Forms) {
+                        window.Forms.validateDynamicItems(page);
+                    }
+                }
+            }
+        });
+
+        // File upload handling
+        const fileInputs = page.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleFileUpload(e);
+            });
+        });
+    },
+
+    setupFormNavigation: function() {
+        // Use the centralized form navigation from Forms utility
+        if (window.Forms) {
+            // The Forms utility will handle step navigation automatically
+            console.log('LC Service Form navigation setup complete');
+        }
+    },
+
+    setupDynamicContent: function() {
+        // Initialize with default items
+        this.addBank();
+        this.addDocument();
+    },
+
+    setupFileUploads: function() {
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => {
+            const container = input.closest('.lcf-file-upload-container');
+            if (!container) return;
+
+            const uploadBtn = container.querySelector('.file-upload-btn');
+            const fileNameSpan = container.querySelector('.lcf-file-name');
+
+            uploadBtn?.addEventListener('click', () => {
+                input.click();
+            });
+
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    if (input.multiple) {
+                        fileNameSpan.textContent = `تم اختيار ${input.files.length} ملفات`;
+                    } else {
+                        fileNameSpan.textContent = input.files[0].name;
+                    }
+                } else {
+                    fileNameSpan.textContent = 'لم يتم اختيار ملف';
+                }
+            });
+        });
+    },
+
+    setupFormSubmission: function() {
+        const form = document.getElementById('lcServiceForm');
+        if (!form) return;
+
+        // Save button handler
+        const saveBtn = document.querySelector('[data-action="save-lc-service"]');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleFormSubmit();
+            });
+        }
+
+        // Form submission handler
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleFormSubmit();
+        });
+    },
+
+    /**
+     * Load existing service data for editing
+     */
+    loadExistingService: function(lcId) {
+        // Get existing data from state
+        const lcServices = State.get('lcServices') || [];
+        const lc = lcServices.find(service => service.id == lcId);
+        
+        if (lc) {
+            this.populateForm(lc);
+        }
+    },
+
     /**
      * Populate form with existing data
      */
@@ -88,274 +202,189 @@ const LCServiceFormController = {
         document.getElementById('experienceYears').value = lc.experienceYears || '';
         document.getElementById('completedLCs').value = lc.completedLCs || '';
     },
-    
-    /**
-     * Update header title
-     */
-    updateHeaderTitle: function(title) {
-        const headerTitle = document.querySelector('.header-title');
-        if (headerTitle) {
-            headerTitle.textContent = title;
-        }
-    },
-    
-    /**
-     * Set up event listeners
-     */
-    setupEventListeners: function() {
-        const page = document.getElementById('lc-service-form');
-        if (!page) return;
-        
-        // Form submission
-        const form = document.getElementById('lcServiceForm');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleFormSubmit();
-            });
-        }
-        
-        // Step navigation - use event delegation for dynamically loaded content
-        document.addEventListener('click', (e) => {
-            const gotoButton = e.target.closest('[data-action="goto-slide"]');
-            if (gotoButton) {
-                e.preventDefault();
-                const targetStep = gotoButton.dataset.target;
-                console.log('LC Service form - Navigating to step:', targetStep);
-                this.navigateToStep(targetStep);
-            }
-        });
-        
-        // Save button in header
-        const saveButton = page.querySelector('[data-action="save-lc-service"]');
-        if (saveButton) {
-            saveButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.handleFormSubmit();
-            });
-        }
-        
-        // Add bank button
-        const addBankBtn = page.querySelector('[data-action="add-bank"]');
-        if (addBankBtn) {
-            addBankBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.addBank();
-            });
-        }
-        
-        // Add document button
-        const addDocBtn = page.querySelector('[data-action="add-document"]');
-        if (addDocBtn) {
-            addDocBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.addDocument();
-            });
-        }
-        
-        // Remove buttons (delegated event handling)
-        page.addEventListener('click', (e) => {
-            const removeBtn = e.target.closest('.lcf-remove-btn');
-            if (removeBtn) {
-                e.preventDefault();
-                const item = removeBtn.closest('.lcf-bank-item, .lcf-document-item');
-                if (item) {
-                    item.remove();
-                }
-            }
-        });
-        
-        // File upload handling
-        const fileInputs = page.querySelectorAll('input[type="file"]');
-        fileInputs.forEach(input => {
-            input.addEventListener('change', (e) => {
-                this.handleFileUpload(e);
-            });
-        });
-        
-        // Form validation on input
-        const requiredInputs = page.querySelectorAll('input[required], select[required], textarea[required]');
-        requiredInputs.forEach(input => {
-            input.addEventListener('blur', (e) => {
-                this.validateField(e.target);
-            });
-        });
-    },
-    
+
     /**
      * Add new bank
      */
-    addBank: function(data = null) {
+    addBank: function() {
         const container = document.querySelector('.lcf-banks-container');
         if (!container) return;
-        
+
         const bankItem = document.createElement('div');
         bankItem.className = 'lcf-bank-item';
         bankItem.innerHTML = `
-            <div class="form-group">
-                <label class="form-label">اسم البنك</label>
-                <input type="text" class="form-control bank-name" placeholder="أدخل اسم البنك" value="${data?.name || ''}">
+            <div class="lcf-bank-header">
+                <h4 class="lcf-bank-title">بنك جديد</h4>
+                <button type="button" class="btn btn-icon lcf-remove-btn" aria-label="إزالة">×</button>
             </div>
             <div class="form-group">
-                <label class="form-label">نوع البنك</label>
-                <select class="form-control bank-type">
+                <label class="form-label">اسم البنك <span class="required">*</span></label>
+                <input type="text" class="form-control bank-name" placeholder="أدخل اسم البنك" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">نوع البنك <span class="required">*</span></label>
+                <select class="form-control bank-type" required>
                     <option value="">اختر نوع البنك</option>
-                    <option value="local" ${data?.type === 'local' ? 'selected' : ''}>محلي</option>
-                    <option value="international" ${data?.type === 'international' ? 'selected' : ''}>دولي</option>
-                    <option value="islamic" ${data?.type === 'islamic' ? 'selected' : ''}>إسلامي</option>
-                    <option value="commercial" ${data?.type === 'commercial' ? 'selected' : ''}>تجاري</option>
+                    <option value="commercial">بنك تجاري</option>
+                    <option value="islamic">بنك إسلامي</option>
+                    <option value="investment">بنك استثماري</option>
+                    <option value="development">بنك تنمية</option>
                 </select>
             </div>
             <div class="form-group">
                 <label class="form-label">الفرع</label>
-                <input type="text" class="form-control bank-branch" placeholder="أدخل اسم الفرع" value="${data?.branch || ''}">
+                <input type="text" class="form-control bank-branch" placeholder="أدخل اسم الفرع">
             </div>
             <div class="form-group">
                 <label class="form-label">رقم الحساب</label>
-                <input type="text" class="form-control bank-account" placeholder="أدخل رقم الحساب" value="${data?.account || ''}">
+                <input type="text" class="form-control bank-account" placeholder="أدخل رقم الحساب">
             </div>
             <div class="form-group">
-                <label class="form-label">معدل العمولة (%)</label>
-                <input type="number" class="form-control bank-commission" placeholder="أدخل معدل العمولة" step="0.01" value="${data?.commission || ''}">
+                <label class="form-label">نسبة العمولة (%)</label>
+                <input type="number" class="form-control bank-commission" placeholder="أدخل نسبة العمولة" min="0" max="100" step="0.01">
             </div>
-            <button type="button" class="btn btn-icon lcf-remove-btn">×</button>
         `;
-        
+
         container.appendChild(bankItem);
     },
-    
+
     /**
      * Add new document
      */
-    addDocument: function(data = null) {
+    addDocument: function() {
         const container = document.querySelector('.lcf-documents-container');
         if (!container) return;
-        
+
         const documentItem = document.createElement('div');
         documentItem.className = 'lcf-document-item';
         documentItem.innerHTML = `
+            <div class="lcf-document-header">
+                <h4 class="lcf-document-title">مستند جديد</h4>
+                <button type="button" class="btn btn-icon lcf-remove-btn" aria-label="إزالة">×</button>
+            </div>
             <div class="form-group">
-                <label class="form-label">نوع المستند</label>
-                <select class="form-control document-type">
+                <label class="form-label">نوع المستند <span class="required">*</span></label>
+                <select class="form-control document-type" required>
                     <option value="">اختر نوع المستند</option>
-                    <option value="invoice" ${data?.type === 'invoice' ? 'selected' : ''}>فاتورة تجارية</option>
-                    <option value="packing" ${data?.type === 'packing' ? 'selected' : ''}>قائمة التعبئة</option>
-                    <option value="certificate" ${data?.type === 'certificate' ? 'selected' : ''}>شهادة منشأ</option>
-                    <option value="insurance" ${data?.type === 'insurance' ? 'selected' : ''}>وثيقة تأمين</option>
-                    <option value="transport" ${data?.type === 'transport' ? 'selected' : ''}>وثيقة نقل</option>
-                    <option value="other" ${data?.type === 'other' ? 'selected' : ''}>أخرى</option>
+                    <option value="commercial_register">السجل التجاري</option>
+                    <option value="tax_card">البطاقة الضريبية</option>
+                    <option value="bank_statement">كشف حساب بنكي</option>
+                    <option value="financial_statement">كشف مالي</option>
+                    <option value="contract">عقد</option>
+                    <option value="other">أخرى</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">اسم المستند</label>
-                <input type="text" class="form-control document-name" placeholder="أدخل اسم المستند" value="${data?.name || ''}">
+                <label class="form-label">اسم المستند <span class="required">*</span></label>
+                <input type="text" class="form-control document-name" placeholder="أدخل اسم المستند" required>
             </div>
             <div class="form-group">
                 <label class="form-label">الوصف</label>
-                <textarea class="form-control document-description" rows="2" placeholder="أدخل وصف المستند">${data?.description || ''}</textarea>
+                <textarea class="form-control document-description" rows="2" placeholder="أدخل وصف المستند"></textarea>
             </div>
             <div class="form-group">
-                <label class="form-label">مطلوب</label>
-                <div class="lcf-checkbox-container">
-                    <label class="lcf-checkbox-item">
-                        <input type="checkbox" class="document-required" ${data?.required ? 'checked' : ''}>
-                        <span>مستند مطلوب</span>
-                    </label>
-                </div>
+                <label class="form-label">
+                    <input type="checkbox" class="form-checkbox document-required" checked>
+                    <span>مطلوب</span>
+                </label>
             </div>
-            <button type="button" class="btn btn-icon lcf-remove-btn">×</button>
         `;
-        
+
         container.appendChild(documentItem);
     },
-    
+
     /**
-     * Render banks list
+     * Render banks
      */
     renderBanks: function() {
         const container = document.querySelector('.lcf-banks-container');
         if (!container) return;
-        
+
         container.innerHTML = '';
         this.banks.forEach(bank => {
-            this.addBank(bank);
+            const bankItem = document.createElement('div');
+            bankItem.className = 'lcf-bank-item';
+            bankItem.innerHTML = `
+                <div class="lcf-bank-header">
+                    <h4 class="lcf-bank-title">${bank.name}</h4>
+                    <button type="button" class="btn btn-icon lcf-remove-btn" aria-label="إزالة">×</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم البنك</label>
+                    <input type="text" class="form-control bank-name" value="${bank.name || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نوع البنك</label>
+                    <select class="form-control bank-type" required>
+                        <option value="commercial" ${bank.type === 'commercial' ? 'selected' : ''}>بنك تجاري</option>
+                        <option value="islamic" ${bank.type === 'islamic' ? 'selected' : ''}>بنك إسلامي</option>
+                        <option value="investment" ${bank.type === 'investment' ? 'selected' : ''}>بنك استثماري</option>
+                        <option value="development" ${bank.type === 'development' ? 'selected' : ''}>بنك تنمية</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الفرع</label>
+                    <input type="text" class="form-control bank-branch" value="${bank.branch || ''}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رقم الحساب</label>
+                    <input type="text" class="form-control bank-account" value="${bank.account || ''}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نسبة العمولة (%)</label>
+                    <input type="number" class="form-control bank-commission" value="${bank.commission || ''}" min="0" max="100" step="0.01">
+                </div>
+            `;
+            container.appendChild(bankItem);
         });
     },
-    
+
     /**
-     * Render documents list
+     * Render documents
      */
     renderDocuments: function() {
         const container = document.querySelector('.lcf-documents-container');
         if (!container) return;
-        
+
         container.innerHTML = '';
-        this.documents.forEach(document => {
-            this.addDocument(document);
+        this.documents.forEach(doc => {
+            const documentItem = document.createElement('div');
+            documentItem.className = 'lcf-document-item';
+            documentItem.innerHTML = `
+                <div class="lcf-document-header">
+                    <h4 class="lcf-document-title">${doc.name}</h4>
+                    <button type="button" class="btn btn-icon lcf-remove-btn" aria-label="إزالة">×</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نوع المستند</label>
+                    <select class="form-control document-type" required>
+                        <option value="commercial_register" ${doc.type === 'commercial_register' ? 'selected' : ''}>السجل التجاري</option>
+                        <option value="tax_card" ${doc.type === 'tax_card' ? 'selected' : ''}>البطاقة الضريبية</option>
+                        <option value="bank_statement" ${doc.type === 'bank_statement' ? 'selected' : ''}>كشف حساب بنكي</option>
+                        <option value="financial_statement" ${doc.type === 'financial_statement' ? 'selected' : ''}>كشف مالي</option>
+                        <option value="contract" ${doc.type === 'contract' ? 'selected' : ''}>عقد</option>
+                        <option value="other" ${doc.type === 'other' ? 'selected' : ''}>أخرى</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم المستند</label>
+                    <input type="text" class="form-control document-name" value="${doc.name || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الوصف</label>
+                    <textarea class="form-control document-description" rows="2">${doc.description || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" class="form-checkbox document-required" ${doc.required ? 'checked' : ''}>
+                        <span>مطلوب</span>
+                    </label>
+                </div>
+            `;
+            container.appendChild(documentItem);
         });
     },
-    
-    /**
-     * Validate individual field
-     */
-    validateField: function(field) {
-        const value = field.value.trim();
-        const fieldName = field.getAttribute('placeholder') || field.getAttribute('name') || 'هذا الحقل';
-        
-        // Remove existing error styling
-        field.classList.remove('error');
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Check if required field is empty
-        if (field.hasAttribute('required') && !value) {
-            this.showFieldError(field, `${fieldName} مطلوب`);
-            return false;
-        }
-        
-        // Email validation
-        if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                this.showFieldError(field, 'البريد الإلكتروني غير صحيح');
-                return false;
-            }
-        }
-        
-        // Phone validation
-        if (field.type === 'tel' && value) {
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
-            if (!phoneRegex.test(value)) {
-                this.showFieldError(field, 'رقم الهاتف غير صحيح');
-                return false;
-            }
-        }
-        
-        // Number validation
-        if (field.type === 'number' && value) {
-            const numValue = parseFloat(value);
-            if (isNaN(numValue) || numValue < 0) {
-                this.showFieldError(field, 'يجب إدخال رقم صحيح موجب');
-                return false;
-            }
-        }
-        
-        return true;
-    },
-    
-    /**
-     * Show field error
-     */
-    showFieldError: function(field, message) {
-        field.classList.add('error');
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.textContent = message;
-        field.parentNode.appendChild(errorDiv);
-    },
-    
+
     /**
      * Handle file upload
      */
@@ -371,7 +400,9 @@ const LCServiceFormController = {
             // Validate file type
             const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
             if (!allowedTypes.includes(file.type)) {
-                Toast.show('خطأ في الملف', 'يجب اختيار ملف صورة أو PDF', 'error');
+                if (window.Toast) {
+                    Toast.show('خطأ في الملف', 'يجب اختيار ملف صورة أو PDF', 'error');
+                }
                 event.target.value = '';
                 if (fileNameSpan) {
                     fileNameSpan.textContent = 'لم يتم اختيار ملف';
@@ -380,7 +411,9 @@ const LCServiceFormController = {
             
             // Validate file size (5MB max)
             if (file.size > 5 * 1024 * 1024) {
-                Toast.show('خطأ في الملف', 'حجم الملف يجب أن يكون أقل من 5 ميجابايت', 'error');
+                if (window.Toast) {
+                    Toast.show('خطأ في الملف', 'حجم الملف يجب أن يكون أقل من 5 ميجابايت', 'error');
+                }
                 event.target.value = '';
                 if (fileNameSpan) {
                     fileNameSpan.textContent = 'لم يتم اختيار ملف';
@@ -388,7 +421,7 @@ const LCServiceFormController = {
             }
         }
     },
-    
+
     /**
      * Collect form data
      */
@@ -466,36 +499,16 @@ const LCServiceFormController = {
         
         return formData;
     },
-    
+
     /**
      * Handle form submission
      */
     handleFormSubmit: function() {
-        // Validate form
-        const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
-        // Validate banks
-        const banks = document.querySelectorAll('.lcf-bank-item');
-        if (banks.length === 0) {
-            Toast.show('خطأ في التحقق', 'يجب إضافة بنك واحد على الأقل', 'error');
-            isValid = false;
-        }
-        
-        // Validate documents
-        const documents = document.querySelectorAll('.lcf-document-item');
-        if (documents.length === 0) {
-            Toast.show('خطأ في التحقق', 'يجب إضافة مستند واحد على الأقل', 'error');
-            isValid = false;
-        }
-        
-        if (!isValid) {
+        const form = document.getElementById('lcServiceForm');
+        if (!form) return;
+
+        // Use the centralized validation
+        if (window.Forms && !window.Forms.validateForm(form)) {
             return;
         }
         
@@ -514,150 +527,59 @@ const LCServiceFormController = {
             this.createLCService(formData);
         }
     },
-    
+
     /**
      * Create new LC service
      */
     createLCService: function(formData) {
-        const lcServices = State.get('lcServices');
-        const newLCService = {
+        const lcServices = State.get('lcServices') || [];
+        const newService = {
             id: Date.now(),
-            type: formData.serviceType,
-            service: formData.serviceName,
-            banks: formData.banks.length,
-            orders: 0,
-            revenue: 0,
-            rating: 0,
+            ...formData,
             status: 'active',
-            ...formData
+            rating: 0,
+            orders: 0,
+            revenue: 0
         };
         
-        lcServices.push(newLCService);
+        lcServices.push(newService);
         State.set('lcServices', lcServices);
         
-        Toast.show('تم الحفظ', 'تم إضافة خدمة الاعتماد المستندي بنجاح', 'success');
+        if (window.Toast) {
+            Toast.show('تم الحفظ', 'تم إضافة خدمة الاعتماد المستندي بنجاح', 'success');
+        }
         
         // Navigate back to LC services list
         setTimeout(() => {
-            Router.navigate('my-lc-services');
+            Router.navigate('mylcservices');
         }, 1500);
     },
-    
+
     /**
      * Update existing LC service
      */
     updateLCService: function(lcId, formData) {
-        const lcServices = State.get('lcServices');
-        const lcIndex = lcServices.findIndex(l => l.id == lcId);
+        const lcServices = State.get('lcServices') || [];
+        const serviceIndex = lcServices.findIndex(service => service.id == lcId);
         
-        if (lcIndex !== -1) {
-            const updatedLCService = {
-                ...lcServices[lcIndex],
+        if (serviceIndex !== -1) {
+            lcServices[serviceIndex] = {
+                ...lcServices[serviceIndex],
                 ...formData,
-                type: formData.serviceType,
-                service: formData.serviceName,
-                banks: formData.banks.length,
                 updatedAt: new Date().toISOString()
             };
             
-            lcServices[lcIndex] = updatedLCService;
             State.set('lcServices', lcServices);
             
-            Toast.show('تم التحديث', 'تم تحديث خدمة الاعتماد المستندي بنجاح', 'success');
+            if (window.Toast) {
+                Toast.show('تم التحديث', 'تم تحديث خدمة الاعتماد المستندي بنجاح', 'success');
+            }
             
             // Navigate back to LC services list
             setTimeout(() => {
-                Router.navigate('my-lc-services');
+                Router.navigate('mylcservices');
             }, 1500);
         }
-    },
-    
-    /**
-     * Navigate to specific step
-     */
-    navigateToStep: function(step) {
-        console.log('LC Service form - Current step:', this.currentStep, 'Target step:', step);
-        
-        // Validate current step before moving forward
-        if (this.shouldValidateStep(step) && !this.validateCurrentStep()) {
-            console.log('LC Service form - Validation failed, staying on current step');
-            return;
-        }
-        
-        // Update progress indicator
-        const progressSteps = document.querySelectorAll('.lcf-progress-step');
-        progressSteps.forEach(stepEl => {
-            stepEl.classList.remove('active', 'completed');
-        });
-        
-        // Mark completed steps
-        const stepOrder = ['basic', 'banks', 'documents', 'fees'];
-        const currentIndex = stepOrder.indexOf(this.currentStep);
-        const targetIndex = stepOrder.indexOf(step);
-        
-        stepOrder.forEach((stepName, index) => {
-            const stepEl = document.querySelector(`[data-step="${stepName}"]`);
-            if (stepEl) {
-                if (index < targetIndex) {
-                    stepEl.classList.add('completed');
-                } else if (index === targetIndex) {
-                    stepEl.classList.add('active');
-                }
-            }
-        });
-        
-        // Update form slides
-        const slides = document.querySelectorAll('.lcf-form-slide');
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-        });
-        
-        const targetSlide = document.querySelector(`[data-slide="${step}"]`);
-        if (targetSlide) {
-            targetSlide.classList.add('active');
-            console.log('LC Service form - Activated slide:', step);
-        } else {
-            console.error('LC Service form - Target slide not found:', step);
-        }
-        
-        this.currentStep = step;
-        
-        // Scroll to top of form for better UX
-        const form = document.getElementById('lcServiceForm');
-        if (form) {
-            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    },
-    
-    /**
-     * Check if step should be validated before navigation
-     */
-    shouldValidateStep: function(targetStep) {
-        const stepOrder = ['basic', 'banks', 'documents', 'fees'];
-        const currentIndex = stepOrder.indexOf(this.currentStep);
-        const targetIndex = stepOrder.indexOf(targetStep);
-        
-        // Only validate when moving forward
-        return targetIndex > currentIndex;
-    },
-    
-    /**
-     * Validate current step
-     */
-    validateCurrentStep: function() {
-        const currentSlide = document.querySelector(`[data-slide="${this.currentStep}"]`);
-        if (!currentSlide) return true;
-        
-        const requiredFields = currentSlide.querySelectorAll('input[required], select[required], textarea[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
-        return isValid;
     }
 };
 

@@ -99,5 +99,44 @@
         });
     </script>
 
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">الرئيسية</h1>
+        <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+        </button>
+        <select id="languageSwitcher" class="header-action" style="width:auto; margin-right:8px;">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
+    <div class="dashboard-widgets" style="display:flex;gap:16px;margin:16px 0;">
+        <div class="dashboard-widget">
+            <div class="widget-title">عدد المستودعات</div>
+            <div class="widget-value" id="widget-warehouses">2</div>
+        </div>
+        <div class="dashboard-widget">
+            <div class="widget-title">عدد المركبات</div>
+            <div class="widget-value" id="widget-vehicles">5</div>
+        </div>
+        <div class="dashboard-widget">
+            <div class="widget-title">عدد الطلبات</div>
+            <div class="widget-value" id="widget-orders">15</div>
+        </div>
+        <div class="dashboard-widget">
+            <div class="widget-title">الإيرادات</div>
+            <div class="widget-value" id="widget-revenue">45,000 ر.ي</div>
+        </div>
+    </div>
+    <div class="dashboard-shortcuts" style="display:flex;gap:12px;margin-bottom:16px;">
+        <button class="btn btn-primary" data-action="navigate" data-page="warehouse-form">إضافة مستودع</button>
+        <button class="btn btn-primary" data-action="navigate" data-page="vehicle-form">إضافة مركبة</button>
+        <button class="btn btn-primary" data-action="navigate" data-page="profile">الملف الشخصي</button>
+    </div>
+
 </body>
 </html>

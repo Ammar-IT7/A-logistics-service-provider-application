@@ -27,6 +27,17 @@
         <button class="btn btn-outline mb-3" data-action="open-modal" data-modal="editProfileModal">Edit Profile</button>
     </div>
     
+    <div class="profile-avatar-section" style="text-align:center;margin-bottom:16px;">
+        <label for="profileAvatar" class="profile-avatar-label" style="display:inline-block;cursor:pointer;">
+            <img id="profileAvatarPreview" src="logo.png" alt="الصورة الشخصية" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #eee;">
+            <input type="file" id="profileAvatar" style="display:none;" accept="image/*">
+        </label>
+        <div style="font-size:0.9rem;color:#888;">
+            <span class="help-icon" title="يفضل صورة مربعة 300x300 بكسل على الأقل.">؟</span>
+            يمكنك تغيير الصورة الشخصية
+        </div>
+    </div>
+    
     <h3 class="mb-2">Recent Activity</h3>
     <div class="card">
         <ul class="list">

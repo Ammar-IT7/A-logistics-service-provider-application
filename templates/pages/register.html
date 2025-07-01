@@ -124,8 +124,10 @@
                         </div>
                     </div>
                     
-                    <div class="form-group register-screen-form-group">
-                        <label for="taxCard" class="form-label">بطاقة ضريبية</label>
+                    <div class="form-group register-screen-form-group" id="taxCardGroup" style="display:none;">
+                        <label for="taxCard" class="form-label">بطاقة ضريبية (إن وجدت في اليمن)
+                            <span class="help-icon" title="مطلوبة فقط إذا كان مقدم الخدمة في اليمن.">؟</span>
+                        </label>
                         <div class="file-upload-container register-screen-file-upload-container">
                             <input type="file" id="taxCard" class="form-control" accept="image/*,.pdf">
                             <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
@@ -138,9 +140,11 @@
                     </div>
                     
                     <div class="form-group register-screen-form-group">
-                        <label for="ownerID" class="form-label">إثبات هوية المالك/الممثل القانوني <span class="register-screen-required">*</span></label>
+                        <label for="ownerId" class="form-label">إثبات هوية المالك/الممثل القانوني <span class="register-screen-required">*</span>
+                            <span class="help-icon" title="صورة الهوية أو جواز السفر للمالك أو الممثل القانوني.">؟</span>
+                        </label>
                         <div class="file-upload-container register-screen-file-upload-container">
-                            <input type="file" id="ownerID" class="form-control" accept="image/*,.pdf" required>
+                            <input type="file" id="ownerId" class="form-control" accept="image/*,.pdf" required>
                             <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
                                 <i class="fa-solid fa-upload"></i> اختر الملف
                             </button>
@@ -190,6 +194,21 @@
                                 <input type="text" id="street" class="form-control" placeholder="أدخل الشارع" required>
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="form-group register-screen-form-group">
+                        <label for="bankAccount" class="form-label">الحساب البنكي (لتحويل المدفوعات) <span class="register-screen-required">*</span></label>
+                        <input type="text" id="bankAccount" class="form-control" placeholder="رقم الحساب البنكي أو IBAN" required>
+                    </div>
+
+                    <div class="form-group register-screen-form-group">
+                        <label for="paymentPolicy" class="form-label">سياسة الدفع <span class="register-screen-required">*</span></label>
+                        <select id="paymentPolicy" class="form-control" required>
+                            <option value="">اختر سياسة الدفع</option>
+                            <option value="advance">دفع مقدم</option>
+                            <option value="deferred">دفع مؤجل</option>
+                            <option value="bank">تحويل بنكي</option>
+                        </select>
                     </div>
                     
                     <div class="form-action register-screen-dual-buttons">
@@ -266,37 +285,8 @@
                         <label class="form-label">المعلومات المالية</label>
                         <div class="sub-form register-screen-sub-form">
                             <div class="form-group register-screen-form-group">
-                                <label for="bankAccount" class="form-label">رقم الحساب البنكي</label>
-                                <input type="text" id="bankAccount" class="form-control" placeholder="أدخل رقم الحساب البنكي">
-                            </div>
-                            
-                            <div class="form-group register-screen-form-group">
                                 <label for="bankName" class="form-label">اسم البنك</label>
                                 <input type="text" id="bankName" class="form-control" placeholder="أدخل اسم البنك">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">سياسة الدفع</label>
-                                <div class="checkbox-group vertical register-screen-checkbox-group">
-                                    <label class="checkbox-container register-screen-checkbox-container">
-                                        <input type="checkbox" name="paymentPolicy" value="advance"> 
-                                        <i class="fa-regular fa-square"></i>
-                                        <i class="fa-solid fa-square-check checked-icon"></i>
-                                        <span class="checkbox-text">دفع مقدم</span>
-                                    </label>
-                                    <label class="checkbox-container register-screen-checkbox-container">
-                                        <input type="checkbox" name="paymentPolicy" value="postponed"> 
-                                        <i class="fa-regular fa-square"></i>
-                                        <i class="fa-solid fa-square-check checked-icon"></i>
-                                        <span class="checkbox-text">تأجيل</span>
-                                    </label>
-                                    <label class="checkbox-container register-screen-checkbox-container">
-                                        <input type="checkbox" name="paymentPolicy" value="transfer"> 
-                                        <i class="fa-regular fa-square"></i>
-                                        <i class="fa-solid fa-square-check checked-icon"></i>
-                                        <span class="checkbox-text">تحويل بنكي</span>
-                                    </label>
-                                </div>
                             </div>
                         </div>
                     </div>

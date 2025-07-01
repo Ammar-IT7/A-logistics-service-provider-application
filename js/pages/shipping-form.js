@@ -34,50 +34,11 @@ const ShippingFormController = {
     },
 
     setupFormNavigation: function() {
-        const self = this;
-
-        // Use event delegation for dynamically loaded content
-        document.addEventListener('click', (e) => {
-            const gotoButton = e.target.closest('[data-action="goto-slide"]');
-            if (gotoButton) {
-                e.preventDefault();
-                const targetSlide = gotoButton.getAttribute('data-target');
-                const currentSlide = document.querySelector('.shipping-form-slide.active');
-                const currentSlideId = currentSlide.getAttribute('data-slide');
-                const moveForward = self.getSlideIndex(targetSlide) > self.getSlideIndex(currentSlideId);
-
-                // if (moveForward && !self.validateSlide(currentSlideId)) {
-                //     return;
-                // }
-
-                console.log('Shipping form - Navigating to slide:', targetSlide);
-                self.goToSlide(targetSlide);
-            }
-        });
-    },
-
-    getSlideIndex: function(slideId) {
-        const slideOrder = ['basic', 'specs', 'docs', 'staff'];
-        return slideOrder.indexOf(slideId);
-    },
-
-    goToSlide: function(slideId) {
-        this.slides.forEach(slide => {
-            slide.classList.toggle('active', slide.getAttribute('data-slide') === slideId);
-        });
-
-        this.progressSteps.forEach(step => {
-            const stepId = step.getAttribute('data-step');
-            step.classList.remove('active', 'completed');
-
-            if (stepId === slideId) {
-                step.classList.add('active');
-            } else if (this.getSlideIndex(stepId) < this.getSlideIndex(slideId)) {
-                step.classList.add('completed');
-            }
-        });
-
-        document.querySelector('.shipping-form-progress-indicator')?.scrollIntoView({ behavior: 'smooth' });
+        // Use the centralized form navigation from Forms utility
+        if (window.Forms) {
+            // The Forms utility will handle step navigation automatically
+            console.log('Shipping Form navigation setup complete');
+        }
     },
 
     setupConditionalFields: function() {
@@ -278,7 +239,9 @@ const ShippingFormController = {
                         driverItem.remove();
                         self.renumberDrivers(driversContainer);
                     } else {
-                        alert('يجب أن يكون هناك سائق واحد على الأقل');
+                        if (window.Toast) {
+                            Toast.show('خطأ', 'يجب أن يكون هناك سائق واحد على الأقل', 'error');
+                        }
                     }
                 }
             });
@@ -298,7 +261,9 @@ const ShippingFormController = {
                         maintenanceItem.remove();
                         self.renumberMaintenance(maintenanceContainer);
                     } else {
-                        alert('يجب أن تكون هناك صيانة واحدة على الأقل');
+                        if (window.Toast) {
+                            Toast.show('خطأ', 'يجب أن تكون هناك صيانة واحدة على الأقل', 'error');
+                        }
                     }
                 }
             });
@@ -314,20 +279,20 @@ const ShippingFormController = {
                 <button type="button" class="btn btn-icon shipping-remove-driver" aria-label="إزالة">×</button>
             </div>
             <div class="form-group">
-                <label class="form-label">اسم السائق</label>
-                <input type="text" name="driverName[]" class="form-control" placeholder="أدخل اسم السائق">
+                <label class="form-label">اسم السائق <span class="required">*</span></label>
+                <input type="text" name="driverName[]" class="form-control" placeholder="أدخل اسم السائق" required>
             </div>
             <div class="form-group">
-                <label class="form-label">رقم رخصة القيادة</label>
-                <input type="text" name="driverLicense[]" class="form-control" placeholder="أدخل رقم الرخصة">
+                <label class="form-label">رقم رخصة القيادة <span class="required">*</span></label>
+                <input type="text" name="driverLicense[]" class="form-control" placeholder="أدخل رقم الرخصة" required>
             </div>
             <div class="form-group">
-                <label class="form-label">تاريخ انتهاء الرخصة</label>
-                <input type="date" name="driverLicenseExpiry[]" class="form-control">
+                <label class="form-label">تاريخ انتهاء الرخصة <span class="required">*</span></label>
+                <input type="date" name="driverLicenseExpiry[]" class="form-control" required data-future-only>
             </div>
             <div class="form-group">
-                <label class="form-label">رقم الجوال</label>
-                <input type="tel" name="driverPhone[]" class="form-control" placeholder="أدخل رقم الجوال">
+                <label class="form-label">رقم الجوال <span class="required">*</span></label>
+                <input type="tel" name="driverPhone[]" class="form-control" placeholder="أدخل رقم الجوال" required>
             </div>
             <div class="form-group">
                 <label class="form-label">صورة الهوية</label>
@@ -350,8 +315,8 @@ const ShippingFormController = {
                 <button type="button" class="btn btn-icon shipping-remove-maintenance" aria-label="إزالة">×</button>
             </div>
             <div class="form-group">
-                <label class="form-label">نوع الصيانة</label>
-                <input type="text" name="maintenanceType[]" class="form-control" placeholder="أدخل نوع الصيانة">
+                <label class="form-label">نوع الصيانة <span class="required">*</span></label>
+                <input type="text" name="maintenanceType[]" class="form-control" placeholder="أدخل نوع الصيانة" required>
             </div>
             <div class="form-group">
                 <label class="form-label">تاريخ آخر صيانة</label>
@@ -359,7 +324,7 @@ const ShippingFormController = {
             </div>
             <div class="form-group">
                 <label class="form-label">تاريخ الصيانة القادمة</label>
-                <input type="date" name="nextMaintenance[]" class="form-control">
+                <input type="date" name="nextMaintenance[]" class="form-control" data-future-only>
             </div>
         `;
         return maintenanceItem;
@@ -385,20 +350,12 @@ const ShippingFormController = {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const slideIds = ['basic', 'specs', 'docs', 'staff'];
-            let isValid = true;
-
-            for (const slideId of slideIds) {
-                if (!self.validateSlide(slideId)) {
-                    isValid = false;
-                    self.goToSlide(slideId);
-                    break;
-                }
+            // Use the centralized validation
+            if (window.Forms && !window.Forms.validateForm(this.form)) {
+                return;
             }
 
-            if (isValid) {
-                self.saveVehicleData();
-            }
+            self.saveVehicleData();
         });
     },
 
@@ -409,36 +366,89 @@ const ShippingFormController = {
         const localAreas = Array.from(document.querySelectorAll('#localAreasChips .shipping-chip-text')).map(chip => chip.textContent);
         const countries = Array.from(document.querySelectorAll('#countriesChips .shipping-chip-text')).map(chip => chip.textContent);
 
-        // You can append these arrays to formData or handle as needed
-        // Example: formData.append('localAreas', JSON.stringify(localAreas));
+        // Collect form data
+        const vehicleData = {
+            id: Date.now(),
+            vehicleName: formData.get('vehicleName'),
+            vehicleType: formData.get('vehicleType'),
+            shippingType: formData.get('shippingType'),
+            licensePlate: formData.get('licensePlate'),
+            vehicleStatus: formData.get('vehicleStatus'),
+            maxLoad: formData.get('maxLoad'),
+            weightUnit: formData.get('weightUnit'),
+            length: formData.get('length'),
+            width: formData.get('width'),
+            height: formData.get('height'),
+            fuelType: formData.get('fuelType'),
+            fuelConsumption: formData.get('fuelConsumption'),
+            coverageType: formData.get('coverageType'),
+            localAreas: localAreas,
+            countries: countries,
+            trackingOptions: formData.getAll('trackingOptions'),
+            drivers: this.collectDriversData(),
+            maintenance: this.collectMaintenanceData(),
+            status: 'available',
+            orders: 0,
+            revenue: 0,
+            rating: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Save to state
+        const shippingServices = State.get('shippingServices') || [];
+        shippingServices.push(vehicleData);
+        State.set('shippingServices', shippingServices);
 
         this.showSaveSuccessMessage();
     },
 
+    collectDriversData: function() {
+        const drivers = [];
+        const driverItems = document.querySelectorAll('.shipping-driver-item');
+        
+        driverItems.forEach(item => {
+            const driver = {
+                name: item.querySelector('[name="driverName[]"]').value,
+                license: item.querySelector('[name="driverLicense[]"]').value,
+                licenseExpiry: item.querySelector('[name="driverLicenseExpiry[]"]').value,
+                phone: item.querySelector('[name="driverPhone[]"]').value
+            };
+            if (driver.name && driver.license) {
+                drivers.push(driver);
+            }
+        });
+        
+        return drivers;
+    },
+
+    collectMaintenanceData: function() {
+        const maintenance = [];
+        const maintenanceItems = document.querySelectorAll('.shipping-maintenance-item');
+        
+        maintenanceItems.forEach(item => {
+            const maint = {
+                type: item.querySelector('[name="maintenanceType[]"]').value,
+                lastMaintenance: item.querySelector('[name="lastMaintenance[]"]').value,
+                nextMaintenance: item.querySelector('[name="nextMaintenance[]"]').value
+            };
+            if (maint.type) {
+                maintenance.push(maint);
+            }
+        });
+        
+        return maintenance;
+    },
+
     showSaveSuccessMessage: function() {
-        const toast = document.createElement('div');
-        toast.className = 'shipping-toast success';
-        toast.innerHTML = `
-            <div class="shipping-toast-icon">✓</div>
-            <div class="shipping-toast-content">
-                <div class="shipping-toast-title">تم الحفظ بنجاح</div>
-                <div class="shipping-toast-message">تم حفظ بيانات وسيلة الشحن بنجاح</div>
-            </div>
-        `;
+        if (window.Toast) {
+            Toast.show('تم الحفظ بنجاح', 'تم حفظ بيانات وسيلة الشحن بنجاح', 'success');
+        }
 
-        document.body.appendChild(toast);
-
+        // Navigate back to shipping list
         setTimeout(() => {
-            toast.classList.add('show');
-        }, 100);
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => {
-                toast.remove();
-                window.location.href = '#/shipping';
-            }, 300);
-        }, 3000);
+            Router.navigate('myshipping');
+        }, 1500);
     }
 };
 

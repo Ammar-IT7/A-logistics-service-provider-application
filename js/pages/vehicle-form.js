@@ -166,11 +166,11 @@ const VehicleFormController = {
             });
         });
         
-        // Form validation on input
+        // Form validation on input (use centralized Forms utility)
         const requiredInputs = page.querySelectorAll('input[required], select[required], textarea[required]');
         requiredInputs.forEach(input => {
             input.addEventListener('blur', (e) => {
-                this.validateField(e.target);
+                if (window.Forms) window.Forms.validateField(e.target);
             });
         });
     },
@@ -188,13 +188,13 @@ const VehicleFormController = {
         }
         
         // Update progress indicator
-        const progressSteps = document.querySelectorAll('.vf-progress-step');
+        const progressSteps = document.querySelectorAll('.shipping-progress-step');
         progressSteps.forEach(stepEl => {
             stepEl.classList.remove('active', 'completed');
         });
         
         // Mark completed steps
-        const stepOrder = ['basic', 'specs', 'coverage', 'docs'];
+        const stepOrder = ['basic', 'specs', 'docs'];
         const currentIndex = stepOrder.indexOf(this.currentStep);
         const targetIndex = stepOrder.indexOf(step);
         
@@ -210,7 +210,7 @@ const VehicleFormController = {
         });
         
         // Update form slides
-        const slides = document.querySelectorAll('.vf-form-slide');
+        const slides = document.querySelectorAll('.shipping-form-slide');
         slides.forEach(slide => {
             slide.classList.remove('active');
         });
@@ -236,7 +236,7 @@ const VehicleFormController = {
      * Check if step should be validated before navigation
      */
     shouldValidateStep: function(targetStep) {
-        const stepOrder = ['basic', 'specs', 'coverage', 'docs'];
+        const stepOrder = ['basic', 'specs', 'docs'];
         const currentIndex = stepOrder.indexOf(this.currentStep);
         const targetIndex = stepOrder.indexOf(targetStep);
         
@@ -245,77 +245,35 @@ const VehicleFormController = {
     },
     
     /**
-     * Validate current step
+     * Validate current step (use centralized Forms utility)
      */
     validateCurrentStep: function() {
         const currentSlide = document.querySelector(`[data-slide="${this.currentStep}"]`);
         if (!currentSlide) return true;
-        
-        const requiredFields = currentSlide.querySelectorAll('input[required], select[required], textarea[required]');
         let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
+        if (window.Forms) {
+            isValid = window.Forms.validateForm(currentSlide);
+        }
         // Special validation for coverage areas
         if (this.currentStep === 'basic') {
             const coverageType = document.querySelector('input[name="coverageType"]:checked')?.value;
             if (coverageType === 'local' && this.localAreas.length === 0) {
-                Toast.show('خطأ في التحقق', 'يجب إضافة منطقة محلية واحدة على الأقل', 'error');
+                if (window.Toast) Toast.show('خطأ في التحقق', 'يجب إضافة منطقة محلية واحدة على الأقل', 'error');
                 isValid = false;
             } else if (coverageType === 'international' && this.countries.length === 0) {
-                Toast.show('خطأ في التحقق', 'يجب إضافة دولة واحدة على الأقل', 'error');
+                if (window.Toast) Toast.show('خطأ في التحقق', 'يجب إضافة دولة واحدة على الأقل', 'error');
                 isValid = false;
             }
         }
-        
-        return isValid;
-    },
-    
-    /**
-     * Validate individual field
-     */
-    validateField: function(field) {
-        const value = field.value.trim();
-        const fieldName = field.getAttribute('placeholder') || field.getAttribute('name') || 'هذا الحقل';
-        
-        // Remove existing error styling
-        field.classList.remove('error');
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Check if required field is empty
-        if (field.hasAttribute('required') && !value) {
-            this.showFieldError(field, `${fieldName} مطلوب`);
-            return false;
-        }
-        
-        // Number validation
-        if (field.type === 'number' && value) {
-            const numValue = parseFloat(value);
-            if (isNaN(numValue) || numValue < 0) {
-                this.showFieldError(field, 'يجب إدخال رقم صحيح موجب');
-                return false;
+        // Special validation for required files
+        if (this.currentStep === 'docs') {
+            const licenseDoc = document.getElementById('licenseDocument');
+            if (licenseDoc && !licenseDoc.value) {
+                if (window.Forms) window.Forms.showFieldError(licenseDoc, 'صورة وثائق الترخيص مطلوبة');
+                isValid = false;
             }
         }
-        
-        return true;
-    },
-    
-    /**
-     * Show field error
-     */
-    showFieldError: function(field, message) {
-        field.classList.add('error');
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.textContent = message;
-        field.parentNode.appendChild(errorDiv);
+        return isValid;
     },
     
     /**
@@ -484,7 +442,7 @@ const VehicleFormController = {
     },
     
     /**
-     * Handle form submission
+     * Handle form submission (validate all steps using centralized Forms utility)
      */
     handleFormSubmit: function() {
         // Validate all steps
@@ -496,14 +454,11 @@ const VehicleFormController = {
                 return;
             }
         }
-        
         // Collect form data
         const formData = this.collectFormData();
-        
         // Check if editing or creating new
         const urlParams = new URLSearchParams(window.location.search);
         const vehicleId = urlParams.get('id');
-        
         if (vehicleId) {
             // Update existing vehicle
             this.updateVehicle(vehicleId, formData);

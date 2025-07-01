@@ -152,11 +152,11 @@ const CustomsFormController = {
             });
         });
         
-        // Form validation on input
+        // Form validation on input (use centralized Forms utility)
         const requiredInputs = page.querySelectorAll('input[required], select[required], textarea[required]');
         requiredInputs.forEach(input => {
             input.addEventListener('blur', (e) => {
-                this.validateField(e.target);
+                if (window.Forms) window.Forms.validateField(e.target);
             });
         });
     },
@@ -273,67 +273,6 @@ const CustomsFormController = {
     },
     
     /**
-     * Validate individual field
-     */
-    validateField: function(field) {
-        const value = field.value.trim();
-        const fieldName = field.getAttribute('placeholder') || field.getAttribute('name') || 'هذا الحقل';
-        
-        // Remove existing error styling
-        field.classList.remove('error');
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Check if required field is empty
-        if (field.hasAttribute('required') && !value) {
-            this.showFieldError(field, `${fieldName} مطلوب`);
-            return false;
-        }
-        
-        // Email validation
-        if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                this.showFieldError(field, 'البريد الإلكتروني غير صحيح');
-                return false;
-            }
-        }
-        
-        // Phone validation
-        if (field.type === 'tel' && value) {
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
-            if (!phoneRegex.test(value)) {
-                this.showFieldError(field, 'رقم الهاتف غير صحيح');
-                return false;
-            }
-        }
-        
-        // Number validation
-        if (field.type === 'number' && value) {
-            const numValue = parseFloat(value);
-            if (isNaN(numValue) || numValue < 0) {
-                this.showFieldError(field, 'يجب إدخال رقم صحيح موجب');
-                return false;
-            }
-        }
-        
-        return true;
-    },
-    
-    /**
-     * Show field error
-     */
-    showFieldError: function(field, message) {
-        field.classList.add('error');
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.textContent = message;
-        field.parentNode.appendChild(errorDiv);
-    },
-    
-    /**
      * Handle file upload
      */
     handleFileUpload: function(event) {
@@ -421,44 +360,35 @@ const CustomsFormController = {
     },
     
     /**
-     * Handle form submission
+     * Handle form submission (validate all fields and dynamic sections using centralized Forms utility)
      */
     handleFormSubmit: function() {
-        // Validate form
-        const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        const form = document.getElementById('customsForm');
+        if (!form) return;
         let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
+        if (window.Forms) {
+            isValid = window.Forms.validateForm(form);
+        }
         // Validate authorities
         const authorities = document.querySelectorAll('.cof-authority-item');
         if (authorities.length === 0) {
-            Toast.show('خطأ في التحقق', 'يجب إضافة جهة جمركية واحدة على الأقل', 'error');
+            if (window.Toast) Toast.show('خطأ في التحقق', 'يجب إضافة جهة جمركية واحدة على الأقل', 'error');
             isValid = false;
         }
-        
         // Validate team members
         const teamMembers = document.querySelectorAll('.cof-team-member');
         if (teamMembers.length === 0) {
-            Toast.show('خطأ في التحقق', 'يجب إضافة عضو فريق واحد على الأقل', 'error');
+            if (window.Toast) Toast.show('خطأ في التحقق', 'يجب إضافة عضو فريق واحد على الأقل', 'error');
             isValid = false;
         }
-        
         if (!isValid) {
             return;
         }
-        
         // Collect form data
         const formData = this.collectFormData();
-        
         // Check if editing or creating new
         const urlParams = new URLSearchParams(window.location.search);
         const customsId = urlParams.get('id');
-        
         if (customsId) {
             // Update existing customs service
             this.updateCustomsService(customsId, formData);
@@ -595,21 +525,15 @@ const CustomsFormController = {
     },
     
     /**
-     * Validate current step
+     * Validate current step (use centralized Forms utility)
      */
     validateCurrentStep: function() {
         const currentSlide = document.querySelector(`[data-slide="${this.currentStep}"]`);
         if (!currentSlide) return true;
-        
-        const requiredFields = currentSlide.querySelectorAll('input[required], select[required], textarea[required]');
         let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
+        if (window.Forms) {
+            isValid = window.Forms.validateForm(currentSlide);
+        }
         return isValid;
     }
 };

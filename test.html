@@ -1,35 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-    <title>Test JavaScript Loading</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار نظام التحقق من النماذج</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/functional-components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Testing JavaScript Loading</h1>
-    <div id="output"></div>
-    
-    <script>
-        console.log('Test HTML loaded');
-        document.getElementById('output').innerHTML = 'Test HTML loaded successfully';
-    </script>
-    
+    <div id="app-container">
+        <div class="header">
+            <h1 class="header-title">اختبار نظام التحقق من النماذج</h1>
+        </div>
+        
+        <div class="content">
+            <div class="card">
+                <div class="card-content">
+                    <h2>نموذج اختبار التحقق</h2>
+                    <p>هذا النموذج يختبر نظام التحقق المحسن مع:</p>
+                    <ul>
+                        <li>التحقق في الوقت الفعلي</li>
+                        <li>رسائل خطأ واضحة</li>
+                        <li>تحقق من الحقول المطلوبة</li>
+                        <li>تحقق من صحة البريد الإلكتروني</li>
+                        <li>تحقق من صحة رقم الهاتف</li>
+                        <li>تحقق من الأرقام والقيم</li>
+                        <li>تحقق من التواريخ</li>
+                    </ul>
+                    
+                    <form id="testForm" class="form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">الاسم <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="أدخل اسمك" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">البريد الإلكتروني <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="أدخل بريدك الإلكتروني" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">رقم الهاتف <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="أدخل رقم هاتفك" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age" class="form-label">العمر</label>
+                            <input type="number" id="age" name="age" class="form-control" placeholder="أدخل عمرك" min="18" max="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthdate" class="form-label">تاريخ الميلاد</label>
+                            <input type="date" id="birthdate" name="birthdate" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="website" class="form-label">الموقع الإلكتروني</label>
+                            <input type="url" id="website" name="website" class="form-control" placeholder="أدخل رابط موقعك">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">الرسالة</label>
+                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="أدخل رسالتك"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">الاهتمامات</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="interests" value="technology">
+                                    <span class="checkbox-text">التكنولوجيا</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="interests" value="sports">
+                                    <span class="checkbox-text">الرياضة</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="interests" value="music">
+                                    <span class="checkbox-text">الموسيقى</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">إرسال النموذج</button>
+                            <button type="reset" class="btn btn-outline">إعادة تعيين</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-content">
+                    <h3>نموذج متعدد الخطوات</h3>
+                    <p>اختبار النموذج متعدد الخطوات مع التحقق:</p>
+                    
+                    <form id="multiStepForm" class="form">
+                        <div class="form-progress">
+                            <div class="progress-step active" data-step="basic">
+                                <span class="step-icon">1</span>
+                                <span class="step-name">أساسي</span>
+                            </div>
+                            <div class="progress-step" data-step="details">
+                                <span class="step-icon">2</span>
+                                <span class="step-name">تفاصيل</span>
+                            </div>
+                            <div class="progress-step" data-step="confirm">
+                                <span class="step-icon">3</span>
+                                <span class="step-name">تأكيد</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-slide active" data-slide="basic">
+                            <h4>الخطوة الأولى: المعلومات الأساسية</h4>
+                            
+                            <div class="form-group">
+                                <label for="fullName" class="form-label">الاسم الكامل <span class="required">*</span></label>
+                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email2" class="form-label">البريد الإلكتروني <span class="required">*</span></label>
+                                <input type="email" id="email2" name="email2" class="form-control" placeholder="أدخل بريدك الإلكتروني" required>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="details">التالي</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-slide" data-slide="details">
+                            <h4>الخطوة الثانية: التفاصيل</h4>
+                            
+                            <div class="form-group">
+                                <label for="phone2" class="form-label">رقم الهاتف <span class="required">*</span></label>
+                                <input type="tel" id="phone2" name="phone2" class="form-control" placeholder="أدخل رقم هاتفك" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address" class="form-label">العنوان</label>
+                                <textarea id="address" name="address" class="form-control" rows="3" placeholder="أدخل عنوانك"></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="basic">السابق</button>
+                                <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="confirm">التالي</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-slide" data-slide="confirm">
+                            <h4>الخطوة الثالثة: التأكيد</h4>
+                            
+                            <div class="form-group">
+                                <label for="confirm" class="form-label">تأكيد المعلومات <span class="required">*</span></label>
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="confirm" name="confirm" required>
+                                    <span class="checkbox-text">أؤكد صحة جميع المعلومات المدخلة</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="details">السابق</button>
+                                <button type="submit" class="btn btn-primary">إرسال النموذج</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/state.js"></script>
-    <script>
-        console.log('State.js loaded, State object:', typeof State);
-    </script>
+    <script src="js/utils/forms.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/modal.js"></script>
+    <script src="js/components/loader.js"></script>
     
-    <script src="js/pages/home.js"></script>
     <script>
-        console.log('Home.js loaded, HomeController:', typeof HomeController);
-    </script>
-    
-    <script src="js/pages/shipping.js"></script>
-    <script>
-        console.log('Shipping.js loaded, ShippingController:', typeof ShippingController);
-    </script>
-    
-    <script src="js/pages/service-providers.js"></script>
-    <script>
-        console.log('Service-providers.js loaded, ServiceProvidersController:', typeof ServiceProvidersController);
+        // Initialize the test page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize state
+            State.init();
+            
+            // Initialize components
+            Toast.init();
+            Modal.init();
+            Loader.init();
+            
+            // Initialize forms validation
+            Forms.initValidation();
+            
+            // Handle form submissions
+            document.getElementById('testForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (Forms.validateForm(this)) {
+                    Toast.show('نجح الاختبار', 'تم إرسال النموذج بنجاح!', 'success');
+                    this.reset();
+                }
+            });
+            
+            document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (Forms.validateForm(this)) {
+                    Toast.show('نجح الاختبار', 'تم إرسال النموذج متعدد الخطوات بنجاح!', 'success');
+                    this.reset();
+                    
+                    // Reset to first step
+                    const slides = this.querySelectorAll('.form-slide');
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    slides[0].classList.add('active');
+                    
+                    const steps = this.querySelectorAll('.progress-step');
+                    steps.forEach(step => step.classList.remove('active', 'completed'));
+                    steps[0].classList.add('active');
+                }
+            });
+            
+            console.log('Test page initialized successfully');
+        });
     </script>
 </body>
 </html> 

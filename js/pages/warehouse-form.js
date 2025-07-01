@@ -17,6 +17,7 @@ const WarehouseFormController = {
         this.formData = {};
         this.setupEventListeners();
         this.loadExistingData();
+        this.setStepRequiredAttributes(this.currentStep);
     },
     
     /**
@@ -138,11 +139,11 @@ const WarehouseFormController = {
             });
         }
         
-        // Form validation on input
+        // Form validation on input (use centralized Forms utility)
         const requiredInputs = page.querySelectorAll('input[required], select[required], textarea[required]');
         requiredInputs.forEach(input => {
             input.addEventListener('blur', (e) => {
-                this.validateField(e.target);
+                if (window.Forms) window.Forms.validateField(e.target);
             });
         });
     },
@@ -152,7 +153,8 @@ const WarehouseFormController = {
      */
     navigateToStep: function(step) {
         console.log('Current step:', this.currentStep, 'Target step:', step);
-        
+        // Set required attributes for the target step only
+        this.setStepRequiredAttributes(step);
         // Validate current step before moving forward
         if (this.shouldValidateStep(step) && !this.validateCurrentStep()) {
             console.log('Validation failed, staying on current step');
@@ -186,14 +188,25 @@ const WarehouseFormController = {
         slides.forEach(slide => {
             slide.classList.remove('active');
         });
-        
         const targetSlide = document.querySelector(`[data-slide="${step}"]`);
         if (targetSlide) {
             targetSlide.classList.add('active');
+            // Safety: remove 'active' from all siblings
+            const siblings = targetSlide.parentNode.querySelectorAll('.wh-form-slide');
+            siblings.forEach(sib => { if (sib !== targetSlide) sib.classList.remove('active'); });
             console.log('Activated slide:', step);
         } else {
             console.error('Target slide not found:', step);
         }
+        // Bulletproof: force only the active slide to display
+        const slidesAll = document.querySelectorAll('.wh-form-slide');
+        slidesAll.forEach(slide => {
+            if (slide.classList.contains('active')) {
+                slide.style.display = 'block';
+            } else {
+                slide.style.display = 'none';
+            }
+        });
         
         this.currentStep = step;
         
@@ -217,92 +230,39 @@ const WarehouseFormController = {
     },
     
     /**
-     * Validate current step
+     * Validate current step (use centralized Forms utility)
      */
     validateCurrentStep: function() {
         const currentSlide = document.querySelector(`[data-slide="${this.currentStep}"]`);
         if (!currentSlide) return true;
         
-        const requiredFields = currentSlide.querySelectorAll('input[required], select[required], textarea[required]');
         let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
+        if (window.Forms) {
+            isValid = window.Forms.validateForm(currentSlide);
+        }
         // Special validation for checkboxes
         if (this.currentStep === 'safety') {
             const securityFeatures = currentSlide.querySelectorAll('input[name="securityFeature"]:checked');
             if (securityFeatures.length === 0) {
-                Toast.show('خطأ في التحقق', 'يجب اختيار ميزة أمان واحدة على الأقل', 'error');
+                if (window.Toast) Toast.show('خطأ في التحقق', 'يجب اختيار ميزة أمان واحدة على الأقل', 'error');
+                isValid = false;
+            }
+            // Validate safety document file
+            const safetyDoc = document.getElementById('safetyDocument');
+            if (safetyDoc && !safetyDoc.value) {
+                if (window.Forms) window.Forms.showFieldError(safetyDoc, 'شهادة الأمن والسلامة مطلوبة');
                 isValid = false;
             }
         }
-        
+        if (this.currentStep === 'media') {
+            // Validate images
+            const imagesInput = document.getElementById('warehouseImages');
+            if (imagesInput && !imagesInput.value) {
+                if (window.Forms) window.Forms.showFieldError(imagesInput, 'صور المستودع مطلوبة');
+                isValid = false;
+            }
+        }
         return isValid;
-    },
-    
-    /**
-     * Validate individual field
-     */
-    validateField: function(field) {
-        const value = field.value.trim();
-        const fieldName = field.getAttribute('placeholder') || field.getAttribute('name') || 'هذا الحقل';
-        
-        // Remove existing error styling
-        field.classList.remove('error');
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Check if required field is empty
-        if (field.hasAttribute('required') && !value) {
-            this.showFieldError(field, `${fieldName} مطلوب`);
-            return false;
-        }
-        
-        // Email validation
-        if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                this.showFieldError(field, 'البريد الإلكتروني غير صحيح');
-                return false;
-            }
-        }
-        
-        // Phone validation
-        if (field.type === 'tel' && value) {
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
-            if (!phoneRegex.test(value)) {
-                this.showFieldError(field, 'رقم الهاتف غير صحيح');
-                return false;
-            }
-        }
-        
-        // Number validation
-        if (field.type === 'number' && value) {
-            const numValue = parseFloat(value);
-            if (isNaN(numValue) || numValue < 0) {
-                this.showFieldError(field, 'يجب إدخال رقم صحيح موجب');
-                return false;
-            }
-        }
-        
-        return true;
-    },
-    
-    /**
-     * Show field error
-     */
-    showFieldError: function(field, message) {
-        field.classList.add('error');
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.textContent = message;
-        field.parentNode.appendChild(errorDiv);
     },
     
     /**
@@ -391,7 +351,7 @@ const WarehouseFormController = {
     },
     
     /**
-     * Handle form submission
+     * Handle form submission (validate all steps using centralized Forms utility)
      */
     handleFormSubmit: function() {
         // Validate all steps
@@ -403,14 +363,11 @@ const WarehouseFormController = {
                 return;
             }
         }
-        
         // Collect form data
         const formData = this.collectFormData();
-        
         // Check if editing or creating new
         const urlParams = new URLSearchParams(window.location.search);
         const warehouseId = urlParams.get('id');
-        
         if (warehouseId) {
             // Update existing warehouse
             this.updateWarehouse(warehouseId, formData);
@@ -477,6 +434,24 @@ const WarehouseFormController = {
             setTimeout(() => {
                 Router.navigate('mywarehouses');
             }, 1500);
+        }
+    },
+    
+    /**
+     * Set required attributes only for visible step fields
+     */
+    setStepRequiredAttributes: function(step) {
+        // Remove required from all fields in all steps
+        document.querySelectorAll('.wh-form-slide [required]').forEach(field => {
+            field.setAttribute('data-original-required', 'true');
+            field.removeAttribute('required');
+        });
+        // Add required only to fields in the current step
+        const currentSlide = document.querySelector(`.wh-form-slide[data-slide="${step}"]`);
+        if (currentSlide) {
+            currentSlide.querySelectorAll('[data-original-required]').forEach(field => {
+                field.setAttribute('required', 'required');
+            });
         }
     }
 };

@@ -2,43 +2,157 @@
  * Packaging Form page controller
  */
 const PackagingFormController = {
+    currentStep: 'basic',
+    materials: [],
+    services: [],
+
     /**
      * Initialize the packaging form page
      */
     init: function() {
         // Check if we're on the packaging form page
-        const form = document.getElementById('packagingForm');
-        if (!form) {
+        const page = document.getElementById('packagingForm');
+        if (!page) {
             return; // Not on the packaging form page
         }
-        
-        console.log('Packaging Form page initialized');
-        this.formData = {};
-        this.materials = [];
-        this.services = [];
+
+        console.log('Packaging Form initialized');
+
         this.setupEventListeners();
-        this.loadExistingData();
-    },
-    
-    /**
-     * Load existing data if editing
-     */
-    loadExistingData: function() {
+        this.setupFormNavigation();
+        this.setupDynamicContent();
+        this.setupFileUploads();
+        this.setupFormSubmission();
+
+        // Check if editing existing service
         const urlParams = new URLSearchParams(window.location.search);
         const packagingId = urlParams.get('id');
-        
         if (packagingId) {
-            const packagingServices = State.get('packagingServices');
-            const packaging = packagingServices.find(p => p.id == packagingId);
-            
-            if (packaging) {
-                this.formData = { ...packaging };
-                this.populateForm(packaging);
-                this.updateHeaderTitle('تعديل خدمة التغليف');
-            }
+            this.loadExistingService(packagingId);
         }
     },
-    
+
+    setupEventListeners: function() {
+        const page = document.getElementById('packagingForm');
+        if (!page) return;
+
+        // Add material button
+        const addMaterialBtn = page.querySelector('[data-action="add-material"]');
+        if (addMaterialBtn) {
+            addMaterialBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.addMaterial();
+            });
+        }
+
+        // Add service button
+        const addServiceBtn = page.querySelector('[data-action="add-service"]');
+        if (addServiceBtn) {
+            addServiceBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.addService();
+            });
+        }
+
+        // Remove buttons (delegated event handling)
+        page.addEventListener('click', (e) => {
+            const removeBtn = e.target.closest('.pkg-remove-btn');
+            if (removeBtn) {
+                e.preventDefault();
+                const item = removeBtn.closest('.pkg-material-item, .pkg-service-item');
+                if (item) {
+                    item.remove();
+                    // Re-validate dynamic items
+                    if (window.Forms) {
+                        window.Forms.validateDynamicItems(page);
+                    }
+                }
+            }
+        });
+
+        // File upload handling
+        const fileInputs = page.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleFileUpload(e);
+            });
+        });
+    },
+
+    setupFormNavigation: function() {
+        // Use the centralized form navigation from Forms utility
+        if (window.Forms) {
+            // The Forms utility will handle step navigation automatically
+            console.log('Packaging Form navigation setup complete');
+        }
+    },
+
+    setupDynamicContent: function() {
+        // Initialize with default items
+        this.addMaterial();
+        this.addService();
+    },
+
+    setupFileUploads: function() {
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => {
+            const container = input.closest('.pkg-file-upload-container');
+            if (!container) return;
+
+            const uploadBtn = container.querySelector('.file-upload-btn');
+            const fileNameSpan = container.querySelector('.pkg-file-name');
+
+            uploadBtn?.addEventListener('click', () => {
+                input.click();
+            });
+
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    if (input.multiple) {
+                        fileNameSpan.textContent = `تم اختيار ${input.files.length} ملفات`;
+                    } else {
+                        fileNameSpan.textContent = input.files[0].name;
+                    }
+                } else {
+                    fileNameSpan.textContent = 'لم يتم اختيار ملف';
+                }
+            });
+        });
+    },
+
+    setupFormSubmission: function() {
+        const form = document.getElementById('packagingForm');
+        if (!form) return;
+
+        // Save button handler
+        const saveBtn = document.querySelector('[data-action="save-packaging"]');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleFormSubmit();
+            });
+        }
+
+        // Form submission handler
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleFormSubmit();
+        });
+    },
+
+    /**
+     * Load existing service data for editing
+     */
+    loadExistingService: function(packagingId) {
+        // Get existing data from state
+        const packagingServices = State.get('packagingServices') || [];
+        const packaging = packagingServices.find(service => service.id == packagingId);
+        
+        if (packaging) {
+            this.populateForm(packaging);
+        }
+    },
+
     /**
      * Populate form with existing data
      */
@@ -79,279 +193,198 @@ const PackagingFormController = {
                 if (checkbox) checkbox.checked = true;
             });
         }
-        
+
         // Equipment
         if (packaging.equipment) {
-            packaging.equipment.forEach(eq => {
-                const checkbox = document.querySelector(`input[name="equipment"][value="${eq}"]`);
+            packaging.equipment.forEach(equip => {
+                const checkbox = document.querySelector(`input[name="equipment"][value="${equip}"]`);
                 if (checkbox) checkbox.checked = true;
             });
         }
     },
-    
-    /**
-     * Update header title
-     */
-    updateHeaderTitle: function(title) {
-        const headerTitle = document.querySelector('.header-title');
-        if (headerTitle) {
-            headerTitle.textContent = title;
-        }
-    },
-    
-    /**
-     * Set up event listeners
-     */
-    setupEventListeners: function() {
-        const page = document.getElementById('packaging-form');
-        if (!page) return;
-        
-        // Form submission
-        const form = document.getElementById('packagingForm');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleFormSubmit();
-            });
-        }
-        
-        // Step navigation - use event delegation for dynamically loaded content
-        document.addEventListener('click', (e) => {
-            const gotoButton = e.target.closest('[data-action="goto-slide"]');
-            if (gotoButton) {
-                e.preventDefault();
-                const targetStep = gotoButton.dataset.target;
-                console.log('Packaging form - Navigating to step:', targetStep);
-                this.navigateToStep(targetStep);
-            }
-        });
-        
-        // Save button in header
-        const saveButton = page.querySelector('[data-action="save-packaging"]');
-        if (saveButton) {
-            saveButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.handleFormSubmit();
-            });
-        }
-        
-        // Add material button
-        const addMaterialBtn = page.querySelector('[data-action="add-material"]');
-        if (addMaterialBtn) {
-            addMaterialBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.addMaterial();
-            });
-        }
-        
-        // Add service button
-        const addServiceBtn = page.querySelector('[data-action="add-service"]');
-        if (addServiceBtn) {
-            addServiceBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.addService();
-            });
-        }
-        
-        // Remove buttons (delegated event handling)
-        page.addEventListener('click', (e) => {
-            const removeBtn = e.target.closest('.pkg-remove-btn');
-            if (removeBtn) {
-                e.preventDefault();
-                const item = removeBtn.closest('.pkg-material-item, .pkg-service-item');
-                if (item) {
-                    item.remove();
-                }
-            }
-        });
-        
-        // File upload handling
-        const fileInputs = page.querySelectorAll('input[type="file"]');
-        fileInputs.forEach(input => {
-            input.addEventListener('change', (e) => {
-                this.handleFileUpload(e);
-            });
-        });
-        
-        // Form validation on input
-        const requiredInputs = page.querySelectorAll('input[required], select[required], textarea[required]');
-        requiredInputs.forEach(input => {
-            input.addEventListener('blur', (e) => {
-                this.validateField(e.target);
-            });
-        });
-    },
-    
+
     /**
      * Add new material
      */
-    addMaterial: function(data = null) {
+    addMaterial: function() {
         const container = document.querySelector('.pkg-materials-container');
         if (!container) return;
-        
+
         const materialItem = document.createElement('div');
         materialItem.className = 'pkg-material-item';
         materialItem.innerHTML = `
+            <div class="pkg-material-header">
+                <h4 class="pkg-material-title">مادة جديدة</h4>
+                <button type="button" class="btn btn-icon pkg-remove-btn" aria-label="إزالة">×</button>
+            </div>
             <div class="form-group">
-                <label class="form-label">نوع المادة</label>
-                <select class="form-control material-type">
+                <label class="form-label">نوع المادة <span class="required">*</span></label>
+                <select class="form-control material-type" required>
                     <option value="">اختر نوع المادة</option>
-                    <option value="cardboard" ${data?.type === 'cardboard' ? 'selected' : ''}>كرتون</option>
-                    <option value="plastic" ${data?.type === 'plastic' ? 'selected' : ''}>بلاستيك</option>
-                    <option value="wood" ${data?.type === 'wood' ? 'selected' : ''}>خشب</option>
-                    <option value="fabric" ${data?.type === 'fabric' ? 'selected' : ''}>قماش</option>
-                    <option value="bubble" ${data?.type === 'bubble' ? 'selected' : ''}>فقاعات هوائية</option>
-                    <option value="other" ${data?.type === 'other' ? 'selected' : ''}>أخرى</option>
+                    <option value="cardboard">كرتون</option>
+                    <option value="plastic">بلاستيك</option>
+                    <option value="wood">خشب</option>
+                    <option value="fabric">قماش</option>
+                    <option value="paper">ورق</option>
+                    <option value="bubble_wrap">فقاعات هوائية</option>
+                    <option value="other">أخرى</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">الاسم</label>
-                <input type="text" class="form-control material-name" placeholder="أدخل اسم المادة" value="${data?.name || ''}">
+                <label class="form-label">اسم المادة <span class="required">*</span></label>
+                <input type="text" class="form-control material-name" placeholder="أدخل اسم المادة" required>
             </div>
             <div class="form-group">
                 <label class="form-label">الوصف</label>
-                <textarea class="form-control material-description" rows="2" placeholder="أدخل وصف المادة">${data?.description || ''}</textarea>
+                <textarea class="form-control material-description" rows="2" placeholder="أدخل وصف المادة"></textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">السعر (ريال)</label>
-                <input type="number" class="form-control material-price" placeholder="أدخل السعر" value="${data?.price || ''}">
+                <input type="number" class="form-control material-price" placeholder="أدخل السعر" min="0" step="0.01">
             </div>
-            <button type="button" class="btn btn-icon pkg-remove-btn">×</button>
         `;
-        
+
         container.appendChild(materialItem);
     },
-    
+
     /**
      * Add new service
      */
-    addService: function(data = null) {
+    addService: function() {
         const container = document.querySelector('.pkg-services-container');
         if (!container) return;
-        
+
         const serviceItem = document.createElement('div');
         serviceItem.className = 'pkg-service-item';
         serviceItem.innerHTML = `
+            <div class="pkg-service-header">
+                <h4 class="pkg-service-title">خدمة جديدة</h4>
+                <button type="button" class="btn btn-icon pkg-remove-btn" aria-label="إزالة">×</button>
+            </div>
             <div class="form-group">
-                <label class="form-label">نوع الخدمة</label>
-                <select class="form-control service-type">
+                <label class="form-label">نوع الخدمة <span class="required">*</span></label>
+                <select class="form-control service-type" required>
                     <option value="">اختر نوع الخدمة</option>
-                    <option value="basic" ${data?.type === 'basic' ? 'selected' : ''}>تغليف أساسي</option>
-                    <option value="protective" ${data?.type === 'protective' ? 'selected' : ''}>تغليف واقي</option>
-                    <option value="custom" ${data?.type === 'custom' ? 'selected' : ''}>تغليف مخصص</option>
-                    <option value="gift" ${data?.type === 'gift' ? 'selected' : ''}>تغليف هدايا</option>
-                    <option value="industrial" ${data?.type === 'industrial' ? 'selected' : ''}>تغليف صناعي</option>
+                    <option value="basic">تغليف أساسي</option>
+                    <option value="protective">تغليف واقي</option>
+                    <option value="custom">تغليف مخصص</option>
+                    <option value="gift">تغليف هدايا</option>
+                    <option value="industrial">تغليف صناعي</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">اسم الخدمة</label>
-                <input type="text" class="form-control service-name" placeholder="أدخل اسم الخدمة" value="${data?.name || ''}">
+                <label class="form-label">اسم الخدمة <span class="required">*</span></label>
+                <input type="text" class="form-control service-name" placeholder="أدخل اسم الخدمة" required>
             </div>
             <div class="form-group">
                 <label class="form-label">الوصف</label>
-                <textarea class="form-control service-description" rows="2" placeholder="أدخل وصف الخدمة">${data?.description || ''}</textarea>
+                <textarea class="form-control service-description" rows="2" placeholder="أدخل وصف الخدمة"></textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">السعر (ريال)</label>
-                <input type="number" class="form-control service-price" placeholder="أدخل السعر" value="${data?.price || ''}">
+                <input type="number" class="form-control service-price" placeholder="أدخل السعر" min="0" step="0.01">
             </div>
             <div class="form-group">
                 <label class="form-label">الوقت المطلوب (ساعات)</label>
-                <input type="number" class="form-control service-time" placeholder="أدخل الوقت المطلوب" value="${data?.time || ''}">
+                <input type="number" class="form-control service-time" placeholder="أدخل الوقت المطلوب" min="0">
             </div>
-            <button type="button" class="btn btn-icon pkg-remove-btn">×</button>
         `;
-        
+
         container.appendChild(serviceItem);
     },
-    
+
     /**
-     * Render materials list
+     * Render materials
      */
     renderMaterials: function() {
         const container = document.querySelector('.pkg-materials-container');
         if (!container) return;
-        
+
         container.innerHTML = '';
         this.materials.forEach(material => {
-            this.addMaterial(material);
+            const materialItem = document.createElement('div');
+            materialItem.className = 'pkg-material-item';
+            materialItem.innerHTML = `
+                <div class="pkg-material-header">
+                    <h4 class="pkg-material-title">${material.name}</h4>
+                    <button type="button" class="btn btn-icon pkg-remove-btn" aria-label="إزالة">×</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نوع المادة</label>
+                    <select class="form-control material-type" required>
+                        <option value="cardboard" ${material.type === 'cardboard' ? 'selected' : ''}>كرتون</option>
+                        <option value="plastic" ${material.type === 'plastic' ? 'selected' : ''}>بلاستيك</option>
+                        <option value="wood" ${material.type === 'wood' ? 'selected' : ''}>خشب</option>
+                        <option value="fabric" ${material.type === 'fabric' ? 'selected' : ''}>قماش</option>
+                        <option value="paper" ${material.type === 'paper' ? 'selected' : ''}>ورق</option>
+                        <option value="bubble_wrap" ${material.type === 'bubble_wrap' ? 'selected' : ''}>فقاعات هوائية</option>
+                        <option value="other" ${material.type === 'other' ? 'selected' : ''}>أخرى</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم المادة</label>
+                    <input type="text" class="form-control material-name" value="${material.name || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الوصف</label>
+                    <textarea class="form-control material-description" rows="2">${material.description || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">السعر (ريال)</label>
+                    <input type="number" class="form-control material-price" value="${material.price || ''}" min="0" step="0.01">
+                </div>
+            `;
+            container.appendChild(materialItem);
         });
     },
-    
+
     /**
-     * Render services list
+     * Render services
      */
     renderServices: function() {
         const container = document.querySelector('.pkg-services-container');
         if (!container) return;
-        
+
         container.innerHTML = '';
         this.services.forEach(service => {
-            this.addService(service);
+            const serviceItem = document.createElement('div');
+            serviceItem.className = 'pkg-service-item';
+            serviceItem.innerHTML = `
+                <div class="pkg-service-header">
+                    <h4 class="pkg-service-title">${service.name}</h4>
+                    <button type="button" class="btn btn-icon pkg-remove-btn" aria-label="إزالة">×</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نوع الخدمة</label>
+                    <select class="form-control service-type" required>
+                        <option value="basic" ${service.type === 'basic' ? 'selected' : ''}>تغليف أساسي</option>
+                        <option value="protective" ${service.type === 'protective' ? 'selected' : ''}>تغليف واقي</option>
+                        <option value="custom" ${service.type === 'custom' ? 'selected' : ''}>تغليف مخصص</option>
+                        <option value="gift" ${service.type === 'gift' ? 'selected' : ''}>تغليف هدايا</option>
+                        <option value="industrial" ${service.type === 'industrial' ? 'selected' : ''}>تغليف صناعي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم الخدمة</label>
+                    <input type="text" class="form-control service-name" value="${service.name || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الوصف</label>
+                    <textarea class="form-control service-description" rows="2">${service.description || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">السعر (ريال)</label>
+                    <input type="number" class="form-control service-price" value="${service.price || ''}" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الوقت المطلوب (ساعات)</label>
+                    <input type="number" class="form-control service-time" value="${service.time || ''}" min="0">
+                </div>
+            `;
+            container.appendChild(serviceItem);
         });
     },
-    
-    /**
-     * Validate individual field
-     */
-    validateField: function(field) {
-        const value = field.value.trim();
-        const fieldName = field.getAttribute('placeholder') || field.getAttribute('name') || 'هذا الحقل';
-        
-        // Remove existing error styling
-        field.classList.remove('error');
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Check if required field is empty
-        if (field.hasAttribute('required') && !value) {
-            this.showFieldError(field, `${fieldName} مطلوب`);
-            return false;
-        }
-        
-        // Email validation
-        if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                this.showFieldError(field, 'البريد الإلكتروني غير صحيح');
-                return false;
-            }
-        }
-        
-        // Phone validation
-        if (field.type === 'tel' && value) {
-            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
-            if (!phoneRegex.test(value)) {
-                this.showFieldError(field, 'رقم الهاتف غير صحيح');
-                return false;
-            }
-        }
-        
-        // Number validation
-        if (field.type === 'number' && value) {
-            const numValue = parseFloat(value);
-            if (isNaN(numValue) || numValue < 0) {
-                this.showFieldError(field, 'يجب إدخال رقم صحيح موجب');
-                return false;
-            }
-        }
-        
-        return true;
-    },
-    
-    /**
-     * Show field error
-     */
-    showFieldError: function(field, message) {
-        field.classList.add('error');
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.textContent = message;
-        field.parentNode.appendChild(errorDiv);
-    },
-    
+
     /**
      * Handle file upload
      */
@@ -367,7 +400,9 @@ const PackagingFormController = {
             // Validate file type
             const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
             if (!allowedTypes.includes(file.type)) {
-                Toast.show('خطأ في الملف', 'يجب اختيار ملف صورة أو PDF', 'error');
+                if (window.Toast) {
+                    Toast.show('خطأ في الملف', 'يجب اختيار ملف صورة أو PDF', 'error');
+                }
                 event.target.value = '';
                 if (fileNameSpan) {
                     fileNameSpan.textContent = 'لم يتم اختيار ملف';
@@ -376,7 +411,9 @@ const PackagingFormController = {
             
             // Validate file size (5MB max)
             if (file.size > 5 * 1024 * 1024) {
-                Toast.show('خطأ في الملف', 'حجم الملف يجب أن يكون أقل من 5 ميجابايت', 'error');
+                if (window.Toast) {
+                    Toast.show('خطأ في الملف', 'حجم الملف يجب أن يكون أقل من 5 ميجابايت', 'error');
+                }
                 event.target.value = '';
                 if (fileNameSpan) {
                     fileNameSpan.textContent = 'لم يتم اختيار ملف';
@@ -384,7 +421,7 @@ const PackagingFormController = {
             }
         }
     },
-    
+
     /**
      * Collect form data
      */
@@ -459,36 +496,16 @@ const PackagingFormController = {
         
         return formData;
     },
-    
+
     /**
      * Handle form submission
      */
     handleFormSubmit: function() {
-        // Validate form
-        const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
-        // Validate materials
-        const materials = document.querySelectorAll('.pkg-material-item');
-        if (materials.length === 0) {
-            Toast.show('خطأ في التحقق', 'يجب إضافة مادة واحدة على الأقل', 'error');
-            isValid = false;
-        }
-        
-        // Validate services
-        const services = document.querySelectorAll('.pkg-service-item');
-        if (services.length === 0) {
-            Toast.show('خطأ في التحقق', 'يجب إضافة خدمة واحدة على الأقل', 'error');
-            isValid = false;
-        }
-        
-        if (!isValid) {
+        const form = document.getElementById('packagingForm');
+        if (!form) return;
+
+        // Use the centralized validation
+        if (window.Forms && !window.Forms.validateForm(form)) {
             return;
         }
         
@@ -507,150 +524,59 @@ const PackagingFormController = {
             this.createPackagingService(formData);
         }
     },
-    
+
     /**
      * Create new packaging service
      */
     createPackagingService: function(formData) {
-        const packagingServices = State.get('packagingServices');
-        const newPackagingService = {
+        const packagingServices = State.get('packagingServices') || [];
+        const newService = {
             id: Date.now(),
-            type: formData.serviceType,
-            service: formData.serviceName,
-            materials: formData.materials.length,
-            orders: 0,
-            revenue: 0,
-            rating: 0,
+            ...formData,
             status: 'active',
-            ...formData
+            rating: 0,
+            orders: 0,
+            revenue: 0
         };
         
-        packagingServices.push(newPackagingService);
+        packagingServices.push(newService);
         State.set('packagingServices', packagingServices);
         
-        Toast.show('تم الحفظ', 'تم إضافة خدمة التغليف بنجاح', 'success');
+        if (window.Toast) {
+            Toast.show('تم الحفظ', 'تم إضافة خدمة التغليف بنجاح', 'success');
+        }
         
-        // Navigate back to packaging list
+        // Navigate back to packaging services list
         setTimeout(() => {
-            Router.navigate('my-packaging');
+            Router.navigate('mypackaging');
         }, 1500);
     },
-    
+
     /**
      * Update existing packaging service
      */
     updatePackagingService: function(packagingId, formData) {
-        const packagingServices = State.get('packagingServices');
-        const packagingIndex = packagingServices.findIndex(p => p.id == packagingId);
+        const packagingServices = State.get('packagingServices') || [];
+        const serviceIndex = packagingServices.findIndex(service => service.id == packagingId);
         
-        if (packagingIndex !== -1) {
-            const updatedPackagingService = {
-                ...packagingServices[packagingIndex],
+        if (serviceIndex !== -1) {
+            packagingServices[serviceIndex] = {
+                ...packagingServices[serviceIndex],
                 ...formData,
-                type: formData.serviceType,
-                service: formData.serviceName,
-                materials: formData.materials.length,
                 updatedAt: new Date().toISOString()
             };
             
-            packagingServices[packagingIndex] = updatedPackagingService;
             State.set('packagingServices', packagingServices);
             
-            Toast.show('تم التحديث', 'تم تحديث خدمة التغليف بنجاح', 'success');
+            if (window.Toast) {
+                Toast.show('تم التحديث', 'تم تحديث خدمة التغليف بنجاح', 'success');
+            }
             
-            // Navigate back to packaging list
+            // Navigate back to packaging services list
             setTimeout(() => {
-                Router.navigate('my-packaging');
+                Router.navigate('mypackaging');
             }, 1500);
         }
-    },
-    
-    /**
-     * Navigate to specific step
-     */
-    navigateToStep: function(step) {
-        console.log('Packaging form - Current step:', this.currentStep, 'Target step:', step);
-        
-        // Validate current step before moving forward
-        if (this.shouldValidateStep(step) && !this.validateCurrentStep()) {
-            console.log('Packaging form - Validation failed, staying on current step');
-            return;
-        }
-        
-        // Update progress indicator
-        const progressSteps = document.querySelectorAll('.pf-progress-step');
-        progressSteps.forEach(stepEl => {
-            stepEl.classList.remove('active', 'completed');
-        });
-        
-        // Mark completed steps
-        const stepOrder = ['basic', 'materials', 'services', 'docs'];
-        const currentIndex = stepOrder.indexOf(this.currentStep);
-        const targetIndex = stepOrder.indexOf(step);
-        
-        stepOrder.forEach((stepName, index) => {
-            const stepEl = document.querySelector(`[data-step="${stepName}"]`);
-            if (stepEl) {
-                if (index < targetIndex) {
-                    stepEl.classList.add('completed');
-                } else if (index === targetIndex) {
-                    stepEl.classList.add('active');
-                }
-            }
-        });
-        
-        // Update form slides
-        const slides = document.querySelectorAll('.pf-form-slide');
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-        });
-        
-        const targetSlide = document.querySelector(`[data-slide="${step}"]`);
-        if (targetSlide) {
-            targetSlide.classList.add('active');
-            console.log('Packaging form - Activated slide:', step);
-        } else {
-            console.error('Packaging form - Target slide not found:', step);
-        }
-        
-        this.currentStep = step;
-        
-        // Scroll to top of form for better UX
-        const form = document.getElementById('packagingForm');
-        if (form) {
-            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    },
-    
-    /**
-     * Check if step should be validated before navigation
-     */
-    shouldValidateStep: function(targetStep) {
-        const stepOrder = ['basic', 'materials', 'services', 'docs'];
-        const currentIndex = stepOrder.indexOf(this.currentStep);
-        const targetIndex = stepOrder.indexOf(targetStep);
-        
-        // Only validate when moving forward
-        return targetIndex > currentIndex;
-    },
-    
-    /**
-     * Validate current step
-     */
-    validateCurrentStep: function() {
-        const currentSlide = document.querySelector(`[data-slide="${this.currentStep}"]`);
-        if (!currentSlide) return true;
-        
-        const requiredFields = currentSlide.querySelectorAll('input[required], select[required], textarea[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!this.validateField(field)) {
-                isValid = false;
-            }
-        });
-        
-        return isValid;
     }
 };
 

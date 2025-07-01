@@ -5654,3 +5654,7 @@ input:checked + .switch-slider:before {
         .filter-btn:hover {
             background-color: var(--gray-light);
         }
+
+/* Fallback: Always hide inactive warehouse form steps */
+.wh-form-slide { display: none !important; }
+.wh-form-slide.active { display: block !important; }
