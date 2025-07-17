@@ -299,12 +299,33 @@ const OrdersController = {
      */
     initSearch: function() {
         const searchInput = document.querySelector('.orders-search-input');
+        const searchClear = document.querySelector('.orders-search-clear');
+        
         if (!searchInput) return;
         
+        // Handle search input
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             this.filterOrders(searchTerm);
+            
+            // Show/hide clear button
+            if (searchClear) {
+                if (searchTerm.length > 0) {
+                    searchClear.classList.add('visible');
+                } else {
+                    searchClear.classList.remove('visible');
+                }
+            }
         });
+        
+        // Handle clear search
+        if (searchClear) {
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchClear.classList.remove('visible');
+                this.filterOrders('');
+            });
+        }
     },
 
     /**
@@ -319,21 +340,291 @@ const OrdersController = {
             });
         });
         
-        // Service type filter
-        const serviceFilter = document.querySelector('.orders-filter-select');
-        if (serviceFilter) {
-            serviceFilter.addEventListener('change', (e) => {
-                this.handleServiceFilter(e.target.value);
+        // Advanced filters toggle
+        const toggleBtn = document.querySelector('.orders-toggle-btn');
+        const advancedPanel = document.querySelector('.orders-advanced-panel');
+        
+        if (toggleBtn && advancedPanel) {
+            toggleBtn.addEventListener('click', () => {
+                this.toggleAdvancedFilters(toggleBtn, advancedPanel);
             });
         }
         
-        // Time period filter
-        const timeFilter = document.querySelectorAll('.orders-filter-select')[1];
-        if (timeFilter) {
-            timeFilter.addEventListener('change', (e) => {
-                this.handleTimeFilter(e.target.value);
+        // Advanced filter options
+        document.querySelectorAll('.orders-option input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleAdvancedFilterChange(e);
+            });
+        });
+        
+        // Advanced filter actions
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const action = e.target.closest('[data-action]').dataset.action;
+                this.handleFilterAction(action);
+            });
+        });
+    },
+
+    /**
+     * Toggle advanced filters panel
+     */
+    toggleAdvancedFilters: function(toggleBtn, panel) {
+        const isActive = panel.classList.contains('active');
+        
+        if (isActive) {
+            panel.classList.remove('active');
+            toggleBtn.classList.remove('active');
+        } else {
+            panel.classList.add('active');
+            toggleBtn.classList.add('active');
+        }
+    },
+
+    /**
+     * Handle advanced filter changes
+     */
+    handleAdvancedFilterChange: function(event) {
+        const input = event.target;
+        const option = input.closest('.orders-option');
+        
+        // Update visual state
+        if (input.checked) {
+            option.classList.add('selected');
+        } else {
+            option.classList.remove('selected');
+        }
+        
+        // Update active filters display
+        this.updateActiveFilters();
+    },
+
+    /**
+     * Update active filters display
+     */
+    updateActiveFilters: function() {
+        const activeFiltersContainer = document.querySelector('.orders-active-filters');
+        if (!activeFiltersContainer) return;
+        
+        const activeFilters = [];
+        
+        // Get status filter
+        const activeStatusBtn = document.querySelector('.orders-filter-btn.orders-active');
+        if (activeStatusBtn) {
+            const statusText = activeStatusBtn.querySelector('.orders-filter-text').textContent;
+            activeFilters.push({
+                type: 'status',
+                value: activeStatusBtn.dataset.filter,
+                text: statusText
             });
         }
+        
+        // Get service type filters
+        document.querySelectorAll('.orders-option input[name="serviceType"]:checked').forEach(input => {
+            const option = input.closest('.orders-option');
+            const text = option.querySelector('.orders-option-text').textContent;
+            activeFilters.push({
+                type: 'serviceType',
+                value: input.value,
+                text: text
+            });
+        });
+        
+        // Get priority filters
+        document.querySelectorAll('.orders-option input[name="priority"]:checked').forEach(input => {
+            const option = input.closest('.orders-option');
+            const text = option.querySelector('.orders-option-badge').textContent;
+            activeFilters.push({
+                type: 'priority',
+                value: input.value,
+                text: text
+            });
+        });
+        
+        // Get time period filter
+        const timeFilter = document.querySelector('.orders-option input[name="timePeriod"]:checked');
+        if (timeFilter) {
+            const option = timeFilter.closest('.orders-option');
+            const text = option.querySelector('.orders-option-text').textContent;
+            activeFilters.push({
+                type: 'timePeriod',
+                value: timeFilter.value,
+                text: text
+            });
+        }
+        
+        // Render active filters
+        this.renderActiveFilters(activeFiltersContainer, activeFilters);
+    },
+
+    /**
+     * Render active filters
+     */
+    renderActiveFilters: function(container, filters) {
+        if (filters.length === 0) {
+            container.innerHTML = '<span class="orders-active-filter-tag"><span>الكل</span></span>';
+            return;
+        }
+        
+        container.innerHTML = filters.map(filter => `
+            <span class="orders-active-filter-tag">
+                <span>${filter.text}</span>
+                <button type="button" class="orders-remove-filter" data-filter-type="${filter.type}" data-filter-value="${filter.value}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </span>
+        `).join('');
+        
+        // Add event listeners to remove buttons
+        container.querySelectorAll('.orders-remove-filter').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const filterType = e.target.closest('.orders-remove-filter').dataset.filterType;
+                const filterValue = e.target.closest('.orders-remove-filter').dataset.filterValue;
+                this.removeFilter(filterType, filterValue);
+            });
+        });
+    },
+
+    /**
+     * Remove specific filter
+     */
+    removeFilter: function(filterType, filterValue) {
+        if (filterType === 'status') {
+            // Reset to "all" status
+            this.handleStatusFilter('all');
+        } else {
+            // Uncheck the corresponding input
+            const input = document.querySelector(`.orders-option input[name="${filterType}"][value="${filterValue}"]`);
+            if (input) {
+                input.checked = false;
+                input.closest('.orders-option').classList.remove('selected');
+            }
+        }
+        
+        this.updateActiveFilters();
+        this.applyAllFilters();
+    },
+
+    /**
+     * Handle filter actions
+     */
+    handleFilterAction: function(action) {
+        switch (action) {
+            case 'clear-filters':
+                this.clearAllFilters();
+                break;
+            case 'apply-filters':
+                this.applyAllFilters();
+                break;
+        }
+    },
+
+    /**
+     * Clear all filters
+     */
+    clearAllFilters: function() {
+        // Reset status filter to "all"
+        this.handleStatusFilter('all');
+        
+        // Uncheck all advanced filter inputs
+        document.querySelectorAll('.orders-option input').forEach(input => {
+            input.checked = false;
+            input.closest('.orders-option').classList.remove('selected');
+        });
+        
+        // Clear search
+        const searchInput = document.querySelector('.orders-search-input');
+        if (searchInput) {
+            searchInput.value = '';
+            const searchClear = document.querySelector('.orders-search-clear');
+            if (searchClear) {
+                searchClear.classList.remove('visible');
+            }
+        }
+        
+        // Update active filters display
+        this.updateActiveFilters();
+        
+        // Show all orders
+        this.showAllOrders();
+    },
+
+    /**
+     * Apply all filters
+     */
+    applyAllFilters: function() {
+        const orderCards = document.querySelectorAll('.orders-order-card');
+        
+        orderCards.forEach(card => {
+            let shouldShow = true;
+            
+            // Check status filter
+            const activeStatus = document.querySelector('.orders-filter-btn.orders-active').dataset.filter;
+            if (activeStatus !== 'all' && !card.classList.contains(`orders-${activeStatus}`)) {
+                shouldShow = false;
+            }
+            
+            // Check service type filters
+            const selectedServiceTypes = Array.from(document.querySelectorAll('.orders-option input[name="serviceType"]:checked'))
+                .map(input => input.value);
+            
+            if (selectedServiceTypes.length > 0) {
+                const cardServiceType = this.getOrderServiceType(card);
+                if (!selectedServiceTypes.includes(cardServiceType)) {
+                    shouldShow = false;
+                }
+            }
+            
+            // Check priority filters
+            const selectedPriorities = Array.from(document.querySelectorAll('.orders-option input[name="priority"]:checked'))
+                .map(input => input.value);
+            
+            if (selectedPriorities.length > 0) {
+                const cardPriority = this.getOrderPriority(card);
+                if (!selectedPriorities.includes(cardPriority)) {
+                    shouldShow = false;
+                }
+            }
+            
+            // Show/hide card
+            card.style.display = shouldShow ? 'block' : 'none';
+        });
+    },
+
+    /**
+     * Get order service type from card
+     */
+    getOrderServiceType: function(card) {
+        const typeText = card.querySelector('.orders-order-type span').textContent;
+        const serviceTypeMap = {
+            'تخزين': 'warehouse',
+            'شحن': 'shipping',
+            'تخليص جمركي': 'customs',
+            'تغليف': 'packaging',
+            'اعتمادات مستندية': 'lc'
+        };
+        return serviceTypeMap[typeText] || '';
+    },
+
+    /**
+     * Get order priority from card
+     */
+    getOrderPriority: function(card) {
+        const priorityElement = card.querySelector('.orders-order-priority');
+        if (priorityElement.classList.contains('orders-high')) return 'high';
+        if (priorityElement.classList.contains('orders-medium')) return 'medium';
+        if (priorityElement.classList.contains('orders-low')) return 'low';
+        return '';
+    },
+
+    /**
+     * Show all orders
+     */
+    showAllOrders: function() {
+        const orderCards = document.querySelectorAll('.orders-order-card');
+        orderCards.forEach(card => {
+            card.style.display = 'block';
+        });
     },
 
     /**
@@ -477,14 +768,6 @@ const OrdersController = {
                 const orderId = orderCard.dataset.orderId;
                 console.log(`Navigating to order details: ${orderId}`);
                 Router.navigate('order-details');
-            }
-        });
-
-        // Handle floating action button click
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.orders-floating-action-btn')) {
-                console.log('Navigating to order form');
-                Router.navigate('order-form');
             }
         });
     }

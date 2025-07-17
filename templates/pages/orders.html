@@ -83,54 +83,162 @@
 
         <!-- Filters and Search -->
         <section class="orders-filters-section">
-            <div class="orders-filters-row">
-                <div class="orders-search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="البحث في الطلبات..." class="orders-search-input">
+            <!-- Main Search and Quick Filters -->
+            <div class="orders-filters-main">
+                <div class="orders-search-container">
+                    <div class="orders-search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="البحث في الطلبات..." class="orders-search-input">
+                        <button class="orders-search-clear" type="button" aria-label="مسح البحث">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="orders-filter-buttons">
+                <div class="orders-quick-filters">
                     <button class="orders-filter-btn orders-active" data-filter="all">
-                        الكل
+                        <span class="orders-filter-icon">
+                            <i class="fas fa-list"></i>
+                        </span>
+                        <span class="orders-filter-text">الكل</span>
                         <span class="orders-filter-count">1,420</span>
                     </button>
                     <button class="orders-filter-btn" data-filter="new">
-                        جديدة
+                        <span class="orders-filter-icon">
+                            <i class="fas fa-clock"></i>
+                        </span>
+                        <span class="orders-filter-text">جديدة</span>
                         <span class="orders-filter-count">45</span>
                     </button>
                     <button class="orders-filter-btn" data-filter="pending">
-                        قيد التنفيذ
+                        <span class="orders-filter-icon">
+                            <i class="fas fa-spinner"></i>
+                        </span>
+                        <span class="orders-filter-text">قيد التنفيذ</span>
                         <span class="orders-filter-count">128</span>
                     </button>
                     <button class="orders-filter-btn" data-filter="completed">
-                        مكتملة
+                        <span class="orders-filter-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        <span class="orders-filter-text">مكتملة</span>
                         <span class="orders-filter-count">1,247</span>
                     </button>
                 </div>
             </div>
             
-            <div class="orders-advanced-filters">
-                <select class="orders-filter-select">
-                    <option value="">نوع الخدمة</option>
-                    <option value="warehouse">تخزين</option>
-                    <option value="shipping">شحن</option>
-                    <option value="customs">تخليص جمركي</option>
-                    <option value="packaging">تغليف</option>
-                    <option value="lc">اعتمادات مستندية</option>
-                </select>
-                
-                <select class="orders-filter-select">
-                    <option value="">الفترة الزمنية</option>
-                    <option value="today">اليوم</option>
-                    <option value="week">هذا الأسبوع</option>
-                    <option value="month">هذا الشهر</option>
-                    <option value="quarter">هذا الربع</option>
-                </select>
-                
-                <button class="orders-filter-btn orders-secondary">
+            <!-- Advanced Filters Toggle -->
+            <div class="orders-advanced-toggle">
+                <button class="orders-toggle-btn" type="button" data-toggle="advanced-filters">
                     <i class="fas fa-filter"></i>
-                    فلترة متقدمة
+                    <span>فلترة متقدمة</span>
+                    <i class="fas fa-chevron-down orders-toggle-icon"></i>
                 </button>
+                <div class="orders-active-filters">
+                    <span class="orders-active-filter-tag">
+                        <span>الكل</span>
+                        <button type="button" class="orders-remove-filter" data-filter="all">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Advanced Filters Panel -->
+            <div class="orders-advanced-panel" id="advanced-filters">
+                <div class="orders-advanced-content">
+                    <div class="orders-filter-group">
+                        <label class="orders-filter-label">نوع الخدمة</label>
+                        <div class="orders-filter-options">
+                            <label class="orders-option">
+                                <input type="checkbox" name="serviceType" value="warehouse">
+                                <span class="orders-option-icon">
+                                    <i class="fas fa-warehouse"></i>
+                                </span>
+                                <span class="orders-option-text">تخزين</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="checkbox" name="serviceType" value="shipping">
+                                <span class="orders-option-icon">
+                                    <i class="fas fa-truck"></i>
+                                </span>
+                                <span class="orders-option-text">شحن</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="checkbox" name="serviceType" value="customs">
+                                <span class="orders-option-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </span>
+                                <span class="orders-option-text">تخليص جمركي</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="checkbox" name="serviceType" value="packaging">
+                                <span class="orders-option-icon">
+                                    <i class="fas fa-box"></i>
+                                </span>
+                                <span class="orders-option-text">تغليف</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="checkbox" name="serviceType" value="lc">
+                                <span class="orders-option-icon">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </span>
+                                <span class="orders-option-text">اعتمادات مستندية</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="orders-filter-group">
+                        <label class="orders-filter-label">الفترة الزمنية</label>
+                        <div class="orders-time-filters">
+                            <label class="orders-option">
+                                <input type="radio" name="timePeriod" value="today">
+                                <span class="orders-option-text">اليوم</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="radio" name="timePeriod" value="week">
+                                <span class="orders-option-text">هذا الأسبوع</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="radio" name="timePeriod" value="month">
+                                <span class="orders-option-text">هذا الشهر</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="radio" name="timePeriod" value="quarter">
+                                <span class="orders-option-text">هذا الربع</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="orders-filter-group">
+                        <label class="orders-filter-label">الأولوية</label>
+                        <div class="orders-priority-filters">
+                            <label class="orders-option">
+                                <input type="checkbox" name="priority" value="high">
+                                <span class="orders-option-badge orders-priority-high">عالية</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="checkbox" name="priority" value="medium">
+                                <span class="orders-option-badge orders-priority-medium">متوسطة</span>
+                            </label>
+                            <label class="orders-option">
+                                <input type="checkbox" name="priority" value="low">
+                                <span class="orders-option-badge orders-priority-low">منخفضة</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="orders-advanced-actions">
+                    <button type="button" class="orders-btn orders-btn-outline" data-action="clear-filters">
+                        <i class="fas fa-times"></i>
+                        مسح الفلاتر
+                    </button>
+                    <button type="button" class="orders-btn orders-btn-primary" data-action="apply-filters">
+                        <i class="fas fa-check"></i>
+                        تطبيق الفلاتر
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -141,12 +249,6 @@
                     <i class="fas fa-list orders-section-icon"></i>
                     قائمة الطلبات
                 </h3>
-                <div class="orders-section-actions">
-                    <button class="orders-btn orders-btn-primary" data-action="navigate" data-page="order-form">
-                        <i class="fas fa-plus"></i>
-                        طلب جديد
-                    </button>
-                </div>
             </div>
             
             <div class="orders-grid">
@@ -421,9 +523,4 @@
                 </div>
             </div>
         </section>
-
-        <!-- Floating Action Button -->
-        <button class="orders-floating-action-btn" data-action="navigate" data-page="order-form" aria-label="إنشاء طلب جديد">
-            <i class="fas fa-plus"></i>
-        </button>
     </div>
