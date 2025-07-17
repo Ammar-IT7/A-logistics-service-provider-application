@@ -533,3 +533,59 @@ const DashboardController = {
 
 // Attach to window object
 window.DashboardController = DashboardController; 
+
+// Profile Drawer Logic
+const profileDrawer = document.getElementById('profileDrawer');
+const profileDrawerOverlay = document.getElementById('profileDrawerOverlay');
+
+function openProfileDrawer() {
+    if (profileDrawer && profileDrawerOverlay) {
+        profileDrawer.classList.add('open');
+        profileDrawerOverlay.classList.add('open');
+        profileDrawerOverlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        // Render profile content
+        if (window.ProfileController) {
+            window.ProfileController.init();
+        }
+    }
+}
+
+function closeProfileDrawer() {
+    if (profileDrawer && profileDrawerOverlay) {
+        profileDrawer.classList.remove('open');
+        profileDrawerOverlay.classList.remove('open');
+        setTimeout(() => { profileDrawerOverlay.style.display = 'none'; }, 300);
+        document.body.style.overflow = '';
+    }
+}
+
+// Make function globally accessible
+window.closeProfileDrawer = closeProfileDrawer;
+
+// Open drawer on menu icon click
+const dashboardMenuBtn = document.querySelector('.dashboard-header-action[data-action="menu"]');
+if (dashboardMenuBtn) {
+    dashboardMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openProfileDrawer();
+    });
+}
+// Close drawer on overlay click
+if (profileDrawerOverlay) {
+    profileDrawerOverlay.addEventListener('click', closeProfileDrawer);
+}
+
+// Close drawer on close button click
+const closeDrawerBtn = document.querySelector('[data-action="close-drawer"]');
+if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener('click', closeProfileDrawer);
+}
+
+// Close drawer on ESC
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && profileDrawer.classList.contains('open')) {
+        closeProfileDrawer();
+    }
+});
+// Optionally, add a close button inside the drawer if needed 

@@ -1,5 +1,5 @@
 /**
- * Profile page controller
+ * Profile page controller - Personal Focused Version
  */
 const ProfileController = {
     /**
@@ -7,189 +7,422 @@ const ProfileController = {
      */
     init: function() {
         console.log('Profile page initialized');
+        this.loadUserData();
         this.renderProfile();
         this.setupEventListeners();
+        this.initializeAnimations();
     },
     
     /**
-     * Render profile data from state
+     * Load personal user data
+     */
+    loadUserData: function() {
+        const userData = {
+            name: 'أحمد محمد علي',
+            email: 'ahmed.mohamed@logistics.com',
+            phone: '+966 50 123 4567',
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+            status: 'active',
+            address: 'شارع الملك فهد، حي النزهة',
+            city: 'الرياض',
+            accountType: 'مزود خدمة لوجستي',
+            memberSince: '8',
+            company: 'شركة النقل السريع',
+            position: 'مدير العمليات',
+            rating: 4.8,
+            verificationStatus: 'متحقق',
+            subscriptionPlan: 'الخطة المميزة',
+            subscriptionExpiry: '15 ديسمبر 2024',
+            lastActive: 'منذ 5 دقائق',
+            // Personal settings
+            notifications: 'مفعلة',
+            language: 'العربية',
+            theme: 'فاتح',
+            twoFactorAuth: 'مفعل',
+            // Service counts (personal context)
+            warehouses: 4,
+            shippingServices: 12,
+            customsServices: 8,
+            packagingServices: 3
+        };
+        
+        State.set('user', userData);
+        
+        // Set personal activity data
+        State.set('personalActivities', [
+            {
+                id: 1,
+                title: 'تم تحديث الصورة الشخصية',
+                subtitle: 'منذ 15 دقيقة',
+                type: 'profile',
+                status: 'completed'
+            },
+            {
+                id: 2,
+                title: 'تم تغيير كلمة المرور',
+                subtitle: 'منذ يوم',
+                type: 'security',
+                status: 'completed'
+            },
+            {
+                id: 3,
+                title: 'تم تفعيل المصادقة الثنائية',
+                subtitle: 'منذ 3 أيام',
+                type: 'security',
+                status: 'completed'
+            },
+            {
+                id: 4,
+                title: 'تم تحديث معلومات الاتصال',
+                subtitle: 'منذ أسبوع',
+                type: 'profile',
+                status: 'completed'
+            },
+            {
+                id: 5,
+                title: 'تم تغيير اللغة إلى العربية',
+                subtitle: 'منذ أسبوعين',
+                type: 'settings',
+                status: 'completed'
+            }
+        ]);
+    },
+    
+    /**
+     * Render profile data with enhanced UI
      */
     renderProfile: function() {
         const user = State.get('user');
+        if (!user) return;
         
-        // Update profile header
-        const profileHeader = document.querySelector('.func-profile-header');
-        if (profileHeader) {
-            profileHeader.innerHTML = `
-                <div class="func-profile-avatar">
-                    <img src="${user.avatar}" alt="${user.name}" onerror="this.src='https://via.placeholder.com/120x120/007bff/ffffff?text=${user.name.charAt(0)}'">
-                    <button class="func-avatar-edit" data-action="edit-avatar">
-                        <i class="fas fa-camera"></i>
-                    </button>
-                </div>
-                <div class="func-profile-info">
-                    <h2 class="func-profile-name">${user.name}</h2>
-                    <p class="func-profile-email">${user.email}</p>
-                    <p class="func-profile-phone">${user.phone}</p>
-                    <div class="func-profile-status">
-                        <span class="func-status-badge ${user.status}">
-                            <i class="fas fa-circle"></i>
-                            ${this.getStatusText(user.status)}
-                        </span>
-                    </div>
-                </div>
-            `;
+        // Update profile info with animation
+        this.updateProfileInfo(user);
+        this.updateProfileStats(user);
+        this.updateProfileDetails(user);
+        this.updateAccountSettings(user);
+        this.updateServiceStats(user);
+        this.updatePersonalActivity();
+        this.updateProfileStatus(user);
+    },
+    
+    /**
+     * Update profile information with smooth animations
+     */
+    updateProfileInfo: function(user) {
+        const profileName = document.querySelector('.profile-name');
+        const profileEmail = document.querySelector('.profile-email');
+        const profilePhone = document.querySelector('.profile-phone');
+        const profileAvatar = document.querySelector('.profile-avatar');
+        
+        if (profileName) {
+            profileName.style.opacity = '0';
+            setTimeout(() => {
+                profileName.textContent = user.name;
+                profileName.style.opacity = '1';
+            }, 200);
         }
         
-        // Update profile stats
-        const statsContainer = document.querySelector('.func-profile-stats');
-        if (statsContainer) {
-            const stats = State.get('stats');
-            statsContainer.innerHTML = `
-                <div class="func-stat-card">
-                    <div class="func-stat-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="func-stat-content">
-                        <span class="func-stat-value">${stats.totalOrders}</span>
-                        <span class="func-stat-label">إجمالي الطلبات</span>
-                    </div>
-                </div>
-                <div class="func-stat-card">
-                    <div class="func-stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="func-stat-content">
-                        <span class="func-stat-value">${stats.averageRating}</span>
-                        <span class="func-stat-label">متوسط التقييم</span>
-                    </div>
-                </div>
-                <div class="func-stat-card">
-                    <div class="func-stat-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="func-stat-content">
-                        <span class="func-stat-value">${user.memberSince}</span>
-                        <span class="func-stat-label">عضو منذ</span>
-                    </div>
-                </div>
-            `;
+        if (profileEmail) {
+            profileEmail.style.opacity = '0';
+            setTimeout(() => {
+                profileEmail.textContent = user.email;
+                profileEmail.style.opacity = '1';
+            }, 300);
         }
         
-        // Update profile details
-        const detailsContainer = document.querySelector('.func-profile-details');
-        if (detailsContainer) {
-            detailsContainer.innerHTML = `
-                <div class="func-detail-section">
-                    <h3 class="func-section-title">المعلومات الشخصية</h3>
-                    <div class="func-detail-grid">
-                        <div class="func-detail-item">
-                            <span class="func-detail-label">الاسم الكامل:</span>
-                            <span class="func-detail-value">${user.name}</span>
-                        </div>
-                        <div class="func-detail-item">
-                            <span class="func-detail-label">البريد الإلكتروني:</span>
-                            <span class="func-detail-value">${user.email}</span>
-                        </div>
-                        <div class="func-detail-item">
-                            <span class="func-detail-label">رقم الهاتف:</span>
-                            <span class="func-detail-value">${user.phone}</span>
-                        </div>
-                        <div class="func-detail-item">
-                            <span class="func-detail-label">العنوان:</span>
-                            <span class="func-detail-value">${user.address}</span>
-                        </div>
-                        <div class="func-detail-item">
-                            <span class="func-detail-label">المدينة:</span>
-                            <span class="func-detail-value">${user.city}</span>
-                        </div>
-                        <div class="func-detail-item">
-                            <span class="func-detail-label">نوع الحساب:</span>
-                            <span class="func-detail-value">${user.accountType}</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="func-detail-section">
-                    <h3 class="func-section-title">إحصائيات النشاط</h3>
-                    <div class="func-activity-stats">
-                        <div class="func-activity-item">
-                            <div class="func-activity-icon">
-                                <i class="fas fa-warehouse"></i>
-                            </div>
-                            <div class="func-activity-content">
-                                <span class="func-activity-value">${State.get('warehouses').length}</span>
-                                <span class="func-activity-label">مستودعات</span>
-                            </div>
-                        </div>
-                        <div class="func-activity-item">
-                            <div class="func-activity-icon">
-                                <i class="fas fa-truck"></i>
-                            </div>
-                            <div class="func-activity-content">
-                                <span class="func-activity-value">${State.get('shippingServices').length}</span>
-                                <span class="func-activity-label">خدمات شحن</span>
-                            </div>
-                        </div>
-                        <div class="func-activity-item">
-                            <div class="func-activity-icon">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <div class="func-activity-content">
-                                <span class="func-activity-value">${State.get('customsServices').length}</span>
-                                <span class="func-activity-label">خدمات تخليص</span>
-                            </div>
-                        </div>
-                        <div class="func-activity-item">
-                            <div class="func-activity-icon">
-                                <i class="fas fa-box"></i>
-                            </div>
-                            <div class="func-activity-content">
-                                <span class="func-activity-value">${State.get('packagingServices').length}</span>
-                                <span class="func-activity-label">خدمات تغليف</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+        if (profilePhone) {
+            profilePhone.style.opacity = '0';
+            setTimeout(() => {
+                profilePhone.textContent = user.phone;
+                profilePhone.style.opacity = '1';
+            }, 400);
+        }
+        
+        if (profileAvatar && user.avatar) {
+            profileAvatar.style.opacity = '0';
+            setTimeout(() => {
+                profileAvatar.src = user.avatar;
+                profileAvatar.alt = `صورة ${user.name}`;
+                profileAvatar.style.opacity = '1';
+            }, 100);
         }
     },
     
     /**
-     * Get status text in Arabic
+     * Update profile status with enhanced styling
+     */
+    updateProfileStatus: function(user) {
+        const profileStatus = document.querySelector('.profile-status span');
+        if (profileStatus) {
+            profileStatus.textContent = this.getStatusText(user.status);
+            
+            // Add status-specific styling
+            const statusContainer = document.querySelector('.profile-status');
+            if (statusContainer) {
+                statusContainer.className = `profile-status ${user.status}`;
+            }
+        }
+    },
+    
+    /**
+     * Update profile statistics with personal data
+     */
+    updateProfileStats: function(user) {
+        const statCards = document.querySelectorAll('.profile-stat-card');
+        if (statCards.length >= 3) {
+            // Member since stat
+            const memberValue = statCards[0].querySelector('.profile-stat-value');
+            if (memberValue) {
+                memberValue.textContent = user.memberSince;
+            }
+            
+            // Rating stat
+            const ratingValue = statCards[1].querySelector('.profile-stat-value');
+            if (ratingValue) {
+                this.animateNumber(ratingValue, 0, user.rating, 1000, 1);
+            }
+            
+            // Verification status stat
+            const verificationValue = statCards[2].querySelector('.profile-stat-value');
+            if (verificationValue) {
+                verificationValue.textContent = user.verificationStatus;
+            }
+        }
+    },
+    
+    /**
+     * Update profile details with comprehensive personal information
+     */
+    updateProfileDetails: function(user) {
+        const detailItems = document.querySelectorAll('.profile-detail-item');
+        
+        const details = [
+            { label: 'الاسم الكامل', value: user.name },
+            { label: 'البريد الإلكتروني', value: user.email },
+            { label: 'رقم الهاتف', value: user.phone },
+            { label: 'الشركة', value: user.company },
+            { label: 'المنصب', value: user.position },
+            { label: 'العنوان', value: user.address },
+            { label: 'المدينة', value: user.city },
+            { label: 'نوع الحساب', value: user.accountType },
+            { label: 'حالة التحقق', value: user.verificationStatus },
+            { label: 'خطة الاشتراك', value: user.subscriptionPlan },
+            { label: 'تاريخ انتهاء الاشتراك', value: user.subscriptionExpiry },
+            { label: 'آخر نشاط', value: user.lastActive }
+        ];
+        
+        detailItems.forEach((item, index) => {
+            if (index < details.length) {
+                const label = item.querySelector('.profile-detail-label');
+                const value = item.querySelector('.profile-detail-value');
+                
+                if (label && value) {
+                    label.textContent = details[index].label + ':';
+                    value.textContent = details[index].value;
+                    
+                    // Add animation
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(20px)';
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.3s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateX(0)';
+                    }, index * 100);
+                }
+            }
+        });
+    },
+    
+    /**
+     * Update account settings with personal preferences
+     */
+    updateAccountSettings: function(user) {
+        const activityItems = document.querySelectorAll('.profile-activity-item');
+        
+        const settings = [
+            { icon: 'fas fa-bell', value: user.notifications, label: 'الإشعارات' },
+            { icon: 'fas fa-language', value: user.language, label: 'اللغة' },
+            { icon: 'fas fa-moon', value: user.theme, label: 'المظهر' },
+            { icon: 'fas fa-lock', value: user.twoFactorAuth, label: 'المصادقة الثنائية' }
+        ];
+        
+        activityItems.forEach((item, index) => {
+            if (index < settings.length) {
+                const icon = item.querySelector('.profile-activity-icon i');
+                const value = item.querySelector('.profile-activity-value');
+                const label = item.querySelector('.profile-activity-label');
+                
+                if (icon) icon.className = settings[index].icon;
+                if (value) value.textContent = settings[index].value;
+                if (label) label.textContent = settings[index].label;
+                
+                // Add animation
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.3s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 150);
+            }
+        });
+    },
+    
+    /**
+     * Update service statistics (personal context)
+     */
+    updateServiceStats: function(user) {
+        const performanceItems = document.querySelectorAll('.profile-performance-item');
+        
+        const services = [
+            { icon: 'fas fa-warehouse', value: user.warehouses, label: 'مستودعات' },
+            { icon: 'fas fa-truck', value: user.shippingServices, label: 'خدمات شحن' },
+            { icon: 'fas fa-clipboard-check', value: user.customsServices, label: 'خدمات تخليص' },
+            { icon: 'fas fa-box', value: user.packagingServices, label: 'خدمات تغليف' }
+        ];
+        
+        performanceItems.forEach((item, index) => {
+            if (index < services.length) {
+                const icon = item.querySelector('.profile-performance-icon i');
+                const value = item.querySelector('.profile-performance-value');
+                const label = item.querySelector('.profile-performance-label');
+                
+                if (icon) icon.className = services[index].icon;
+                if (value) {
+                    this.animateNumber(value, 0, services[index].value, 800);
+                }
+                if (label) label.textContent = services[index].label;
+                
+                // Add animation
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.3s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 150);
+            }
+        });
+    },
+    
+    /**
+     * Update personal activity with dynamic content
+     */
+    updatePersonalActivity: function() {
+        const activities = State.get('personalActivities') || [];
+        const activityList = document.querySelector('.profile-activity-list');
+        
+        if (activityList) {
+            activityList.innerHTML = activities.map((activity, index) => `
+                <div class="profile-activity-item-card" style="opacity: 0; transform: translateX(20px);">
+                    <div class="profile-activity-item-content">
+                        <div class="profile-activity-item-title">${activity.title}</div>
+                        <div class="profile-activity-item-subtitle">${activity.subtitle}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Animate items in
+            const cards = activityList.querySelectorAll('.profile-activity-item-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transition = 'all 0.3s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                }, index * 200);
+            });
+        }
+    },
+    
+    /**
+     * Animate number counting
+     */
+    animateNumber: function(element, start, end, duration, decimals = 0) {
+        const startTime = performance.now();
+        const difference = end - start;
+        
+        function updateNumber(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const current = start + (difference * progress);
+            element.textContent = decimals > 0 ? current.toFixed(decimals) : Math.floor(current);
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateNumber);
+            }
+        }
+        
+        requestAnimationFrame(updateNumber);
+    },
+    
+    /**
+     * Initialize smooth animations
+     */
+    initializeAnimations: function() {
+        // Add intersection observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all cards and sections
+        document.querySelectorAll('.profile-stat-card, .profile-detail-item, .profile-activity-item, .profile-performance-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.3s ease';
+            observer.observe(el);
+        });
+    },
+    
+    /**
+     * Get status text in Arabic with enhanced styling
      */
     getStatusText: function(status) {
         const statusMap = {
             'active': 'نشط',
             'inactive': 'غير نشط',
             'suspended': 'معلق',
-            'pending': 'قيد المراجعة'
+            'pending': 'قيد المراجعة',
+            'verified': 'متحقق',
+            'premium': 'مميز'
         };
         return statusMap[status] || status;
     },
     
     /**
-     * Set up event listeners
+     * Set up enhanced event listeners
      */
     setupEventListeners: function() {
         const page = document.getElementById('profile');
         if (!page) return;
         
-        // Handle edit profile button
+        // Handle edit profile button with enhanced feedback
         const editProfileBtn = page.querySelector('[data-action="edit-profile"]');
         if (editProfileBtn) {
             editProfileBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.showEditProfileModal();
+                this.addButtonFeedback(editProfileBtn);
+                setTimeout(() => this.showEditProfileModal(), 150);
             });
         }
         
-        // Handle edit avatar button
+        // Handle edit avatar with file upload
         page.addEventListener('click', (e) => {
             const editAvatarBtn = e.target.closest('[data-action="edit-avatar"]');
             if (editAvatarBtn) {
                 e.preventDefault();
-                this.editAvatar();
+                this.addButtonFeedback(editAvatarBtn);
+                setTimeout(() => this.editAvatar(), 150);
             }
         });
         
@@ -198,22 +431,68 @@ const ProfileController = {
         if (settingsBtn) {
             settingsBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                Router.navigate('settings');
+                this.addButtonFeedback(settingsBtn);
+                setTimeout(() => Router.navigate('settings'), 150);
             });
         }
         
-        // Handle logout button
+        // Handle logout button with confirmation
         const logoutBtn = page.querySelector('[data-action="logout"]');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.logout();
+                this.addButtonFeedback(logoutBtn);
+                setTimeout(() => this.logout(), 150);
             });
         }
+        
+        // Handle close drawer button
+        const closeDrawerBtn = page.querySelector('[data-action="close-drawer"]');
+        if (closeDrawerBtn) {
+            closeDrawerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.addButtonFeedback(closeDrawerBtn);
+                setTimeout(() => {
+                    if (window.closeProfileDrawer) {
+                        window.closeProfileDrawer();
+                    }
+                }, 150);
+            });
+        }
+        
+        // Add hover effects for interactive elements
+        this.addHoverEffects();
     },
     
     /**
-     * Show edit profile modal
+     * Add button feedback animation
+     */
+    addButtonFeedback: function(button) {
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            button.style.transform = 'scale(1)';
+        }, 150);
+    },
+    
+    /**
+     * Add hover effects for better UX
+     */
+    addHoverEffects: function() {
+        // Add ripple effect to buttons
+        document.querySelectorAll('.profile-btn, .profile-header-action').forEach(btn => {
+            btn.addEventListener('mouseenter', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                btn.style.setProperty('--ripple-x', x + 'px');
+                btn.style.setProperty('--ripple-y', y + 'px');
+            });
+        });
+    },
+    
+    /**
+     * Show enhanced edit profile modal
      */
     showEditProfileModal: function() {
         const user = State.get('user');
@@ -224,31 +503,39 @@ const ProfileController = {
                 <button class="modal-close" data-action="close-modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="func-profile-form" id="editProfileForm">
-                    <div class="func-form-group">
-                        <label for="editName">الاسم الكامل</label>
-                        <input type="text" id="editName" name="name" value="${user.name}" required>
+                <form class="profile-form" id="editProfileForm">
+                    <div class="profile-form-group">
+                        <label for="editName" class="profile-form-label">الاسم الكامل</label>
+                        <input type="text" id="editName" name="name" class="profile-form-control" value="${user.name}" required>
                     </div>
-                    <div class="func-form-group">
-                        <label for="editEmail">البريد الإلكتروني</label>
-                        <input type="email" id="editEmail" name="email" value="${user.email}" required>
+                    <div class="profile-form-group">
+                        <label for="editEmail" class="profile-form-label">البريد الإلكتروني</label>
+                        <input type="email" id="editEmail" name="email" class="profile-form-control" value="${user.email}" required>
                     </div>
-                    <div class="func-form-group">
-                        <label for="editPhone">رقم الهاتف</label>
-                        <input type="tel" id="editPhone" name="phone" value="${user.phone}" required>
+                    <div class="profile-form-group">
+                        <label for="editPhone" class="profile-form-label">رقم الهاتف</label>
+                        <input type="tel" id="editPhone" name="phone" class="profile-form-control" value="${user.phone}" required>
                     </div>
-                    <div class="func-form-group">
-                        <label for="editAddress">العنوان</label>
-                        <textarea id="editAddress" name="address" rows="3" required>${user.address}</textarea>
+                    <div class="profile-form-group">
+                        <label for="editCompany" class="profile-form-label">الشركة</label>
+                        <input type="text" id="editCompany" name="company" class="profile-form-control" value="${user.company}" required>
                     </div>
-                    <div class="func-form-group">
-                        <label for="editCity">المدينة</label>
-                        <input type="text" id="editCity" name="city" value="${user.city}" required>
+                    <div class="profile-form-group">
+                        <label for="editPosition" class="profile-form-label">المنصب</label>
+                        <input type="text" id="editPosition" name="position" class="profile-form-control" value="${user.position}" required>
+                    </div>
+                    <div class="profile-form-group">
+                        <label for="editAddress" class="profile-form-label">العنوان</label>
+                        <textarea id="editAddress" name="address" class="profile-form-control" rows="3" required>${user.address}</textarea>
+                    </div>
+                    <div class="profile-form-group">
+                        <label for="editCity" class="profile-form-label">المدينة</label>
+                        <input type="text" id="editCity" name="city" class="profile-form-control" value="${user.city}" required>
                     </div>
                     
-                    <div class="func-form-actions">
-                        <button type="button" class="func-btn func-btn-outline" data-action="close-modal">إلغاء</button>
-                        <button type="submit" class="func-btn func-btn-primary">حفظ التغييرات</button>
+                    <div class="profile-form-actions">
+                        <button type="button" class="profile-btn profile-btn-outline" data-action="close-modal">إلغاء</button>
+                        <button type="submit" class="profile-btn profile-btn-primary">حفظ التغييرات</button>
                     </div>
                 </form>
             </div>
@@ -256,7 +543,7 @@ const ProfileController = {
         
         Modal.show('edit-profile-modal', modalContent);
         
-        // Handle form submission
+        // Handle form submission with enhanced validation
         const form = document.getElementById('editProfileForm');
         if (form) {
             form.addEventListener('submit', (e) => {
@@ -267,7 +554,7 @@ const ProfileController = {
     },
     
     /**
-     * Update profile information
+     * Update profile information with enhanced feedback
      */
     updateProfile: function(form) {
         const formData = new FormData(form);
@@ -276,6 +563,8 @@ const ProfileController = {
             name: formData.get('name'),
             email: formData.get('email'),
             phone: formData.get('phone'),
+            company: formData.get('company'),
+            position: formData.get('position'),
             address: formData.get('address'),
             city: formData.get('city')
         };
@@ -283,28 +572,99 @@ const ProfileController = {
         State.set('user', updatedUser);
         this.renderProfile();
         Modal.close();
+        
         Toast.show('تم التحديث', 'تم تحديث الملف الشخصي بنجاح', 'success');
+        
+        // Add to personal activities
+        const activities = State.get('personalActivities') || [];
+        activities.unshift({
+            id: Date.now(),
+            title: 'تم تحديث معلومات الملف الشخصي',
+            subtitle: 'الآن',
+            type: 'profile',
+            status: 'completed'
+        });
+        State.set('personalActivities', activities.slice(0, 5)); // Keep only 5 recent activities
     },
     
     /**
-     * Edit avatar
+     * Enhanced avatar upload with preview
      */
     editAvatar: function() {
-        Toast.show('تحديث الصورة', 'سيتم إضافة ميزة تحديث الصورة قريباً', 'info');
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                this.uploadAvatar(file);
+            }
+        });
+        
+        document.body.appendChild(fileInput);
+        fileInput.click();
+        document.body.removeChild(fileInput);
     },
     
     /**
-     * Logout user
+     * Upload avatar with enhanced feedback
+     */
+    uploadAvatar: function(file) {
+        // Show loading state
+        const avatar = document.querySelector('.profile-avatar');
+        if (avatar) {
+            avatar.style.opacity = '0.5';
+        }
+        
+        Toast.show('جاري التحميل', 'جاري تحميل الصورة...', 'info');
+        
+        // Simulate upload process
+        setTimeout(() => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (avatar) {
+                    avatar.src = e.target.result;
+                    avatar.style.opacity = '1';
+                }
+                
+                Toast.show('تم التحديث', 'تم تحديث الصورة الشخصية بنجاح', 'success');
+                
+                // Add to personal activities
+                const activities = State.get('personalActivities') || [];
+                activities.unshift({
+                    id: Date.now(),
+                    title: 'تم تحديث الصورة الشخصية',
+                    subtitle: 'الآن',
+                    type: 'profile',
+                    status: 'completed'
+                });
+                State.set('personalActivities', activities.slice(0, 5));
+            };
+            reader.readAsDataURL(file);
+        }, 1500);
+    },
+    
+    /**
+     * Enhanced logout with better UX
      */
     logout: function() {
-        if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-            // Clear user data
-            State.set('user', null);
-            State.set('isAuthenticated', false);
+        const confirmMessage = 'هل أنت متأكد من تسجيل الخروج؟ سيتم إغلاق جميع الجلسات النشطة.';
+        
+        if (confirm(confirmMessage)) {
+            Toast.show('جاري تسجيل الخروج', 'جاري إغلاق الجلسة...', 'info');
             
-            // Navigate to login
-            Router.navigate('login');
-            Toast.show('تم تسجيل الخروج', 'تم تسجيل الخروج بنجاح', 'success');
+            setTimeout(() => {
+                // Clear user data
+                State.set('user', null);
+                State.set('isAuthenticated', false);
+                State.set('personalActivities', []);
+                
+                // Navigate to login
+                Router.navigate('login');
+                Toast.show('تم تسجيل الخروج', 'تم تسجيل الخروج بنجاح', 'success');
+            }, 1000);
         }
     }
 };

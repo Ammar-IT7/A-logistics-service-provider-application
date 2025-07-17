@@ -393,3 +393,221 @@
             </div>
         </section>
     </div>
+
+    <!-- Profile Drawer Overlay -->
+    <div class="profile-drawer-overlay" id="profileDrawerOverlay" style="display:none;"></div>
+    <!-- Profile Drawer -->
+    <div class="profile-drawer" id="profileDrawer">
+        <div class="profile-header">
+            <div class="profile-header-left">
+                <button class="profile-header-action" data-action="close-drawer">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="profile-header-info">
+                    <h1 class="profile-header-title">الملف الشخصي</h1>
+                    <p class="profile-header-subtitle">معلومات الحساب والخدمات</p>
+                </div>
+            </div>
+            <div class="profile-header-right">
+                <button class="profile-header-action" data-action="edit-profile" aria-label="تعديل الملف">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="profile-header-action" data-action="settings" aria-label="الإعدادات">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <!-- Profile Main Section -->
+            <div class="profile-main-section">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-container">
+                        <img id="profileAvatarPreview" class="profile-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="الصورة الشخصية">
+                        <button class="profile-avatar-edit" data-action="edit-avatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-avatar-help">
+                        <span class="help-icon" title="يفضل صورة مربعة 300x300 بكسل على الأقل.">؟</span>
+                        يمكنك تغيير الصورة الشخصية
+                    </div>
+                </div>
+                
+                <div class="profile-info">
+                    <h2 class="profile-name">أحمد محمد علي</h2>
+                    <p class="profile-email">ahmed.mohamed@logistics.com</p>
+                    <p class="profile-phone">+966 50 123 4567</p>
+                    <div class="profile-status">
+                        <i class="fas fa-circle"></i>
+                        <span>نشط</span>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <span class="profile-stat-value">شركة النقل السريع</span>
+                            <span class="profile-stat-label">الشركة</span>
+                        </div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <span class="profile-stat-value">مدير العمليات</span>
+                            <span class="profile-stat-label">المنصب</span>
+                        </div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <span class="profile-stat-value">8</span>
+                            <span class="profile-stat-label">أشهر</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="profile-btn profile-btn-primary" data-action="edit-profile">
+                        <i class="fas fa-edit"></i>
+                        تعديل الملف
+                    </button>
+                    <button class="profile-btn profile-btn-outline" data-action="settings">
+                        <i class="fas fa-cog"></i>
+                        الإعدادات
+                    </button>
+                    <button class="profile-btn profile-btn-danger" data-action="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Business Overview -->
+            <div class="profile-details">
+                <div class="profile-detail-section">
+                    <h3 class="profile-section-title">
+                        <i class="fas fa-chart-line profile-section-icon"></i>
+                        نظرة عامة على الأعمال
+                    </h3>
+                    <div class="profile-detail-grid">
+                        <div class="profile-detail-item">
+                            <span class="profile-detail-label">إجمالي الإيرادات:</span>
+                            <span class="profile-detail-value">₺125,430</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="profile-detail-label">الإيرادات الشهرية:</span>
+                            <span class="profile-detail-value">₺8,450</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="profile-detail-label">الطلبات النشطة:</span>
+                            <span class="profile-detail-value">1,247</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="profile-detail-label">العملاء النشطين:</span>
+                            <span class="profile-detail-value">89</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="profile-detail-label">الشحنات اليوم:</span>
+                            <span class="profile-detail-value">156</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="profile-detail-label">معدل رضا العملاء:</span>
+                            <span class="profile-detail-value">4.8/5</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-detail-section">
+                    <h3 class="profile-section-title">
+                        <i class="fas fa-tachometer-alt profile-section-icon"></i>
+                        مؤشرات الأداء
+                    </h3>
+                    <div class="profile-activity-stats">
+                        <div class="profile-activity-item">
+                            <div class="profile-activity-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="profile-activity-content">
+                                <span class="profile-activity-value">2.3 أيام</span>
+                                <span class="profile-activity-label">متوسط وقت التسليم</span>
+                            </div>
+                        </div>
+                        <div class="profile-activity-item">
+                            <div class="profile-activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="profile-activity-content">
+                                <span class="profile-activity-value">98.5%</span>
+                                <span class="profile-activity-label">معدل إكمال الطلبات</span>
+                            </div>
+                        </div>
+                        <div class="profile-activity-item">
+                            <div class="profile-activity-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            <div class="profile-activity-content">
+                                <span class="profile-activity-value">87%</span>
+                                <span class="profile-activity-label">كفاءة المخازن</span>
+                            </div>
+                        </div>
+                        <div class="profile-activity-item">
+                            <div class="profile-activity-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="profile-activity-content">
+                                <span class="profile-activity-value">95%</span>
+                                <span class="profile-activity-label">معدل التسليم في الوقت</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Business Activity -->
+            <div class="profile-recent-activity">
+                <h3 class="profile-section-title">
+                    <i class="fas fa-briefcase profile-section-icon"></i>
+                    نشاط الأعمال
+                </h3>
+                <div class="profile-activity-list">
+                    <div class="profile-activity-item-card">
+                        <div class="profile-activity-item-content">
+                            <div class="profile-activity-item-title">تم إضافة عميل جديد - شركة التقنية المتقدمة</div>
+                            <div class="profile-activity-item-subtitle">منذ ساعتين</div>
+                        </div>
+                        <button class="profile-activity-item-action">عرض</button>
+                    </div>
+                    <div class="profile-activity-item-card">
+                        <div class="profile-activity-item-content">
+                            <div class="profile-activity-item-title">تم تجديد عقد خدمة الشحن الدولي</div>
+                            <div class="profile-activity-item-subtitle">منذ يوم</div>
+                        </div>
+                        <span class="profile-activity-amount">₺15,000</span>
+                        <button class="profile-activity-item-action">عرض</button>
+                    </div>
+                    <div class="profile-activity-item-card">
+                        <div class="profile-activity-item-content">
+                            <div class="profile-activity-item-title">تم افتتاح مخزن جديد في الدمام</div>
+                            <div class="profile-activity-item-subtitle">منذ 3 أيام</div>
+                        </div>
+                        <button class="profile-activity-item-action">عرض</button>
+                    </div>
+                    <div class="profile-activity-item-card">
+                        <div class="profile-activity-item-content">
+                            <div class="profile-activity-item-title">تم إضافة خدمة شحن سريع جديدة</div>
+                            <div class="profile-activity-item-subtitle">منذ أسبوع</div>
+                        </div>
+                        <button class="profile-activity-item-action">عرض</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

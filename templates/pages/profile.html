@@ -1,66 +1,282 @@
-<div class="header">
-    <button class="header-action" data-action="navigate" data-page="home">←</button>
-    <h1 class="header-title">Profile</h1>
-    <button class="header-action" data-action="open-modal" data-modal="editProfileModal">✏️</button>
+<div class="profile-header">
+    <div class="profile-header-left">
+        <button class="profile-header-action" data-action="close-drawer">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="profile-header-info">
+            <h1 class="profile-header-title">الملف الشخصي</h1>
+            <p class="profile-header-subtitle">إدارة معلوماتك الشخصية والتفضيلات</p>
+        </div>
+    </div>
+    <div class="profile-header-right">
+        <button class="profile-header-action" data-action="edit-profile" aria-label="تعديل الملف">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="profile-header-action" data-action="settings" aria-label="الإعدادات">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
 </div>
-<div class="content">
-    <div class="profile-header">
-        <div class="profile-avatar">👤</div>
-        <h2 class="profile-name">User Name</h2>
-        <p class="profile-email">user@example.com</p>
+
+<div class="profile-content">
+    <!-- Profile Main Section -->
+    <div class="profile-main-section">
+        <div class="profile-avatar-section">
+            <div class="profile-avatar-container">
+                <img id="profileAvatarPreview" class="profile-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="الصورة الشخصية">
+                <button class="profile-avatar-edit" data-action="edit-avatar">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="profile-avatar-help">
+                <span class="help-icon" title="يفضل صورة مربعة 300x300 بكسل على الأقل.">؟</span>
+                يمكنك تغيير الصورة الشخصية
+            </div>
+        </div>
+        
+        <div class="profile-info">
+            <h2 class="profile-name">أحمد محمد علي</h2>
+            <p class="profile-email">ahmed.mohamed@logistics.com</p>
+            <p class="profile-phone">+966 50 123 4567</p>
+            <div class="profile-status">
+                <i class="fas fa-circle"></i>
+                <span>نشط</span>
+            </div>
+        </div>
         
         <div class="profile-stats">
-            <div class="stat">
-                <div class="stat-value">12</div>
-                <div class="stat-label">Posts</div>
+            <div class="profile-stat-card">
+                <div class="profile-stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="profile-stat-content">
+                    <span class="profile-stat-value">8</span>
+                    <span class="profile-stat-label">أشهر</span>
+                </div>
             </div>
-            <div class="stat">
-                <div class="stat-value">48</div>
-                <div class="stat-label">Following</div>
+            <div class="profile-stat-card">
+                <div class="profile-stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="profile-stat-content">
+                    <span class="profile-stat-value">4.8</span>
+                    <span class="profile-stat-label">متوسط التقييم</span>
+                </div>
             </div>
-            <div class="stat">
-                <div class="stat-value">125</div>
-                <div class="stat-label">Followers</div>
+            <div class="profile-stat-card">
+                <div class="profile-stat-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="profile-stat-content">
+                    <span class="profile-stat-value">متحقق</span>
+                    <span class="profile-stat-label">حالة الحساب</span>
+                </div>
             </div>
         </div>
         
-        <button class="btn btn-outline mb-3" data-action="open-modal" data-modal="editProfileModal">Edit Profile</button>
-    </div>
-    
-    <div class="profile-avatar-section" style="text-align:center;margin-bottom:16px;">
-        <label for="profileAvatar" class="profile-avatar-label" style="display:inline-block;cursor:pointer;">
-            <img id="profileAvatarPreview" src="logo.png" alt="الصورة الشخصية" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #eee;">
-            <input type="file" id="profileAvatar" style="display:none;" accept="image/*">
-        </label>
-        <div style="font-size:0.9rem;color:#888;">
-            <span class="help-icon" title="يفضل صورة مربعة 300x300 بكسل على الأقل.">؟</span>
-            يمكنك تغيير الصورة الشخصية
+        <div class="profile-actions">
+            <button class="profile-btn profile-btn-primary" data-action="edit-profile">
+                <i class="fas fa-edit"></i>
+                تعديل الملف
+            </button>
+            <button class="profile-btn profile-btn-outline" data-action="settings">
+                <i class="fas fa-cog"></i>
+                الإعدادات
+            </button>
+            <button class="profile-btn profile-btn-danger" data-action="logout">
+                <i class="fas fa-sign-out-alt"></i>
+                تسجيل الخروج
+            </button>
         </div>
     </div>
     
-    <h3 class="mb-2">Recent Activity</h3>
-    <div class="card">
-        <ul class="list">
-            <li class="list-item">
-                <div class="list-item-content">
-                    <div class="list-item-title">Updated profile picture</div>
-                    <div class="list-item-subtitle">2 days ago</div>
+    <!-- Personal Information -->
+    <div class="profile-details">
+        <div class="profile-detail-section">
+            <h3 class="profile-section-title">
+                <i class="fas fa-user profile-section-icon"></i>
+                المعلومات الشخصية
+            </h3>
+            <div class="profile-detail-grid">
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">الاسم الكامل:</span>
+                    <span class="profile-detail-value">أحمد محمد علي</span>
                 </div>
-            </li>
-            <li class="list-item">
-                <div class="list-item-content">
-                    <div class="list-item-title">Commented on a post</div>
-                    <div class="list-item-subtitle">4 days ago</div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">البريد الإلكتروني:</span>
+                    <span class="profile-detail-value">ahmed.mohamed@logistics.com</span>
                 </div>
-                <button class="btn btn-sm btn-outline">View</button>
-            </li>
-            <li class="list-item">
-                <div class="list-item-content">
-                    <div class="list-item-title">Liked a photo</div>
-                    <div class="list-item-subtitle">1 week ago</div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">رقم الهاتف:</span>
+                    <span class="profile-detail-value">+966 50 123 4567</span>
                 </div>
-                <button class="btn btn-sm btn-outline">View</button>
-            </li>
-        </ul>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">الشركة:</span>
+                    <span class="profile-detail-value">شركة النقل السريع</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">المنصب:</span>
+                    <span class="profile-detail-value">مدير العمليات</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">العنوان:</span>
+                    <span class="profile-detail-value">شارع الملك فهد، حي النزهة</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">المدينة:</span>
+                    <span class="profile-detail-value">الرياض</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">نوع الحساب:</span>
+                    <span class="profile-detail-value">مزود خدمة لوجستي</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">حالة التحقق:</span>
+                    <span class="profile-detail-value">متحقق</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">خطة الاشتراك:</span>
+                    <span class="profile-detail-value">الخطة المميزة</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">تاريخ انتهاء الاشتراك:</span>
+                    <span class="profile-detail-value">15 ديسمبر 2024</span>
+                </div>
+                <div class="profile-detail-item">
+                    <span class="profile-detail-label">آخر نشاط:</span>
+                    <span class="profile-detail-value">منذ 5 دقائق</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-detail-section">
+            <h3 class="profile-section-title">
+                <i class="fas fa-cog profile-section-icon"></i>
+                إعدادات الحساب
+            </h3>
+            <div class="profile-activity-stats">
+                <div class="profile-activity-item">
+                    <div class="profile-activity-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="profile-activity-content">
+                        <span class="profile-activity-value">مفعلة</span>
+                        <span class="profile-activity-label">الإشعارات</span>
+                    </div>
+                </div>
+                <div class="profile-activity-item">
+                    <div class="profile-activity-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="profile-activity-content">
+                        <span class="profile-activity-value">العربية</span>
+                        <span class="profile-activity-label">اللغة</span>
+                    </div>
+                </div>
+                <div class="profile-activity-item">
+                    <div class="profile-activity-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="profile-activity-content">
+                        <span class="profile-activity-value">فاتح</span>
+                        <span class="profile-activity-label">المظهر</span>
+                    </div>
+                </div>
+                <div class="profile-activity-item">
+                    <div class="profile-activity-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="profile-activity-content">
+                        <span class="profile-activity-value">مفعل</span>
+                        <span class="profile-activity-label">المصادقة الثنائية</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-detail-section">
+            <h3 class="profile-section-title">
+                <i class="fas fa-chart-pie profile-section-icon"></i>
+                إحصائيات الخدمات
+            </h3>
+            <div class="profile-performance-stats">
+                <div class="profile-performance-item">
+                    <div class="profile-performance-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="profile-performance-content">
+                        <span class="profile-performance-value">4</span>
+                        <span class="profile-performance-label">مستودعات</span>
+                    </div>
+                </div>
+                <div class="profile-performance-item">
+                    <div class="profile-performance-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="profile-performance-content">
+                        <span class="profile-performance-value">12</span>
+                        <span class="profile-performance-label">خدمات شحن</span>
+                    </div>
+                </div>
+                <div class="profile-performance-item">
+                    <div class="profile-performance-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="profile-performance-content">
+                        <span class="profile-performance-value">8</span>
+                        <span class="profile-performance-label">خدمات تخليص</span>
+                    </div>
+                </div>
+                <div class="profile-performance-item">
+                    <div class="profile-performance-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="profile-performance-content">
+                        <span class="profile-performance-value">3</span>
+                        <span class="profile-performance-label">خدمات تغليف</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Personal Activity -->
+    <div class="profile-recent-activity">
+        <h3 class="profile-section-title">
+            <i class="fas fa-user-clock profile-section-icon"></i>
+            النشاط الشخصي
+        </h3>
+        <div class="profile-activity-list">
+            <div class="profile-activity-item-card">
+                <div class="profile-activity-item-content">
+                    <div class="profile-activity-item-title">تم تحديث الصورة الشخصية</div>
+                    <div class="profile-activity-item-subtitle">منذ 15 دقيقة</div>
+                </div>
+            </div>
+            <div class="profile-activity-item-card">
+                <div class="profile-activity-item-content">
+                    <div class="profile-activity-item-title">تم تغيير كلمة المرور</div>
+                    <div class="profile-activity-item-subtitle">منذ يوم</div>
+                </div>
+            </div>
+            <div class="profile-activity-item-card">
+                <div class="profile-activity-item-content">
+                    <div class="profile-activity-item-title">تم تفعيل المصادقة الثنائية</div>
+                    <div class="profile-activity-item-subtitle">منذ 3 أيام</div>
+                </div>
+            </div>
+            <div class="profile-activity-item-card">
+                <div class="profile-activity-item-content">
+                    <div class="profile-activity-item-title">تم تحديث معلومات الاتصال</div>
+                    <div class="profile-activity-item-subtitle">منذ أسبوع</div>
+                </div>
+            </div>
+            <div class="profile-activity-item-card">
+                <div class="profile-activity-item-content">
+                    <div class="profile-activity-item-title">تم تغيير اللغة إلى العربية</div>
+                    <div class="profile-activity-item-subtitle">منذ أسبوعين</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
