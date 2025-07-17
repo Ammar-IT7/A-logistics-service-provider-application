@@ -7,7 +7,7 @@ const App = {
      */
     config: {
         templatesPath: 'templates/pages/',
-        defaultPage: 'home'
+        defaultPage: 'dashboard'
     },
 
     /**

@@ -165,7 +165,6 @@ const Router = {
             'delivery-provider-form': 'DeliveryProviderFormController',
             'shipping-form': 'ShippingFormController',
             'warehouses': 'WarehousesController',
-            'home': 'HomeController',
             'dashboard': 'DashboardController',
             'orders': 'OrdersController',
             'reports': 'ReportsController',
