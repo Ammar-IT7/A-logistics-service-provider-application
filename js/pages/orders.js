@@ -49,7 +49,7 @@ const OrdersController = {
         const completedOrders = Math.floor(totalOrders * 0.3); // 30% completed
         
         // Update stats in the DOM
-        const statsElements = document.querySelectorAll('.stat-value');
+        const statsElements = document.querySelectorAll('.orders-stat-value');
         if (statsElements.length >= 3) {
             statsElements[0].textContent = newOrders; // New orders
             statsElements[1].textContent = pendingOrders; // Pending orders
@@ -181,44 +181,44 @@ const OrdersController = {
         if (!ordersContainer) return;
         
         ordersContainer.innerHTML = orders.map(order => `
-            <div class="order-card ${order.status}" data-action="navigate" data-page="order-details" data-order-id="${order.id}">
-                <div class="order-header">
-                    <div class="order-type">
+            <div class="orders-order-card orders-${order.status}" data-action="navigate" data-page="order-details" data-order-id="${order.id}">
+                <div class="orders-order-header">
+                    <div class="orders-order-type">
                         <i class="${order.icon}"></i>
                         <span>${order.typeText}</span>
                     </div>
-                    <div class="order-status ${order.status}">
+                    <div class="orders-order-status orders-${order.status}">
                         <i class="${order.statusIcon}"></i>
                         <span>${order.statusText}</span>
                     </div>
                 </div>
                 
-                <div class="order-content">
-                    <h4 class="order-title">${order.title}</h4>
-                    <p class="order-description">${order.description}</p>
+                <div class="orders-order-content">
+                    <h4 class="orders-order-title">${order.title}</h4>
+                    <p class="orders-order-description">${order.description}</p>
                     
-                    <div class="order-details">
-                        <div class="detail-item">
+                    <div class="orders-order-details">
+                        <div class="orders-detail-item">
                             <i class="fas fa-user"></i>
                             <span>${order.client}</span>
                         </div>
-                        <div class="detail-item">
+                        <div class="orders-detail-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>${order.location}</span>
                         </div>
-                        <div class="detail-item">
+                        <div class="orders-detail-item">
                             <i class="fas fa-calendar"></i>
                             <span>${order.date}</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="order-footer">
-                    <div class="order-priority ${order.priority}">
+                <div class="orders-order-footer">
+                    <div class="orders-order-priority orders-${order.priority}">
                         <i class="fas fa-${this.getPriorityIcon(order.priority)}"></i>
                         <span>${order.priorityText}</span>
                     </div>
-                    <div class="order-time">
+                    <div class="orders-order-time">
                         <i class="fas fa-clock"></i>
                         <span>${order.time}</span>
                     </div>
@@ -253,7 +253,7 @@ const OrdersController = {
         const completedCount = Math.floor(totalOrders * 0.3); // 30% completed
         
         // Update tab counts
-        const tabCounts = document.querySelectorAll('.filter-count');
+        const tabCounts = document.querySelectorAll('.orders-filter-count');
         if (tabCounts.length >= 4) {
             tabCounts[0].textContent = allCount; // All
             tabCounts[1].textContent = newCount; // New
@@ -298,7 +298,7 @@ const OrdersController = {
      * Initialize search functionality
      */
     initSearch: function() {
-        const searchInput = document.querySelector('.search-input');
+        const searchInput = document.querySelector('.orders-search-input');
         if (!searchInput) return;
         
         searchInput.addEventListener('input', (e) => {
@@ -312,15 +312,15 @@ const OrdersController = {
      */
     initFilters: function() {
         // Status filter buttons
-        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+        document.querySelectorAll('.orders-filter-btn[data-filter]').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const filter = e.target.closest('.filter-btn').dataset.filter;
+                const filter = e.target.closest('.orders-filter-btn').dataset.filter;
                 this.handleStatusFilter(filter);
             });
         });
         
         // Service type filter
-        const serviceFilter = document.querySelector('.filter-select');
+        const serviceFilter = document.querySelector('.orders-filter-select');
         if (serviceFilter) {
             serviceFilter.addEventListener('change', (e) => {
                 this.handleServiceFilter(e.target.value);
@@ -328,7 +328,7 @@ const OrdersController = {
         }
         
         // Time period filter
-        const timeFilter = document.querySelectorAll('.filter-select')[1];
+        const timeFilter = document.querySelectorAll('.orders-filter-select')[1];
         if (timeFilter) {
             timeFilter.addEventListener('change', (e) => {
                 this.handleTimeFilter(e.target.value);
@@ -340,12 +340,12 @@ const OrdersController = {
      * Filter orders by search term
      */
     filterOrders: function(searchTerm) {
-        const orderCards = document.querySelectorAll('.order-card');
+        const orderCards = document.querySelectorAll('.orders-order-card');
         
         orderCards.forEach(card => {
-            const title = card.querySelector('.order-title').textContent.toLowerCase();
-            const description = card.querySelector('.order-description').textContent.toLowerCase();
-            const client = card.querySelector('.detail-item span').textContent.toLowerCase();
+            const title = card.querySelector('.orders-order-title').textContent.toLowerCase();
+            const description = card.querySelector('.orders-order-description').textContent.toLowerCase();
+            const client = card.querySelector('.orders-detail-item span').textContent.toLowerCase();
             
             const matches = title.includes(searchTerm) || 
                            description.includes(searchTerm) || 
@@ -360,20 +360,20 @@ const OrdersController = {
      */
     handleStatusFilter: function(status) {
         // Update active filter button
-        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
-            btn.classList.remove('active');
+        document.querySelectorAll('.orders-filter-btn[data-filter]').forEach(btn => {
+            btn.classList.remove('orders-active');
         });
         
         const activeBtn = document.querySelector(`[data-filter="${status}"]`);
         if (activeBtn) {
-            activeBtn.classList.add('active');
+            activeBtn.classList.add('orders-active');
         }
         
         // Filter orders
-        const orderCards = document.querySelectorAll('.order-card');
+        const orderCards = document.querySelectorAll('.orders-order-card');
         
         orderCards.forEach(card => {
-            if (status === 'all' || card.classList.contains(status)) {
+            if (status === 'all' || card.classList.contains(`orders-${status}`)) {
                 card.style.display = 'block';
             } else {
                 card.style.display = 'none';
@@ -387,10 +387,10 @@ const OrdersController = {
     handleServiceFilter: function(serviceType) {
         if (!serviceType) return;
         
-        const orderCards = document.querySelectorAll('.order-card');
+        const orderCards = document.querySelectorAll('.orders-order-card');
         
         orderCards.forEach(card => {
-            const orderType = card.querySelector('.order-type span').textContent;
+            const orderType = card.querySelector('.orders-order-type span').textContent;
             const matches = orderType.includes(this.getServiceTypeText(serviceType));
             
             card.style.display = matches ? 'block' : 'none';
@@ -455,10 +455,10 @@ const OrdersController = {
      * Filter orders by status
      */
     filterOrdersByStatus: function(status) {
-        const orderCards = document.querySelectorAll('.order-card');
+        const orderCards = document.querySelectorAll('.orders-order-card');
         
         orderCards.forEach(card => {
-            if (status === 'all' || card.classList.contains(status)) {
+            if (status === 'all' || card.classList.contains(`orders-${status}`)) {
                 card.style.display = 'block';
             } else {
                 card.style.display = 'none';
@@ -472,7 +472,7 @@ const OrdersController = {
     setupEventListeners: function() {
         // Handle order card clicks
         document.addEventListener('click', (e) => {
-            const orderCard = e.target.closest('.order-card');
+            const orderCard = e.target.closest('.orders-order-card');
             if (orderCard && orderCard.dataset.action === 'navigate') {
                 const orderId = orderCard.dataset.orderId;
                 console.log(`Navigating to order details: ${orderId}`);
@@ -482,7 +482,7 @@ const OrdersController = {
 
         // Handle floating action button click
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.floating-action-btn')) {
+            if (e.target.closest('.orders-floating-action-btn')) {
                 console.log('Navigating to order form');
                 Router.navigate('order-form');
             }

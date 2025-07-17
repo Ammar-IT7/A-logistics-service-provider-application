@@ -1,116 +1,116 @@
     <!-- Header -->
-    <div class="header">
-        <button class="header-action" data-action="menu" aria-label="القائمة">
+    <div class="orders-header">
+        <button class="orders-header-action" data-action="menu" aria-label="القائمة">
             <i class="fas fa-bars"></i>
         </button>
-        <h1 class="header-title">إدارة الطلبات</h1>
-        <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+        <h1 class="orders-header-title">إدارة الطلبات</h1>
+        <button class="orders-header-action" data-action="notifications" aria-label="الإشعارات">
             <i class="fas fa-bell"></i>
-            <span class="notification-badge">3</span>
+            <span class="orders-notification-badge">3</span>
         </button>
     </div>
 
     <!-- Main Content -->
-    <div class="content">
+    <div class="orders-content">
         <!-- Stats Overview -->
-        <section class="stats-overview">
-            <div class="stats-row">
-                <div class="stat-card primary">
-                    <div class="stat-header">
-                        <div class="stat-icon">
+        <section class="orders-stats-overview">
+            <div class="orders-stats-row">
+                <div class="orders-stat-card orders-primary">
+                    <div class="orders-stat-header">
+                        <div class="orders-stat-icon">
                             <i class="fas fa-file-alt"></i>
                         </div>
-                        <div class="stat-trend positive">
+                        <div class="orders-stat-trend orders-positive">
                             <i class="fas fa-arrow-up"></i>
                             <span>12%</span>
                         </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-value">1,420</div>
-                        <div class="stat-label">إجمالي الطلبات</div>
+                    <div class="orders-stat-content">
+                        <div class="orders-stat-value">1,420</div>
+                        <div class="orders-stat-label">إجمالي الطلبات</div>
                     </div>
                 </div>
                 
-                <div class="stat-card success">
-                    <div class="stat-header">
-                        <div class="stat-icon">
+                <div class="orders-stat-card orders-success">
+                    <div class="orders-stat-header">
+                        <div class="orders-stat-icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
-                        <div class="stat-trend positive">
+                        <div class="orders-stat-trend orders-positive">
                             <i class="fas fa-arrow-up"></i>
                             <span>8%</span>
                         </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-value">1,247</div>
-                        <div class="stat-label">طلبات مكتملة</div>
+                    <div class="orders-stat-content">
+                        <div class="orders-stat-value">1,247</div>
+                        <div class="orders-stat-label">طلبات مكتملة</div>
                     </div>
                 </div>
                 
-                <div class="stat-card warning">
-                    <div class="stat-header">
-                        <div class="stat-icon">
+                <div class="orders-stat-card orders-warning">
+                    <div class="orders-stat-header">
+                        <div class="orders-stat-icon">
                             <i class="fas fa-clock"></i>
                         </div>
-                        <div class="stat-trend neutral">
+                        <div class="orders-stat-trend orders-neutral">
                             <i class="fas fa-minus"></i>
                             <span>0%</span>
                         </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-value">128</div>
-                        <div class="stat-label">قيد التنفيذ</div>
+                    <div class="orders-stat-content">
+                        <div class="orders-stat-value">128</div>
+                        <div class="orders-stat-label">قيد التنفيذ</div>
                     </div>
                 </div>
                 
-                <div class="stat-card info">
-                    <div class="stat-header">
-                        <div class="stat-icon">
+                <div class="orders-stat-card orders-info">
+                    <div class="orders-stat-header">
+                        <div class="orders-stat-icon">
                             <i class="fas fa-plus-circle"></i>
                         </div>
-                        <div class="stat-trend positive">
+                        <div class="orders-stat-trend orders-positive">
                             <i class="fas fa-arrow-up"></i>
                             <span>15%</span>
                         </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-value">45</div>
-                        <div class="stat-label">طلبات جديدة</div>
+                    <div class="orders-stat-content">
+                        <div class="orders-stat-value">45</div>
+                        <div class="orders-stat-label">طلبات جديدة</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Filters and Search -->
-        <section class="filters-section">
-            <div class="filters-row">
-                <div class="search-box">
+        <section class="orders-filters-section">
+            <div class="orders-filters-row">
+                <div class="orders-search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="البحث في الطلبات..." class="search-input">
+                    <input type="text" placeholder="البحث في الطلبات..." class="orders-search-input">
                 </div>
                 
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">
+                <div class="orders-filter-buttons">
+                    <button class="orders-filter-btn orders-active" data-filter="all">
                         الكل
-                        <span class="filter-count">1,420</span>
+                        <span class="orders-filter-count">1,420</span>
                     </button>
-                    <button class="filter-btn" data-filter="new">
+                    <button class="orders-filter-btn" data-filter="new">
                         جديدة
-                        <span class="filter-count">45</span>
+                        <span class="orders-filter-count">45</span>
                     </button>
-                    <button class="filter-btn" data-filter="pending">
+                    <button class="orders-filter-btn" data-filter="pending">
                         قيد التنفيذ
-                        <span class="filter-count">128</span>
+                        <span class="orders-filter-count">128</span>
                     </button>
-                    <button class="filter-btn" data-filter="completed">
+                    <button class="orders-filter-btn" data-filter="completed">
                         مكتملة
-                        <span class="filter-count">1,247</span>
+                        <span class="orders-filter-count">1,247</span>
                     </button>
                 </div>
             </div>
             
-            <div class="advanced-filters">
-                <select class="filter-select">
+            <div class="orders-advanced-filters">
+                <select class="orders-filter-select">
                     <option value="">نوع الخدمة</option>
                     <option value="warehouse">تخزين</option>
                     <option value="shipping">شحن</option>
@@ -119,7 +119,7 @@
                     <option value="lc">اعتمادات مستندية</option>
                 </select>
                 
-                <select class="filter-select">
+                <select class="orders-filter-select">
                     <option value="">الفترة الزمنية</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
@@ -127,7 +127,7 @@
                     <option value="quarter">هذا الربع</option>
                 </select>
                 
-                <button class="filter-btn secondary">
+                <button class="orders-filter-btn orders-secondary">
                     <i class="fas fa-filter"></i>
                     فلترة متقدمة
                 </button>
@@ -136,13 +136,13 @@
 
         <!-- Orders List -->
         <section class="orders-section">
-            <div class="section-header">
-                <h3 class="section-title">
-                    <i class="fas fa-list section-icon"></i>
+            <div class="orders-section-header">
+                <h3 class="orders-section-title">
+                    <i class="fas fa-list orders-section-icon"></i>
                     قائمة الطلبات
                 </h3>
-                <div class="section-actions">
-                    <button class="btn-primary" data-action="navigate" data-page="order-form">
+                <div class="orders-section-actions">
+                    <button class="orders-btn orders-btn-primary" data-action="navigate" data-page="order-form">
                         <i class="fas fa-plus"></i>
                         طلب جديد
                     </button>
@@ -151,44 +151,44 @@
             
             <div class="orders-grid">
                 <!-- Order Card 1 -->
-                <div class="order-card new" data-action="navigate" data-page="order-details">
-                    <div class="order-header">
-                        <div class="order-type">
+                <div class="orders-order-card orders-new" data-action="navigate" data-page="order-details">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
                             <i class="fas fa-warehouse"></i>
                             <span>تخزين</span>
                         </div>
-                        <div class="order-status new">
+                        <div class="orders-order-status orders-new">
                             <i class="fas fa-clock"></i>
                             <span>جديد</span>
                         </div>
                     </div>
                     
-                    <div class="order-content">
-                        <h4 class="order-title">طلب تخزين #WH-2024-1253</h4>
-                        <p class="order-description">منتجات غذائية - 3 طن - مخزن الرياض الرئيسي</p>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">طلب تخزين #WH-2024-1253</h4>
+                        <p class="orders-order-description">منتجات غذائية - 3 طن - مخزن الرياض الرئيسي</p>
                         
-                        <div class="order-details">
-                            <div class="detail-item">
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-user"></i>
                                 <span>شركة التقنية المتقدمة</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>الرياض، المملكة العربية السعودية</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>15 يناير 2024</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="order-footer">
-                        <div class="order-priority high">
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-high">
                             <i class="fas fa-exclamation-triangle"></i>
                             <span>عالية</span>
                         </div>
-                        <div class="order-time">
+                        <div class="orders-order-time">
                             <i class="fas fa-clock"></i>
                             <span>منذ ساعتين</span>
                         </div>
@@ -196,44 +196,44 @@
                 </div>
 
                 <!-- Order Card 2 -->
-                <div class="order-card pending" data-action="navigate" data-page="order-details">
-                    <div class="order-header">
-                        <div class="order-type">
+                <div class="orders-order-card orders-pending" data-action="navigate" data-page="order-details">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
                             <i class="fas fa-clipboard-list"></i>
                             <span>تخليص جمركي</span>
                         </div>
-                        <div class="order-status pending">
+                        <div class="orders-order-status orders-pending">
                             <i class="fas fa-spinner"></i>
                             <span>قيد التنفيذ</span>
                         </div>
                     </div>
                     
-                    <div class="order-content">
-                        <h4 class="order-title">طلب تخليص #CUS-2024-4587</h4>
-                        <p class="order-description">معدات إلكترونية - ميناء جدة الإسلامي</p>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">طلب تخليص #CUS-2024-4587</h4>
+                        <p class="orders-order-description">معدات إلكترونية - ميناء جدة الإسلامي</p>
                         
-                        <div class="order-details">
-                            <div class="detail-item">
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-user"></i>
                                 <span>مصنع الأثاث الحديث</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>ميناء جدة الإسلامي</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>12 يناير 2024</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="order-footer">
-                        <div class="order-priority medium">
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-medium">
                             <i class="fas fa-minus-circle"></i>
                             <span>متوسطة</span>
                         </div>
-                        <div class="order-time">
+                        <div class="orders-order-time">
                             <i class="fas fa-clock"></i>
                             <span>منذ يوم واحد</span>
                         </div>
@@ -241,44 +241,44 @@
                 </div>
 
                 <!-- Order Card 3 -->
-                <div class="order-card completed" data-action="navigate" data-page="order-details">
-                    <div class="order-header">
-                        <div class="order-type">
+                <div class="orders-order-card orders-completed" data-action="navigate" data-page="order-details">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
                             <i class="fas fa-truck"></i>
                             <span>شحن</span>
                         </div>
-                        <div class="order-status completed">
+                        <div class="orders-order-status orders-completed">
                             <i class="fas fa-check-circle"></i>
                             <span>مكتمل</span>
                         </div>
                     </div>
                     
-                    <div class="order-content">
-                        <h4 class="order-title">طلب شحن #SH-2024-8975</h4>
-                        <p class="order-description">الرياض - الدمام - 2 طن - شحن بري</p>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">طلب شحن #SH-2024-8975</h4>
+                        <p class="orders-order-description">الرياض - الدمام - 2 طن - شحن بري</p>
                         
-                        <div class="order-details">
-                            <div class="detail-item">
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-user"></i>
                                 <span>شركة النقل السريع</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-route"></i>
                                 <span>الرياض → الدمام</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>10 يناير 2024</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="order-footer">
-                        <div class="order-priority low">
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-low">
                             <i class="fas fa-check-circle"></i>
                             <span>منخفضة</span>
                         </div>
-                        <div class="order-time">
+                        <div class="orders-order-time">
                             <i class="fas fa-clock"></i>
                             <span>منذ 3 أيام</span>
                         </div>
@@ -286,44 +286,44 @@
                 </div>
 
                 <!-- Order Card 4 -->
-                <div class="order-card new" data-action="navigate" data-page="order-details">
-                    <div class="order-header">
-                        <div class="order-type">
+                <div class="orders-order-card orders-new" data-action="navigate" data-page="order-details">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
                             <i class="fas fa-boxes"></i>
                             <span>تغليف</span>
                         </div>
-                        <div class="order-status new">
+                        <div class="orders-order-status orders-new">
                             <i class="fas fa-clock"></i>
                             <span>جديد</span>
                         </div>
                     </div>
                     
-                    <div class="order-content">
-                        <h4 class="order-title">طلب تغليف #PKG-2024-6321</h4>
-                        <p class="order-description">منتجات زجاجية - خدمة تغليف فاخر</p>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">طلب تغليف #PKG-2024-6321</h4>
+                        <p class="orders-order-description">منتجات زجاجية - خدمة تغليف فاخر</p>
                         
-                        <div class="order-details">
-                            <div class="detail-item">
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-user"></i>
                                 <span>شركة الزجاج المتطور</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>مخزن الرياض الرئيسي</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>14 يناير 2024</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="order-footer">
-                        <div class="order-priority medium">
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-medium">
                             <i class="fas fa-minus-circle"></i>
                             <span>متوسطة</span>
                         </div>
-                        <div class="order-time">
+                        <div class="orders-order-time">
                             <i class="fas fa-clock"></i>
                             <span>منذ 4 ساعات</span>
                         </div>
@@ -331,44 +331,44 @@
                 </div>
 
                 <!-- Order Card 5 -->
-                <div class="order-card pending" data-action="navigate" data-page="order-details">
-                    <div class="order-header">
-                        <div class="order-type">
+                <div class="orders-order-card orders-pending" data-action="navigate" data-page="order-details">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
                             <i class="fas fa-file-invoice-dollar"></i>
                             <span>اعتمادات مستندية</span>
                         </div>
-                        <div class="order-status pending">
+                        <div class="orders-order-status orders-pending">
                             <i class="fas fa-spinner"></i>
                             <span>قيد التنفيذ</span>
                         </div>
                     </div>
                     
-                    <div class="order-content">
-                        <h4 class="order-title">طلب اعتماد #LC-2024-7890</h4>
-                        <p class="order-description">اعتماد مستندي - بنك الرياض - 50,000 ريال</p>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">طلب اعتماد #LC-2024-7890</h4>
+                        <p class="orders-order-description">اعتماد مستندي - بنك الرياض - 50,000 ريال</p>
                         
-                        <div class="order-details">
-                            <div class="detail-item">
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-user"></i>
                                 <span>شركة الاستيراد العالمية</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-university"></i>
                                 <span>بنك الرياض</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>13 يناير 2024</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="order-footer">
-                        <div class="order-priority high">
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-high">
                             <i class="fas fa-exclamation-triangle"></i>
                             <span>عالية</span>
                         </div>
-                        <div class="order-time">
+                        <div class="orders-order-time">
                             <i class="fas fa-clock"></i>
                             <span>منذ يومين</span>
                         </div>
@@ -376,44 +376,44 @@
                 </div>
 
                 <!-- Order Card 6 -->
-                <div class="order-card completed" data-action="navigate" data-page="order-details">
-                    <div class="order-header">
-                        <div class="order-type">
+                <div class="orders-order-card orders-completed" data-action="navigate" data-page="order-details">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
                             <i class="fas fa-shipping-fast"></i>
                             <span>توصيل نهائي</span>
                         </div>
-                        <div class="order-status completed">
+                        <div class="orders-order-status orders-completed">
                             <i class="fas fa-check-circle"></i>
                             <span>مكتمل</span>
                         </div>
                     </div>
                     
-                    <div class="order-content">
-                        <h4 class="order-title">طلب توصيل #LM-2024-4567</h4>
-                        <p class="order-description">توصيل منزلي - الرياض - 50 طرد</p>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">طلب توصيل #LM-2024-4567</h4>
+                        <p class="orders-order-description">توصيل منزلي - الرياض - 50 طرد</p>
                         
-                        <div class="order-details">
-                            <div class="detail-item">
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-user"></i>
                                 <span>متجر الأزياء الأنيق</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>الرياض - حي النرجس</span>
                             </div>
-                            <div class="detail-item">
+                            <div class="orders-detail-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>11 يناير 2024</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="order-footer">
-                        <div class="order-priority low">
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-low">
                             <i class="fas fa-check-circle"></i>
                             <span>منخفضة</span>
                         </div>
-                        <div class="order-time">
+                        <div class="orders-order-time">
                             <i class="fas fa-clock"></i>
                             <span>منذ 4 أيام</span>
                         </div>
@@ -423,7 +423,7 @@
         </section>
 
         <!-- Floating Action Button -->
-        <button class="floating-action-btn" data-action="navigate" data-page="order-form" aria-label="إنشاء طلب جديد">
+        <button class="orders-floating-action-btn" data-action="navigate" data-page="order-form" aria-label="إنشاء طلب جديد">
             <i class="fas fa-plus"></i>
         </button>
     </div>
