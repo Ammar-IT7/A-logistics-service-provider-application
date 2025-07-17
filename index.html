@@ -44,9 +44,21 @@
             <div class="nav-icon"><i class="fas fa-home"></i></div>
             <div class="nav-label">الرئيسية</div>
         </a>
+        <a href="#" class="nav-item" data-page="dashboard">
+            <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="nav-label">لوحة التحكم</div>
+        </a>
+        <a href="#" class="nav-item" data-page="orders">
+            <div class="nav-icon"><i class="fas fa-list-alt"></i></div>
+            <div class="nav-label">الطلبات</div>
+        </a>
         <a href="#" class="nav-item" data-page="service-providers">
             <div class="nav-icon"><i class="fas fa-users"></i></div>
-            <div class="nav-label">مقدمي الخدمات</div>
+            <div class="nav-label">الخدمات</div>
+        </a>
+        <a href="#" class="nav-item" data-page="profile">
+            <div class="nav-icon"><i class="fas fa-user"></i></div>
+            <div class="nav-label">الملف الشخصي</div>
         </a>
     </div>
     </div>
@@ -67,6 +79,12 @@
     
     <!-- Page Controllers -->
     <script src="js/pages/home.js"></script>
+    <script src="js/pages/dashboard.js"></script>
+    <script src="js/pages/orders.js"></script>
+    <script src="js/pages/reports.js"></script>
+    <script src="js/pages/analytics.js"></script>
+    <script src="js/pages/billing.js"></script>
+    <script src="js/pages/help.js"></script>
     <script src="js/pages/settings.js"></script>
     <script src="js/pages/shipping.js"></script>
     <script src="js/pages/shipping-form.js"></script>
@@ -80,6 +98,8 @@
     <script src="js/pages/service-providers.js"></script>
     <script src="js/pages/notifications.js"></script>
     <script src="js/pages/profile.js"></script>
+    <script src="js/pages/warehouse-management.js"></script>
+    <script src="js/pages/marketing.js"></script>
     
     <!-- Form Controllers -->
     <script src="js/pages/warehouse-form.js"></script>
@@ -98,45 +118,5 @@
             Auth.init();
         });
     </script>
-
-    <!-- <div class="header">
-        <button class="header-action" data-action="menu" aria-label="القائمة">
-            <i class="fas fa-bars"></i>
-        </button>
-        <h1 class="header-title">الرئيسية</h1>
-        <button class="header-action" data-action="notifications" aria-label="الإشعارات">
-            <i class="fas fa-bell"></i>
-            <span class="notification-badge">3</span>
-        </button>
-        <select id="languageSwitcher" class="header-action" style="width:auto; margin-right:8px;">
-            <option value="ar">العربية</option>
-            <option value="en">English</option>
-        </select>
-    </div>
-
-    <div class="dashboard-widgets" style="display:flex;gap:16px;margin:16px 0;">
-        <div class="dashboard-widget">
-            <div class="widget-title">عدد المستودعات</div>
-            <div class="widget-value" id="widget-warehouses">2</div>
-        </div>
-        <div class="dashboard-widget">
-            <div class="widget-title">عدد المركبات</div>
-            <div class="widget-value" id="widget-vehicles">5</div>
-        </div>
-        <div class="dashboard-widget">
-            <div class="widget-title">عدد الطلبات</div>
-            <div class="widget-value" id="widget-orders">15</div>
-        </div>
-        <div class="dashboard-widget">
-            <div class="widget-title">الإيرادات</div>
-            <div class="widget-value" id="widget-revenue">45,000 ر.ي</div>
-        </div>
-    </div>
-    <div class="dashboard-shortcuts" style="display:flex;gap:12px;margin-bottom:16px;">
-        <button class="btn btn-primary" data-action="navigate" data-page="warehouse-form">إضافة مستودع</button>
-        <button class="btn btn-primary" data-action="navigate" data-page="vehicle-form">إضافة مركبة</button>
-        <button class="btn btn-primary" data-action="navigate" data-page="profile">الملف الشخصي</button>
-    </div> -->
-
 </body>
 </html>

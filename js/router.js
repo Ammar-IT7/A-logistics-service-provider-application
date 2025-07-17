@@ -115,15 +115,21 @@ const Router = {
      * @param {string} pageId - ID of the page to set as active
      */
     setActivePage: function(pageId) {
+        console.log(`Setting active page: ${pageId}`);
         // Hide all pages
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
+            page.style.display = 'none'; // Force hide all pages
         });
         
         // Show the active page
         const activePage = document.getElementById(pageId);
         if (activePage) {
             activePage.classList.add('active');
+            activePage.style.display = 'flex'; // Force show active page
+            console.log(`Activated page: ${pageId}`);
+        } else {
+            console.error(`Page element not found: ${pageId}`);
         }
     },
     
@@ -160,6 +166,12 @@ const Router = {
             'shipping-form': 'ShippingFormController',
             'warehouses': 'WarehousesController',
             'home': 'HomeController',
+            'dashboard': 'DashboardController',
+            'orders': 'OrdersController',
+            'reports': 'ReportsController',
+            'analytics': 'AnalyticsController',
+            'billing': 'BillingController',
+            'help': 'HelpController',
             'myshipping': 'MyShippingController',
             'mycustoms': 'MyCustomsController',
             'mywarehouses': 'MyWarehousesController',
@@ -170,7 +182,12 @@ const Router = {
             'notifications': 'NotificationsController',
             'profile': 'ProfileController',
             'settings': 'SettingsController',
-            'shipping': 'ShippingController'
+            'shipping': 'ShippingController',
+            'warehouse-management': 'WarehouseManagementController',
+            'marketing': 'MarketingController',
+            'order-form': 'OrderFormController',
+            'order-details': 'OrderDetailsController',
+            'getting-started': 'GettingStartedController'
         };
         
         // Get controller name from map or generate default

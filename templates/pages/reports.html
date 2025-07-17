@@ -1,0 +1,317 @@
+    <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">التقارير</h1>
+        <button class="header-action" data-action="export-report" aria-label="تصدير">
+            <i class="fas fa-download"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Report Type Selector -->
+        <div class="report-selector">
+            <button class="report-type active" data-report="financial">
+                <i class="fas fa-chart-line"></i>
+                <span>مالي</span>
+            </button>
+            <button class="report-type" data-report="operational">
+                <i class="fas fa-cogs"></i>
+                <span>تشغيلي</span>
+            </button>
+            <button class="report-type" data-report="customer">
+                <i class="fas fa-users"></i>
+                <span>العملاء</span>
+            </button>
+            <button class="report-type" data-report="performance">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>الأداء</span>
+            </button>
+        </div>
+
+        <!-- Date Range Selector -->
+        <div class="date-range-selector">
+            <div class="date-inputs">
+                <div class="date-input">
+                    <label>من تاريخ</label>
+                    <input type="date" value="2024-01-01">
+                </div>
+                <div class="date-input">
+                    <label>إلى تاريخ</label>
+                    <input type="date" value="2024-12-31">
+                </div>
+            </div>
+            <button class="btn btn-primary" data-action="generate-report">
+                <i class="fas fa-sync-alt"></i>
+                تحديث التقرير
+            </button>
+        </div>
+
+        <!-- Financial Report (Default) -->
+        <div class="report-content" id="financial-report">
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-value">125,000 ريال</div>
+                        <div class="summary-label">إجمالي الإيرادات</div>
+                        <div class="summary-change positive">+15.2%</div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-value">45,000 ريال</div>
+                        <div class="summary-label">إجمالي المصروفات</div>
+                        <div class="summary-change negative">+8.5%</div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-value">80,000 ريال</div>
+                        <div class="summary-label">صافي الربح</div>
+                        <div class="summary-change positive">+22.1%</div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-value">64%</div>
+                        <div class="summary-label">هامش الربح</div>
+                        <div class="summary-change positive">+5.8%</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Breakdown -->
+            <section class="report-section">
+                <div class="section-header">
+                    <h3 class="section-title">توزيع الإيرادات حسب الخدمة</h3>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" data-action="export-chart">
+                            <i class="fas fa-download"></i>
+                            تصدير
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="revenue-breakdown">
+                    <div class="breakdown-item">
+                        <div class="breakdown-info">
+                            <div class="breakdown-label">خدمات الشحن</div>
+                            <div class="breakdown-value">45,000 ريال</div>
+                        </div>
+                        <div class="breakdown-bar">
+                            <div class="bar-fill" style="width: 36%"></div>
+                        </div>
+                        <div class="breakdown-percentage">36%</div>
+                    </div>
+                    
+                    <div class="breakdown-item">
+                        <div class="breakdown-info">
+                            <div class="breakdown-label">التخليص الجمركي</div>
+                            <div class="breakdown-value">35,000 ريال</div>
+                        </div>
+                        <div class="breakdown-bar">
+                            <div class="bar-fill" style="width: 28%"></div>
+                        </div>
+                        <div class="breakdown-percentage">28%</div>
+                    </div>
+                    
+                    <div class="breakdown-item">
+                        <div class="breakdown-info">
+                            <div class="breakdown-label">خدمات التخزين</div>
+                            <div class="breakdown-value">25,000 ريال</div>
+                        </div>
+                        <div class="breakdown-bar">
+                            <div class="bar-fill" style="width: 20%"></div>
+                        </div>
+                        <div class="breakdown-percentage">20%</div>
+                    </div>
+                    
+                    <div class="breakdown-item">
+                        <div class="breakdown-info">
+                            <div class="breakdown-label">خدمات التغليف</div>
+                            <div class="breakdown-value">15,000 ريال</div>
+                        </div>
+                        <div class="breakdown-bar">
+                            <div class="bar-fill" style="width: 12%"></div>
+                        </div>
+                        <div class="breakdown-percentage">12%</div>
+                    </div>
+                    
+                    <div class="breakdown-item">
+                        <div class="breakdown-info">
+                            <div class="breakdown-label">خدمات أخرى</div>
+                            <div class="breakdown-value">5,000 ريال</div>
+                        </div>
+                        <div class="breakdown-bar">
+                            <div class="bar-fill" style="width: 4%"></div>
+                        </div>
+                        <div class="breakdown-percentage">4%</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Monthly Trend -->
+            <section class="report-section">
+                <div class="section-header">
+                    <h3 class="section-title">الاتجاه الشهري للإيرادات</h3>
+                </div>
+                
+                <div class="trend-chart">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-area"></i>
+                        <p>رسم بياني للاتجاه الشهري</p>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #0056b3"></span>
+                                <span>الإيرادات</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #dc3545"></span>
+                                <span>المصروفات</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Operational Report -->
+        <div class="report-content" id="operational-report" style="display: none;">
+            <section class="report-section">
+                <div class="section-header">
+                    <h3 class="section-title">مؤشرات الأداء التشغيلي</h3>
+                </div>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-value">2.3 ساعة</div>
+                            <div class="kpi-label">متوسط وقت المعالجة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-value">94.2%</div>
+                            <div class="kpi-label">معدل الإنجاز</div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-value">156</div>
+                            <div class="kpi-label">شحنة في اليوم</div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-value">78%</div>
+                            <div class="kpi-label">معدل استخدام المخازن</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Customer Report -->
+        <div class="report-content" id="customer-report" style="display: none;">
+            <section class="report-section">
+                <div class="section-header">
+                    <h3 class="section-title">تحليل العملاء</h3>
+                </div>
+                
+                <div class="customer-stats">
+                    <div class="customer-stat">
+                        <div class="stat-number">89</div>
+                        <div class="stat-label">إجمالي العملاء</div>
+                    </div>
+                    <div class="customer-stat">
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">عملاء جدد</div>
+                    </div>
+                    <div class="customer-stat">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">متوسط التقييم</div>
+                    </div>
+                    <div class="customer-stat">
+                        <div class="stat-number">67%</div>
+                        <div class="stat-label">معدل الاحتفاظ</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Performance Report -->
+        <div class="report-content" id="performance-report" style="display: none;">
+            <section class="report-section">
+                <div class="section-header">
+                    <h3 class="section-title">مؤشرات الأداء</h3>
+                </div>
+                
+                <div class="performance-metrics">
+                    <div class="metric-item">
+                        <div class="metric-label">سرعة الاستجابة</div>
+                        <div class="metric-value">4.2/5</div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" style="width: 84%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <div class="metric-label">جودة الخدمة</div>
+                        <div class="metric-value">4.6/5</div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <div class="metric-label">رضا العملاء</div>
+                        <div class="metric-value">4.4/5</div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <div class="metric-label">دقة التوصيل</div>
+                        <div class="metric-value">4.8/5</div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" style="width: 96%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>

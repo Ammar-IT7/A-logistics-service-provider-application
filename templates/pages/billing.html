@@ -1,0 +1,308 @@
+    <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">الفواتير والمدفوعات</h1>
+        <button class="header-action" data-action="navigate" data-page="payment-methods" aria-label="طرق الدفع">
+            <i class="fas fa-credit-card"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Billing Summary -->
+        <section class="billing-summary">
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="summary-content">
+                    <div class="summary-value">15,500 ريال</div>
+                    <div class="summary-label">إجمالي المستحق</div>
+                </div>
+            </div>
+            
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="summary-content">
+                    <div class="summary-value">8</div>
+                    <div class="summary-label">فواتير معلقة</div>
+                </div>
+            </div>
+            
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="summary-content">
+                    <div class="summary-value">5 أيام</div>
+                    <div class="summary-label">آخر موعد دفع</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Methods -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-credit-card section-icon"></i> طرق الدفع
+                </h3>
+                <button class="btn btn-outline" data-action="navigate" data-page="add-payment-method">
+                    <i class="fas fa-plus"></i>
+                    إضافة طريقة دفع
+                </button>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-method active">
+                    <div class="method-icon">
+                        <i class="fab fa-cc-visa"></i>
+                    </div>
+                    <div class="method-info">
+                        <div class="method-name">Visa ending in 1234</div>
+                        <div class="method-expiry">تنتهي في 12/25</div>
+                    </div>
+                    <div class="method-status">افتراضي</div>
+                </div>
+                
+                <div class="payment-method">
+                    <div class="method-icon">
+                        <i class="fab fa-cc-mastercard"></i>
+                    </div>
+                    <div class="method-info">
+                        <div class="method-name">Mastercard ending in 5678</div>
+                        <div class="method-expiry">تنتهي في 08/26</div>
+                    </div>
+                    <div class="method-actions">
+                        <button class="action-btn" data-action="set-default">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button class="action-btn" data-action="remove-method">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="payment-method">
+                    <div class="method-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="method-info">
+                        <div class="method-name">تحويل بنكي</div>
+                        <div class="method-details">البنك الأهلي السعودي</div>
+                    </div>
+                    <div class="method-actions">
+                        <button class="action-btn" data-action="set-default">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button class="action-btn" data-action="remove-method">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Invoices -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-file-invoice section-icon"></i> الفواتير الحديثة
+                </h3>
+                <a href="#" class="section-link" data-action="navigate" data-page="all-invoices">
+                    عرض الكل <i class="fas fa-chevron-left"></i>
+                </a>
+            </div>
+            
+            <div class="invoices-list">
+                <div class="invoice-item">
+                    <div class="invoice-header">
+                        <div class="invoice-number">#INV-2024-001</div>
+                        <div class="invoice-status pending">معلق</div>
+                    </div>
+                    <div class="invoice-content">
+                        <div class="invoice-info">
+                            <div class="invoice-title">خدمات الشحن - ديسمبر 2024</div>
+                            <div class="invoice-details">
+                                <span class="invoice-date">15 ديسمبر 2024</span>
+                                <span class="invoice-due">استحقاق: 30 ديسمبر 2024</span>
+                            </div>
+                        </div>
+                        <div class="invoice-amount">2,500 ريال</div>
+                    </div>
+                    <div class="invoice-actions">
+                        <button class="btn btn-outline" data-action="view-invoice">
+                            <i class="fas fa-eye"></i>
+                            عرض
+                        </button>
+                        <button class="btn btn-primary" data-action="pay-invoice">
+                            <i class="fas fa-credit-card"></i>
+                            دفع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="invoice-item">
+                    <div class="invoice-header">
+                        <div class="invoice-number">#INV-2024-002</div>
+                        <div class="invoice-status paid">مدفوع</div>
+                    </div>
+                    <div class="invoice-content">
+                        <div class="invoice-info">
+                            <div class="invoice-title">خدمات التخزين - نوفمبر 2024</div>
+                            <div class="invoice-details">
+                                <span class="invoice-date">30 نوفمبر 2024</span>
+                                <span class="invoice-paid">مدفوع: 15 ديسمبر 2024</span>
+                            </div>
+                        </div>
+                        <div class="invoice-amount">1,800 ريال</div>
+                    </div>
+                    <div class="invoice-actions">
+                        <button class="btn btn-outline" data-action="view-invoice">
+                            <i class="fas fa-eye"></i>
+                            عرض
+                        </button>
+                        <button class="btn btn-outline" data-action="download-invoice">
+                            <i class="fas fa-download"></i>
+                            تحميل
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="invoice-item">
+                    <div class="invoice-header">
+                        <div class="invoice-number">#INV-2024-003</div>
+                        <div class="invoice-status overdue">متأخر</div>
+                    </div>
+                    <div class="invoice-content">
+                        <div class="invoice-info">
+                            <div class="invoice-title">خدمات التخليص الجمركي - أكتوبر 2024</div>
+                            <div class="invoice-details">
+                                <span class="invoice-date">31 أكتوبر 2024</span>
+                                <span class="invoice-due overdue">متأخر: 30 نوفمبر 2024</span>
+                            </div>
+                        </div>
+                        <div class="invoice-amount">3,200 ريال</div>
+                    </div>
+                    <div class="invoice-actions">
+                        <button class="btn btn-outline" data-action="view-invoice">
+                            <i class="fas fa-eye"></i>
+                            عرض
+                        </button>
+                        <button class="btn btn-danger" data-action="pay-invoice">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            دفع فوري
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment History -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-history section-icon"></i> سجل المدفوعات
+                </h3>
+            </div>
+            
+            <div class="payment-history">
+                <div class="payment-item">
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-visa"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-title">دفع فاتورة #INV-2024-002</div>
+                        <div class="payment-details">Visa ending in 1234</div>
+                        <div class="payment-date">15 ديسمبر 2024</div>
+                    </div>
+                    <div class="payment-amount">-1,800 ريال</div>
+                    <div class="payment-status completed">مكتمل</div>
+                </div>
+                
+                <div class="payment-item">
+                    <div class="payment-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-title">تحويل بنكي</div>
+                        <div class="payment-details">البنك الأهلي السعودي</div>
+                        <div class="payment-date">30 نوفمبر 2024</div>
+                    </div>
+                    <div class="payment-amount">-2,500 ريال</div>
+                    <div class="payment-status completed">مكتمل</div>
+                </div>
+                
+                <div class="payment-item">
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-mastercard"></i>
+                    </div>
+                    <div class="payment-info">
+                        <div class="payment-title">دفع فاتورة #INV-2024-001</div>
+                        <div class="payment-details">Mastercard ending in 5678</div>
+                        <div class="payment-date">15 نوفمبر 2024</div>
+                    </div>
+                    <div class="payment-amount">-1,200 ريال</div>
+                    <div class="payment-status completed">مكتمل</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Billing Settings -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-cog section-icon"></i> إعدادات الفواتير
+                </h3>
+            </div>
+            
+            <div class="billing-settings">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">إشعارات الفواتير</div>
+                        <div class="setting-desc">استلام إشعارات عند إنشاء فواتير جديدة</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">تذكير الدفع</div>
+                        <div class="setting-desc">تذكير قبل 3 أيام من موعد الاستحقاق</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">الدفع التلقائي</div>
+                        <div class="setting-desc">دفع الفواتير تلقائياً عند الاستحقاق</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">فواتير PDF</div>
+                        <div class="setting-desc">إرسال نسخة PDF من الفواتير</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+    </div>

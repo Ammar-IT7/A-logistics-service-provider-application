@@ -1,0 +1,206 @@
+    <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">الطلبات</h1>
+        <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Welcome Banner -->
+        <section class="welcome-card">
+            <div class="welcome-content">
+                <h2>إدارة الطلبات، <span class="user-name">أحمد</span></h2>
+                <p>تابع وإدارة جميع طلباتك اللوجستية</p>
+            </div>
+            <div class="welcome-illustration">
+                <i class="fas fa-list-alt"></i>
+            </div>
+        </section>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">45</div>
+                    <div class="stat-label">طلبات جديدة</div>
+                </div>
+            </div>
+            <div class="stat-card highlight">
+                <div class="stat-icon">
+                    <i class="fas fa-spinner"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">قيد التنفيذ</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-label">مكتملة</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Tabs -->
+        <section class="section-container">
+            <div class="status-tabs">
+                <button class="status-tab active" data-status="all">
+                    الكل
+                    <span class="tab-count">1,420</span>
+                </button>
+                <button class="status-tab" data-status="new">
+                    جديدة
+                    <span class="tab-count">45</span>
+                </button>
+                <button class="status-tab" data-status="pending">
+                    قيد التنفيذ
+                    <span class="tab-count">128</span>
+                </button>
+                <button class="status-tab" data-status="completed">
+                    مكتملة
+                    <span class="tab-count">1,247</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Orders List -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-list section-icon"></i> قائمة الطلبات
+                </h3>
+                <a href="#" class="section-link" data-action="navigate" data-page="order-form">
+                    طلب جديد <i class="fas fa-chevron-left"></i>
+                </a>
+            </div>
+            
+            <div class="orders-list">
+                <!-- Order 1 -->
+                <div class="order-card new" data-action="navigate" data-page="order-details">
+                    <div class="order-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب تخزين #1253</h4>
+                        <p>منتجات غذائية - 3 طن - مخزن الرياض</p>
+                        <div class="order-meta">
+                            <span class="order-status">جديد</span>
+                            <span class="order-time">منذ ساعتين</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order 2 -->
+                <div class="order-card pending" data-action="navigate" data-page="order-details">
+                    <div class="order-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب تخليص #4587</h4>
+                        <p>معدات إلكترونية - ميناء جدة</p>
+                        <div class="order-meta">
+                            <span class="order-status">قيد التنفيذ</span>
+                            <span class="order-time">منذ يوم واحد</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order 3 -->
+                <div class="order-card completed" data-action="navigate" data-page="order-details">
+                    <div class="order-icon">
+                        <i class="fas fa-truck-loading"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب شحن #8975</h4>
+                        <p>الرياض - الدمام - 2 طن</p>
+                        <div class="order-meta">
+                            <span class="order-status">مكتمل</span>
+                            <span class="order-time">منذ 3 أيام</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order 4 -->
+                <div class="order-card new" data-action="navigate" data-page="order-details">
+                    <div class="order-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب تغليف #6321</h4>
+                        <p>منتجات زجاجية - خدمة تغليف فاخر</p>
+                        <div class="order-meta">
+                            <span class="order-status">جديد</span>
+                            <span class="order-time">منذ 4 ساعات</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order 5 -->
+                <div class="order-card pending" data-action="navigate" data-page="order-details">
+                    <div class="order-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4>طلب اعتماد #7890</h4>
+                        <p>اعتماد مستندي - بنك الرياض - 50,000 ريال</p>
+                        <div class="order-meta">
+                            <span class="order-status">قيد التنفيذ</span>
+                            <span class="order-time">منذ يومين</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="section-container">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-bolt section-icon"></i> إجراءات سريعة
+                </h3>
+            </div>
+            
+            <div class="quick-actions-grid">
+                <button class="action-card" data-action="navigate" data-page="order-form">
+                    <div class="action-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="action-text">طلب جديد</div>
+                </button>
+                
+                <button class="action-card" data-action="navigate" data-page="reports">
+                    <div class="action-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="action-text">تقارير الطلبات</div>
+                </button>
+                
+                <button class="action-card" data-action="navigate" data-page="analytics">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-text">تحليل الأداء</div>
+                </button>
+                
+                <button class="action-card" data-action="navigate" data-page="billing">
+                    <div class="action-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="action-text">الفواتير</div>
+                </button>
+            </div>
+        </section>
+    </div>

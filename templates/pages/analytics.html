@@ -1,0 +1,395 @@
+    <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">التحليلات</h1>
+        <button class="header-action" data-action="export-analytics" aria-label="تصدير">
+            <i class="fas fa-download"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Time Period Selector -->
+        <div class="time-selector">
+            <button class="time-btn active" data-period="7d">7 أيام</button>
+            <button class="time-btn" data-period="30d">30 يوم</button>
+            <button class="time-btn" data-period="90d">3 أشهر</button>
+            <button class="time-btn" data-period="1y">سنة</button>
+            <button class="time-btn custom" data-period="custom">
+                <i class="fas fa-calendar"></i>
+                مخصص
+            </button>
+        </div>
+
+        <!-- Key Metrics -->
+        <section class="metrics-overview">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">إجمالي الطلبات</div>
+                    <div class="metric-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +12.5%
+                    </div>
+                </div>
+                <div class="metric-value">1,247</div>
+                <div class="metric-chart">
+                    <div class="mini-chart">
+                        <div class="chart-line" style="height: 60%"></div>
+                        <div class="chart-line" style="height: 80%"></div>
+                        <div class="chart-line" style="height: 45%"></div>
+                        <div class="chart-line" style="height: 90%"></div>
+                        <div class="chart-line" style="height: 70%"></div>
+                        <div class="chart-line" style="height: 85%"></div>
+                        <div class="chart-line" style="height: 95%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">الإيرادات</div>
+                    <div class="metric-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +18.2%
+                    </div>
+                </div>
+                <div class="metric-value">125,000 ريال</div>
+                <div class="metric-chart">
+                    <div class="mini-chart">
+                        <div class="chart-line" style="height: 50%"></div>
+                        <div class="chart-line" style="height: 65%"></div>
+                        <div class="chart-line" style="height: 40%"></div>
+                        <div class="chart-line" style="height: 75%"></div>
+                        <div class="chart-line" style="height: 60%"></div>
+                        <div class="chart-line" style="height: 85%"></div>
+                        <div class="chart-line" style="height: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">العملاء النشطين</div>
+                    <div class="metric-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +8.7%
+                    </div>
+                </div>
+                <div class="metric-value">89</div>
+                <div class="metric-chart">
+                    <div class="mini-chart">
+                        <div class="chart-line" style="height: 70%"></div>
+                        <div class="chart-line" style="height: 75%"></div>
+                        <div class="chart-line" style="height: 80%"></div>
+                        <div class="chart-line" style="height: 85%"></div>
+                        <div class="chart-line" style="height: 90%"></div>
+                        <div class="chart-line" style="height: 95%"></div>
+                        <div class="chart-line" style="height: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">معدل التحويل</div>
+                    <div class="metric-trend negative">
+                        <i class="fas fa-arrow-down"></i>
+                        -2.1%
+                    </div>
+                </div>
+                <div class="metric-value">3.2%</div>
+                <div class="metric-chart">
+                    <div class="mini-chart">
+                        <div class="chart-line" style="height: 100%"></div>
+                        <div class="chart-line" style="height: 95%"></div>
+                        <div class="chart-line" style="height: 90%"></div>
+                        <div class="chart-line" style="height: 85%"></div>
+                        <div class="chart-line" style="height: 80%"></div>
+                        <div class="chart-line" style="height: 75%"></div>
+                        <div class="chart-line" style="height: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Charts -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>تحليل الإيرادات</h3>
+                    <div class="chart-controls">
+                        <button class="chart-btn active" data-chart="revenue">الإيرادات</button>
+                        <button class="chart-btn" data-chart="orders">الطلبات</button>
+                        <button class="chart-btn" data-chart="customers">العملاء</button>
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-area"></i>
+                        <p>رسم بياني تفاعلي للإيرادات</p>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #0056b3"></span>
+                                <span>الإيرادات الفعلية</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #28a745"></span>
+                                <span>التوقعات</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Performance -->
+        <section class="service-analytics">
+            <div class="section-header">
+                <h3 class="section-title">أداء الخدمات</h3>
+                <button class="btn btn-outline" data-action="view-detailed-analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    تحليل مفصل
+                </button>
+            </div>
+            
+            <div class="service-metrics">
+                <div class="service-metric">
+                    <div class="service-info">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-name">خدمات الشحن</div>
+                            <div class="service-stats">
+                                <span>450 طلب</span>
+                                <span>•</span>
+                                <span>45,000 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-performance">
+                        <div class="performance-bar">
+                            <div class="bar-fill" style="width: 75%"></div>
+                        </div>
+                        <div class="performance-value">75%</div>
+                    </div>
+                </div>
+                
+                <div class="service-metric">
+                    <div class="service-info">
+                        <div class="service-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-name">خدمات التخزين</div>
+                            <div class="service-stats">
+                                <span>320 طلب</span>
+                                <span>•</span>
+                                <span>25,000 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-performance">
+                        <div class="performance-bar">
+                            <div class="bar-fill" style="width: 60%"></div>
+                        </div>
+                        <div class="performance-value">60%</div>
+                    </div>
+                </div>
+                
+                <div class="service-metric">
+                    <div class="service-info">
+                        <div class="service-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-name">التخليص الجمركي</div>
+                            <div class="service-stats">
+                                <span>280 طلب</span>
+                                <span>•</span>
+                                <span>35,000 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-performance">
+                        <div class="performance-bar">
+                            <div class="bar-fill" style="width: 85%"></div>
+                        </div>
+                        <div class="performance-value">85%</div>
+                    </div>
+                </div>
+                
+                <div class="service-metric">
+                    <div class="service-info">
+                        <div class="service-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-name">خدمات التغليف</div>
+                            <div class="service-stats">
+                                <span>197 طلب</span>
+                                <span>•</span>
+                                <span>15,000 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-performance">
+                        <div class="performance-bar">
+                            <div class="bar-fill" style="width: 45%"></div>
+                        </div>
+                        <div class="performance-value">45%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Geographic Analytics -->
+        <section class="geo-analytics">
+            <div class="section-header">
+                <h3 class="section-title">التوزيع الجغرافي</h3>
+            </div>
+            
+            <div class="geo-stats">
+                <div class="geo-region">
+                    <div class="region-info">
+                        <div class="region-name">الرياض</div>
+                        <div class="region-orders">450 طلب</div>
+                    </div>
+                    <div class="region-percentage">36%</div>
+                </div>
+                
+                <div class="geo-region">
+                    <div class="region-info">
+                        <div class="region-name">جدة</div>
+                        <div class="region-orders">320 طلب</div>
+                    </div>
+                    <div class="region-percentage">26%</div>
+                </div>
+                
+                <div class="geo-region">
+                    <div class="region-info">
+                        <div class="region-name">الدمام</div>
+                        <div class="region-orders">280 طلب</div>
+                    </div>
+                    <div class="region-percentage">22%</div>
+                </div>
+                
+                <div class="geo-region">
+                    <div class="region-info">
+                        <div class="region-name">أخرى</div>
+                        <div class="region-orders">197 طلب</div>
+                    </div>
+                    <div class="region-percentage">16%</div>
+                </div>
+            </div>
+            
+            <div class="map-placeholder">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>خريطة تفاعلية للتوزيع الجغرافي</p>
+            </div>
+        </section>
+
+        <!-- Customer Insights -->
+        <section class="customer-insights">
+            <div class="section-header">
+                <h3 class="section-title">رؤى العملاء</h3>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-title">العملاء الجدد</div>
+                        <div class="insight-value">23</div>
+                        <div class="insight-change positive">+15% من الشهر الماضي</div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-title">متوسط التقييم</div>
+                        <div class="insight-value">4.8/5</div>
+                        <div class="insight-change positive">+0.2 من الشهر الماضي</div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-title">معدل العودة</div>
+                        <div class="insight-value">67%</div>
+                        <div class="insight-change positive">+8% من الشهر الماضي</div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-title">رضا العملاء</div>
+                        <div class="insight-value">92%</div>
+                        <div class="insight-change positive">+5% من الشهر الماضي</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trend Analysis -->
+        <section class="trend-analysis">
+            <div class="section-header">
+                <h3 class="section-title">تحليل الاتجاهات</h3>
+            </div>
+            
+            <div class="trends-list">
+                <div class="trend-item positive">
+                    <div class="trend-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="trend-content">
+                        <div class="trend-title">زيادة في طلبات الشحن البحري</div>
+                        <div class="trend-desc">ارتفاع بنسبة 25% في الطلبات خلال الأسبوع الماضي</div>
+                    </div>
+                </div>
+                
+                <div class="trend-item positive">
+                    <div class="trend-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="trend-content">
+                        <div class="trend-title">تحسن في أوقات التوصيل</div>
+                        <div class="trend-desc">انخفاض متوسط وقت التوصيل بنسبة 15%</div>
+                    </div>
+                </div>
+                
+                <div class="trend-item negative">
+                    <div class="trend-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="trend-content">
+                        <div class="trend-title">انخفاض في طلبات التخزين</div>
+                        <div class="trend-desc">انخفاض بنسبة 8% مقارنة بالشهر الماضي</div>
+                    </div>
+                </div>
+                
+                <div class="trend-item positive">
+                    <div class="trend-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="trend-content">
+                        <div class="trend-title">زيادة في العملاء من منطقة الدمام</div>
+                        <div class="trend-desc">ارتفاع بنسبة 30% في العملاء الجدد</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
