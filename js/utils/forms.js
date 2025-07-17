@@ -430,7 +430,7 @@ const Forms = {
             Toast.show('خطأ في التحقق', 'يرجى إكمال جميع الحقول المطلوبة في هذه الخطوة', 'error');
         }
     },
-
+    
     /**
      * Handle form submission
      * @param {string} formId - ID of the form to submit
