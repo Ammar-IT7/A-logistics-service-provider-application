@@ -1,0 +1,318 @@
+<!-- Filter Options Modal -->
+<div class="mkt-filter-modal-content">
+    <div class="mkt-filter-modal-header">
+        <div class="mkt-filter-modal-header-content">
+            <h3 class="mkt-filter-modal-title">
+                <i class="fas fa-sliders-h"></i>
+                تصفية خدمات التسويق
+            </h3>
+            <p class="mkt-filter-modal-subtitle">اختر الفلاتر المناسبة لتصفية النتائج</p>
+        </div>
+        <button class="mkt-filter-modal-close" data-action="close-modal" aria-label="إغلاق">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="mkt-filter-modal-body">
+        <!-- Quick Actions Bar -->
+        <div class="mkt-filter-quick-actions">
+            <button type="button" class="mkt-filter-quick-action-btn" data-action="select-all">
+                <i class="fas fa-check-double"></i>
+                تحديد الكل
+            </button>
+            <button type="button" class="mkt-filter-quick-action-btn" data-action="clear-all">
+                <i class="fas fa-times"></i>
+                مسح الكل
+            </button>
+            <button type="button" class="mkt-filter-quick-action-btn" data-action="popular-filters">
+                <i class="fas fa-fire"></i>
+                الأكثر شعبية
+            </button>
+        </div>
+
+        <form id="filter-form">
+            <!-- Service Type Filter -->
+            <div class="mkt-filter-section" data-section="service-type">
+                <div class="mkt-filter-section-header" data-toggle="collapse">
+                    <h4 class="mkt-filter-section-title">
+                        <i class="fas fa-tags"></i>
+                        نوع الخدمة
+                        <span class="mkt-filter-count">0 محدد</span>
+                    </h4>
+                    <button type="button" class="mkt-filter-toggle" aria-label="توسيع/طي القسم">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mkt-filter-options">
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="SEO">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-search"></i>
+                            SEO
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Google Ads">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-ad"></i>
+                            Google Ads
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Social Media">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-share-alt"></i>
+                            Social Media
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Content Marketing">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-edit"></i>
+                            Content Marketing
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Email Marketing">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-envelope"></i>
+                            Email Marketing
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Analytics">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-chart-line"></i>
+                            Analytics
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Branding">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-palette"></i>
+                            Branding
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Video Marketing">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-video"></i>
+                            Video Marketing
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Influencer Marketing">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-user-friends"></i>
+                            Influencer Marketing
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="E-commerce">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-shopping-cart"></i>
+                            E-commerce
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Local SEO">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-map-pin"></i>
+                            Local SEO
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="service_type" value="Conversion Optimization">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-bullseye"></i>
+                            Conversion Optimization
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Location Filter -->
+            <div class="mkt-filter-section" data-section="location">
+                <div class="mkt-filter-section-header" data-toggle="collapse">
+                    <h4 class="mkt-filter-section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        الموقع
+                        <span class="mkt-filter-count">0 محدد</span>
+                    </h4>
+                    <button type="button" class="mkt-filter-toggle" aria-label="توسيع/طي القسم">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mkt-filter-options">
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="location" value="الرياض">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-city"></i>
+                            الرياض
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="location" value="جدة">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-city"></i>
+                            جدة
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="location" value="الدمام">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-city"></i>
+                            الدمام
+                        </span>
+                    </label>
+                    <label class="mkt-filter-checkbox">
+                        <input type="checkbox" name="location" value="جميع المدن">
+                        <span class="mkt-filter-checkbox-label">
+                            <i class="fas fa-globe"></i>
+                            جميع المدن
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Experience Filter -->
+            <div class="mkt-filter-section" data-section="experience">
+                <div class="mkt-filter-section-header" data-toggle="collapse">
+                    <h4 class="mkt-filter-section-title">
+                        <i class="fas fa-clock"></i>
+                        سنوات الخبرة
+                    </h4>
+                    <button type="button" class="mkt-filter-toggle" aria-label="توسيع/طي القسم">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mkt-filter-options">
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="experience" value="1-3 سنوات">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-user-graduate"></i>
+                            1-3 سنوات
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="experience" value="4-6 سنوات">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-user-tie"></i>
+                            4-6 سنوات
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="experience" value="7+ سنوات">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-user-crown"></i>
+                            7+ سنوات
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div class="mkt-filter-section" data-section="price">
+                <div class="mkt-filter-section-header" data-toggle="collapse">
+                    <h4 class="mkt-filter-section-title">
+                        <i class="fas fa-money-bill-wave"></i>
+                        نطاق السعر
+                    </h4>
+                    <button type="button" class="mkt-filter-toggle" aria-label="توسيع/طي القسم">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mkt-filter-options">
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="price_range" value="أقل من 1000 ريال">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-coins"></i>
+                            أقل من 1000 ريال
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="price_range" value="1000-3000 ريال">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-coins"></i>
+                            1000-3000 ريال
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="price_range" value="3000-5000 ريال">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-coins"></i>
+                            3000-5000 ريال
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="price_range" value="أكثر من 5000 ريال">
+                        <span class="mkt-filter-radio-label">
+                            <i class="fas fa-coins"></i>
+                            أكثر من 5000 ريال
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Rating Filter -->
+            <div class="mkt-filter-section" data-section="rating">
+                <div class="mkt-filter-section-header" data-toggle="collapse">
+                    <h4 class="mkt-filter-section-title">
+                        <i class="fas fa-star"></i>
+                        التقييم
+                    </h4>
+                    <button type="button" class="mkt-filter-toggle" aria-label="توسيع/طي القسم">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mkt-filter-options">
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="rating" value="4.5+">
+                        <span class="mkt-filter-radio-label">
+                            <div class="mkt-filter-rating-display">
+                                <span class="mkt-filter-rating-stars">⭐⭐⭐⭐⭐</span>
+                                <span class="mkt-filter-rating-text">4.5+ ممتاز</span>
+                            </div>
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="rating" value="4.0+">
+                        <span class="mkt-filter-radio-label">
+                            <div class="mkt-filter-rating-display">
+                                <span class="mkt-filter-rating-stars">⭐⭐⭐⭐</span>
+                                <span class="mkt-filter-rating-text">4.0+ جيد جداً</span>
+                            </div>
+                        </span>
+                    </label>
+                    <label class="mkt-filter-radio">
+                        <input type="radio" name="rating" value="3.5+">
+                        <span class="mkt-filter-radio-label">
+                            <div class="mkt-filter-rating-display">
+                                <span class="mkt-filter-rating-stars">⭐⭐⭐</span>
+                                <span class="mkt-filter-rating-text">3.5+ جيد</span>
+                            </div>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="mkt-filter-modal-footer">
+        <div class="mkt-filter-modal-footer-content">
+            <div class="mkt-filter-summary">
+                <span class="mkt-filter-active-filters-count">0 فلتر نشط</span>
+            </div>
+            <div class="mkt-filter-modal-actions">
+                <button type="button" class="btn btn-outline" data-action="clear-filters">
+                    <i class="fas fa-times"></i>
+                    مسح الفلاتر
+                </button>
+                <button type="button" class="btn btn-primary" data-action="apply-filters">
+                    <i class="fas fa-check"></i>
+                    تطبيق الفلاتر
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
