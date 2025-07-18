@@ -398,7 +398,7 @@ const ShippingFormController = {
         // Save to state
         const shippingServices = State.get('shippingServices') || [];
         shippingServices.push(vehicleData);
-        State.set('shippingServices', shippingServices);
+        State.update('shippingServices', shippingServices);
 
         this.showSaveSuccessMessage();
     },

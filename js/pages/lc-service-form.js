@@ -543,7 +543,7 @@ const LCServiceFormController = {
         };
         
         lcServices.push(newService);
-        State.set('lcServices', lcServices);
+        State.update('lcServices', lcServices);
         
         if (window.Toast) {
             Toast.show('تم الحفظ', 'تم إضافة خدمة الاعتماد المستندي بنجاح', 'success');
@@ -569,7 +569,7 @@ const LCServiceFormController = {
                 updatedAt: new Date().toISOString()
             };
             
-            State.set('lcServices', lcServices);
+            State.update('lcServices', lcServices);
             
             if (window.Toast) {
                 Toast.show('تم التحديث', 'تم تحديث خدمة الاعتماد المستندي بنجاح', 'success');

@@ -46,10 +46,10 @@ const ProfileController = {
             packagingServices: 3
         };
         
-        State.set('user', userData);
+        State.update('user', userData);
         
         // Set personal activity data
-        State.set('personalActivities', [
+        State.update('personalActivities', [
             {
                 id: 1,
                 title: 'تم تحديث الصورة الشخصية',
@@ -569,7 +569,7 @@ const ProfileController = {
             city: formData.get('city')
         };
         
-        State.set('user', updatedUser);
+        State.update('user', updatedUser);
         this.renderProfile();
         Modal.close();
         
@@ -584,7 +584,7 @@ const ProfileController = {
             type: 'profile',
             status: 'completed'
         });
-        State.set('personalActivities', activities.slice(0, 5)); // Keep only 5 recent activities
+        State.update('personalActivities', activities.slice(0, 5)); // Keep only 5 recent activities
     },
     
     /**
@@ -640,7 +640,7 @@ const ProfileController = {
                     type: 'profile',
                     status: 'completed'
                 });
-                State.set('personalActivities', activities.slice(0, 5));
+                State.update('personalActivities', activities.slice(0, 5));
             };
             reader.readAsDataURL(file);
         }, 1500);
@@ -657,9 +657,9 @@ const ProfileController = {
             
             setTimeout(() => {
             // Clear user data
-            State.set('user', null);
-            State.set('isAuthenticated', false);
-                State.set('personalActivities', []);
+            State.update('user', null);
+            State.update('isAuthenticated', false);
+                State.update('personalActivities', []);
             
             // Navigate to login
             Router.navigate('login');

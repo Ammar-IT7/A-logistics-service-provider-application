@@ -154,7 +154,7 @@ const NotificationsController = {
         
         if (notification && !notification.read) {
             notification.read = true;
-            State.set('notifications', notifications);
+            State.update('notifications', notifications);
             this.renderNotifications();
             Toast.show('تم التحديث', 'تم تحديد الإشعار كمقروء', 'success');
         }
@@ -167,7 +167,7 @@ const NotificationsController = {
         const notifications = State.get('notifications');
         const updatedNotifications = notifications.filter(n => n.id !== notificationId);
         
-        State.set('notifications', updatedNotifications);
+        State.update('notifications', updatedNotifications);
         this.renderNotifications();
         Toast.show('تم الحذف', 'تم حذف الإشعار بنجاح', 'success');
     },
@@ -179,7 +179,7 @@ const NotificationsController = {
         const notifications = State.get('notifications');
         const updatedNotifications = notifications.map(n => ({ ...n, read: true }));
         
-        State.set('notifications', updatedNotifications);
+        State.update('notifications', updatedNotifications);
         this.renderNotifications();
         Toast.show('تم التحديث', 'تم تحديد جميع الإشعارات كمقروءة', 'success');
     },
@@ -188,7 +188,7 @@ const NotificationsController = {
      * Clear all notifications
      */
     clearAllNotifications: function() {
-        State.set('notifications', []);
+        State.update('notifications', []);
         this.renderNotifications();
         Toast.show('تم المسح', 'تم مسح جميع الإشعارات', 'success');
     }

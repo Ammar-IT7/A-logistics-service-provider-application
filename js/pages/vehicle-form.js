@@ -487,7 +487,7 @@ const VehicleFormController = {
         };
         
         shippingServices.push(newVehicle);
-        State.set('shippingServices', shippingServices);
+        State.update('shippingServices', shippingServices);
         
         Toast.show('تم الحفظ', 'تم إضافة وسيلة الشحن بنجاح', 'success');
         
@@ -516,7 +516,7 @@ const VehicleFormController = {
             };
             
             shippingServices[vehicleIndex] = updatedVehicle;
-            State.set('shippingServices', shippingServices);
+            State.update('shippingServices', shippingServices);
             
             Toast.show('تم التحديث', 'تم تحديث وسيلة الشحن بنجاح', 'success');
             

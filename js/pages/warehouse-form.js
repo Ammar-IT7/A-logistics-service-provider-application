@@ -396,7 +396,7 @@ const WarehouseFormController = {
         };
         
         warehouses.push(newWarehouse);
-        State.set('warehouses', warehouses);
+        State.update('warehouses', warehouses);
         
         Toast.show('تم الحفظ', 'تم إضافة المستودع بنجاح', 'success');
         
@@ -426,7 +426,7 @@ const WarehouseFormController = {
             };
             
             warehouses[warehouseIndex] = updatedWarehouse;
-            State.set('warehouses', warehouses);
+            State.update('warehouses', warehouses);
             
             Toast.show('تم التحديث', 'تم تحديث المستودع بنجاح', 'success');
             

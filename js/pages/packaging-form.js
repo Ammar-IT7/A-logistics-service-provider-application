@@ -540,7 +540,7 @@ const PackagingFormController = {
         };
         
         packagingServices.push(newService);
-        State.set('packagingServices', packagingServices);
+        State.update('packagingServices', packagingServices);
         
         if (window.Toast) {
             Toast.show('تم الحفظ', 'تم إضافة خدمة التغليف بنجاح', 'success');
@@ -566,7 +566,7 @@ const PackagingFormController = {
                 updatedAt: new Date().toISOString()
             };
             
-            State.set('packagingServices', packagingServices);
+            State.update('packagingServices', packagingServices);
             
             if (window.Toast) {
                 Toast.show('تم التحديث', 'تم تحديث خدمة التغليف بنجاح', 'success');

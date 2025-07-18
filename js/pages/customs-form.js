@@ -417,7 +417,7 @@ const CustomsFormController = {
         };
         
         customsServices.push(newCustomsService);
-        State.set('customsServices', customsServices);
+        State.update('customsServices', customsServices);
         
         Toast.show('تم الحفظ', 'تم إضافة مكتب التخليص بنجاح', 'success');
         
@@ -444,7 +444,7 @@ const CustomsFormController = {
             };
             
             customsServices[customsIndex] = updatedCustomsService;
-            State.set('customsServices', customsServices);
+            State.update('customsServices', customsServices);
             
             Toast.show('تم التحديث', 'تم تحديث مكتب التخليص بنجاح', 'success');
             

@@ -171,6 +171,7 @@ const Router = {
             'analytics': 'AnalyticsController',
             'billing': 'BillingController',
             'help': 'HelpController',
+            'account-management': 'AccountManagementController',
             'myshipping': 'MyShippingController',
             'mycustoms': 'MyCustomsController',
             'mywarehouses': 'MyWarehousesController',

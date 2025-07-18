@@ -540,7 +540,7 @@ const DeliveryProviderFormController = {
         };
         
         lastMileServices.push(newDeliveryProvider);
-        State.set('lastMileServices', lastMileServices);
+        State.update('lastMileServices', lastMileServices);
         
         Toast.show('تم الحفظ', 'تم إضافة مزود خدمة التوصيل بنجاح', 'success');
         
@@ -568,7 +568,7 @@ const DeliveryProviderFormController = {
             };
             
             lastMileServices[providerIndex] = updatedDeliveryProvider;
-            State.set('lastMileServices', lastMileServices);
+            State.update('lastMileServices', lastMileServices);
             
             Toast.show('تم التحديث', 'تم تحديث مزود خدمة التوصيل بنجاح', 'success');
             
