@@ -11,14 +11,13 @@ const MarketingController = {
         this.setupEventListeners();
         this.updateDesignerNotes();
         this.initializeAnimations();
-        this.setupIntersectionObserver();
     },
 
     /**
      * Load page data
      */
     loadData: function() {
-        // Simulate loading marketing data
+        // Simulate loading marketing services data
         console.log('Loading marketing services data...');
         
         // Show loading state
@@ -26,9 +25,8 @@ const MarketingController = {
         
         // In a real app, this would fetch data from the server
         setTimeout(() => {
-            this.updateAgenciesList();
-            this.updateSuccessStories();
-            this.updateTestimonials();
+            this.updateServicesList();
+            this.updateStats();
             this.hideLoadingState();
         }, 800);
     },
@@ -37,519 +35,383 @@ const MarketingController = {
      * Set up event listeners
      */
     setupEventListeners: function() {
-        // Handle agency card clicks
+        // Handle service card clicks
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.mkt-agency-card')) {
-                const agencyCard = e.target.closest('.mkt-agency-card');
-                this.handleAgencyClick(agencyCard);
-            }
-            
-            if (e.target.closest('.mkt-service-card')) {
-                const serviceCard = e.target.closest('.mkt-service-card');
-                this.handleServiceClick(serviceCard);
-            }
-            
-            if (e.target.closest('.mkt-story-card')) {
-                const storyCard = e.target.closest('.mkt-story-card');
-                this.handleStoryClick(storyCard);
-            }
-
-            if (e.target.closest('.mkt-testimonial-card')) {
-                const testimonialCard = e.target.closest('.mkt-testimonial-card');
-                this.handleTestimonialClick(testimonialCard);
+            if (e.target.closest('.sp-service-card')) {
+                const serviceCard = e.target.closest('.sp-service-card');
+                this.handleServiceCardClick(serviceCard);
             }
         });
 
-        // Handle quick action buttons
+        // Handle contact button clicks
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.mkt-quick-action')) {
-                const quickAction = e.target.closest('.mkt-quick-action');
-                this.handleQuickAction(quickAction);
+            if (e.target.closest('[data-action="contact"]')) {
+                const button = e.target.closest('[data-action="contact"]');
+                const providerId = button.getAttribute('data-provider');
+                this.handleContactClick(providerId);
             }
         });
 
-        // Handle button clicks
+        // Handle portfolio button clicks
         document.addEventListener('click', (e) => {
-            if (e.target.matches('[data-action="request-quote"]')) {
-                this.handleQuoteRequest(e.target);
-            }
-            
-            if (e.target.matches('[data-action="view-portfolio"]')) {
-                this.handlePortfolioView(e.target);
-            }
-
-            if (e.target.matches('[data-action="get-free-consultation"]')) {
-                this.handleFreeConsultation(e.target);
-            }
-
-            if (e.target.matches('[data-action="download-guide"]')) {
-                this.handleDownloadGuide(e.target);
+            if (e.target.closest('[data-action="view-portfolio"]')) {
+                const button = e.target.closest('[data-action="view-portfolio"]');
+                const providerId = button.getAttribute('data-provider');
+                this.handlePortfolioClick(providerId);
             }
         });
 
-        // Handle scroll events for animations
-        window.addEventListener('scroll', this.handleScroll.bind(this));
-    },
-
-    /**
-     * Handle quick action clicks
-     */
-    handleQuickAction: function(quickAction) {
-        const action = quickAction.getAttribute('data-action');
-        const actionText = quickAction.querySelector('.mkt-quick-action-text').textContent;
-        
-        console.log('Quick action clicked:', action, actionText);
-        
-        // Add click animation
-        quickAction.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            quickAction.style.transform = '';
-        }, 150);
-
-        switch(action) {
-            case 'get-quote':
-                this.showQuoteModal();
-                break;
-            case 'free-audit':
-                this.showAuditModal();
-                break;
-            case 'consultation':
-                this.showConsultationModal();
-                break;
-            case 'portfolio':
-                this.showPortfolioModal();
-                break;
+        // Handle search functionality
+        const searchInput = document.querySelector('.mkt-search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', this.handleSearch.bind(this));
         }
-    },
 
-    /**
-     * Show quote request modal
-     */
-    showQuoteModal: function() {
-        Toast.show('طلب عرض سعر', 'سيتم التواصل معك خلال 24 ساعة', 'success');
-        
-        setTimeout(() => {
-            Modal.open('quote-request', {
-                title: 'طلب عرض سعر',
-                fields: [
-                    { name: 'company', label: 'اسم الشركة', type: 'text', required: true },
-                    { name: 'contact', label: 'رقم التواصل', type: 'tel', required: true },
-                    { name: 'email', label: 'البريد الإلكتروني', type: 'email', required: true },
-                    { name: 'services', label: 'الخدمات المطلوبة', type: 'select', options: ['SEO', 'Google Ads', 'Social Media', 'Content Marketing'] },
-                    { name: 'budget', label: 'الميزانية الشهرية', type: 'select', options: ['1000-3000', '3000-5000', '5000-10000', '10000+'] },
-                    { name: 'message', label: 'رسالة إضافية', type: 'textarea' }
-                ]
-            });
-        }, 1000);
-    },
-
-    /**
-     * Show free audit modal
-     */
-    showAuditModal: function() {
-        Toast.show('فحص مجاني', 'سيتم إرسال تقرير الفحص المجاني لبريدك الإلكتروني', 'info');
-        
-        setTimeout(() => {
-            Modal.open('free-audit', {
-                title: 'فحص مجاني للموقع',
-                fields: [
-                    { name: 'website', label: 'رابط الموقع', type: 'url', required: true },
-                    { name: 'email', label: 'البريد الإلكتروني', type: 'email', required: true },
-                    { name: 'focus', label: 'التركيز على', type: 'select', options: ['SEO', 'الأداء', 'تجربة المستخدم', 'الأمان'] }
-                ]
-            });
-        }, 1000);
-    },
-
-    /**
-     * Show consultation modal
-     */
-    showConsultationModal: function() {
-        Toast.show('استشارة مجانية', 'سيتم التواصل معك لتحديد موعد الاستشارة', 'success');
-        
-        setTimeout(() => {
-            Modal.open('consultation', {
-                title: 'حجز استشارة مجانية',
-                fields: [
-                    { name: 'name', label: 'الاسم الكامل', type: 'text', required: true },
-                    { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true },
-                    { name: 'email', label: 'البريد الإلكتروني', type: 'email', required: true },
-                    { name: 'preferred_time', label: 'الوقت المفضل', type: 'select', options: ['صباحاً', 'مساءً', 'أي وقت'] },
-                    { name: 'business_type', label: 'نوع النشاط', type: 'text' }
-                ]
-            });
-        }, 1000);
-    },
-
-    /**
-     * Show portfolio modal
-     */
-    showPortfolioModal: function() {
-        Toast.show('معرض الأعمال', 'جاري تحميل معرض الأعمال', 'info');
-        
-        setTimeout(() => {
-            Modal.open('portfolio', {
-                title: 'معرض أعمالنا',
-                projects: this.getPortfolioProjects()
-            });
-        }, 1000);
-    },
-
-    /**
-     * Handle agency card click
-     */
-    handleAgencyClick: function(agencyCard) {
-        const agencyName = agencyCard.querySelector('h4').textContent;
-        const rating = agencyCard.querySelector('.mkt-agency-rating span').textContent;
-        
-        console.log('Agency clicked:', agencyName, rating);
-        
-        // Show agency details
-        Toast.show('وكالة التسويق', `تم اختيار ${agencyName}`, 'info');
-        
-        // In a real app, this would open a modal or navigate to agency details
-        setTimeout(() => {
-            Modal.open('agency-details', {
-                agency: agencyName,
-                rating: rating,
-                services: this.getAgencyServices(agencyName),
-                stats: this.getAgencyStats(agencyCard)
-            });
-        }, 1000);
+        // Handle filter button
+        const filterBtn = document.querySelector('.mkt-filter-btn');
+        if (filterBtn) {
+            filterBtn.addEventListener('click', this.handleFilter.bind(this));
+        }
     },
 
     /**
      * Handle service card click
      */
-    handleServiceClick: function(serviceCard) {
-        const serviceName = serviceCard.querySelector('h3').textContent;
-        console.log('Service clicked:', serviceName);
+    handleServiceCardClick: function(serviceCard) {
+        const providerId = serviceCard.getAttribute('data-provider');
+        const serviceTitle = serviceCard.querySelector('.sp-service-title').textContent;
+        const rating = serviceCard.querySelector('.mkt-service-badge').textContent;
+        
+        console.log('Marketing service clicked:', providerId, serviceTitle, rating);
         
         // Show service details
-        Toast.show('خدمة التسويق', `تعرف على المزيد عن ${serviceName}`, 'info');
+        Toast.show('خدمة التسويق', `عرض تفاصيل ${serviceTitle}`, 'info');
         
-        // In a real app, this would show detailed service information
+        // In a real app, this would navigate to service details page
         setTimeout(() => {
-            Modal.open('service-details', {
-                service: serviceName,
-                description: serviceCard.querySelector('p').textContent,
-                features: this.getServiceFeatures(serviceName),
-                metrics: this.getServiceMetrics(serviceCard)
-            });
+            // For now, show a modal with service details
+            this.showServiceDetails(providerId, serviceTitle, rating);
         }, 1000);
     },
 
     /**
-     * Handle success story click
+     * Handle contact button click
      */
-    handleStoryClick: function(storyCard) {
-        const companyName = storyCard.querySelector('h4').textContent;
-        const period = storyCard.querySelector('.mkt-story-period').textContent;
+    handleContactClick: function(providerId) {
+        const serviceData = this.getServiceData(providerId);
         
-        console.log('Success story clicked:', companyName, period);
+        console.log('Contact requested for:', serviceData.provider);
         
-        // Show detailed success story
-        Toast.show('قصة النجاح', `تعرف على قصة نجاح ${companyName}`, 'success');
+        Toast.show('طلب تواصل', `سيتم التواصل مع ${serviceData.provider} خلال 24 ساعة`, 'success');
         
-        // In a real app, this would show detailed case study
+        // Show contact form modal
         setTimeout(() => {
-            Modal.open('case-study', {
-                company: companyName,
-                period: period,
-                metrics: this.getStoryMetrics(storyCard),
-                industry: storyCard.querySelector('.mkt-story-industry')?.textContent
-            });
+            this.showContactForm(serviceData);
         }, 1000);
     },
 
     /**
-     * Handle testimonial click
+     * Handle portfolio button click
      */
-    handleTestimonialClick: function(testimonialCard) {
-        const authorName = testimonialCard.querySelector('h5').textContent;
-        const authorRole = testimonialCard.querySelector('span').textContent;
+    handlePortfolioClick: function(providerId) {
+        const serviceData = this.getServiceData(providerId);
         
-        console.log('Testimonial clicked:', authorName, authorRole);
+        console.log('Portfolio requested for:', serviceData.provider);
         
-        // Show detailed testimonial
-        Toast.show('رأي العميل', `تعرف على المزيد عن ${authorName}`, 'info');
+        Toast.show('معرض الأعمال', `عرض أعمال ${serviceData.provider}`, 'info');
         
+        // Show portfolio modal
         setTimeout(() => {
-            Modal.open('testimonial-details', {
-                author: authorName,
-                role: authorRole,
-                content: testimonialCard.querySelector('p').textContent,
-                rating: this.getTestimonialRating(testimonialCard)
-            });
+            this.showPortfolio(serviceData);
         }, 1000);
     },
 
     /**
-     * Handle quote request
+     * Show contact form modal
      */
-    handleQuoteRequest: function(button) {
-        const agencyName = button.closest('.mkt-agency-card').querySelector('h4').textContent;
-        
-        console.log('Quote requested for:', agencyName);
-        
-        // Show quote request form
-        Toast.show('طلب عرض سعر', `تم إرسال طلب عرض سعر لـ ${agencyName}`, 'success');
-        
-        // In a real app, this would open a quote request form
-        setTimeout(() => {
-            Modal.open('quote-request', {
-                agency: agencyName,
-                services: ['SEO', 'Google Ads', 'Social Media']
-            });
-        }, 1000);
-    },
-
-    /**
-     * Handle portfolio view
-     */
-    handlePortfolioView: function(button) {
-        const agencyName = button.closest('.mkt-agency-card').querySelector('h4').textContent;
-        
-        console.log('Portfolio requested for:', agencyName);
-        
-        // Show portfolio
-        Toast.show('معرض الأعمال', `عرض أعمال ${agencyName}`, 'info');
-        
-        // In a real app, this would show the agency's portfolio
-        setTimeout(() => {
-            Modal.open('portfolio', {
-                agency: agencyName,
-                projects: this.getAgencyProjects(agencyName)
-            });
-        }, 1000);
-    },
-
-    /**
-     * Handle free consultation
-     */
-    handleFreeConsultation: function(button) {
-        console.log('Free consultation requested');
-        
-        Toast.show('استشارة مجانية', 'سيتم التواصل معك خلال ساعة واحدة', 'success');
-        
-        setTimeout(() => {
-            Modal.open('consultation', {
-                title: 'حجز استشارة مجانية',
-                fields: [
-                    { name: 'name', label: 'الاسم الكامل', type: 'text', required: true },
-                    { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true },
-                    { name: 'email', label: 'البريد الإلكتروني', type: 'email', required: true },
-                    { name: 'business_type', label: 'نوع النشاط', type: 'text' },
-                    { name: 'current_challenges', label: 'التحديات الحالية', type: 'textarea' }
-                ]
-            });
-        }, 1000);
-    },
-
-    /**
-     * Handle download guide
-     */
-    handleDownloadGuide: function(button) {
-        console.log('Marketing guide download requested');
-        
-        Toast.show('تحميل الدليل', 'جاري تحميل دليل التسويق الرقمي', 'info');
-        
-        // Simulate download
-        setTimeout(() => {
-            Toast.show('تم التحميل', 'تم تحميل الدليل بنجاح', 'success');
-            // In a real app, this would trigger an actual download
-        }, 2000);
-    },
-
-    /**
-     * Get agency services
-     */
-    getAgencyServices: function(agencyName) {
-        const services = {
-            'وكالة التسويق الرقمي المتقدمة': ['SEO', 'Google Ads', 'Social Media', 'Content Marketing'],
-            'مؤسسة التسويق الإبداعية': ['Content Marketing', 'Email Marketing', 'Branding', 'Design'],
-            'شركة التسويق التحليلي': ['Data Analytics', 'Performance Marketing', 'Conversion Optimization', 'A/B Testing']
-        };
-        
-        return services[agencyName] || [];
-    },
-
-    /**
-     * Get agency stats
-     */
-    getAgencyStats: function(agencyCard) {
-        const stats = [];
-        const statElements = agencyCard.querySelectorAll('.mkt-stat-item');
-        
-        statElements.forEach(element => {
-            const value = element.querySelector('.mkt-stat-value').textContent;
-            const label = element.querySelector('.mkt-stat-label').textContent;
-            stats.push({ value, label });
-        });
-        
-        return stats;
-    },
-
-    /**
-     * Get service features
-     */
-    getServiceFeatures: function(serviceName) {
-        const features = {
-            'تحسين محركات البحث (SEO)': [
-                'تحليل الكلمات المفتاحية',
-                'تحسين المحتوى',
-                'بناء الروابط',
-                'تحليل المنافسين'
-            ],
-            'إعلانات جوجل (Google Ads)': [
-                'إعلانات بحث',
-                'إعلانات عرض',
-                'تحسين الحملات',
-                'تحليل الأداء'
-            ],
-            'التسويق عبر وسائل التواصل': [
-                'إدارة الحسابات',
-                'إنشاء محتوى',
-                'تفاعل العملاء',
-                'تحليل النتائج'
-            ],
-            'التسويق عبر البريد الإلكتروني': [
-                'قوائم البريد',
-                'تصميم الرسائل',
-                'تحليل النتائج',
-                'أتمتة الحملات'
-            ],
-            'التسويق بالمحتوى': [
-                'كتابة المحتوى',
-                'تصميم الرسوم',
-                'الفيديو',
-                'الإنفوجرافيك'
-            ],
-            'تحليل البيانات والتقارير': [
-                'تحليل الأداء',
-                'تقارير شهرية',
-                'توصيات التحسين',
-                'متابعة النتائج'
+    showContactForm: function(serviceData) {
+        Modal.open('contact-form', {
+            title: `طلب تواصل مع ${serviceData.provider}`,
+            provider: serviceData.provider,
+            contact: serviceData.contact,
+            fields: [
+                { name: 'name', label: 'الاسم الكامل', type: 'text', required: true },
+                { name: 'company', label: 'اسم الشركة', type: 'text', required: true },
+                { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true },
+                { name: 'email', label: 'البريد الإلكتروني', type: 'email', required: true },
+                { name: 'service_type', label: 'نوع الخدمة المطلوبة', type: 'select', options: serviceData.services },
+                { name: 'budget', label: 'الميزانية المتوقعة', type: 'select', options: ['1000-3000', '3000-5000', '5000-10000', '10000+'] },
+                { name: 'message', label: 'رسالة إضافية', type: 'textarea' }
             ]
-        };
-        
-        return features[serviceName] || [];
-    },
-
-    /**
-     * Get service metrics
-     */
-    getServiceMetrics: function(serviceCard) {
-        const metrics = [];
-        const metricElements = serviceCard.querySelectorAll('.mkt-service-metric');
-        
-        metricElements.forEach(element => {
-            const value = element.querySelector('.mkt-service-metric-value').textContent;
-            const label = element.querySelector('.mkt-service-metric-label').textContent;
-            metrics.push({ value, label });
         });
-        
-        return metrics;
     },
 
     /**
-     * Get story metrics
+     * Show portfolio modal
      */
-    getStoryMetrics: function(storyCard) {
-        const metrics = [];
-        const metricElements = storyCard.querySelectorAll('.mkt-metric');
+    showPortfolio: function(serviceData) {
+        const portfolioData = this.getPortfolioData(serviceData.provider);
         
-        metricElements.forEach(element => {
-            const value = element.querySelector('.mkt-metric-value').textContent;
-            const label = element.querySelector('.mkt-metric-label').textContent;
-            metrics.push({ value, label });
+        Modal.open('portfolio', {
+            title: `معرض أعمال ${serviceData.provider}`,
+            provider: serviceData.provider,
+            projects: portfolioData.projects,
+            stats: portfolioData.stats,
+            testimonials: portfolioData.testimonials
         });
+    },
+
+    /**
+     * Show service details modal
+     */
+    showServiceDetails: function(providerId, serviceTitle, rating) {
+        const serviceData = this.getServiceData(providerId);
         
-        return metrics;
+        Modal.open('service-details', {
+            title: serviceTitle,
+            provider: serviceData.provider,
+            rating: rating,
+            description: serviceData.description,
+            services: serviceData.services,
+            pricing: serviceData.pricing,
+            contact: serviceData.contact,
+            features: serviceData.features,
+            guarantees: serviceData.guarantees,
+            process: serviceData.process
+        });
     },
 
     /**
-     * Get testimonial rating
+     * Handle search functionality
      */
-    getTestimonialRating: function(testimonialCard) {
-        const stars = testimonialCard.querySelectorAll('.mkt-testimonial-rating i.fas.fa-star');
-        return stars.length;
-    },
-
-    /**
-     * Get agency projects
-     */
-    getAgencyProjects: function(agencyName) {
-        const projects = {
-            'وكالة التسويق الرقمي المتقدمة': [
-                { name: 'شركة الشحن السريع', result: 'زيادة المبيعات 200%', image: 'shipping.jpg' },
-                { name: 'مستودعات الأمانة', result: 'تحسين ترتيب البحث', image: 'warehouse.jpg' },
-                { name: 'شركة النقل الآمن', result: 'زيادة العملاء 150%', image: 'transport.jpg' }
-            ],
-            'مؤسسة التسويق الإبداعية': [
-                { name: 'شركة التغليف المتقدمة', result: 'تحسين العلامة التجارية', image: 'packaging.jpg' },
-                { name: 'مؤسسة التخليص الجمركي', result: 'زيادة الوعي بالعلامة', image: 'customs.jpg' }
-            ],
-            'شركة التسويق التحليلي': [
-                { name: 'شركة اللوجستيات العالمية', result: 'تحسين معدل التحويل 45%', image: 'logistics.jpg' },
-                { name: 'مؤسسة النقل البحري', result: 'زيادة الإيرادات 180%', image: 'maritime.jpg' }
-            ]
-        };
+    handleSearch: function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const serviceCards = document.querySelectorAll('.sp-service-card');
         
-        return projects[agencyName] || [];
-    },
-
-    /**
-     * Get portfolio projects
-     */
-    getPortfolioProjects: function() {
-        return [
-            {
-                name: 'شركة الشحن السريع',
-                category: 'خدمات الشحن',
-                result: 'زيادة المبيعات 200%',
-                image: 'shipping-project.jpg',
-                description: 'حملة تسويقية شاملة تضمنت SEO وإعلانات Google'
-            },
-            {
-                name: 'مستودعات الأمانة',
-                category: 'خدمات التخزين',
-                result: 'تحسين ترتيب البحث',
-                image: 'warehouse-project.jpg',
-                description: 'تحسين شامل للموقع وتحسين محركات البحث'
-            },
-            {
-                name: 'شركة النقل الآمن',
-                category: 'خدمات النقل',
-                result: 'زيادة الطلبات 180%',
-                image: 'transport-project.jpg',
-                description: 'حملة تسويق عبر وسائل التواصل الاجتماعي'
+        serviceCards.forEach(card => {
+            const title = card.querySelector('.sp-service-title').textContent.toLowerCase();
+            const description = card.querySelector('.sp-service-desc').textContent.toLowerCase();
+            const tags = Array.from(card.querySelectorAll('.mkt-service-tag')).map(tag => tag.textContent.toLowerCase());
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm) || tags.some(tag => tag.includes(searchTerm))) {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+            } else {
+                card.style.display = 'none';
+                card.style.opacity = '0';
             }
-        ];
+        });
     },
 
     /**
-     * Update agencies list
+     * Handle filter functionality
      */
-    updateAgenciesList: function() {
-        // In a real app, this would update the agencies list with real data
-        console.log('Agencies list updated');
+    handleFilter: function() {
+        console.log('Filter button clicked');
+        
+        // Show filter options modal
+        Modal.open('filter-options', {
+            title: 'تصفية خدمات التسويق',
+            filters: [
+                { name: 'service_type', label: 'نوع الخدمة', type: 'checkbox', options: ['SEO', 'Google Ads', 'Social Media', 'Content Marketing', 'Email Marketing', 'Analytics', 'Branding', 'Video Marketing', 'Influencer Marketing', 'E-commerce', 'Local SEO', 'Conversion Optimization'] },
+                { name: 'location', label: 'الموقع', type: 'checkbox', options: ['الرياض', 'جدة', 'الدمام', 'جميع المدن'] },
+                { name: 'experience', label: 'سنوات الخبرة', type: 'radio', options: ['1-3 سنوات', '4-6 سنوات', '7+ سنوات'] },
+                { name: 'price_range', label: 'نطاق السعر', type: 'radio', options: ['أقل من 1000 ريال', '1000-3000 ريال', '3000-5000 ريال', 'أكثر من 5000 ريال'] },
+                { name: 'rating', label: 'التقييم', type: 'radio', options: ['4.5+', '4.0+', '3.5+'] }
+            ]
+        });
     },
 
     /**
-     * Update success stories
+     * Update stats
      */
-    updateSuccessStories: function() {
-        // In a real app, this would update success stories with real data
-        console.log('Success stories updated');
+    updateStats: function() {
+        // In a real app, this would update stats with real data
+        console.log('Stats updated');
     },
 
     /**
-     * Update testimonials
+     * Get portfolio data for a specific provider
      */
-    updateTestimonials: function() {
-        // In a real app, this would update testimonials with real data
-        console.log('Testimonials updated');
+    getPortfolioData: function(providerName) {
+        const portfolios = {
+            'وكالة التسويق الرقمي المتقدمة': {
+                projects: [
+                    { name: 'شركة الشحن السريع', result: 'زيادة المبيعات 200%', image: 'shipping-project.jpg', description: 'حملة SEO شاملة مع إعلانات Google' },
+                    { name: 'مستودعات الأمانة', result: 'تحسين ترتيب البحث', image: 'warehouse-project.jpg', description: 'تحسين محركات البحث للموقع' },
+                    { name: 'شركة النقل الآمن', result: 'زيادة العملاء 150%', image: 'transport-project.jpg', description: 'حملة إعلانات مدفوعة' }
+                ],
+                stats: { total_projects: 45, success_rate: 95, avg_increase: 180 },
+                testimonials: [
+                    { author: 'أحمد محمد', company: 'شركة الشحن السريع', content: 'نتائج مذهلة في وقت قياسي' },
+                    { author: 'فاطمة علي', company: 'مستودعات الأمانة', content: 'احترافية عالية ونتائج مضمونة' }
+                ]
+            },
+            'مؤسسة التسويق الإبداعية': {
+                projects: [
+                    { name: 'شركة التغليف المتقدمة', result: 'زيادة المتابعين 300%', image: 'packaging-project.jpg', description: 'إدارة حسابات التواصل الاجتماعي' },
+                    { name: 'مؤسسة التخليص الجمركي', result: 'تحسين التفاعل 250%', image: 'customs-project.jpg', description: 'إنشاء محتوى تفاعلي' }
+                ],
+                stats: { total_projects: 32, success_rate: 92, avg_increase: 220 },
+                testimonials: [
+                    { author: 'خالد عبدالله', company: 'شركة التغليف المتقدمة', content: 'محتوى إبداعي ومتفاعل' },
+                    { author: 'نورا أحمد', company: 'مؤسسة التخليص الجمركي', content: 'نتائج تفوق التوقعات' }
+                ]
+            }
+        };
+        
+        return portfolios[providerName] || {
+            projects: [],
+            stats: { total_projects: 0, success_rate: 0, avg_increase: 0 },
+            testimonials: []
+        };
+    },
+
+    /**
+     * Get service data for a specific provider
+     */
+    getServiceData: function(providerId) {
+        const servicesData = {
+            'seo-expert': {
+                provider: 'وكالة التسويق الرقمي المتقدمة',
+                description: 'وكالة متخصصة في تحسين محركات البحث وإعلانات جوجل مع نتائج مضمونة وزيادة في المبيعات',
+                services: ['SEO', 'Google Ads', 'تحليل الكلمات المفتاحية', 'تحسين المحتوى'],
+                pricing: 'يبدأ من 2,000 ريال شهرياً',
+                contact: '+966 50 123 4567',
+                features: ['تحليل شامل للموقع', 'تحسين الكلمات المفتاحية', 'بناء الروابط', 'تقارير شهرية'],
+                guarantees: ['زيادة الزيارات العضوية', 'تحسين ترتيب البحث', 'نتائج مضمونة خلال 3 أشهر'],
+                process: ['تحليل الموقع', 'إعداد الاستراتيجية', 'التنفيذ', 'المتابعة والتطوير']
+            },
+            'social-media-pro': {
+                provider: 'مؤسسة التسويق الإبداعية',
+                description: 'مؤسسة متخصصة في إدارة حسابات التواصل الاجتماعي وإنشاء محتوى جذاب ومتفاعل مع العملاء',
+                services: ['إدارة الحسابات', 'إنشاء المحتوى', 'التفاعل مع العملاء', 'تحليل النتائج'],
+                pricing: 'يبدأ من 1,500 ريال شهرياً',
+                contact: '+966 50 234 5678',
+                features: ['إدارة 3 حسابات', 'إنشاء 15 منشور شهرياً', 'تفاعل يومي', 'تقارير أسبوعية'],
+                guarantees: ['زيادة المتابعين', 'تحسين التفاعل', 'بناء العلاقات مع العملاء'],
+                process: ['تحليل الحسابات', 'إعداد المحتوى', 'النشر والتفاعل', 'تحليل الأداء']
+            },
+            'content-masters': {
+                provider: 'شركة المحتوى الإبداعية',
+                description: 'شركة متخصصة في كتابة المحتوى الاحترافي واستراتيجيات تسويق المحتوى لبناء العلامة التجارية',
+                services: ['كتابة المحتوى', 'تصميم الرسوم', 'الفيديو', 'الإنفوجرافيك'],
+                pricing: 'يبدأ من 1,200 ريال شهرياً',
+                contact: '+966 50 345 6789',
+                features: ['محتوى أصلي ومميز', 'تصميم احترافي', 'تحسين SEO', 'تسليم في الوقت المحدد'],
+                guarantees: ['محتوى عالي الجودة', 'تحسين الوعي بالعلامة', 'زيادة التفاعل'],
+                process: ['فهم المتطلبات', 'إعداد المحتوى', 'المراجعة والتطوير', 'التسليم']
+            },
+            'email-specialists': {
+                provider: 'مؤسسة التسويق عبر البريد',
+                description: 'مؤسسة متخصصة في حملات البريد الإلكتروني الفعالة وأتمتة التسويق لزيادة المبيعات والتفاعل',
+                services: ['قوائم البريد', 'تصميم الرسائل', 'أتمتة الحملات', 'تحليل النتائج'],
+                pricing: 'يبدأ من 800 ريال شهرياً',
+                contact: '+966 50 456 7890',
+                features: ['تصميم رسائل جذابة', 'أتمتة الحملات', 'تحليل معدل الفتح', 'تحسين التحويل'],
+                guarantees: ['زيادة معدل الفتح', 'تحسين معدل النقر', 'زيادة المبيعات'],
+                process: ['بناء قائمة البريد', 'تصميم الحملة', 'الإرسال', 'تحليل النتائج']
+            },
+            'ads-experts': {
+                provider: 'شركة الإعلانات الرقمية',
+                description: 'شركة متخصصة في إدارة حملات إعلانات جوجل مع أفضل عائد على الاستثمار ونتائج مضمونة',
+                services: ['إعلانات البحث', 'إعلانات العرض', 'تحسين الحملات', 'تحليل الأداء'],
+                pricing: 'يبدأ من 3,000 ريال شهرياً',
+                contact: '+966 50 567 8901',
+                features: ['إدارة ميزانية الحملات', 'تحسين الكلمات المفتاحية', 'تحليل المنافسين', 'تقارير مفصلة'],
+                guarantees: ['زيادة المبيعات', 'تحسين عائد الاستثمار', 'نتائج مضمونة'],
+                process: ['تحليل السوق', 'إعداد الحملة', 'المراقبة والتحسين', 'تحليل النتائج']
+            },
+            'analytics-pro': {
+                provider: 'شركة التسويق التحليلي',
+                description: 'شركة متخصصة في تحليل البيانات وتقارير الأداء لتحسين الاستراتيجيات وزيادة النتائج',
+                services: ['تحليل الأداء', 'التقارير', 'تحسين الاستراتيجيات', 'متابعة النتائج'],
+                pricing: 'يبدأ من 1,800 ريال شهرياً',
+                contact: '+966 50 678 9012',
+                features: ['تحليل شامل للبيانات', 'تقارير شهرية', 'توصيات التحسين', 'متابعة مستمرة'],
+                guarantees: ['شفافية كاملة', 'توصيات عملية', 'تحسين الأداء'],
+                process: ['جمع البيانات', 'التحليل', 'إعداد التقارير', 'التوصيات']
+            },
+            'brand-masters': {
+                provider: 'استوديو العلامات التجارية',
+                description: 'استوديو متخصص في تصميم الهوية البصرية وتطوير العلامات التجارية لبناء صورة قوية',
+                services: ['تصميم الشعارات', 'الهوية البصرية', 'المواد التسويقية', 'العلامات التجارية'],
+                pricing: 'يبدأ من 2,500 ريال شهرياً',
+                contact: '+966 50 789 0123',
+                features: ['تصميم احترافي', 'هوية بصرية متكاملة', 'مواد تسويقية متنوعة', 'دعم فني'],
+                guarantees: ['تصميم فريد', 'هوية متسقة', 'رضا العميل'],
+                process: ['فهم العلامة', 'التصميم', 'المراجعة', 'التسليم']
+            },
+            'video-creators': {
+                provider: 'استوديو الفيديو التسويقي',
+                description: 'استوديو متخصص في إنتاج الفيديوهات التسويقية الاحترافية للمنصات المختلفة ووسائل التواصل',
+                services: ['إنتاج الفيديو', 'تحرير الفيديو', 'الرسوم المتحركة', 'التوزيع'],
+                pricing: 'يبدأ من 4,000 ريال شهرياً',
+                contact: '+966 50 890 1234',
+                features: ['إنتاج احترافي', 'تحرير متقدم', 'رسوم متحركة', 'توزيع على المنصات'],
+                guarantees: ['جودة عالية', 'تسليم في الوقت', 'نتائج مضمونة'],
+                process: ['كتابة السيناريو', 'التصوير', 'التحرير', 'التوزيع']
+            },
+            'influencer-network': {
+                provider: 'شبكة المؤثرين الرقمية',
+                description: 'شبكة متخصصة في ربط العلامات التجارية بالمؤثرين المناسبين لزيادة الوعي والمبيعات',
+                services: ['اختيار المؤثرين', 'إدارة الحملات', 'متابعة النتائج', 'التفاعل'],
+                pricing: 'يبدأ من 5,000 ريال شهرياً',
+                contact: '+966 50 901 2345',
+                features: ['شبكة واسعة من المؤثرين', 'إدارة الحملات', 'تحليل النتائج', 'ضمان الجودة'],
+                guarantees: ['زيادة الوعي', 'تفاعل عالي', 'نتائج مضمونة'],
+                process: ['اختيار المؤثرين', 'إعداد الحملة', 'التنفيذ', 'تحليل النتائج']
+            },
+            'ecommerce-pro': {
+                provider: 'متخصصي تسويق التجارة الإلكترونية',
+                description: 'متخصصون في استراتيجيات التسويق المخصصة للمتاجر الإلكترونية لزيادة المبيعات',
+                services: ['تسويق المتاجر', 'تحسين التحويل', 'إدارة الحملات', 'تحليل المبيعات'],
+                pricing: 'يبدأ من 2,200 ريال شهرياً',
+                contact: '+966 50 012 3456',
+                features: ['استراتيجيات مخصصة', 'تحسين التحويل', 'إدارة الحملات', 'تحليل المبيعات'],
+                guarantees: ['زيادة المبيعات', 'تحسين التحويل', 'نتائج مضمونة'],
+                process: ['تحليل المتجر', 'إعداد الاستراتيجية', 'التنفيذ', 'التحسين المستمر']
+            },
+            'local-seo': {
+                provider: 'خبراء التسويق المحلي',
+                description: 'خبراء متخصصون في تحسين الظهور في البحث المحلي وإدارة المراجعات لزيادة العملاء المحليين',
+                services: ['SEO المحلي', 'إدارة المراجعات', 'خرائط جوجل', 'البحث المحلي'],
+                pricing: 'يبدأ من 1,600 ريال شهرياً',
+                contact: '+966 50 123 4567',
+                features: ['تحسين البحث المحلي', 'إدارة المراجعات', 'تحسين خرائط جوجل', 'زيادة العملاء المحليين'],
+                guarantees: ['ظهور في البحث المحلي', 'تحسين المراجعات', 'زيادة العملاء'],
+                process: ['تحليل الموقع المحلي', 'التحسين', 'إدارة المراجعات', 'المتابعة']
+            },
+            'conversion-experts': {
+                provider: 'متخصصي تحسين التحويل',
+                description: 'متخصصون في تحسين معدلات التحويل واختبار A/B للحصول على أفضل النتائج والمبيعات',
+                services: ['تحسين التحويل', 'اختبار A/B', 'تحليل السلوك', 'تحسين الموقع'],
+                pricing: 'يبدأ من 2,800 ريال شهرياً',
+                contact: '+966 50 234 5678',
+                features: ['تحليل سلوك المستخدمين', 'اختبار A/B', 'تحسين التحويل', 'تقارير مفصلة'],
+                guarantees: ['زيادة التحويل', 'تحسين الأداء', 'نتائج مضمونة'],
+                process: ['تحليل السلوك', 'إعداد الاختبارات', 'التنفيذ', 'تحليل النتائج']
+            }
+        };
+        
+        return servicesData[providerId] || {
+            provider: 'مزود خدمة غير معروف',
+            description: 'لا توجد معلومات متاحة لهذا المزود',
+            services: [],
+            pricing: 'غير متوفر',
+            contact: 'غير متوفر',
+            features: [],
+            guarantees: [],
+            process: []
+        };
+    },
+
+    /**
+     * Update services list
+     */
+    updateServicesList: function() {
+        // In a real app, this would update the services list with real data
+        console.log('Marketing services list updated');
     },
 
     /**
@@ -557,7 +419,7 @@ const MarketingController = {
      */
     initializeAnimations: function() {
         // Add fade-in animation to cards
-        const cards = document.querySelectorAll('.mkt-service-card, .mkt-agency-card, .mkt-story-card, .mkt-testimonial-card');
+        const cards = document.querySelectorAll('.sp-service-card.mkt-enhanced');
         cards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
@@ -568,49 +430,28 @@ const MarketingController = {
                 card.style.transform = 'translateY(0)';
             }, index * 100);
         });
-    },
 
-    /**
-     * Setup intersection observer for scroll animations
-     */
-    setupIntersectionObserver: function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('mkt-fade-in');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // Add animation to stats
+        const stats = document.querySelectorAll('.mkt-stat-item');
+        stats.forEach((stat, index) => {
+            stat.style.opacity = '0';
+            stat.style.transform = 'translateY(20px)';
+            stat.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            
+            setTimeout(() => {
+                stat.style.opacity = '1';
+                stat.style.transform = 'translateY(0)';
+            }, index * 150);
         });
-
-        // Observe all cards
-        const cards = document.querySelectorAll('.mkt-service-card, .mkt-agency-card, .mkt-story-card, .mkt-testimonial-card');
-        cards.forEach(card => observer.observe(card));
-    },
-
-    /**
-     * Handle scroll events
-     */
-    handleScroll: function() {
-        // Add scroll-based animations or effects here
-        const scrolled = window.pageYOffset;
-        const parallax = document.querySelector('.mkt-hero-content');
-        
-        if (parallax) {
-            const speed = scrolled * 0.5;
-            parallax.style.transform = `translateY(${speed}px)`;
-        }
     },
 
     /**
      * Show loading state
      */
     showLoadingState: function() {
-        const cards = document.querySelectorAll('.mkt-service-card, .mkt-agency-card, .mkt-story-card');
+        const cards = document.querySelectorAll('.sp-service-card.mkt-enhanced');
         cards.forEach(card => {
-            card.classList.add('mkt-loading');
+            card.classList.add('loading');
         });
     },
 
@@ -618,9 +459,9 @@ const MarketingController = {
      * Hide loading state
      */
     hideLoadingState: function() {
-        const cards = document.querySelectorAll('.mkt-service-card, .mkt-agency-card, .mkt-story-card');
+        const cards = document.querySelectorAll('.sp-service-card.mkt-enhanced');
         cards.forEach(card => {
-            card.classList.remove('mkt-loading');
+            card.classList.remove('loading');
         });
     },
 
@@ -632,13 +473,14 @@ const MarketingController = {
             <h4>صفحة خدمات التسويق الرقمي المحسنة</h4>
             <p>تم تطوير الصفحة لتشمل:</p>
             <ul>
-                <li>قسم رئيسي جذاب مع إحصائيات مهمة</li>
-                <li>أزرار إجراءات سريعة للتفاعل المباشر</li>
-                <li>عرض شامل لخدمات التسويق مع مقاييس الأداء</li>
-                <li>وكالات تسويق معتمدة مع تقييمات وإحصائيات</li>
-                <li>قصص نجاح مفصلة مع مقاييس النتائج</li>
-                <li>آراء العملاء مع تقييمات</li>
-                <li>قسم دعوة للعمل مع خيارات متعددة</li>
+                <li>نظرة عامة على الإحصائيات مع 4 مؤشرات رئيسية</li>
+                <li>بطاقات خدمات محسنة مع معلومات تفصيلية</li>
+                <li>علامات الخدمات لسهولة التصنيف</li>
+                <li>معلومات الموقع والخبرة وعدد العملاء</li>
+                <li>عرض الأسعار بشكل واضح</li>
+                <li>أزرار التواصل وعرض معرض الأعمال</li>
+                <li>وظيفة البحث المتقدمة</li>
+                <li>خيارات التصفية المتعددة</li>
             </ul>
             <p><strong>التحسينات التقنية:</strong></p>
             <ul>
@@ -647,6 +489,7 @@ const MarketingController = {
                 <li>تحسين تجربة المستخدم مع تفاعلات فورية</li>
                 <li>دعم الوضع المظلم والاتجاه RTL</li>
                 <li>تحميل تدريجي للمحتوى مع حالات التحميل</li>
+                <li>نظام تقييمات ومراجعات</li>
             </ul>
             <p><strong>ملاحظات للمطور:</strong></p>
             <ul>
@@ -657,6 +500,7 @@ const MarketingController = {
                 <li>إضافة نظام تتبع النتائج في الوقت الفعلي</li>
                 <li>إضافة معرض أعمال تفاعلي</li>
                 <li>إضافة نظام حجز الاستشارات</li>
+                <li>إضافة نظام المقارنة بين الخدمات</li>
             </ul>
         `;
         
@@ -672,7 +516,6 @@ const MarketingController = {
     destroy: function() {
         console.log('MarketingController destroyed');
         // Clean up any event listeners or timers
-        window.removeEventListener('scroll', this.handleScroll);
     }
 };
 

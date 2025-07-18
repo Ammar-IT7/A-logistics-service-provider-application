@@ -1,0 +1,277 @@
+<!-- Marketing Service Form -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="marketing">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header-title">إضافة خدمة تسويق</h1>
+    <button class="header-action" data-action="save-marketing" aria-label="حفظ">
+        <i class="fas fa-save"></i>
+    </button>
+</div>
+
+<div class="content">
+    <!-- Progress Bar -->
+    <div class="mkt-form-progress-bar">
+        <div class="mkt-form-progress-step active" data-step="1">
+            <div class="mkt-form-progress-number">1</div>
+            <div class="mkt-form-progress-label">معلومات أساسية</div>
+        </div>
+        <div class="mkt-form-progress-step" data-step="2">
+            <div class="mkt-form-progress-number">2</div>
+            <div class="mkt-form-progress-label">تفاصيل الخدمة</div>
+        </div>
+        <div class="mkt-form-progress-step" data-step="3">
+            <div class="mkt-form-progress-number">3</div>
+            <div class="mkt-form-progress-label">الأسعار والتغطية</div>
+        </div>
+        <div class="mkt-form-progress-step" data-step="4">
+            <div class="mkt-form-progress-number">4</div>
+            <div class="mkt-form-progress-label">الوثائق والملفات</div>
+        </div>
+    </div>
+
+    <form id="marketingForm" class="mkt-form">
+        <!-- Step 1: Basic Information -->
+        <div class="mkt-form-slide active" data-step="1">
+            <div class="mkt-form-section">
+                <h3 class="mkt-form-section-title">معلومات أساسية</h3>
+                
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">اسم خدمة التسويق <span class="required">*</span></label>
+                    <input type="text" name="marketingServiceName" class="mkt-form-control" placeholder="أدخل اسم خدمة التسويق" required>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">نوع الخدمة <span class="required">*</span></label>
+                    <select name="marketingServiceType" id="marketingServiceType" class="mkt-form-control" required>
+                        <option value="">اختر نوع الخدمة</option>
+                        <option value="seo">تحسين محركات البحث (SEO)</option>
+                        <option value="google-ads">إعلانات جوجل (Google Ads)</option>
+                        <option value="social-media">التسويق عبر وسائل التواصل</option>
+                        <option value="email-marketing">التسويق عبر البريد الإلكتروني</option>
+                        <option value="content-marketing">التسويق بالمحتوى</option>
+                        <option value="data-analytics">تحليل البيانات والتقارير</option>
+                        <option value="branding">تصميم الهوية البصرية</option>
+                        <option value="web-design">تصميم المواقع الإلكترونية</option>
+                        <option value="video-marketing">التسويق بالفيديو</option>
+                        <option value="influencer-marketing">التسويق عبر المؤثرين</option>
+                    </select>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">وصف الخدمة <span class="required">*</span></label>
+                    <textarea name="marketingServiceDescription" class="mkt-form-control" rows="4" placeholder="أدخل وصف مفصل للخدمة" required></textarea>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">حالة الخدمة</label>
+                    <select name="marketingServiceStatus" class="mkt-form-control">
+                        <option value="active">متاحة</option>
+                        <option value="inactive">غير متاحة</option>
+                        <option value="coming-soon">قريباً</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Service Details -->
+        <div class="mkt-form-slide" data-step="2">
+            <div class="mkt-form-section">
+                <h3 class="mkt-form-section-title">تفاصيل الخدمة</h3>
+                
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">الميزات المقدمة</label>
+                    <div class="mkt-form-features-container">
+                        <div class="mkt-form-feature-input">
+                            <input type="text" id="featureInput" class="mkt-form-control" placeholder="أدخل ميزة جديدة">
+                            <button type="button" class="btn btn-outline btn-sm" id="addFeature">إضافة</button>
+                        </div>
+                        <div id="marketingFeaturesChips" class="mkt-form-chips-container">
+                            <!-- Features will be added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">متطلبات العميل</label>
+                    <textarea name="clientRequirements" class="mkt-form-control" rows="3" placeholder="أدخل متطلبات العميل للحصول على الخدمة"></textarea>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">مدة التنفيذ</label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="number" name="executionDuration" class="mkt-form-control" placeholder="المدة" min="1">
+                        </div>
+                        <div class="mkt-form-col">
+                            <select name="executionUnit" class="mkt-form-control">
+                                <option value="days">أيام</option>
+                                <option value="weeks">أسابيع</option>
+                                <option value="months">أشهر</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">النتائج المتوقعة</label>
+                    <div class="mkt-form-results-container">
+                        <div class="mkt-form-result-item">
+                            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="نتيجة متوقعة">
+                            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مقياس النتيجة">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline btn-sm" id="addResult">إضافة نتيجة أخرى</button>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">الأدوات والتقنيات المستخدمة</label>
+                    <textarea name="toolsAndTechnologies" class="mkt-form-control" rows="3" placeholder="أدخل الأدوات والتقنيات المستخدمة في الخدمة"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Pricing and Coverage -->
+        <div class="mkt-form-slide" data-step="3">
+            <div class="mkt-form-section">
+                <h3 class="mkt-form-section-title">الأسعار والتغطية</h3>
+                
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">نوع التسعير</label>
+                    <select name="pricingType" id="pricingType" class="mkt-form-control">
+                        <option value="fixed">سعر ثابت</option>
+                        <option value="hourly">سعر بالساعة</option>
+                        <option value="monthly">سعر شهري</option>
+                        <option value="project">سعر بالمشروع</option>
+                        <option value="performance">سعر بالأداء</option>
+                    </select>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">السعر الأساسي <span class="required">*</span></label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="number" name="basePrice" class="mkt-form-control" placeholder="السعر" min="0" step="0.01" required>
+                        </div>
+                        <div class="mkt-form-col">
+                            <select name="currency" class="mkt-form-control">
+                                <option value="SAR">ريال سعودي</option>
+                                <option value="USD">دولار أمريكي</option>
+                                <option value="EUR">يورو</option>
+                                <option value="AED">درهم إماراتي</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">المناطق المغطاة</label>
+                    <div class="mkt-form-coverage-container">
+                        <div class="mkt-form-coverage-input">
+                            <input type="text" id="coverageInput" class="mkt-form-control" placeholder="أدخل منطقة جديدة">
+                            <button type="button" class="btn btn-outline btn-sm" id="addCoverage">إضافة</button>
+                        </div>
+                        <div id="marketingCoverageChips" class="mkt-form-chips-container">
+                            <!-- Coverage areas will be added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">القطاعات المستهدفة</label>
+                    <div class="mkt-form-sectors-container">
+                        <div class="mkt-form-sector-input">
+                            <input type="text" id="sectorInput" class="mkt-form-control" placeholder="أدخل قطاع جديد">
+                            <button type="button" class="btn btn-outline btn-sm" id="addSector">إضافة</button>
+                        </div>
+                        <div id="marketingSectorsChips" class="mkt-form-chips-container">
+                            <!-- Sectors will be added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">حجم الشركات المستهدفة</label>
+                    <div class="mkt-form-checkbox-group">
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="startup">
+                            <span class="mkt-form-checkmark"></span>
+                            الشركات الناشئة
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="small">
+                            <span class="mkt-form-checkmark"></span>
+                            الشركات الصغيرة
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="medium">
+                            <span class="mkt-form-checkmark"></span>
+                            الشركات المتوسطة
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="large">
+                            <span class="mkt-form-checkmark"></span>
+                            الشركات الكبيرة
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Documents and Files -->
+        <div class="mkt-form-slide" data-step="4">
+            <div class="mkt-form-section">
+                <h3 class="mkt-form-section-title">الوثائق والملفات</h3>
+                
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">عرض الخدمة (PDF)</label>
+                    <div class="mkt-form-file-upload-container">
+                        <input type="file" name="serviceProposal" class="mkt-form-control" accept=".pdf">
+                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">اختر الملف</button>
+                        <span class="mkt-form-file-name">لم يتم اختيار ملف</span>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">نماذج الأعمال السابقة</label>
+                    <div class="mkt-form-file-upload-container">
+                        <input type="file" name="portfolioFiles" class="mkt-form-control" accept="image/*,.pdf" multiple>
+                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">اختر الملفات</button>
+                        <span class="mkt-form-file-name">لم يتم اختيار ملفات</span>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">شهادات الاعتماد</label>
+                    <div class="mkt-form-file-upload-container">
+                        <input type="file" name="certifications" class="mkt-form-control" accept="image/*,.pdf" multiple>
+                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">اختر الملفات</button>
+                        <span class="mkt-form-file-name">لم يتم اختيار ملفات</span>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">روابط معرض الأعمال</label>
+                    <div class="mkt-form-links-container">
+                        <div class="mkt-form-link-input">
+                            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="أدخل رابط معرض الأعمال">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline btn-sm" id="addPortfolioLink">إضافة رابط آخر</button>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">ملاحظات إضافية</label>
+                    <textarea name="additionalNotes" class="mkt-form-control" rows="4" placeholder="أدخل أي ملاحظات إضافية"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mkt-form-navigation">
+            <button type="button" class="btn btn-outline" id="prevStep" style="display: none;">السابق</button>
+            <button type="button" class="btn btn-primary" id="nextStep">التالي</button>
+            <button type="submit" class="btn btn-success" id="submitForm" style="display: none;">حفظ الخدمة</button>
+        </div>
+    </form>
+</div> 

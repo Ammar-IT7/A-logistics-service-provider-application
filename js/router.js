@@ -164,6 +164,7 @@ const Router = {
             'lc-service-form': 'LCServiceFormController',
             'delivery-provider-form': 'DeliveryProviderFormController',
             'shipping-form': 'ShippingFormController',
+            'marketing-form': 'MarketingFormController',
             'warehouses': 'WarehousesController',
             'dashboard': 'DashboardController',
             'orders': 'OrdersController',

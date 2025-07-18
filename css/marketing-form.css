@@ -1,0 +1,440 @@
+/* ===== MARKETING FORM STYLES ===== */
+
+/* Progress Bar */
+.mkt-form-progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding: 0 16px;
+}
+
+.mkt-form-progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    position: relative;
+}
+
+.mkt-form-progress-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 0;
+}
+
+.mkt-form-progress-step.active:not(:last-child)::after {
+    background: var(--primary-color);
+}
+
+.mkt-form-progress-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gray-light);
+    color: var(--gray-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.mkt-form-progress-step.active .mkt-form-progress-number {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.mkt-form-progress-label {
+    font-size: 12px;
+    color: var(--gray-color);
+    text-align: center;
+    font-weight: 500;
+}
+
+.mkt-form-progress-step.active .mkt-form-progress-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Form Container */
+.mkt-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.mkt-form-slide {
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+.mkt-form-slide.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Form Sections */
+.mkt-form-section {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-light);
+    margin-bottom: 24px;
+}
+
+.mkt-form-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mkt-form-section-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* Form Groups */
+.mkt-form-group {
+    margin-bottom: 24px;
+}
+
+.mkt-form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 8px;
+}
+
+.mkt-form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--dark-color);
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.mkt-form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.mkt-form-control.error {
+    border-color: var(--danger);
+}
+
+.mkt-form-control::placeholder {
+    color: var(--gray-color);
+}
+
+/* Form Rows and Columns */
+.mkt-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.mkt-form-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chips Container */
+.mkt-form-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.mkt-form-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+.mkt-form-chip:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.mkt-form-chip-close {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.mkt-form-chip-close:hover {
+    opacity: 1;
+}
+
+/* Feature Input */
+.mkt-form-feature-input,
+.mkt-form-coverage-input,
+.mkt-form-sector-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.mkt-form-feature-input .mkt-form-control,
+.mkt-form-coverage-input .mkt-form-control,
+.mkt-form-sector-input .mkt-form-control {
+    flex: 1;
+}
+
+/* Results Container */
+.mkt-form-results-container {
+    margin-bottom: 12px;
+}
+
+.mkt-form-result-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+/* Links Container */
+.mkt-form-links-container {
+    margin-bottom: 12px;
+}
+
+.mkt-form-link-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.mkt-form-link-input .mkt-form-control {
+    flex: 1;
+}
+
+/* File Upload */
+.mkt-form-file-upload-container {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.mkt-form-file-upload-container input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.mkt-form-file-upload-btn {
+    padding: 8px 16px;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mkt-form-file-upload-btn:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.mkt-form-file-name {
+    font-size: 12px;
+    color: var(--gray-color);
+    flex: 1;
+}
+
+/* Checkbox Group */
+.mkt-form-checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.mkt-form-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--dark-color);
+}
+
+.mkt-form-checkbox-item input[type="checkbox"] {
+    display: none;
+}
+
+.mkt-form-checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--gray-light);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.mkt-form-checkbox-item input[type="checkbox"]:checked + .mkt-form-checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.mkt-form-checkbox-item input[type="checkbox"]:checked + .mkt-form-checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Form Navigation */
+.mkt-form-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding: 24px 0;
+    border-top: 1px solid var(--gray-light);
+}
+
+/* Responsive Design - Mobile First */
+@media (max-width: 768px) {
+    .mkt-form-progress-bar {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .mkt-form-progress-step:not(:last-child)::after {
+        display: none;
+    }
+
+    .mkt-form-section {
+        padding: 24px;
+    }
+
+    .mkt-form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .mkt-form-result-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .mkt-form-feature-input,
+    .mkt-form-coverage-input,
+    .mkt-form-sector-input {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .mkt-form-navigation {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mkt-form-section {
+        padding: 20px;
+    }
+
+    .mkt-form-progress-step {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .mkt-form-progress-label {
+        font-size: 11px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .mkt-form-section {
+        background: var(--dark-color);
+        border-color: var(--border-color);
+    }
+
+    .mkt-form-control {
+        background: var(--dark-color);
+        border-color: var(--border-color);
+        color: var(--text-on-primary);
+    }
+
+    .mkt-form-control::placeholder {
+        color: var(--gray-light);
+    }
+
+    .mkt-form-chip {
+        background: rgba(102, 126, 234, 0.2);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .mkt-form-file-upload-btn {
+        background: rgba(102, 126, 234, 0.2);
+        border-color: var(--primary-color);
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .mkt-form-progress-step:not(:last-child)::after {
+    left: auto;
+    right: 50%;
+}
+
+[dir="rtl"] .mkt-form-chip-close {
+    margin-left: 0;
+    margin-right: 4px;
+} 
