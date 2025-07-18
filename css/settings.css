@@ -1,176 +1,406 @@
-/* Settings Page CSS - Prefixed Classes (stg-) */
 
-/* Settings Sections */
-.stg-settings-section {
-    background: var(--card-bg);
-    border-radius: 16px;
-    padding: 24px;
+
+/* User Profile Section - Matching Profile Style */
+.stg-user-profile {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    border-radius: var(--stg-radius);
+    padding: 28px;
     margin-bottom: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--stg-shadow);
+}
+
+.stg-user-profile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.stg-profile-avatar {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.stg-profile-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.stg-avatar-edit {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    border: 2px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--stg-transition);
+    font-size: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stg-avatar-edit:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    transform: scale(1.1);
+}
+
+.stg-profile-info {
+    position: relative;
+    z-index: 1;
+}
+
+.stg-user-name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stg-user-role {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+}
+
+.stg-user-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.stg-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--stg-success);
+    animation: pulse 2s infinite;
+}
+
+.stg-status-dot.active {
+    background: var(--stg-success);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Quick Actions - Matching Profile Style */
+.stg-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stg-quick-action {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 1px solid var(--stg-border);
+    border-radius: var(--stg-radius-sm);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: var(--stg-transition);
+    text-decoration: none;
+    color: var(--stg-text-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.stg-quick-action::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-dark), var(--primary-color));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.stg-quick-action:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--stg-shadow-hover);
+    border-color: var(--stg-primary);
+}
+
+.stg-quick-action:hover::before {
+    transform: scaleY(1);
+}
+
+.stg-quick-action i {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    font-size: 20px;
+}
+
+.stg-quick-action span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--stg-text-primary);
+}
+
+/* Settings Sections - Matching Profile Style */
+.stg-settings-section {
+    background: white;
+    border-radius: var(--stg-radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--stg-shadow);
+    border: 1px solid var(--stg-border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.stg-settings-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
 }
 
 .stg-settings-section:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
+    box-shadow: var(--stg-shadow-hover);
+}
+
+.stg-section-header {
+    margin-bottom: 20px;
 }
 
 .stg-settings-title {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 20px;
+    color: var(--stg-text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding-bottom: 12px;
-    border-bottom: 2px solid var(--primary-color);
-    position: relative;
+    border-bottom: 2px solid #e9ecef;
 }
 
-.stg-settings-title::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    border-radius: 1px;
+.stg-section-icon {
+    color: var(--stg-primary-dark);
+    font-size: 1rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--stg-primary-light);
+    border-radius: 6px;
 }
 
-/* Setting Rows */
+/* Setting Rows - Matching Profile Style */
 .stg-setting-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border-light);
-    transition: all 0.3s ease;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px;
+    border: 1px solid var(--stg-border-light);
+    transition: var(--stg-transition);
+    margin-bottom: 12px;
 }
 
 .stg-setting-row:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .stg-setting-row:hover {
-    background: var(--hover-bg);
-    margin: 0 -16px;
-    padding: 16px;
-    border-radius: 8px;
+    transform: translateX(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+.stg-setting-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .stg-setting-label {
     font-weight: 600;
-    color: var(--text-primary);
-    font-size: 14px;
+    color: var(--stg-text-primary);
+    font-size: 0.875rem;
+    margin-bottom: 4px;
 }
 
 .stg-setting-value {
-    color: var(--text-secondary);
-    font-size: 14px;
+    color: var(--stg-text-secondary);
+    font-size: 0.875rem;
     font-weight: 500;
 }
 
-/* Form Controls */
-.stg-form-check {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.stg-setting-desc {
+    color: var(--stg-text-muted);
+    font-size: 0.75rem;
+    margin-top: 2px;
 }
 
-.stg-form-check-input {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--card-bg);
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* Toggle Switch - Enhanced Style */
+.stg-toggle-switch {
     position: relative;
 }
 
-.stg-form-check-input:checked {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+.stg-toggle-input {
+    display: none;
 }
 
-.stg-form-check-input:checked::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.stg-form-check-label {
-    font-size: 14px;
-    color: var(--text-primary);
+.stg-toggle-label {
+    display: block;
+    width: 48px;
+    height: 24px;
+    background: var(--stg-border);
+    border-radius: 12px;
     cursor: pointer;
-    user-select: none;
+    position: relative;
+    transition: var(--stg-transition);
 }
 
+.stg-toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: var(--stg-transition);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stg-toggle-input:checked + .stg-toggle-label {
+    background: var(--primary-color);
+}
+
+.stg-toggle-input:checked + .stg-toggle-label::after {
+    transform: translateX(24px);
+}
+
+/* Form Controls - Matching Profile Style */
 .stg-form-control {
-    padding: 8px 12px;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--card-bg);
-    color: var(--text-primary);
-    font-size: 14px;
-    transition: all 0.3s ease;
+    padding: 14px 16px;
+    border: 2px solid var(--stg-border);
+    border-radius: 12px;
+    background: white;
+    color: var(--stg-text-primary);
+    font-size: 0.875rem;
+    transition: var(--stg-transition);
     min-width: 120px;
+    cursor: pointer;
 }
 
 .stg-form-control:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Buttons */
+/* Buttons - Matching Profile Style */
 .stg-btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: var(--stg-radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--stg-transition);
+    text-decoration: none;
+    min-height: 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stg-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.stg-btn:hover::before {
+    left: 100%;
 }
 
 .stg-btn-sm {
     padding: 8px 16px;
-    font-size: 12px;
+    font-size: 0.8rem;
+    min-height: 36px;
 }
 
 .stg-btn-outline {
     background: transparent;
-    border: 2px solid var(--border-color);
-    color: var(--text-primary);
+    color: var(--primary-color);
+    border: none;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
 }
 
 .stg-btn-outline:hover {
-    background: var(--hover-bg);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-.stg-btn-accent {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: var(--primary-dark);
     color: white;
-    border: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
-.stg-btn-accent:hover {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+.stg-btn-danger {
+    background: linear-gradient(135deg, #ff4757, #ff3742);
+    color: white;
+    box-shadow: 0 4px 16px rgba(255, 71, 87, 0.4);
+}
+
+.stg-btn-danger:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+    box-shadow: 0 8px 24px rgba(255, 71, 87, 0.5);
 }
 
 .stg-btn-block {
@@ -178,87 +408,130 @@
     display: block;
 }
 
-.stg-mt-4 {
-    margin-top: 24px;
+.stg-mt-2 {
+    margin-top: 12px;
 }
 
-/* Responsive Design */
+/* Account Actions - Matching Profile Style */
+.stg-account-actions {
+    margin-top: 32px;
+    padding: 28px;
+    background: white;
+    border-radius: var(--stg-radius);
+    box-shadow: var(--stg-shadow);
+    border: 1px solid var(--stg-border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.stg-account-actions::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff4757, #ff3742);
+}
+
+/* Responsive Design - Matching Profile Breakpoints */
 @media (max-width: 768px) {
-    .stg-settings-section {
-        padding: 20px;
+    .stg-user-profile {
+        padding: 24px;
         margin-bottom: 20px;
+    }
+    
+    .stg-profile-avatar img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .stg-avatar-edit {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    .stg-user-name {
+        font-size: 1.5rem;
+    }
+    
+    .stg-quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .stg-settings-section {
+        padding: 24px;
+        margin-bottom: 16px;
     }
     
     .stg-setting-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
-    }
-    
-    .stg-setting-row:hover {
-        margin: 0 -12px;
-        padding: 12px;
+        gap: 12px;
+        padding: 16px;
     }
     
     .stg-btn {
-        padding: 10px 20px;
-        font-size: 13px;
+        padding: 12px 20px;
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
+    .stg-user-profile {
+        padding: 20px;
+        border-radius: 20px;
+    }
+    
+    .stg-profile-avatar img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .stg-avatar-edit {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+    
+    .stg-user-name {
+        font-size: 1.25rem;
+    }
+    
+    .stg-quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
     .stg-settings-section {
-        padding: 16px;
-        border-radius: 12px;
+        padding: 20px;
+        border-radius: 20px;
     }
     
     .stg-settings-title {
-        font-size: 16px;
-        margin-bottom: 16px;
+        font-size: 1rem;
     }
     
     .stg-setting-row {
-        padding: 12px 0;
+        padding: 12px;
     }
     
     .stg-btn {
-        padding: 8px 16px;
-        font-size: 12px;
+        padding: 10px 16px;
+        font-size: 0.75rem;
     }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .stg-settings-section {
-        background: var(--card-bg-dark);
-        border-color: var(--border-color-dark);
-    }
-    
-    .stg-setting-row:hover {
-        background: var(--hover-bg-dark);
-    }
-    
-    .stg-form-control {
-        background: var(--card-bg-dark);
-        border-color: var(--border-color-dark);
-        color: var(--text-primary-dark);
-    }
-    
-    .stg-form-check-input {
-        background: var(--card-bg-dark);
-        border-color: var(--border-color-dark);
-    }
-}
-
-/* Animation Classes */
+/* Animation Classes - Matching Profile Animations */
 .stg-fade-in {
-    animation: stgFadeIn 0.5s ease-in-out;
+    animation: stgFadeIn 0.6s ease-out;
 }
 
 @keyframes stgFadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -267,7 +540,7 @@
 }
 
 .stg-slide-in {
-    animation: stgSlideIn 0.6s ease-out;
+    animation: stgSlideIn 0.5s ease-out;
 }
 
 @keyframes stgSlideIn {
@@ -278,5 +551,95 @@
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+.stg-scale-in {
+    animation: stgScaleIn 0.4s ease-out;
+}
+
+@keyframes stgScaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Loading States */
+.stg-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.stg-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--stg-border);
+    border-top: 2px solid var(--stg-primary);
+    border-radius: 50%;
+    animation: stgSpin 1s linear infinite;
+}
+
+@keyframes stgSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success/Error States */
+.stg-success {
+    border-color: var(--stg-success);
+    background: rgba(46, 213, 115, 0.05);
+}
+
+.stg-error {
+    border-color: var(--stg-danger);
+    background: rgba(255, 71, 87, 0.05);
+}
+
+/* Focus States for Accessibility */
+.stg-btn:focus,
+.stg-form-control:focus,
+.stg-toggle-label:focus {
+    outline: 2px solid var(--stg-primary);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .stg-settings-section {
+        border-width: 2px;
+    }
+    
+    .stg-setting-row {
+        border-width: 2px;
+    }
+    
+    .stg-btn {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .stg-settings-section,
+    .stg-setting-row,
+    .stg-btn,
+    .stg-toggle-label {
+        transition: none;
+    }
+    
+    .stg-fade-in,
+    .stg-slide-in,
+    .stg-scale-in {
+        animation: none;
     }
 } 

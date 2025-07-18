@@ -1,90 +1,273 @@
 <div class="header">
-    <button class="header-action" data-action="navigate" data-page="home">←</button>
+    <button class="header-action" data-action="navigate" data-page="profile">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <h1 class="header-title">الإعدادات</h1>
-    <button class="header-action">🔄</button>
+    <button class="header-action" data-action="refresh-settings">
+        <i class="fas fa-sync-alt"></i>
+    </button>
 </div>
+
 <div class="content">
+    <!-- Quick Actions -->
+    <!-- <div class="stg-quick-actions">
+        <button class="stg-quick-action" data-action="edit-profile">
+            <i class="fas fa-user-edit"></i>
+            <span>تعديل الملف الشخصي</span>
+        </button>
+        <button class="stg-quick-action" data-action="security-settings">
+            <i class="fas fa-shield-alt"></i>
+            <span>الأمان والخصوصية</span>
+        </button>
+        <button class="stg-quick-action" data-action="notification-center">
+            <i class="fas fa-bell"></i>
+            <span>مركز الإشعارات</span>
+        </button>
+    </div> -->
+
+    <!-- Preferences - Core Settings -->
     <div class="stg-settings-section">
-        <h3 class="stg-settings-title">الحساب</h3>
-        <div class="stg-setting-row">
-            <div class="stg-setting-label">الاسم</div>
-            <div class="stg-setting-value" id="setting-name">اسم المستخدم</div>
+        <div class="stg-section-header">
+            <h3 class="stg-settings-title">
+                <i class="fas fa-sliders-h stg-section-icon"></i>
+                التفضيلات العامة
+            </h3>
         </div>
+        
         <div class="stg-setting-row">
-            <div class="stg-setting-label">البريد الإلكتروني</div>
-            <div class="stg-setting-value" id="setting-email">user@example.com</div>
-        </div>
-        <div class="stg-setting-row">
-            <div class="stg-setting-label">كلمة المرور</div>
-            <div class="stg-setting-value">********</div>
-        </div>
-    </div>
-    
-    <div class="stg-settings-section">
-        <h3 class="stg-settings-title">التفضيلات</h3>
-        <div class="stg-setting-row">
-            <div class="stg-setting-label">الإشعارات</div>
-            <div class="stg-form-check">
-                <input type="checkbox" id="notifications" class="stg-form-check-input">
-                <label for="notifications" class="stg-form-check-label">مفعلة</label>
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">الإشعارات</div>
+                <div class="stg-setting-desc">استلام إشعارات للطلبات والتحديثات</div>
+            </div>
+            <div class="stg-toggle-switch">
+                <input type="checkbox" id="stg-notifications" class="stg-toggle-input">
+                <label for="stg-notifications" class="stg-toggle-label"></label>
             </div>
         </div>
+        
         <div class="stg-setting-row">
-            <div class="stg-setting-label">الوضع المظلم</div>
-            <div class="stg-form-check">
-                <input type="checkbox" id="darkMode" class="stg-form-check-input">
-                <label for="darkMode" class="stg-form-check-label">مفعل</label>
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">الوضع المظلم</div>
+                <div class="stg-setting-desc">تفعيل المظهر المظلم للتطبيق</div>
+            </div>
+            <div class="stg-toggle-switch">
+                <input type="checkbox" id="stg-dark-mode" class="stg-toggle-input">
+                <label for="stg-dark-mode" class="stg-toggle-label"></label>
             </div>
         </div>
+        
         <div class="stg-setting-row">
-            <div class="stg-setting-label">اللغة</div>
-            <select class="stg-form-control" style="width: auto;">
-                <option value="Arabic">العربية</option>
-                <option value="English">English</option>
-                <option value="Spanish">Español</option>
-                <option value="French">Français</option>
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">اللغة</div>
+                <div class="stg-setting-desc">اختر لغة التطبيق المفضلة</div>
+            </div>
+            <select class="stg-form-control" id="stg-language">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">المنطقة الزمنية</div>
+                <div class="stg-setting-desc">توقيت الرياض (GMT+3)</div>
+            </div>
+            <select class="stg-form-control" id="stg-timezone">
+                <option value="Asia/Riyadh">توقيت الرياض (GMT+3)</option>
+                <option value="Asia/Dubai">توقيت دبي (GMT+4)</option>
+                <option value="Asia/Kuwait">توقيت الكويت (GMT+3)</option>
             </select>
         </div>
     </div>
-    
+
+    <!-- Security & Privacy -->
     <div class="stg-settings-section">
-        <h3 class="stg-settings-title">حول التطبيق</h3>
-        <div class="stg-setting-row">
-            <div class="stg-setting-label">الإصدار</div>
-            <div class="stg-setting-value">1.0.0</div>
+        <div class="stg-section-header">
+            <h3 class="stg-settings-title">
+                <i class="fas fa-shield-alt stg-section-icon"></i>
+                الأمان والخصوصية
+            </h3>
         </div>
+        
         <div class="stg-setting-row">
-            <div class="stg-setting-label">شروط الخدمة</div>
-            <button class="stg-btn stg-btn-sm stg-btn-outline">عرض</button>
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">المصادقة الثنائية</div>
+                <div class="stg-setting-desc">حماية إضافية لحسابك</div>
+            </div>
+            <div class="stg-toggle-switch">
+                <input type="checkbox" id="stg-2fa" class="stg-toggle-input" checked>
+                <label for="stg-2fa" class="stg-toggle-label"></label>
+            </div>
         </div>
+        
         <div class="stg-setting-row">
-            <div class="stg-setting-label">سياسة الخصوصية</div>
-            <button class="stg-btn stg-btn-sm stg-btn-outline">عرض</button>
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">تسجيل الدخول الآمن</div>
+                <div class="stg-setting-desc">تسجيل الدخول عبر البصمة أو الوجه</div>
+            </div>
+            <div class="stg-toggle-switch">
+                <input type="checkbox" id="stg-biometric" class="stg-toggle-input">
+                <label for="stg-biometric" class="stg-toggle-label"></label>
+            </div>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">مشاركة البيانات</div>
+                <div class="stg-setting-desc">السماح بمشاركة البيانات للتحسين</div>
+            </div>
+            <div class="stg-toggle-switch">
+                <input type="checkbox" id="stg-data-sharing" class="stg-toggle-input">
+                <label for="stg-data-sharing" class="stg-toggle-label"></label>
+            </div>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">كلمة المرور</div>
+                <div class="stg-setting-value">آخر تحديث: منذ أسبوع</div>
+            </div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="change-password">
+                <i class="fas fa-key"></i>
+                تغيير
+            </button>
         </div>
     </div>
-    
-    <button class="stg-btn stg-btn-accent stg-btn-block stg-mt-4">تسجيل الخروج</button>
-</div>
 
-<script>
-    // This script will run when the page is loaded
-    (function() {
-        const user = State.get('user');
+    <!-- Business Settings -->
+    <div class="stg-settings-section">
+        <div class="stg-section-header">
+            <h3 class="stg-settings-title">
+                <i class="fas fa-briefcase stg-section-icon"></i>
+                إعدادات الأعمال
+            </h3>
+        </div>
         
-        // Update UI with user data
-        document.getElementById('setting-name').textContent = user.name || 'اسم المستخدم';
-        document.getElementById('setting-email').textContent = user.email || 'user@example.com';
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">رقم السجل التجاري</div>
+                <div class="stg-setting-value" id="stg-cr-number">4030000001</div>
+            </div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="edit-cr">
+                <i class="fas fa-edit"></i>
+                تعديل
+            </button>
+        </div>
         
-        // Set checkbox states
-        document.getElementById('notifications').checked = user.notifications || false;
-        document.getElementById('darkMode').checked = user.darkMode || false;
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">العنوان</div>
+                <div class="stg-setting-value" id="stg-address">شارع الملك فهد، حي النزهة، الرياض</div>
+            </div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="edit-address">
+                <i class="fas fa-edit"></i>
+                تعديل
+            </button>
+        </div>
         
-        // Set language dropdown
-        const languageSelect = document.querySelector('.stg-form-control');
-        Array.from(languageSelect.options).forEach(option => {
-            if (option.value === (user.language || 'Arabic')) {
-                option.selected = true;
-            }
-        });
-    })();
-</script>
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">الخدمات المقدمة</div>
+                <div class="stg-setting-value">شحن، تخزين، تخليص جمركي</div>
+            </div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="manage-services">
+                <i class="fas fa-cog"></i>
+                إدارة
+            </button>
+        </div>
+    </div>
+
+    <!-- App Information -->
+    <div class="stg-settings-section">
+        <div class="stg-section-header">
+            <h3 class="stg-settings-title">
+                <i class="fas fa-info-circle stg-section-icon"></i>
+                معلومات التطبيق
+            </h3>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-info">
+                <div class="stg-setting-label">إصدار التطبيق</div>
+                <div class="stg-setting-value">1.2.0</div>
+            </div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="check-updates">
+                <i class="fas fa-download"></i>
+                تحديث
+            </button>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">شروط الخدمة</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="view-terms">
+                <i class="fas fa-file-contract"></i>
+                عرض
+            </button>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">سياسة الخصوصية</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="view-privacy">
+                <i class="fas fa-user-shield"></i>
+                عرض
+            </button>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">سياسة ملفات تعريف الارتباط</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="view-cookies">
+                <i class="fas fa-cookie-bite"></i>
+                عرض
+            </button>
+        </div>
+    </div>
+
+    <!-- Support & Help -->
+    <div class="stg-settings-section">
+        <div class="stg-section-header">
+            <h3 class="stg-settings-title">
+                <i class="fas fa-headset stg-section-icon"></i>
+                الدعم والمساعدة
+            </h3>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">مركز المساعدة</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="help-center">
+                <i class="fas fa-question-circle"></i>
+                فتح
+            </button>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">تواصل مع الدعم</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="contact-support">
+                <i class="fas fa-comments"></i>
+                تواصل
+            </button>
+        </div>
+        
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">تقييم التطبيق</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline" data-action="rate-app">
+                <i class="fas fa-star"></i>
+                تقييم
+            </button>
+        </div>
+    </div>
+
+    <!-- Account Actions -->
+    <div class="stg-account-actions">
+        <button class="stg-btn stg-btn-danger stg-btn-block" data-action="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            تسجيل الخروج
+        </button>
+        
+        <button class="stg-btn stg-btn-outline stg-btn-block stg-mt-2" data-action="delete-account">
+            <i class="fas fa-trash-alt"></i>
+            حذف الحساب
+        </button>
+    </div>
+</div>

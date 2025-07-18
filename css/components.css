@@ -21,7 +21,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), color-mix(in srgb, var(--primary-color), black 20%));
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     color: white;
     box-shadow: 0 4px 12px rgba(40, 36, 96, 0.2);
 }

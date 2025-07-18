@@ -293,14 +293,14 @@
 }
 
 .orders-filter-btn.orders-active {
-    background: var(--primary-color);
+    background:linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     color: white;
-    border-color: var(--primary-color);
+    border: none;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .orders-filter-btn.orders-active:hover {
-    background: var(--primary-dark);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
@@ -345,7 +345,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.5rem;
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     color: white;
     border: none;
     border-radius: 50px;
@@ -660,7 +660,7 @@
 }
 
 .orders-btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
     color: white;
 }
 
