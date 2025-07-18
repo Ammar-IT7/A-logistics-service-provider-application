@@ -1,68 +1,69 @@
 <div class="header">
     <button class="header-action" data-action="navigate" data-page="home">←</button>
-    <h1 class="header-title">Settings</h1>
+    <h1 class="header-title">الإعدادات</h1>
     <button class="header-action">🔄</button>
 </div>
 <div class="content">
-    <div class="settings-section">
-        <h3 class="settings-title">Account</h3>
-        <div class="setting-row">
-            <div class="setting-label">Name</div>
-            <div class="setting-value" id="setting-name">User Name</div>
+    <div class="stg-settings-section">
+        <h3 class="stg-settings-title">الحساب</h3>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">الاسم</div>
+            <div class="stg-setting-value" id="setting-name">اسم المستخدم</div>
         </div>
-        <div class="setting-row">
-            <div class="setting-label">Email</div>
-            <div class="setting-value" id="setting-email">user@example.com</div>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">البريد الإلكتروني</div>
+            <div class="stg-setting-value" id="setting-email">user@example.com</div>
         </div>
-        <div class="setting-row">
-            <div class="setting-label">Password</div>
-            <div class="setting-value">********</div>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">كلمة المرور</div>
+            <div class="stg-setting-value">********</div>
         </div>
     </div>
     
-    <div class="settings-section">
-        <h3 class="settings-title">Preferences</h3>
-        <div class="setting-row">
-            <div class="setting-label">Notifications</div>
-            <div class="form-check">
-                <input type="checkbox" id="notifications" class="form-check-input">
-                <label for="notifications" class="form-check-label">Enabled</label>
+    <div class="stg-settings-section">
+        <h3 class="stg-settings-title">التفضيلات</h3>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">الإشعارات</div>
+            <div class="stg-form-check">
+                <input type="checkbox" id="notifications" class="stg-form-check-input">
+                <label for="notifications" class="stg-form-check-label">مفعلة</label>
             </div>
         </div>
-        <div class="setting-row">
-            <div class="setting-label">Dark Mode</div>
-            <div class="form-check">
-                <input type="checkbox" id="darkMode" class="form-check-input">
-                <label for="darkMode" class="form-check-label">Enabled</label>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">الوضع المظلم</div>
+            <div class="stg-form-check">
+                <input type="checkbox" id="darkMode" class="stg-form-check-input">
+                <label for="darkMode" class="stg-form-check-label">مفعل</label>
             </div>
         </div>
-        <div class="setting-row">
-            <div class="setting-label">Language</div>
-            <select class="form-control" style="width: auto;">
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">اللغة</div>
+            <select class="stg-form-control" style="width: auto;">
+                <option value="Arabic">العربية</option>
                 <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
+                <option value="Spanish">Español</option>
+                <option value="French">Français</option>
             </select>
         </div>
     </div>
     
-    <div class="settings-section">
-        <h3 class="settings-title">About</h3>
-        <div class="setting-row">
-            <div class="setting-label">Version</div>
-            <div class="setting-value">1.0.0</div>
+    <div class="stg-settings-section">
+        <h3 class="stg-settings-title">حول التطبيق</h3>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">الإصدار</div>
+            <div class="stg-setting-value">1.0.0</div>
         </div>
-        <div class="setting-row">
-            <div class="setting-label">Terms of Service</div>
-            <button class="btn btn-sm btn-outline">View</button>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">شروط الخدمة</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline">عرض</button>
         </div>
-        <div class="setting-row">
-            <div class="setting-label">Privacy Policy</div>
-            <button class="btn btn-sm btn-outline">View</button>
+        <div class="stg-setting-row">
+            <div class="stg-setting-label">سياسة الخصوصية</div>
+            <button class="stg-btn stg-btn-sm stg-btn-outline">عرض</button>
         </div>
     </div>
     
-    <button class="btn btn-accent btn-block mt-4">Log Out</button>
+    <button class="stg-btn stg-btn-accent stg-btn-block stg-mt-4">تسجيل الخروج</button>
 </div>
 
 <script>
@@ -71,17 +72,17 @@
         const user = State.get('user');
         
         // Update UI with user data
-        document.getElementById('setting-name').textContent = user.name;
-        document.getElementById('setting-email').textContent = user.email;
+        document.getElementById('setting-name').textContent = user.name || 'اسم المستخدم';
+        document.getElementById('setting-email').textContent = user.email || 'user@example.com';
         
         // Set checkbox states
-        document.getElementById('notifications').checked = user.notifications;
-        document.getElementById('darkMode').checked = user.darkMode;
+        document.getElementById('notifications').checked = user.notifications || false;
+        document.getElementById('darkMode').checked = user.darkMode || false;
         
         // Set language dropdown
-        const languageSelect = document.querySelector('select');
+        const languageSelect = document.querySelector('.stg-form-control');
         Array.from(languageSelect.options).forEach(option => {
-            if (option.value === user.language) {
+            if (option.value === (user.language || 'Arabic')) {
                 option.selected = true;
             }
         });

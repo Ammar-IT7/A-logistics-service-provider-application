@@ -1,5 +1,5 @@
 /**
- * Help Controller
+ * Help Controller - Updated for prefixed CSS classes
  */
 const HelpController = {
     /**
@@ -11,14 +11,15 @@ const HelpController = {
         this.setupCategories();
         this.setupEventListeners();
         this.updateDesignerNotes();
+        this.addAnimations();
     },
 
     /**
      * Setup search functionality
      */
     setupSearch: function() {
-        const searchInput = document.querySelector('.help-search .search-input');
-        const searchBtn = document.querySelector('.help-search .search-btn');
+        const searchInput = document.querySelector('.hlp-search-input');
+        const searchBtn = document.querySelector('.hlp-search-btn');
         
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
@@ -52,23 +53,23 @@ const HelpController = {
         }
         
         // Search in categories
-        const categories = document.querySelectorAll('.help-category');
+        const categories = document.querySelectorAll('.hlp-help-category');
         categories.forEach(category => {
-            const title = category.querySelector('.category-title').textContent.toLowerCase();
-            const desc = category.querySelector('.category-desc').textContent.toLowerCase();
+            const title = category.querySelector('.hlp-category-title').textContent.toLowerCase();
+            const desc = category.querySelector('.hlp-category-desc').textContent.toLowerCase();
             
             const matches = title.includes(query) || desc.includes(query);
-            category.style.display = matches ? 'block' : 'none';
+            category.style.display = matches ? 'flex' : 'none';
         });
         
         // Search in articles
-        const articles = document.querySelectorAll('.article-item');
+        const articles = document.querySelectorAll('.hlp-article-item');
         articles.forEach(article => {
-            const title = article.querySelector('.article-title').textContent.toLowerCase();
-            const desc = article.querySelector('.article-desc').textContent.toLowerCase();
+            const title = article.querySelector('.hlp-article-title').textContent.toLowerCase();
+            const desc = article.querySelector('.hlp-article-desc').textContent.toLowerCase();
             
             const matches = title.includes(query) || desc.includes(query);
-            article.style.display = matches ? 'block' : 'none';
+            article.style.display = matches ? 'flex' : 'none';
         });
     },
 
@@ -76,7 +77,7 @@ const HelpController = {
      * Perform search
      */
     performSearch: function() {
-        const searchInput = document.querySelector('.help-search .search-input');
+        const searchInput = document.querySelector('.hlp-search-input');
         const query = searchInput.value.trim();
         
         if (query) {
@@ -89,8 +90,8 @@ const HelpController = {
      * Show all content
      */
     showAllContent: function() {
-        document.querySelectorAll('.help-category, .article-item').forEach(item => {
-            item.style.display = 'block';
+        document.querySelectorAll('.hlp-help-category, .hlp-article-item').forEach(item => {
+            item.style.display = 'flex';
         });
     },
 
@@ -98,7 +99,7 @@ const HelpController = {
      * Setup help categories
      */
     setupCategories: function() {
-        const categories = document.querySelectorAll('.help-category');
+        const categories = document.querySelectorAll('.hlp-help-category');
         
         categories.forEach(category => {
             category.addEventListener('click', (e) => {
@@ -250,16 +251,38 @@ const HelpController = {
         Toast.show('شكراً لك', feedbackMessages[rating], 'success');
         
         // Hide feedback buttons after rating
-        const feedbackButtons = document.querySelectorAll('.feedback-btn');
+        const feedbackButtons = document.querySelectorAll('.hlp-feedback-btn');
         feedbackButtons.forEach(btn => {
             btn.style.display = 'none';
         });
         
         // Show thank you message
-        const feedbackCard = document.querySelector('.feedback-card');
+        const feedbackCard = document.querySelector('.hlp-feedback-card');
         if (feedbackCard) {
             feedbackCard.innerHTML = '<h4>شكراً لك على ملاحظاتك!</h4><p>سنستخدم ملاحظاتك لتحسين المحتوى.</p>';
         }
+    },
+
+    /**
+     * Add animations to help elements
+     */
+    addAnimations: function() {
+        const helpPage = document.getElementById('help');
+        if (!helpPage) return;
+        
+        // Add fade-in animation to help actions
+        const helpActions = helpPage.querySelectorAll('.hlp-help-action');
+        helpActions.forEach((action, index) => {
+            action.style.animationDelay = `${index * 0.1}s`;
+            action.classList.add('hlp-fade-in');
+        });
+        
+        // Add slide-in animation to categories
+        const categories = helpPage.querySelectorAll('.hlp-help-category');
+        categories.forEach((category, index) => {
+            category.style.animationDelay = `${index * 0.05}s`;
+            category.classList.add('hlp-slide-in');
+        });
     },
 
     /**
@@ -271,7 +294,7 @@ const HelpController = {
 
         // Handle help action buttons
         page.addEventListener('click', (e) => {
-            const helpAction = e.target.closest('.help-action');
+            const helpAction = e.target.closest('.hlp-help-action');
             if (helpAction) {
                 e.preventDefault();
                 const action = helpAction.dataset.action;
@@ -283,7 +306,7 @@ const HelpController = {
 
         // Handle article clicks
         page.addEventListener('click', (e) => {
-            const articleItem = e.target.closest('.article-item');
+            const articleItem = e.target.closest('.hlp-article-item');
             if (articleItem) {
                 e.preventDefault();
                 const articleId = articleItem.dataset.articleId;
@@ -295,7 +318,7 @@ const HelpController = {
 
         // Handle feedback buttons
         page.addEventListener('click', (e) => {
-            const feedbackBtn = e.target.closest('.feedback-btn');
+            const feedbackBtn = e.target.closest('.hlp-feedback-btn');
             if (feedbackBtn) {
                 e.preventDefault();
                 const rating = feedbackBtn.dataset.rating;

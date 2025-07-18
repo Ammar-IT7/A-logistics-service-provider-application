@@ -1,0 +1,282 @@
+/* Settings Page CSS - Prefixed Classes (stg-) */
+
+/* Settings Sections */
+.stg-settings-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.stg-settings-section:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.stg-settings-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--primary-color);
+    position: relative;
+}
+
+.stg-settings-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 1px;
+}
+
+/* Setting Rows */
+.stg-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.stg-setting-row:last-child {
+    border-bottom: none;
+}
+
+.stg-setting-row:hover {
+    background: var(--hover-bg);
+    margin: 0 -16px;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.stg-setting-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.stg-setting-value {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Form Controls */
+.stg-form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stg-form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.stg-form-check-input:checked {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.stg-form-check-input:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.stg-form-check-label {
+    font-size: 14px;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.stg-form-control {
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.stg-form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+/* Buttons */
+.stg-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.stg-btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+}
+
+.stg-btn-outline {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.stg-btn-outline:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.stg-btn-accent {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+}
+
+.stg-btn-accent:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+.stg-btn-block {
+    width: 100%;
+    display: block;
+}
+
+.stg-mt-4 {
+    margin-top: 24px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stg-settings-section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .stg-setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .stg-setting-row:hover {
+        margin: 0 -12px;
+        padding: 12px;
+    }
+    
+    .stg-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stg-settings-section {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .stg-settings-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .stg-setting-row {
+        padding: 12px 0;
+    }
+    
+    .stg-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .stg-settings-section {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .stg-setting-row:hover {
+        background: var(--hover-bg-dark);
+    }
+    
+    .stg-form-control {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+        color: var(--text-primary-dark);
+    }
+    
+    .stg-form-check-input {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+}
+
+/* Animation Classes */
+.stg-fade-in {
+    animation: stgFadeIn 0.5s ease-in-out;
+}
+
+@keyframes stgFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stg-slide-in {
+    animation: stgSlideIn 0.6s ease-out;
+}
+
+@keyframes stgSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+} 

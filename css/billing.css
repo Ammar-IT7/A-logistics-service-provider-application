@@ -1,0 +1,618 @@
+/* Billing Page CSS - Prefixed Classes (bil-) */
+
+/* Billing Summary */
+.bil-billing-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.bil-summary-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.bil-summary-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.bil-summary-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.bil-summary-content {
+    flex: 1;
+}
+
+.bil-summary-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.bil-summary-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Section Container */
+.bil-section-container {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+}
+
+.bil-section-container:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.bil-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.bil-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.bil-section-icon {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.bil-section-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.bil-section-link:hover {
+    color: var(--primary-dark);
+    transform: translateX(-2px);
+}
+
+/* Payment Methods */
+.bil-payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bil-payment-method {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.bil-payment-method.bil-active {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-rgb), 0.05);
+}
+
+.bil-payment-method:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bil-method-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    color: white;
+    font-size: 18px;
+}
+
+.bil-method-info {
+    flex: 1;
+}
+
+.bil-method-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.bil-method-expiry,
+.bil-method-details {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.bil-method-status {
+    color: var(--primary-color);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    background: rgba(var(--primary-rgb), 0.1);
+    border-radius: 6px;
+}
+
+.bil-method-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.bil-action-btn {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bil-action-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(var(--primary-rgb), 0.1);
+}
+
+/* Invoices List */
+.bil-invoices-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bil-invoice-item {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.bil-invoice-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bil-invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.bil-invoice-number {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.bil-invoice-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bil-invoice-status.bil-pending {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.bil-invoice-status.bil-paid {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.bil-invoice-status.bil-overdue {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.bil-invoice-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.bil-invoice-info {
+    flex: 1;
+}
+
+.bil-invoice-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.bil-invoice-details {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.bil-invoice-amount {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.bil-invoice-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Payment History */
+.bil-payment-history {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bil-payment-item {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.bil-payment-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bil-payment-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+}
+
+.bil-payment-info {
+    flex: 1;
+}
+
+.bil-payment-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.bil-payment-details {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.bil-payment-date {
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+.bil-payment-amount {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.bil-payment-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bil-payment-status.bil-completed {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+/* Billing Settings */
+.bil-billing-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bil-setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.bil-setting-item:last-child {
+    border-bottom: none;
+}
+
+.bil-setting-info {
+    flex: 1;
+}
+
+.bil-setting-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.bil-setting-desc {
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Switch Toggle */
+.bil-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.bil-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.bil-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.bil-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .bil-slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .bil-slider:before {
+    transform: translateX(26px);
+}
+
+/* Buttons */
+.bil-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.bil-btn-outline {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.bil-btn-outline:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.bil-btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+}
+
+.bil-btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+.bil-btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border: none;
+}
+
+.bil-btn-danger:hover {
+    background: linear-gradient(135deg, #c82333, #dc3545);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bil-billing-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .bil-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .bil-invoice-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .bil-invoice-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .bil-payment-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .bil-payment-amount,
+    .bil-payment-status {
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .bil-section-container {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .bil-summary-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .bil-summary-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .bil-invoice-item {
+        padding: 16px;
+    }
+    
+    .bil-payment-item {
+        padding: 12px;
+    }
+    
+    .bil-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .bil-summary-card,
+    .bil-section-container,
+    .bil-payment-method,
+    .bil-invoice-item,
+    .bil-payment-item {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .bil-payment-method,
+    .bil-invoice-item,
+    .bil-payment-item {
+        background: var(--hover-bg-dark);
+        border-color: var(--border-light-dark);
+    }
+}
+
+/* Animation Classes */
+.bil-fade-in {
+    animation: bilFadeIn 0.5s ease-in-out;
+}
+
+@keyframes bilFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bil-slide-in {
+    animation: bilSlideIn 0.6s ease-out;
+}
+
+@keyframes bilSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+} 

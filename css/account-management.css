@@ -1,0 +1,505 @@
+/* Account Management Page CSS - Prefixed Classes (acm-) */
+
+/* Help Introduction */
+.acm-help-intro {
+    margin-bottom: 32px;
+}
+
+.acm-intro-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.acm-intro-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.acm-intro-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+.acm-intro-content h2 {
+    color: var(--text-primary);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.acm-intro-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Section Container */
+.acm-section-container {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+}
+
+.acm-section-container:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.acm-section-header {
+    margin-bottom: 20px;
+}
+
+.acm-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.acm-section-icon {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+/* Help Topics */
+.acm-help-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.acm-topic-item {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.acm-topic-item:hover {
+    border-color: var(--primary-color);
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.acm-topic-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    color: white;
+    font-size: 16px;
+}
+
+.acm-topic-content {
+    flex: 1;
+}
+
+.acm-topic-content h4 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.acm-topic-content p {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin: 0;
+}
+
+.acm-topic-arrow {
+    color: var(--text-secondary);
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.acm-topic-item:hover .acm-topic-arrow {
+    transform: translateX(-4px);
+}
+
+/* Tasks List */
+.acm-tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.acm-task-item {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.acm-task-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.acm-task-number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.acm-task-content {
+    flex: 1;
+}
+
+.acm-task-content h4 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.acm-task-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.acm-task-steps ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.acm-task-steps li {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+/* Security Tips */
+.acm-security-tips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.acm-tip-card {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.acm-tip-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.acm-tip-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.acm-tip-content h4 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.acm-tip-content p {
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Troubleshooting */
+.acm-troubleshooting-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.acm-problem-item {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.acm-problem-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.acm-problem-item h4 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.acm-problem-item p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+/* Support Options */
+.acm-support-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.acm-support-card {
+    background: var(--hover-bg);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.acm-support-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.acm-support-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: white;
+    font-size: 20px;
+}
+
+.acm-support-content h4 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.acm-support-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Buttons */
+.acm-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.acm-btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+}
+
+.acm-btn-outline {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.acm-btn-outline:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.acm-btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+}
+
+.acm-btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .acm-intro-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .acm-security-tips {
+        grid-template-columns: 1fr;
+    }
+    
+    .acm-support-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .acm-task-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .acm-task-number {
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .acm-section-container {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .acm-intro-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .acm-intro-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+    
+    .acm-tip-card {
+        padding: 16px;
+    }
+    
+    .acm-support-card {
+        padding: 20px;
+    }
+    
+    .acm-support-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .acm-intro-card,
+    .acm-section-container,
+    .acm-topic-item,
+    .acm-task-item,
+    .acm-tip-card,
+    .acm-problem-item,
+    .acm-support-card {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .acm-topic-item,
+    .acm-task-item,
+    .acm-tip-card,
+    .acm-problem-item {
+        background: var(--hover-bg-dark);
+        border-color: var(--border-light-dark);
+    }
+}
+
+/* Animation Classes */
+.acm-fade-in {
+    animation: acmFadeIn 0.5s ease-in-out;
+}
+
+@keyframes acmFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.acm-slide-in {
+    animation: acmSlideIn 0.6s ease-out;
+}
+
+@keyframes acmSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+} 

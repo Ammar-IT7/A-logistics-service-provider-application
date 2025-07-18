@@ -1,0 +1,597 @@
+/* Analytics Page CSS - Prefixed Classes (anl-) */
+
+/* Time Period Selector */
+.anl-time-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.anl-time-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.anl-time-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.anl-time-btn.anl-active {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border-color: transparent;
+}
+
+.anl-time-btn.anl-custom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Metrics Overview */
+.anl-metrics-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.anl-metric-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.anl-metric-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.anl-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.anl-metric-title {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.anl-metric-trend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.anl-metric-trend.anl-positive {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.anl-metric-trend.anl-negative {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.anl-metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.anl-metric-chart {
+    height: 40px;
+    display: flex;
+    align-items: end;
+    gap: 2px;
+}
+
+.anl-mini-chart {
+    display: flex;
+    align-items: end;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
+}
+
+.anl-chart-line {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 2px;
+    min-height: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Charts Section */
+.anl-charts-section {
+    margin-bottom: 32px;
+}
+
+.anl-chart-container {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+.anl-chart-container:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.anl-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.anl-chart-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.anl-chart-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.anl-chart-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.anl-chart-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.anl-chart-btn.anl-active {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border-color: transparent;
+}
+
+.anl-chart-content {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anl-chart-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.anl-chart-placeholder i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.anl-chart-placeholder p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.anl-chart-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.anl-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.anl-legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* Service Analytics */
+.anl-service-analytics {
+    margin-bottom: 32px;
+}
+
+.anl-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.anl-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.anl-service-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.anl-service-metric {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.anl-service-metric:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.anl-service-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.anl-service-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.anl-service-details {
+    flex: 1;
+}
+
+.anl-service-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 16px;
+}
+
+.anl-service-stats {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.anl-service-performance {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.anl-performance-bar {
+    width: 120px;
+    height: 8px;
+    background: var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.anl-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    border-radius: 4px;
+    transition: width 0.8s ease;
+}
+
+.anl-performance-value {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 16px;
+    min-width: 40px;
+}
+
+/* Customer Analytics */
+.anl-customer-analytics {
+    margin-bottom: 24px;
+}
+
+.anl-customer-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.anl-customer-metric {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.anl-customer-metric:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.anl-customer-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: white;
+    font-size: 20px;
+}
+
+.anl-customer-content {
+    flex: 1;
+}
+
+.anl-customer-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.anl-customer-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.anl-customer-trend {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.anl-customer-trend.anl-positive {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.anl-customer-trend.anl-negative {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+/* Buttons */
+.anl-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.anl-btn-outline {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.anl-btn-outline:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.anl-btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+}
+
+.anl-btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .anl-metrics-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    .anl-customer-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .anl-chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .anl-chart-controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .anl-service-metric {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    
+    .anl-service-performance {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .anl-time-selector {
+        justify-content: center;
+    }
+    
+    .anl-time-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .anl-metric-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .anl-metric-value {
+        font-size: 24px;
+    }
+    
+    .anl-chart-container {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .anl-service-metric {
+        padding: 16px;
+    }
+    
+    .anl-service-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .anl-customer-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .anl-customer-metric {
+        padding: 16px;
+    }
+    
+    .anl-customer-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .anl-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .anl-metric-card,
+    .anl-chart-container,
+    .anl-service-metric,
+    .anl-customer-metric {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+    }
+    
+    .anl-time-btn,
+    .anl-chart-btn {
+        background: var(--card-bg-dark);
+        border-color: var(--border-color-dark);
+        color: var(--text-primary-dark);
+    }
+}
+
+/* Animation Classes */
+.anl-fade-in {
+    animation: anlFadeIn 0.5s ease-in-out;
+}
+
+@keyframes anlFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.anl-slide-in {
+    animation: anlSlideIn 0.6s ease-out;
+}
+
+@keyframes anlSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.anl-scale-in {
+    animation: anlScaleIn 0.4s ease-out;
+}
+
+@keyframes anlScaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+} 

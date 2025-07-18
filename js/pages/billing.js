@@ -1,5 +1,5 @@
 /**
- * Billing Controller
+ * Billing Controller - Updated for prefixed CSS classes and Arabic text
  */
 const BillingController = {
     /**
@@ -7,293 +7,283 @@ const BillingController = {
      */
     init: function() {
         console.log('BillingController initialized');
-        this.loadBillingData();
-        this.setupPaymentMethods();
         this.setupEventListeners();
-        this.updateDesignerNotes();
+        this.loadBillingData();
+        this.addAnimations();
     },
-
+    
     /**
-     * Load billing data
+     * Set up page-specific event listeners
      */
-    loadBillingData: function() {
-        this.updateBillingSummary();
-        this.loadInvoices();
-        this.loadPaymentHistory();
-        this.setupBillingSettings();
-    },
-
-    /**
-     * Update billing summary
-     */
-    updateBillingSummary: function() {
-        const summaryData = {
-            total: '15,500 ريال',
-            pending: '8',
-            dueDate: '5 أيام'
-        };
+    setupEventListeners: function() {
+        const billingPage = document.getElementById('billing');
+        if (!billingPage) return;
         
-        // Update summary cards
-        document.querySelectorAll('.summary-value').forEach((element, index) => {
-            const values = Object.values(summaryData);
-            if (values[index]) {
-                element.textContent = values[index];
+        // Handle payment method actions
+        billingPage.addEventListener('click', (e) => {
+            const actionBtn = e.target.closest('.bil-action-btn');
+            if (actionBtn) {
+                e.preventDefault();
+                const action = actionBtn.dataset.action;
+                this.handlePaymentMethodAction(action, actionBtn);
+            }
+        });
+        
+        // Handle invoice actions
+        billingPage.addEventListener('click', (e) => {
+            const invoiceBtn = e.target.closest('.bil-btn');
+            if (invoiceBtn) {
+                e.preventDefault();
+                const action = invoiceBtn.dataset.action;
+                this.handleInvoiceAction(action, invoiceBtn);
+            }
+        });
+        
+        // Handle payment method toggle
+        billingPage.addEventListener('click', (e) => {
+            const methodItem = e.target.closest('.bil-payment-method');
+            if (methodItem && !e.target.closest('.bil-action-btn')) {
+                this.togglePaymentMethod(methodItem);
+            }
+        });
+        
+        // Handle billing settings toggle
+        billingPage.addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox') {
+                this.handleBillingSetting(e.target);
             }
         });
     },
-
-    /**
-     * Setup payment methods
-     */
-    setupPaymentMethods: function() {
-        const paymentMethods = document.querySelectorAll('.payment-method');
-        
-        paymentMethods.forEach(method => {
-            // Handle set default action
-            const setDefaultBtn = method.querySelector('[data-action="set-default"]');
-            if (setDefaultBtn) {
-                setDefaultBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.setDefaultPaymentMethod(method);
-                });
-            }
-            
-            // Handle remove method action
-            const removeBtn = method.querySelector('[data-action="remove-method"]');
-            if (removeBtn) {
-                removeBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.removePaymentMethod(method);
-                });
-            }
-        });
-    },
-
-    /**
-     * Set default payment method
-     */
-    setDefaultPaymentMethod: function(method) {
-        // Remove active class from all methods
-        document.querySelectorAll('.payment-method').forEach(m => {
-            m.classList.remove('active');
-            const status = m.querySelector('.method-status');
-            if (status) status.textContent = '';
-        });
-        
-        // Add active class to selected method
-        method.classList.add('active');
-        const status = method.querySelector('.method-status');
-        if (status) status.textContent = 'افتراضي';
-        
-        Toast.show('تم التحديث', 'تم تعيين طريقة الدفع كافتراضية', 'success');
-    },
-
-    /**
-     * Remove payment method
-     */
-    removePaymentMethod: function(method) {
-        const methodName = method.querySelector('.method-name').textContent;
-        
-        if (confirm(`هل أنت متأكد من حذف ${methodName}؟`)) {
-            method.remove();
-            Toast.show('تم الحذف', 'تم حذف طريقة الدفع بنجاح', 'success');
-        }
-    },
-
-    /**
-     * Load invoices
-     */
-    loadInvoices: function() {
-        // Invoices are static for now
-        // In a real app, this would fetch from the server
-        console.log('Invoices loaded');
-    },
-
-    /**
-     * Load payment history
-     */
-    loadPaymentHistory: function() {
-        // Payment history is static for now
-        // In a real app, this would fetch from the server
-        console.log('Payment history loaded');
-    },
-
-    /**
-     * Setup billing settings
-     */
-    setupBillingSettings: function() {
-        const switches = document.querySelectorAll('.switch input[type="checkbox"]');
-        
-        switches.forEach(switchInput => {
-            switchInput.addEventListener('change', (e) => {
-                const settingTitle = e.target.closest('.setting-item').querySelector('.setting-title').textContent;
-                const isEnabled = e.target.checked;
-                
-                Toast.show(
-                    'تم التحديث', 
-                    `${settingTitle} ${isEnabled ? 'مفعل' : 'معطل'}`, 
-                    'success'
-                );
-            });
-        });
-    },
-
-    /**
-     * Handle invoice actions
-     */
-    handleInvoiceAction: function(action, invoiceId) {
-        switch (action) {
-            case 'view-invoice':
-                this.viewInvoice(invoiceId);
-                break;
-            case 'pay-invoice':
-                this.payInvoice(invoiceId);
-                break;
-            case 'download-invoice':
-                this.downloadInvoice(invoiceId);
-                break;
-            default:
-                console.log(`Unknown invoice action: ${action} for invoice: ${invoiceId}`);
-        }
-    },
-
-    /**
-     * View invoice
-     */
-    viewInvoice: function(invoiceId) {
-        Toast.show('عرض الفاتورة', `جاري فتح الفاتورة ${invoiceId}`, 'info');
-        
-        setTimeout(() => {
-            // Open invoice modal
-            Modal.open('invoice-modal');
-        }, 1000);
-    },
-
-    /**
-     * Pay invoice
-     */
-    payInvoice: function(invoiceId) {
-        Toast.show('دفع الفاتورة', `جاري فتح صفحة الدفع للفاتورة ${invoiceId}`, 'info');
-        
-        setTimeout(() => {
-            // Open payment modal
-            Modal.open('payment-modal');
-        }, 1000);
-    },
-
-    /**
-     * Download invoice
-     */
-    downloadInvoice: function(invoiceId) {
-        Toast.show('تحميل الفاتورة', `جاري تحميل الفاتورة ${invoiceId}`, 'info');
-        
-        setTimeout(() => {
-            Toast.show('تم التحميل', 'تم تحميل الفاتورة بنجاح', 'success');
-        }, 2000);
-    },
-
+    
     /**
      * Handle payment method actions
      */
-    handlePaymentMethodAction: function(action, methodId) {
+    handlePaymentMethodAction: function(action, button) {
+        const methodItem = button.closest('.bil-payment-method');
+        const methodName = methodItem.querySelector('.bil-method-name').textContent;
+        
         switch (action) {
             case 'set-default':
-                this.setDefaultPaymentMethod(methodId);
+                this.setDefaultPaymentMethod(methodItem);
+                Toast.show('طريقة الدفع', `تم تعيين ${methodName} كطريقة دفع افتراضية`, 'success');
                 break;
             case 'remove-method':
-                this.removePaymentMethod(methodId);
+                this.removePaymentMethod(methodItem);
+                Toast.show('طريقة الدفع', `تم حذف ${methodName}`, 'info');
                 break;
             default:
                 console.log(`Unknown payment method action: ${action}`);
         }
     },
-
+    
     /**
-     * Add payment method
+     * Handle invoice actions
      */
-    addPaymentMethod: function() {
-        Toast.show('إضافة طريقة دفع', 'جاري فتح نموذج إضافة طريقة دفع جديدة', 'info');
+    handleInvoiceAction: function(action, button) {
+        const invoiceItem = button.closest('.bil-invoice-item');
+        const invoiceNumber = invoiceItem.querySelector('.bil-invoice-number').textContent;
+        const invoiceAmount = invoiceItem.querySelector('.bil-invoice-amount').textContent;
         
+        switch (action) {
+            case 'view-invoice':
+                this.viewInvoice(invoiceNumber);
+                Toast.show('عرض الفاتورة', `جاري فتح الفاتورة ${invoiceNumber}`, 'info');
+                break;
+            case 'pay-invoice':
+                this.payInvoice(invoiceNumber, invoiceAmount);
+                Toast.show('دفع الفاتورة', `جاري معالجة الدفع للفاتورة ${invoiceNumber}`, 'info');
+                break;
+            case 'download-invoice':
+                this.downloadInvoice(invoiceNumber);
+                Toast.show('تحميل الفاتورة', `جاري تحميل الفاتورة ${invoiceNumber}`, 'info');
+                break;
+            default:
+                console.log(`Unknown invoice action: ${action}`);
+        }
+    },
+    
+    /**
+     * Set default payment method
+     */
+    setDefaultPaymentMethod: function(methodItem) {
+        // Remove active class from all methods
+        document.querySelectorAll('.bil-payment-method').forEach(method => {
+            method.classList.remove('bil-active');
+            const status = method.querySelector('.bil-method-status');
+            if (status) status.textContent = '';
+        });
+        
+        // Add active class to selected method
+        methodItem.classList.add('bil-active');
+        const status = methodItem.querySelector('.bil-method-status');
+        if (status) status.textContent = 'افتراضي';
+    },
+    
+    /**
+     * Remove payment method
+     */
+    removePaymentMethod: function(methodItem) {
+        methodItem.style.animation = 'bilFadeOut 0.3s ease-out';
         setTimeout(() => {
-            Router.navigate('add-payment-method');
+            methodItem.remove();
+        }, 300);
+    },
+    
+    /**
+     * Toggle payment method selection
+     */
+    togglePaymentMethod: function(methodItem) {
+        if (!methodItem.classList.contains('bil-active')) {
+            this.setDefaultPaymentMethod(methodItem);
+        }
+    },
+    
+    /**
+     * Handle billing settings
+     */
+    handleBillingSetting: function(checkbox) {
+        const settingName = checkbox.closest('.bil-setting-item').querySelector('.bil-setting-title').textContent;
+        const isEnabled = checkbox.checked;
+        
+        const status = isEnabled ? 'تم تفعيل' : 'تم إلغاء تفعيل';
+        Toast.show('إعدادات الفواتير', `${status} ${settingName}`, 'success');
+        
+        // Update state
+        State.update(`billing.${checkbox.id}`, isEnabled);
+    },
+    
+    /**
+     * View invoice
+     */
+    viewInvoice: function(invoiceNumber) {
+        setTimeout(() => {
+            Router.navigate('invoice-details', { invoice: invoiceNumber });
         }, 1000);
     },
-
+    
+    /**
+     * Pay invoice
+     */
+    payInvoice: function(invoiceNumber, amount) {
+        setTimeout(() => {
+            Router.navigate('payment', { 
+                invoice: invoiceNumber, 
+                amount: amount 
+            });
+        }, 1000);
+    },
+    
+    /**
+     * Download invoice
+     */
+    downloadInvoice: function(invoiceNumber) {
+        // Simulate download
+        const link = document.createElement('a');
+        link.href = '#';
+        link.download = `${invoiceNumber}.pdf`;
+        link.click();
+    },
+    
+    /**
+     * Load billing data
+     */
+    loadBillingData: function() {
+        // Simulate loading billing data
+        setTimeout(() => {
+            this.updateBillingSummary();
+            this.updatePaymentMethods();
+            this.updateInvoices();
+        }, 500);
+    },
+    
+    /**
+     * Update billing summary
+     */
+    updateBillingSummary: function() {
+        const summaryCards = document.querySelectorAll('.bil-summary-card');
+        summaryCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.classList.add('bil-fade-in');
+        });
+    },
+    
+    /**
+     * Update payment methods
+     */
+    updatePaymentMethods: function() {
+        const paymentMethods = document.querySelectorAll('.bil-payment-method');
+        paymentMethods.forEach((method, index) => {
+            method.style.animationDelay = `${index * 0.05}s`;
+            method.classList.add('bil-slide-in');
+        });
+    },
+    
+    /**
+     * Update invoices
+     */
+    updateInvoices: function() {
+        const invoices = document.querySelectorAll('.bil-invoice-item');
+        invoices.forEach((invoice, index) => {
+            invoice.style.animationDelay = `${index * 0.05}s`;
+            invoice.classList.add('bil-fade-in');
+        });
+    },
+    
+    /**
+     * Add animations to billing elements
+     */
+    addAnimations: function() {
+        const billingPage = document.getElementById('billing');
+        if (!billingPage) return;
+        
+        // Add fade-in animation to summary cards
+        const summaryCards = billingPage.querySelectorAll('.bil-summary-card');
+        summaryCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.classList.add('bil-fade-in');
+        });
+        
+        // Add slide-in animation to payment methods
+        const paymentMethods = billingPage.querySelectorAll('.bil-payment-method');
+        paymentMethods.forEach((method, index) => {
+            method.style.animationDelay = `${index * 0.05}s`;
+            method.classList.add('bil-slide-in');
+        });
+        
+        // Add fade-in animation to invoices
+        const invoices = billingPage.querySelectorAll('.bil-invoice-item');
+        invoices.forEach((invoice, index) => {
+            invoice.style.animationDelay = `${index * 0.05}s`;
+            invoice.classList.add('bil-fade-in');
+        });
+    },
+    
     /**
      * Export billing data
      */
     exportBillingData: function() {
-        Toast.show('تصدير البيانات', 'جاري تصدير بيانات الفواتير والمدفوعات', 'info');
+        Toast.show('تصدير البيانات', 'جاري تصدير بيانات الفواتير...', 'info');
         
         setTimeout(() => {
-            Toast.show('تم التصدير', 'تم تصدير البيانات بنجاح', 'success');
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = 'billing-report.csv';
+            link.click();
+            Toast.show('تصدير البيانات', 'تم تصدير البيانات بنجاح', 'success');
         }, 2000);
     },
-
+    
     /**
-     * Set up event listeners
+     * Add new payment method
      */
-    setupEventListeners: function() {
-        const page = document.getElementById('billing');
-        if (!page) return;
-
-        // Handle invoice actions
-        page.addEventListener('click', (e) => {
-            const invoiceAction = e.target.closest('[data-action="view-invoice"], [data-action="pay-invoice"], [data-action="download-invoice"]');
-            if (invoiceAction) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const action = invoiceAction.dataset.action;
-                const invoiceId = invoiceAction.closest('.invoice-item').querySelector('.invoice-number').textContent;
-                
-                this.handleInvoiceAction(action, invoiceId);
-            }
-        });
-
-        // Handle add payment method
-        page.addEventListener('click', (e) => {
-            if (e.target.closest('[data-action="navigate"][data-page="add-payment-method"]')) {
-                e.preventDefault();
-                this.addPaymentMethod();
-            }
-        });
-
-        // Handle view all invoices
-        page.addEventListener('click', (e) => {
-            if (e.target.closest('[data-action="navigate"][data-page="all-invoices"]')) {
-                e.preventDefault();
-                Router.navigate('all-invoices');
-            }
-        });
-
-        // Handle payment methods page
-        page.addEventListener('click', (e) => {
-            if (e.target.closest('[data-action="navigate"][data-page="payment-methods"]')) {
-                e.preventDefault();
-                Router.navigate('payment-methods');
-            }
-        });
-    },
-
-    /**
-     * Update designer notes
-     */
-    updateDesignerNotes: function() {
-        const notes = "صفحة الفواتير والمدفوعات تعرض ملخص الفواتير وطرق الدفع المتاحة. تتضمن إدارة طرق الدفع وعرض الفواتير الحديثة وسجل المدفوعات وإعدادات الفواتير.";
-        const notesContent = document.getElementById('designer-notes-content');
-        if (notesContent) {
-            notesContent.innerHTML = `<p>${notes}</p>`;
-        }
+    addPaymentMethod: function() {
+        Toast.show('إضافة طريقة دفع', 'جاري فتح نموذج إضافة طريقة دفع جديدة...', 'info');
+        
+        setTimeout(() => {
+            Router.navigate('add-payment-method');
+        }, 1000);
     }
 };
 
-// Debug: Check if BillingController is properly declared
-console.log('BillingController declared:', typeof BillingController !== 'undefined');
-console.log('BillingController in window:', typeof window.BillingController !== 'undefined');
-
 // Explicitly attach to global scope
-window.BillingController = BillingController;
-console.log('BillingController attached to window:', typeof window.BillingController !== 'undefined'); 
+window.BillingController = BillingController; 
