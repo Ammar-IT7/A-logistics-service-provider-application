@@ -20,6 +20,9 @@ const OrdersController = {
         
         // Initialize filters
         this.initFilters();
+        
+        // Initialize floating filter
+        this.initFloatingFilter();
     },
 
     /**
@@ -43,17 +46,18 @@ const OrdersController = {
         const packagingServices = State.get('packagingServices') || [];
         
         // Calculate order statistics from all services
-        const totalOrders = stats.totalOrders || 0;
-        const newOrders = Math.floor(totalOrders * 0.3); // 30% new
-        const pendingOrders = Math.floor(totalOrders * 0.4); // 40% pending
-        const completedOrders = Math.floor(totalOrders * 0.3); // 30% completed
+        const totalOrders = 2847;
+        const newOrders = 268;
+        const pendingOrders = 423;
+        const completedOrders = 2156;
         
         // Update stats in the DOM
         const statsElements = document.querySelectorAll('.orders-stat-value');
-        if (statsElements.length >= 3) {
-            statsElements[0].textContent = newOrders; // New orders
-            statsElements[1].textContent = pendingOrders; // Pending orders
-            statsElements[2].textContent = completedOrders; // Completed orders
+        if (statsElements.length >= 4) {
+            statsElements[0].textContent = totalOrders.toLocaleString(); // Total orders
+            statsElements[1].textContent = completedOrders.toLocaleString(); // Completed orders
+            statsElements[2].textContent = pendingOrders.toLocaleString(); // Pending orders
+            statsElements[3].textContent = newOrders.toLocaleString(); // New orders
         }
     },
 
@@ -64,109 +68,151 @@ const OrdersController = {
         const ordersContainer = document.querySelector('.orders-grid');
         if (!ordersContainer) return;
         
-        // Create comprehensive mock orders
+        // Create comprehensive mock orders with realistic data
         const mockOrders = [
             {
                 id: 'WH-2024-1253',
                 type: 'warehouse',
                 typeText: 'تخزين',
                 title: 'طلب تخزين #WH-2024-1253',
-                description: 'منتجات غذائية - 3 طن - مخزن الرياض الرئيسي',
+                description: 'منتجات غذائية - 3 طن - مخزن الرياض الرئيسي - مدة التخزين: 6 أشهر',
                 status: 'new',
                 statusText: 'جديد',
-                client: 'شركة التقنية المتقدمة',
+                client: 'شركة التقنية المتقدمة للتجارة',
                 location: 'الرياض، المملكة العربية السعودية',
                 date: '15 يناير 2024',
                 priority: 'high',
                 priorityText: 'عالية',
                 time: 'منذ ساعتين',
                 icon: 'fas fa-warehouse',
-                statusIcon: 'fas fa-clock'
+                statusIcon: 'fas fa-clock',
+                amount: '12,500 ريال'
             },
             {
                 id: 'CUS-2024-4587',
                 type: 'customs',
                 typeText: 'تخليص جمركي',
                 title: 'طلب تخليص #CUS-2024-4587',
-                description: 'معدات إلكترونية - ميناء جدة الإسلامي',
+                description: 'معدات إلكترونية - ميناء جدة الإسلامي - 5 حاويات - قيمة الشحنة: 250,000 ريال',
                 status: 'pending',
                 statusText: 'قيد التنفيذ',
-                client: 'مصنع الأثاث الحديث',
+                client: 'مصنع الأثاث الحديث للتصنيع',
                 location: 'ميناء جدة الإسلامي',
                 date: '12 يناير 2024',
                 priority: 'medium',
                 priorityText: 'متوسطة',
                 time: 'منذ يوم واحد',
                 icon: 'fas fa-clipboard-list',
-                statusIcon: 'fas fa-spinner'
+                statusIcon: 'fas fa-spinner',
+                amount: '8,750 ريال'
             },
             {
                 id: 'SH-2024-8975',
                 type: 'shipping',
                 typeText: 'شحن',
                 title: 'طلب شحن #SH-2024-8975',
-                description: 'الرياض - الدمام - 2 طن - شحن بري',
+                description: 'الرياض - الدمام - 2 طن - شحن بري - خدمة التوصيل السريع',
                 status: 'completed',
                 statusText: 'مكتمل',
-                client: 'شركة النقل السريع',
+                client: 'شركة النقل السريع للخدمات اللوجستية',
                 location: 'الرياض → الدمام',
                 date: '10 يناير 2024',
                 priority: 'low',
                 priorityText: 'منخفضة',
                 time: 'منذ 3 أيام',
                 icon: 'fas fa-truck',
-                statusIcon: 'fas fa-check-circle'
+                statusIcon: 'fas fa-check-circle',
+                amount: '3,200 ريال'
             },
             {
                 id: 'PKG-2024-6321',
                 type: 'packaging',
                 typeText: 'تغليف',
                 title: 'طلب تغليف #PKG-2024-6321',
-                description: 'منتجات زجاجية - خدمة تغليف فاخر',
+                description: 'منتجات زجاجية - خدمة تغليف فاخر - 150 قطعة - تغليف مضاد للكسر',
                 status: 'new',
                 statusText: 'جديد',
-                client: 'شركة الزجاج المتطور',
+                client: 'شركة الزجاج المتطور للصناعات',
                 location: 'مخزن الرياض الرئيسي',
                 date: '14 يناير 2024',
                 priority: 'medium',
                 priorityText: 'متوسطة',
                 time: 'منذ 4 ساعات',
                 icon: 'fas fa-boxes',
-                statusIcon: 'fas fa-clock'
+                statusIcon: 'fas fa-clock',
+                amount: '2,800 ريال'
             },
             {
                 id: 'LC-2024-7890',
                 type: 'lc',
                 typeText: 'اعتمادات مستندية',
                 title: 'طلب اعتماد #LC-2024-7890',
-                description: 'اعتماد مستندي - بنك الرياض - 50,000 ريال',
+                description: 'اعتماد مستندي - بنك الرياض - 50,000 ريال - استيراد معدات صناعية',
                 status: 'pending',
                 statusText: 'قيد التنفيذ',
-                client: 'شركة الاستيراد العالمية',
+                client: 'شركة الاستيراد العالمية للتجارة',
                 location: 'بنك الرياض',
                 date: '13 يناير 2024',
                 priority: 'high',
                 priorityText: 'عالية',
                 time: 'منذ يومين',
                 icon: 'fas fa-file-invoice-dollar',
-                statusIcon: 'fas fa-spinner'
+                statusIcon: 'fas fa-spinner',
+                amount: '1,250 ريال'
             },
             {
                 id: 'LM-2024-4567',
                 type: 'last-mile',
                 typeText: 'توصيل نهائي',
                 title: 'طلب توصيل #LM-2024-4567',
-                description: 'توصيل منزلي - الرياض - 50 طرد',
+                description: 'توصيل منزلي - الرياض - 50 طرد - خدمة التوصيل في نفس اليوم',
                 status: 'completed',
                 statusText: 'مكتمل',
-                client: 'متجر الأزياء الأنيق',
+                client: 'متجر الأزياء الأنيق للتجارة الإلكترونية',
                 location: 'الرياض - حي النرجس',
                 date: '11 يناير 2024',
                 priority: 'low',
                 priorityText: 'منخفضة',
                 time: 'منذ 4 أيام',
                 icon: 'fas fa-shipping-fast',
-                statusIcon: 'fas fa-check-circle'
+                statusIcon: 'fas fa-check-circle',
+                amount: '1,800 ريال'
+            },
+            {
+                id: 'WH-2024-9876',
+                type: 'warehouse',
+                typeText: 'تخزين',
+                title: 'طلب تخزين #WH-2024-9876',
+                description: 'أثاث منزلي - 5 طن - مخزن جدة - مدة التخزين: 3 أشهر - تخزين مكيف',
+                status: 'pending',
+                statusText: 'قيد التنفيذ',
+                client: 'شركة الأثاث الفاخر للاستيراد',
+                location: 'جدة، المملكة العربية السعودية',
+                date: '16 يناير 2024',
+                priority: 'medium',
+                priorityText: 'متوسطة',
+                time: 'منذ 6 ساعات',
+                icon: 'fas fa-warehouse',
+                statusIcon: 'fas fa-spinner',
+                amount: '8,900 ريال'
+            },
+            {
+                id: 'SH-2024-5432',
+                type: 'shipping',
+                typeText: 'شحن',
+                title: 'طلب شحن #SH-2024-5432',
+                description: 'الدمام - الرياض - 1.5 طن - شحن جوي - خدمة الشحن السريع',
+                status: 'new',
+                statusText: 'جديد',
+                client: 'شركة الأدوية المتقدمة للصناعات الطبية',
+                location: 'الدمام → الرياض',
+                date: '17 يناير 2024',
+                priority: 'high',
+                priorityText: 'عالية',
+                time: 'منذ ساعة واحدة',
+                icon: 'fas fa-truck',
+                statusIcon: 'fas fa-clock',
+                amount: '4,500 ريال'
             }
         ];
         
@@ -210,6 +256,10 @@ const OrdersController = {
                             <i class="fas fa-calendar"></i>
                             <span>${order.date}</span>
                         </div>
+                        <div class="orders-detail-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>${order.amount}</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -243,22 +293,20 @@ const OrdersController = {
      * Update status tabs with counts
      */
     updateStatusTabs: function() {
-        const stats = State.get('stats') || {};
-        
         // Calculate counts for each status
-        const totalOrders = stats.totalOrders || 0;
+        const totalOrders = 2847;
         const allCount = totalOrders;
-        const newCount = Math.floor(totalOrders * 0.3); // 30% new
-        const pendingCount = Math.floor(totalOrders * 0.4); // 40% pending
-        const completedCount = Math.floor(totalOrders * 0.3); // 30% completed
+        const newCount = 268;
+        const pendingCount = 423;
+        const completedCount = 2156;
         
         // Update tab counts
         const tabCounts = document.querySelectorAll('.orders-filter-count');
         if (tabCounts.length >= 4) {
-            tabCounts[0].textContent = allCount; // All
-            tabCounts[1].textContent = newCount; // New
-            tabCounts[2].textContent = pendingCount; // Pending
-            tabCounts[3].textContent = completedCount; // Completed
+            tabCounts[0].textContent = allCount.toLocaleString(); // All
+            tabCounts[1].textContent = newCount.toLocaleString(); // New
+            tabCounts[2].textContent = pendingCount.toLocaleString(); // Pending
+            tabCounts[3].textContent = completedCount.toLocaleString(); // Completed
         }
     },
 
@@ -280,17 +328,15 @@ const OrdersController = {
      * Update overall stats
      */
     updateStats: function() {
-        const stats = State.get('stats') || {};
-        
         // Update any additional stats that might be displayed
         const totalOrdersElement = document.querySelector('.total-orders');
         if (totalOrdersElement) {
-            totalOrdersElement.textContent = stats.totalOrders || 0;
+            totalOrdersElement.textContent = '2,847';
         }
         
         const monthlyOrdersElement = document.querySelector('.monthly-orders');
         if (monthlyOrdersElement) {
-            monthlyOrdersElement.textContent = stats.newRequests || 0;
+            monthlyOrdersElement.textContent = '268';
         }
     },
 
@@ -339,214 +385,196 @@ const OrdersController = {
                 this.handleStatusFilter(filter);
             });
         });
+    },
+
+    /**
+     * Initialize floating filter
+     */
+    initFloatingFilter: function() {
+        const floatingFilterBtn = document.querySelector('.orders-floating-filter-btn');
+        const filtersModal = document.querySelector('.orders-filters-modal');
+        const modalOverlay = document.querySelector('.orders-filters-modal-overlay');
+        const modalClose = document.querySelector('.orders-filters-modal-close');
         
-        // Advanced filters toggle
-        const toggleBtn = document.querySelector('.orders-toggle-btn');
-        const advancedPanel = document.querySelector('.orders-advanced-panel');
+        if (!floatingFilterBtn || !filtersModal) return;
         
-        if (toggleBtn && advancedPanel) {
-            toggleBtn.addEventListener('click', () => {
-                this.toggleAdvancedFilters(toggleBtn, advancedPanel);
+        // Open modal
+        floatingFilterBtn.addEventListener('click', () => {
+            this.openFiltersModal();
+        });
+        
+        // Close modal
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', () => {
+                this.closeFiltersModal();
             });
         }
         
-        // Advanced filter options
-        document.querySelectorAll('.orders-option input').forEach(input => {
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                this.closeFiltersModal();
+            });
+        }
+        
+        // Close on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && filtersModal.classList.contains('active')) {
+                this.closeFiltersModal();
+            }
+        });
+        
+        // Initialize modal filters
+        this.initModalFilters();
+    },
+
+    /**
+     * Open filters modal
+     */
+    openFiltersModal: function() {
+        const filtersModal = document.querySelector('.orders-filters-modal');
+        if (filtersModal) {
+            filtersModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    },
+
+    /**
+     * Close filters modal
+     */
+    closeFiltersModal: function() {
+        const filtersModal = document.querySelector('.orders-filters-modal');
+        if (filtersModal) {
+            filtersModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    },
+
+    /**
+     * Initialize modal filters
+     */
+    initModalFilters: function() {
+        // Service type filters
+        document.querySelectorAll('.orders-option input[name="serviceType"]').forEach(input => {
             input.addEventListener('change', (e) => {
-                this.handleAdvancedFilterChange(e);
+                this.handleModalFilterChange(e);
             });
         });
         
-        // Advanced filter actions
-        document.querySelectorAll('[data-action]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const action = e.target.closest('[data-action]').dataset.action;
-                this.handleFilterAction(action);
+        // Time period filters
+        document.querySelectorAll('.orders-option input[name="timePeriod"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleModalFilterChange(e);
             });
         });
-    },
-
-    /**
-     * Toggle advanced filters panel
-     */
-    toggleAdvancedFilters: function(toggleBtn, panel) {
-        const isActive = panel.classList.contains('active');
         
-        if (isActive) {
-            panel.classList.remove('active');
-            toggleBtn.classList.remove('active');
-        } else {
-            panel.classList.add('active');
-            toggleBtn.classList.add('active');
+        // Priority filters
+        document.querySelectorAll('.orders-option input[name="priority"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleModalFilterChange(e);
+            });
+        });
+        
+        // Location filters
+        document.querySelectorAll('.orders-option input[name="location"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleModalFilterChange(e);
+            });
+        });
+        
+        // Price range inputs
+        const priceFrom = document.getElementById('priceFrom');
+        const priceTo = document.getElementById('priceTo');
+        const priceRangeMin = document.getElementById('priceRangeMin');
+        const priceRangeMax = document.getElementById('priceRangeMax');
+        
+        if (priceFrom && priceTo && priceRangeMin && priceRangeMax) {
+            // Sync range sliders with inputs
+            priceRangeMin.addEventListener('input', (e) => {
+                priceFrom.value = e.target.value;
+                this.handleModalFilterChange(e);
+            });
+            
+            priceRangeMax.addEventListener('input', (e) => {
+                priceTo.value = e.target.value;
+                this.handleModalFilterChange(e);
+            });
+            
+            // Sync inputs with range sliders
+            priceFrom.addEventListener('input', (e) => {
+                priceRangeMin.value = e.target.value;
+                this.handleModalFilterChange(e);
+            });
+            
+            priceTo.addEventListener('input', (e) => {
+                priceRangeMax.value = e.target.value;
+                this.handleModalFilterChange(e);
+            });
         }
+        
+        // Modal action buttons
+        document.querySelectorAll('[data-action="clear-filters"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.clearModalFilters();
+            });
+        });
+        
+        document.querySelectorAll('[data-action="apply-filters"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.applyModalFilters();
+            });
+        });
     },
 
     /**
-     * Handle advanced filter changes
+     * Handle modal filter changes
      */
-    handleAdvancedFilterChange: function(event) {
+    handleModalFilterChange: function(event) {
         const input = event.target;
         const option = input.closest('.orders-option');
         
-        // Update visual state
-        if (input.checked) {
-            option.classList.add('selected');
-        } else {
-            option.classList.remove('selected');
-        }
-        
-        // Update active filters display
-        this.updateActiveFilters();
-    },
-
-    /**
-     * Update active filters display
-     */
-    updateActiveFilters: function() {
-        const activeFiltersContainer = document.querySelector('.orders-active-filters');
-        if (!activeFiltersContainer) return;
-        
-        const activeFilters = [];
-        
-        // Get status filter
-        const activeStatusBtn = document.querySelector('.orders-filter-btn.orders-active');
-        if (activeStatusBtn) {
-            const statusText = activeStatusBtn.querySelector('.orders-filter-text').textContent;
-            activeFilters.push({
-                type: 'status',
-                value: activeStatusBtn.dataset.filter,
-                text: statusText
-            });
-        }
-        
-        // Get service type filters
-        document.querySelectorAll('.orders-option input[name="serviceType"]:checked').forEach(input => {
-            const option = input.closest('.orders-option');
-            const text = option.querySelector('.orders-option-text').textContent;
-            activeFilters.push({
-                type: 'serviceType',
-                value: input.value,
-                text: text
-            });
-        });
-        
-        // Get priority filters
-        document.querySelectorAll('.orders-option input[name="priority"]:checked').forEach(input => {
-            const option = input.closest('.orders-option');
-            const text = option.querySelector('.orders-option-badge').textContent;
-            activeFilters.push({
-                type: 'priority',
-                value: input.value,
-                text: text
-            });
-        });
-        
-        // Get time period filter
-        const timeFilter = document.querySelector('.orders-option input[name="timePeriod"]:checked');
-        if (timeFilter) {
-            const option = timeFilter.closest('.orders-option');
-            const text = option.querySelector('.orders-option-text').textContent;
-            activeFilters.push({
-                type: 'timePeriod',
-                value: timeFilter.value,
-                text: text
-            });
-        }
-        
-        // Render active filters
-        this.renderActiveFilters(activeFiltersContainer, activeFilters);
-    },
-
-    /**
-     * Render active filters
-     */
-    renderActiveFilters: function(container, filters) {
-        if (filters.length === 0) {
-            container.innerHTML = '<span class="orders-active-filter-tag"><span>الكل</span></span>';
-            return;
-        }
-        
-        container.innerHTML = filters.map(filter => `
-            <span class="orders-active-filter-tag">
-                <span>${filter.text}</span>
-                <button type="button" class="orders-remove-filter" data-filter-type="${filter.type}" data-filter-value="${filter.value}">
-                    <i class="fas fa-times"></i>
-                </button>
-            </span>
-        `).join('');
-        
-        // Add event listeners to remove buttons
-        container.querySelectorAll('.orders-remove-filter').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const filterType = e.target.closest('.orders-remove-filter').dataset.filterType;
-                const filterValue = e.target.closest('.orders-remove-filter').dataset.filterValue;
-                this.removeFilter(filterType, filterValue);
-            });
-        });
-    },
-
-    /**
-     * Remove specific filter
-     */
-    removeFilter: function(filterType, filterValue) {
-        if (filterType === 'status') {
-            // Reset to "all" status
-            this.handleStatusFilter('all');
-        } else {
-            // Uncheck the corresponding input
-            const input = document.querySelector(`.orders-option input[name="${filterType}"][value="${filterValue}"]`);
-            if (input) {
-                input.checked = false;
-                input.closest('.orders-option').classList.remove('selected');
+        if (option) {
+            // Update visual state
+            if (input.checked) {
+                option.classList.add('selected');
+            } else {
+                option.classList.remove('selected');
             }
         }
-        
-        this.updateActiveFilters();
-        this.applyAllFilters();
     },
 
     /**
-     * Handle filter actions
+     * Clear modal filters
      */
-    handleFilterAction: function(action) {
-        switch (action) {
-            case 'clear-filters':
-                this.clearAllFilters();
-                break;
-            case 'apply-filters':
-                this.applyAllFilters();
-                break;
-        }
-    },
-
-    /**
-     * Clear all filters
-     */
-    clearAllFilters: function() {
-        // Reset status filter to "all"
-        this.handleStatusFilter('all');
-        
-        // Uncheck all advanced filter inputs
+    clearModalFilters: function() {
+        // Uncheck all filter inputs
         document.querySelectorAll('.orders-option input').forEach(input => {
             input.checked = false;
             input.closest('.orders-option').classList.remove('selected');
         });
         
-        // Clear search
-        const searchInput = document.querySelector('.orders-search-input');
-        if (searchInput) {
-            searchInput.value = '';
-            const searchClear = document.querySelector('.orders-search-clear');
-            if (searchClear) {
-                searchClear.classList.remove('visible');
-            }
-        }
+        // Reset price range
+        const priceFrom = document.getElementById('priceFrom');
+        const priceTo = document.getElementById('priceTo');
+        const priceRangeMin = document.getElementById('priceRangeMin');
+        const priceRangeMax = document.getElementById('priceRangeMax');
         
-        // Update active filters display
-        this.updateActiveFilters();
+        if (priceFrom && priceTo && priceRangeMin && priceRangeMax) {
+            priceFrom.value = '';
+            priceTo.value = '';
+            priceRangeMin.value = 0;
+            priceRangeMax.value = 50000;
+        }
         
         // Show all orders
         this.showAllOrders();
+    },
+
+    /**
+     * Apply modal filters
+     */
+    applyModalFilters: function() {
+        this.applyAllFilters();
+        this.closeFiltersModal();
     },
 
     /**
@@ -586,6 +614,31 @@ const OrdersController = {
                 }
             }
             
+            // Check location filters
+            const selectedLocations = Array.from(document.querySelectorAll('.orders-option input[name="location"]:checked'))
+                .map(input => input.value);
+            
+            if (selectedLocations.length > 0) {
+                const cardLocation = this.getOrderLocation(card);
+                if (!selectedLocations.includes(cardLocation)) {
+                    shouldShow = false;
+                }
+            }
+            
+            // Check price range
+            const priceFrom = document.getElementById('priceFrom');
+            const priceTo = document.getElementById('priceTo');
+            
+            if (priceFrom && priceTo && (priceFrom.value || priceTo.value)) {
+                const cardAmount = this.getOrderAmount(card);
+                const fromPrice = priceFrom.value ? parseFloat(priceFrom.value) : 0;
+                const toPrice = priceTo.value ? parseFloat(priceTo.value) : Infinity;
+                
+                if (cardAmount < fromPrice || cardAmount > toPrice) {
+                    shouldShow = false;
+                }
+            }
+            
             // Show/hide card
             card.style.display = shouldShow ? 'block' : 'none';
         });
@@ -601,7 +654,8 @@ const OrdersController = {
             'شحن': 'shipping',
             'تخليص جمركي': 'customs',
             'تغليف': 'packaging',
-            'اعتمادات مستندية': 'lc'
+            'اعتمادات مستندية': 'lc',
+            'توصيل نهائي': 'last-mile'
         };
         return serviceTypeMap[typeText] || '';
     },
@@ -615,6 +669,26 @@ const OrdersController = {
         if (priorityElement.classList.contains('orders-medium')) return 'medium';
         if (priorityElement.classList.contains('orders-low')) return 'low';
         return '';
+    },
+
+    /**
+     * Get order location from card
+     */
+    getOrderLocation: function(card) {
+        const locationText = card.querySelector('.orders-detail-item:nth-child(2) span').textContent;
+        if (locationText.includes('الرياض')) return 'riyadh';
+        if (locationText.includes('جدة')) return 'jeddah';
+        if (locationText.includes('الدمام')) return 'dammam';
+        return 'other';
+    },
+
+    /**
+     * Get order amount from card
+     */
+    getOrderAmount: function(card) {
+        const amountText = card.querySelector('.orders-detail-item:nth-child(4) span').textContent;
+        const amount = amountText.replace(/[^\d]/g, '');
+        return parseInt(amount) || 0;
     },
 
     /**
@@ -673,91 +747,6 @@ const OrdersController = {
     },
 
     /**
-     * Handle service type filter
-     */
-    handleServiceFilter: function(serviceType) {
-        if (!serviceType) return;
-        
-        const orderCards = document.querySelectorAll('.orders-order-card');
-        
-        orderCards.forEach(card => {
-            const orderType = card.querySelector('.orders-order-type span').textContent;
-            const matches = orderType.includes(this.getServiceTypeText(serviceType));
-            
-            card.style.display = matches ? 'block' : 'none';
-        });
-    },
-
-    /**
-     * Handle time filter
-     */
-    handleTimeFilter: function(timePeriod) {
-        if (!timePeriod) return;
-        
-        // This would typically filter by actual dates
-        // For now, we'll just show all orders
-        console.log(`Filtering by time period: ${timePeriod}`);
-    },
-
-    /**
-     * Get service type text
-     */
-    getServiceTypeText: function(serviceType) {
-        const serviceMap = {
-            'warehouse': 'تخزين',
-            'shipping': 'شحن',
-            'customs': 'تخليص جمركي',
-            'packaging': 'تغليف',
-            'lc': 'اعتمادات مستندية'
-        };
-        return serviceMap[serviceType] || serviceType;
-    },
-
-    /**
-     * Load orders data
-     */
-    loadOrdersData: function() {
-        // Simulate loading orders data
-        setTimeout(() => {
-            console.log('Orders data loaded');
-        }, 500);
-    },
-
-    /**
-     * Handle status tab changes
-     */
-    handleStatusTabChange: function(status) {
-        // Remove active class from all tabs
-        document.querySelectorAll('.status-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        
-        // Add active class to clicked tab
-        const activeTab = document.querySelector(`[data-status="${status}"]`);
-        if (activeTab) {
-            activeTab.classList.add('active');
-        }
-        
-        // Filter orders based on status
-        this.filterOrdersByStatus(status);
-    },
-
-    /**
-     * Filter orders by status
-     */
-    filterOrdersByStatus: function(status) {
-        const orderCards = document.querySelectorAll('.orders-order-card');
-        
-        orderCards.forEach(card => {
-            if (status === 'all' || card.classList.contains(`orders-${status}`)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    },
-
-    /**
      * Set up event listeners
      */
     setupEventListeners: function() {
@@ -770,6 +759,41 @@ const OrdersController = {
                 Router.navigate('order-details');
             }
         });
+        
+        // Handle section action buttons
+        document.addEventListener('click', (e) => {
+            const actionBtn = e.target.closest('[data-action]');
+            if (!actionBtn) return;
+            
+            const action = actionBtn.dataset.action;
+            
+            switch (action) {
+                case 'export-orders':
+                    this.exportOrders();
+                    break;
+                case 'new-order':
+                    this.createNewOrder();
+                    break;
+            }
+        });
+    },
+
+    /**
+     * Export orders
+     */
+    exportOrders: function() {
+        console.log('Exporting orders...');
+        // Implementation for exporting orders
+        alert('جاري تصدير الطلبات...');
+    },
+
+    /**
+     * Create new order
+     */
+    createNewOrder: function() {
+        console.log('Creating new order...');
+        // Implementation for creating new order
+        Router.navigate('order-form');
     }
 };
 

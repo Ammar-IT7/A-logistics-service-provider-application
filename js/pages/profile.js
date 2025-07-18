@@ -656,14 +656,14 @@ const ProfileController = {
             Toast.show('جاري تسجيل الخروج', 'جاري إغلاق الجلسة...', 'info');
             
             setTimeout(() => {
-                // Clear user data
-                State.set('user', null);
-                State.set('isAuthenticated', false);
+            // Clear user data
+            State.set('user', null);
+            State.set('isAuthenticated', false);
                 State.set('personalActivities', []);
-                
-                // Navigate to login
-                Router.navigate('login');
-                Toast.show('تم تسجيل الخروج', 'تم تسجيل الخروج بنجاح', 'success');
+            
+            // Navigate to login
+            Router.navigate('login');
+            Toast.show('تم تسجيل الخروج', 'تم تسجيل الخروج بنجاح', 'success');
             }, 1000);
         }
     }
