@@ -18,8 +18,12 @@
                     <i class="fas fa-file-invoice-dollar"></i>
                 </div>
                 <div class="bil-summary-content">
-                    <div class="bil-summary-value">15,500 ريال</div>
+                    <div class="bil-summary-value">18,750 ريال</div>
                     <div class="bil-summary-label">إجمالي المستحق</div>
+                    <div class="bil-summary-trend bil-positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +12% من الشهر الماضي
+                    </div>
                 </div>
             </div>
             
@@ -28,8 +32,12 @@
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <div class="bil-summary-content">
-                    <div class="bil-summary-value">8</div>
+                    <div class="bil-summary-value">12</div>
                     <div class="bil-summary-label">فواتير معلقة</div>
+                    <div class="bil-summary-trend bil-negative">
+                        <i class="fas fa-arrow-down"></i>
+                        -3 من الشهر الماضي
+                    </div>
                 </div>
             </div>
             
@@ -38,8 +46,55 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="bil-summary-content">
-                    <div class="bil-summary-value">5 أيام</div>
+                    <div class="bil-summary-value">3 أيام</div>
                     <div class="bil-summary-label">آخر موعد دفع</div>
+                    <div class="bil-summary-trend bil-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        فاتورة متأخرة
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bil-summary-card">
+                <div class="bil-summary-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="bil-summary-content">
+                    <div class="bil-summary-value">94%</div>
+                    <div class="bil-summary-label">معدل الدفع في الوقت</div>
+                    <div class="bil-summary-trend bil-positive">
+                        <i class="fas fa-arrow-up"></i>
+                        +2% من الشهر الماضي
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="bil-quick-actions">
+            <div class="bil-action-card" data-action="pay-all">
+                <div class="bil-action-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="bil-action-content">
+                    <div class="bil-action-title">دفع الكل</div>
+                    <div class="bil-action-desc">دفع جميع الفواتير المعلقة</div>
+                </div>
+                <div class="bil-action-arrow">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+            </div>
+            
+            <div class="bil-action-card" data-action="export-invoices">
+                <div class="bil-action-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="bil-action-content">
+                    <div class="bil-action-title">تصدير الفواتير</div>
+                    <div class="bil-action-desc">تحميل جميع الفواتير كملف PDF</div>
+                </div>
+                <div class="bil-action-arrow">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </section>
@@ -64,6 +119,7 @@
                     <div class="bil-method-info">
                         <div class="bil-method-name">Visa تنتهي بـ 1234</div>
                         <div class="bil-method-expiry">تنتهي في 12/25</div>
+                        <div class="bil-method-limit">الحد الأقصى: 50,000 ريال</div>
                     </div>
                     <div class="bil-method-status">افتراضي</div>
                 </div>
@@ -75,6 +131,7 @@
                     <div class="bil-method-info">
                         <div class="bil-method-name">Mastercard تنتهي بـ 5678</div>
                         <div class="bil-method-expiry">تنتهي في 08/26</div>
+                        <div class="bil-method-limit">الحد الأقصى: 75,000 ريال</div>
                     </div>
                     <div class="bil-method-actions">
                         <button class="bil-action-btn" data-action="set-default">
@@ -93,6 +150,26 @@
                     <div class="bil-method-info">
                         <div class="bil-method-name">تحويل بنكي</div>
                         <div class="bil-method-details">البنك الأهلي السعودي</div>
+                        <div class="bil-method-limit">حساب: 1234567890</div>
+                    </div>
+                    <div class="bil-method-actions">
+                        <button class="bil-action-btn" data-action="set-default">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button class="bil-action-btn" data-action="remove-method">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bil-payment-method">
+                    <div class="bil-method-icon">
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
+                    <div class="bil-method-info">
+                        <div class="bil-method-name">PayPal</div>
+                        <div class="bil-method-details">user@example.com</div>
+                        <div class="bil-method-limit">متصل بالحساب المصرفي</div>
                     </div>
                     <div class="bil-method-actions">
                         <button class="bil-action-btn" data-action="set-default">
@@ -118,20 +195,56 @@
             </div>
             
             <div class="bil-invoices-list">
+                <div class="bil-invoice-item bil-urgent">
+                    <div class="bil-invoice-header">
+                        <div class="bil-invoice-number">#INV-2024-015</div>
+                        <div class="bil-invoice-status bil-overdue">متأخر</div>
+                    </div>
+                    <div class="bil-invoice-content">
+                        <div class="bil-invoice-info">
+                            <div class="bil-invoice-title">خدمات الشحن الدولية - ديسمبر 2024</div>
+                            <div class="bil-invoice-details">
+                                <span class="bil-invoice-date">20 ديسمبر 2024</span>
+                                <span class="bil-invoice-due bil-overdue">متأخر: 15 ديسمبر 2024</span>
+                            </div>
+                            <div class="bil-invoice-services">
+                                <span class="bil-service-tag">شحن بحري</span>
+                                <span class="bil-service-tag">تخليص جمركي</span>
+                                <span class="bil-service-tag">تأمين</span>
+                            </div>
+                        </div>
+                        <div class="bil-invoice-amount">4,250 ريال</div>
+                    </div>
+                    <div class="bil-invoice-actions">
+                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                            <i class="fas fa-eye"></i>
+                            عرض
+                        </button>
+                        <button class="bil-btn bil-btn-danger" data-action="pay-invoice">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            دفع فوري
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="bil-invoice-item">
                     <div class="bil-invoice-header">
-                        <div class="bil-invoice-number">#INV-2024-001</div>
+                        <div class="bil-invoice-number">#INV-2024-014</div>
                         <div class="bil-invoice-status bil-pending">معلق</div>
                     </div>
                     <div class="bil-invoice-content">
                         <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">خدمات الشحن - ديسمبر 2024</div>
+                            <div class="bil-invoice-title">خدمات التخزين - ديسمبر 2024</div>
                             <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">15 ديسمبر 2024</span>
-                                <span class="bil-invoice-due">استحقاق: 30 ديسمبر 2024</span>
+                                <span class="bil-invoice-date">18 ديسمبر 2024</span>
+                                <span class="bil-invoice-due">استحقاق: 31 ديسمبر 2024</span>
+                            </div>
+                            <div class="bil-invoice-services">
+                                <span class="bil-service-tag">تخزين بارد</span>
+                                <span class="bil-service-tag">إدارة مخزون</span>
                             </div>
                         </div>
-                        <div class="bil-invoice-amount">2,500 ريال</div>
+                        <div class="bil-invoice-amount">2,800 ريال</div>
                     </div>
                     <div class="bil-invoice-actions">
                         <button class="bil-btn bil-btn-outline" data-action="view-invoice">
@@ -147,18 +260,22 @@
                 
                 <div class="bil-invoice-item">
                     <div class="bil-invoice-header">
-                        <div class="bil-invoice-number">#INV-2024-002</div>
+                        <div class="bil-invoice-number">#INV-2024-013</div>
                         <div class="bil-invoice-status bil-paid">مدفوع</div>
                     </div>
                     <div class="bil-invoice-content">
                         <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">خدمات التخزين - نوفمبر 2024</div>
+                            <div class="bil-invoice-title">خدمات التغليف والتعبئة - نوفمبر 2024</div>
                             <div class="bil-invoice-details">
                                 <span class="bil-invoice-date">30 نوفمبر 2024</span>
                                 <span class="bil-invoice-paid">مدفوع: 15 ديسمبر 2024</span>
                             </div>
+                            <div class="bil-invoice-services">
+                                <span class="bil-service-tag">تغليف خاص</span>
+                                <span class="bil-service-tag">تعبئة آمنة</span>
+                            </div>
                         </div>
-                        <div class="bil-invoice-amount">1,800 ريال</div>
+                        <div class="bil-invoice-amount">1,950 ريال</div>
                     </div>
                     <div class="bil-invoice-actions">
                         <button class="bil-btn bil-btn-outline" data-action="view-invoice">
@@ -174,27 +291,93 @@
                 
                 <div class="bil-invoice-item">
                     <div class="bil-invoice-header">
-                        <div class="bil-invoice-number">#INV-2024-003</div>
-                        <div class="bil-invoice-status bil-overdue">متأخر</div>
+                        <div class="bil-invoice-number">#INV-2024-012</div>
+                        <div class="bil-invoice-status bil-pending">معلق</div>
                     </div>
                     <div class="bil-invoice-content">
                         <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">خدمات التخليص الجمركي - أكتوبر 2024</div>
+                            <div class="bil-invoice-title">خدمات النقل البري - ديسمبر 2024</div>
                             <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">31 أكتوبر 2024</span>
-                                <span class="bil-invoice-due bil-overdue">متأخر: 30 نوفمبر 2024</span>
+                                <span class="bil-invoice-date">16 ديسمبر 2024</span>
+                                <span class="bil-invoice-due">استحقاق: 30 ديسمبر 2024</span>
+                            </div>
+                            <div class="bil-invoice-services">
+                                <span class="bil-service-tag">نقل بري</span>
+                                <span class="bil-service-tag">تتبع GPS</span>
                             </div>
                         </div>
-                        <div class="bil-invoice-amount">3,200 ريال</div>
+                        <div class="bil-invoice-amount">3,100 ريال</div>
                     </div>
                     <div class="bil-invoice-actions">
                         <button class="bil-btn bil-btn-outline" data-action="view-invoice">
                             <i class="fas fa-eye"></i>
                             عرض
                         </button>
-                        <button class="bil-btn bil-btn-danger" data-action="pay-invoice">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            دفع فوري
+                        <button class="bil-btn bil-btn-primary" data-action="pay-invoice">
+                            <i class="fas fa-credit-card"></i>
+                            دفع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bil-invoice-item">
+                    <div class="bil-invoice-header">
+                        <div class="bil-invoice-number">#INV-2024-011</div>
+                        <div class="bil-invoice-status bil-pending">معلق</div>
+                    </div>
+                    <div class="bil-invoice-content">
+                        <div class="bil-invoice-info">
+                            <div class="bil-invoice-title">خدمات التخليص الجمركي - ديسمبر 2024</div>
+                            <div class="bil-invoice-details">
+                                <span class="bil-invoice-date">14 ديسمبر 2024</span>
+                                <span class="bil-invoice-due">استحقاق: 28 ديسمبر 2024</span>
+                            </div>
+                            <div class="bil-invoice-services">
+                                <span class="bil-service-tag">تخليص جمركي</span>
+                                <span class="bil-service-tag">وثائق شحن</span>
+                            </div>
+                        </div>
+                        <div class="bil-invoice-amount">1,850 ريال</div>
+                    </div>
+                    <div class="bil-invoice-actions">
+                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                            <i class="fas fa-eye"></i>
+                            عرض
+                        </button>
+                        <button class="bil-btn bil-btn-primary" data-action="pay-invoice">
+                            <i class="fas fa-credit-card"></i>
+                            دفع
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bil-invoice-item">
+                    <div class="bil-invoice-header">
+                        <div class="bil-invoice-number">#INV-2024-010</div>
+                        <div class="bil-invoice-status bil-pending">معلق</div>
+                    </div>
+                    <div class="bil-invoice-content">
+                        <div class="bil-invoice-info">
+                            <div class="bil-invoice-title">خدمات التوصيل النهائي - ديسمبر 2024</div>
+                            <div class="bil-invoice-details">
+                                <span class="bil-invoice-date">12 ديسمبر 2024</span>
+                                <span class="bil-invoice-due">استحقاق: 26 ديسمبر 2024</span>
+                            </div>
+                            <div class="bil-invoice-services">
+                                <span class="bil-service-tag">توصيل داخلي</span>
+                                <span class="bil-service-tag">تتبع مباشر</span>
+                            </div>
+                        </div>
+                        <div class="bil-invoice-amount">1,200 ريال</div>
+                    </div>
+                    <div class="bil-invoice-actions">
+                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                            <i class="fas fa-eye"></i>
+                            عرض
+                        </button>
+                        <button class="bil-btn bil-btn-primary" data-action="pay-invoice">
+                            <i class="fas fa-credit-card"></i>
+                            دفع
                         </button>
                     </div>
                 </div>
@@ -207,6 +390,10 @@
                 <h3 class="bil-section-title">
                     <i class="fas fa-history bil-section-icon"></i> سجل المدفوعات
                 </h3>
+                <button class="bil-btn bil-btn-outline" data-action="export-payments">
+                    <i class="fas fa-download"></i>
+                    تصدير
+                </button>
             </div>
             
             <div class="bil-payment-history">
@@ -215,11 +402,11 @@
                         <i class="fab fa-cc-visa"></i>
                     </div>
                     <div class="bil-payment-info">
-                        <div class="bil-payment-title">دفع فاتورة #INV-2024-002</div>
+                        <div class="bil-payment-title">دفع فاتورة #INV-2024-011</div>
                         <div class="bil-payment-details">Visa تنتهي بـ 1234</div>
-                        <div class="bil-payment-date">15 ديسمبر 2024</div>
+                        <div class="bil-payment-date">15 ديسمبر 2024 - 14:30</div>
                     </div>
-                    <div class="bil-payment-amount">-1,800 ريال</div>
+                    <div class="bil-payment-amount">-2,450 ريال</div>
                     <div class="bil-payment-status bil-completed">مكتمل</div>
                 </div>
                 
@@ -228,11 +415,11 @@
                         <i class="fas fa-university"></i>
                     </div>
                     <div class="bil-payment-info">
-                        <div class="bil-payment-title">تحويل بنكي</div>
+                        <div class="bil-payment-title">تحويل بنكي - فاتورة #INV-2024-010</div>
                         <div class="bil-payment-details">البنك الأهلي السعودي</div>
-                        <div class="bil-payment-date">30 نوفمبر 2024</div>
+                        <div class="bil-payment-date">10 ديسمبر 2024 - 09:15</div>
                     </div>
-                    <div class="bil-payment-amount">-2,500 ريال</div>
+                    <div class="bil-payment-amount">-3,800 ريال</div>
                     <div class="bil-payment-status bil-completed">مكتمل</div>
                 </div>
                 
@@ -241,11 +428,24 @@
                         <i class="fab fa-cc-mastercard"></i>
                     </div>
                     <div class="bil-payment-info">
-                        <div class="bil-payment-title">دفع فاتورة #INV-2024-001</div>
+                        <div class="bil-payment-title">دفع فاتورة #INV-2024-009</div>
                         <div class="bil-payment-details">Mastercard تنتهي بـ 5678</div>
-                        <div class="bil-payment-date">15 نوفمبر 2024</div>
+                        <div class="bil-payment-date">5 ديسمبر 2024 - 16:45</div>
                     </div>
-                    <div class="bil-payment-amount">-1,200 ريال</div>
+                    <div class="bil-payment-amount">-1,750 ريال</div>
+                    <div class="bil-payment-status bil-completed">مكتمل</div>
+                </div>
+                
+                <div class="bil-payment-item">
+                    <div class="bil-payment-icon">
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
+                    <div class="bil-payment-info">
+                        <div class="bil-payment-title">دفع فاتورة #INV-2024-008</div>
+                        <div class="bil-payment-details">PayPal - user@example.com</div>
+                        <div class="bil-payment-date">30 نوفمبر 2024 - 11:20</div>
+                    </div>
+                    <div class="bil-payment-amount">-2,100 ريال</div>
                     <div class="bil-payment-status bil-completed">مكتمل</div>
                 </div>
             </div>
@@ -300,6 +500,28 @@
                     </div>
                     <label class="bil-switch">
                         <input type="checkbox" checked>
+                        <span class="bil-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="bil-setting-item">
+                    <div class="bil-setting-info">
+                        <div class="bil-setting-title">تحديثات تلقائية</div>
+                        <div class="bil-setting-desc">تحديث حالة الفواتير تلقائياً</div>
+                    </div>
+                    <label class="bil-switch">
+                        <input type="checkbox" checked>
+                        <span class="bil-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="bil-setting-item">
+                    <div class="bil-setting-info">
+                        <div class="bil-setting-title">تقارير شهرية</div>
+                        <div class="bil-setting-desc">إرسال تقرير شهري بالمدفوعات</div>
+                    </div>
+                    <label class="bil-switch">
+                        <input type="checkbox">
                         <span class="bil-slider"></span>
                     </label>
                 </div>
