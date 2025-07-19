@@ -32,18 +32,18 @@ const WarehouseManagementController = {
     setupEventListeners: function() {
         // Handle provider card clicks
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.provider-card')) {
-                const providerCard = e.target.closest('.provider-card');
+            if (e.target.closest('.wm-provider-card')) {
+                const providerCard = e.target.closest('.wm-provider-card');
                 this.handleProviderClick(providerCard);
             }
             
-            if (e.target.closest('.pricing-card')) {
-                const pricingCard = e.target.closest('.pricing-card');
+            if (e.target.closest('.wm-pricing-card')) {
+                const pricingCard = e.target.closest('.wm-pricing-card');
                 this.handlePricingClick(pricingCard);
             }
             
-            if (e.target.closest('.feature-card')) {
-                const featureCard = e.target.closest('.feature-card');
+            if (e.target.closest('.wm-feature-card')) {
+                const featureCard = e.target.closest('.wm-feature-card');
                 this.handleFeatureClick(featureCard);
             }
         });
@@ -83,7 +83,7 @@ const WarehouseManagementController = {
      */
     handlePricingClick: function(pricingCard) {
         const planName = pricingCard.querySelector('h4').textContent;
-        const planPrice = pricingCard.querySelector('.amount').textContent;
+        const planPrice = pricingCard.querySelector('.wm-amount').textContent;
         
         console.log('Pricing plan clicked:', planName, planPrice);
         
@@ -180,13 +180,23 @@ const WarehouseManagementController = {
      */
     updateDesignerNotes: function() {
         const notes = `
-            <h4>صفحة إدارة المستودعات</h4>
-            <p>هذه الصفحة تعرض خدمات إدارة المستودعات المتكاملة مع:</p>
+            <h4>صفحة إدارة المستودعات المحسنة</h4>
+            <p>تم تحديث الصفحة لتشمل:</p>
             <ul>
-                <li>عرض الميزات الرئيسية للخدمة</li>
-                <li>قائمة مقدمي الخدمات مع التقييمات</li>
-                <li>خطط الأسعار المختلفة</li>
-                <li>إمكانية طلب عرض سعر</li>
+                <li>استخدام بادئة 'wm-' لجميع فئات CSS لتجنب التعارض</li>
+                <li>عرض الميزات الرئيسية للخدمة مع تصميم محسن</li>
+                <li>قائمة مقدمي الخدمات مع التقييمات والعلامات</li>
+                <li>خطط الأسعار المختلفة مع تصميم جذاب</li>
+                <li>إمكانية طلب عرض سعر وعرض التفاصيل</li>
+                <li>تصميم متجاوب بالكامل</li>
+            </ul>
+            <p><strong>التحسينات التقنية:</strong></p>
+            <ul>
+                <li>فصل CSS في ملف مخصص لتسهيل الصيانة</li>
+                <li>استخدام بادئات CSS لتجنب التعارض مع الصفحات الأخرى</li>
+                <li>تحسين تجربة المستخدم مع تفاعلات سلسة</li>
+                <li>دعم الاتجاه RTL</li>
+                <li>تصميم Mobile-First</li>
             </ul>
             <p><strong>ملاحظات للمطور:</strong></p>
             <ul>
@@ -194,6 +204,8 @@ const WarehouseManagementController = {
                 <li>ربط مع نظام الدفع</li>
                 <li>إضافة خريطة تفاعلية لمواقع المستودعات</li>
                 <li>إضافة نظام حجز المواعيد</li>
+                <li>إضافة نظام إدارة المخزون في الوقت الفعلي</li>
+                <li>إضافة تقارير تحليلية متقدمة</li>
             </ul>
         `;
         

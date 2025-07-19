@@ -11,202 +11,327 @@
 
     <!-- Main Content -->
     <div class="content">
-        <!-- Service Overview -->
-        <section class="service-overview">
-            <div class="overview-card">
-                <div class="overview-icon">
-                    <i class="fas fa-dolly-flatbed"></i>
+        <!-- Search and Filter Bar -->
+        <section class="wm-search-section">
+            <div class="wm-search-bar">
+                <div class="wm-search-input-wrapper">
+                    <i class="fas fa-search wm-search-icon"></i>
+                    <input type="text" class="wm-search-input" placeholder="البحث في خدمات إدارة المستودعات...">
                 </div>
-                <div class="overview-content">
-                    <h2>خدمات إدارة المستودعات المتكاملة</h2>
-                    <p>حلول شاملة لإدارة المستودعات تشمل التخزين، الجرد، التوزيع، والتحكم في المخزون</p>
-                </div>
+                <button class="wm-filter-btn">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>تصفية</span>
+                </button>
             </div>
         </section>
 
-        <!-- Features Grid -->
-        <section class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
+        <!-- Stats Overview -->
+        <section class="wm-stats-overview">
+            <div class="wm-stat-item">
+                <div class="wm-stat-icon">
                     <i class="fas fa-warehouse"></i>
                 </div>
-                <div class="feature-content">
-                    <h3>إدارة المخزون</h3>
-                    <p>تتبع دقيق للمخزون مع تحديثات فورية</p>
+                <div class="wm-stat-content">
+                    <div class="wm-stat-value">150+</div>
+                    <div class="wm-stat-label">مستودع متاح</div>
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
+            <div class="wm-stat-item">
+                <div class="wm-stat-icon">
+                    <i class="fas fa-building"></i>
                 </div>
-                <div class="feature-content">
-                    <h3>تقارير تحليلية</h3>
-                    <p>تقارير مفصلة عن أداء المستودع والمخزون</p>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-truck"></i>
-                </div>
-                <div class="feature-content">
-                    <h3>إدارة الشحنات</h3>
-                    <p>تتبع الشحنات الواردة والصادرة</p>
+                <div class="wm-stat-content">
+                    <div class="wm-stat-value">45</div>
+                    <div class="wm-stat-label">مزود خدمة</div>
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">
+            <div class="wm-stat-item">
+                <div class="wm-stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="wm-stat-content">
+                    <div class="wm-stat-value">4.8</div>
+                    <div class="wm-stat-label">متوسط التقييم</div>
+                </div>
+            </div>
+            
+            <div class="wm-stat-item">
+                <div class="wm-stat-icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <div class="feature-content">
-                    <h3>إدارة الموظفين</h3>
-                    <p>توزيع المهام وإدارة الأداء</p>
+                <div class="wm-stat-content">
+                    <div class="wm-stat-value">2,500+</div>
+                    <div class="wm-stat-label">عميل راضي</div>
                 </div>
             </div>
         </section>
 
         <!-- Service Providers -->
-        <section class="section-container">
-            <div class="section-header">
-                <h3 class="section-title">
-                    <i class="fas fa-building section-icon"></i> مقدمي الخدمات
-                </h3>
-                <a href="#" class="section-link">
-                    عرض الكل <i class="fas fa-chevron-left"></i>
-                </a>
-            </div>
-            
-            <div class="providers-list">
+        <section class="wm-service-providers">
+            <div class="wm-providers-grid">
                 <!-- Provider 1 -->
-                <div class="provider-card">
-                    <div class="provider-header">
-                        <div class="provider-avatar">
+                <div class="wm-provider-card" data-provider="advanced-warehouse">
+                    <div class="wm-provider-header">
+                        <div class="wm-provider-avatar">
                             <i class="fas fa-building"></i>
                         </div>
-                        <div class="provider-info">
-                            <h4>شركة إدارة المستودعات المتقدمة</h4>
-                            <div class="provider-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>(4.8)</span>
+                        <div class="wm-provider-info">
+                            <h4 class="wm-provider-name">شركة إدارة المستودعات المتقدمة</h4>
+                            <div class="wm-provider-rating">
+                                <span class="wm-rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="wm-rating-value">4.8</span>
                             </div>
                         </div>
                     </div>
-                    <div class="provider-details">
-                        <p>خدمات إدارة مستودعات متكاملة مع تقنيات حديثة</p>
-                        <div class="provider-features">
-                            <span class="feature-tag">إدارة مخزون</span>
-                            <span class="feature-tag">تقارير تحليلية</span>
-                            <span class="feature-tag">تتبع شحنات</span>
+                    
+                    <div class="wm-provider-description">
+                        خدمات إدارة مستودعات متكاملة مع تقنيات حديثة وأتمتة شاملة
+                    </div>
+                    
+                    <div class="wm-provider-features">
+                        <span class="wm-feature-tag">إدارة مخزون</span>
+                        <span class="wm-feature-tag">تقارير تحليلية</span>
+                        <span class="wm-feature-tag">تتبع شحنات</span>
+                        <span class="wm-feature-tag">أتمتة</span>
+                    </div>
+                    
+                    <div class="wm-provider-meta">
+                        <div class="wm-meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الرياض، جدة، الدمام</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>5 سنوات خبرة</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>150+ عميل</span>
                         </div>
                     </div>
-                    <div class="provider-actions">
-                        <button class="btn btn-primary">طلب عرض سعر</button>
-                        <button class="btn btn-outline">عرض التفاصيل</button>
+                    
+                    <div class="wm-provider-pricing">
+                        <div class="wm-price-label">يبدأ من</div>
+                        <div class="wm-price-value">2,500 ريال</div>
+                        <div class="wm-price-period">شهرياً</div>
+                    </div>
+                    
+                    <div class="wm-provider-actions">
+                        <button class="btn btn-primary" data-action="contact" data-provider="advanced-warehouse">
+                            <i class="fas fa-phone"></i>
+                            تواصل
+                        </button>
+                        <button class="btn btn-outline" data-action="view-portfolio" data-provider="advanced-warehouse">
+                            <i class="fas fa-eye"></i>
+                            معرض الأعمال
+                        </button>
                     </div>
                 </div>
                 
                 <!-- Provider 2 -->
-                <div class="provider-card">
-                    <div class="provider-header">
-                        <div class="provider-avatar">
+                <div class="wm-provider-card" data-provider="logistics-solutions">
+                    <div class="wm-provider-header">
+                        <div class="wm-provider-avatar">
                             <i class="fas fa-warehouse"></i>
                         </div>
-                        <div class="provider-info">
-                            <h4>مؤسسة الخدمات اللوجستية</h4>
-                            <div class="provider-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span>(4.2)</span>
+                        <div class="wm-provider-info">
+                            <h4 class="wm-provider-name">مؤسسة الخدمات اللوجستية</h4>
+                            <div class="wm-provider-rating">
+                                <span class="wm-rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="wm-rating-value">4.2</span>
                             </div>
                         </div>
                     </div>
-                    <div class="provider-details">
-                        <p>حلول إدارة مستودعات ذكية مع دعم فني 24/7</p>
-                        <div class="provider-features">
-                            <span class="feature-tag">ذكاء اصطناعي</span>
-                            <span class="feature-tag">دعم فني</span>
-                            <span class="feature-tag">تكامل API</span>
+                    
+                    <div class="wm-provider-description">
+                        حلول إدارة مستودعات ذكية مع دعم فني 24/7 وتكامل مع الأنظمة
+                    </div>
+                    
+                    <div class="wm-provider-features">
+                        <span class="wm-feature-tag">ذكاء اصطناعي</span>
+                        <span class="wm-feature-tag">دعم فني</span>
+                        <span class="wm-feature-tag">تكامل API</span>
+                        <span class="wm-feature-tag">مراقبة ذكية</span>
+                    </div>
+                    
+                    <div class="wm-provider-meta">
+                        <div class="wm-meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الرياض، جدة</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>4 سنوات خبرة</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>80+ عميل</span>
                         </div>
                     </div>
-                    <div class="provider-actions">
-                        <button class="btn btn-primary">طلب عرض سعر</button>
-                        <button class="btn btn-outline">عرض التفاصيل</button>
+                    
+                    <div class="wm-provider-pricing">
+                        <div class="wm-price-label">يبدأ من</div>
+                        <div class="wm-price-value">1,800 ريال</div>
+                        <div class="wm-price-period">شهرياً</div>
+                    </div>
+                    
+                    <div class="wm-provider-actions">
+                        <button class="btn btn-primary" data-action="contact" data-provider="logistics-solutions">
+                            <i class="fas fa-phone"></i>
+                            تواصل
+                        </button>
+                        <button class="btn btn-outline" data-action="view-portfolio" data-provider="logistics-solutions">
+                            <i class="fas fa-eye"></i>
+                            معرض الأعمال
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Provider 3 -->
+                <div class="wm-provider-card" data-provider="smart-warehouse">
+                    <div class="wm-provider-header">
+                        <div class="wm-provider-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="wm-provider-info">
+                            <h4 class="wm-provider-name">شركة المستودعات الذكية</h4>
+                            <div class="wm-provider-rating">
+                                <span class="wm-rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="wm-rating-value">4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="wm-provider-description">
+                        مستودعات ذكية مع روبوتات متقدمة وتقنيات IoT للتحكم الكامل
+                    </div>
+                    
+                    <div class="wm-provider-features">
+                        <span class="wm-feature-tag">روبوتات</span>
+                        <span class="wm-feature-tag">IoT</span>
+                        <span class="wm-feature-tag">تحكم ذكي</span>
+                        <span class="wm-feature-tag">أتمتة كاملة</span>
+                    </div>
+                    
+                    <div class="wm-provider-meta">
+                        <div class="wm-meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>جميع المدن</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>7 سنوات خبرة</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>200+ عميل</span>
+                        </div>
+                    </div>
+                    
+                    <div class="wm-provider-pricing">
+                        <div class="wm-price-label">يبدأ من</div>
+                        <div class="wm-price-value">4,500 ريال</div>
+                        <div class="wm-price-period">شهرياً</div>
+                    </div>
+                    
+                    <div class="wm-provider-actions">
+                        <button class="btn btn-primary" data-action="contact" data-provider="smart-warehouse">
+                            <i class="fas fa-phone"></i>
+                            تواصل
+                        </button>
+                        <button class="btn btn-outline" data-action="view-portfolio" data-provider="smart-warehouse">
+                            <i class="fas fa-eye"></i>
+                            معرض الأعمال
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Provider 4 -->
+                <div class="wm-provider-card" data-provider="efficient-storage">
+                    <div class="wm-provider-header">
+                        <div class="wm-provider-avatar">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="wm-provider-info">
+                            <h4 class="wm-provider-name">مؤسسة التخزين الفعال</h4>
+                            <div class="wm-provider-rating">
+                                <span class="wm-rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="wm-rating-value">4.5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="wm-provider-description">
+                        حلول تخزين فعالة مع إدارة مخزون ذكية وتقارير مفصلة
+                    </div>
+                    
+                    <div class="wm-provider-features">
+                        <span class="wm-feature-tag">تخزين فعال</span>
+                        <span class="wm-feature-tag">إدارة مخزون</span>
+                        <span class="wm-feature-tag">تقارير مفصلة</span>
+                        <span class="wm-feature-tag">تحليل البيانات</span>
+                    </div>
+                    
+                    <div class="wm-provider-meta">
+                        <div class="wm-meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الرياض، الدمام</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>6 سنوات خبرة</span>
+                        </div>
+                        <div class="wm-meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>120+ عميل</span>
+                        </div>
+                    </div>
+                    
+                    <div class="wm-provider-pricing">
+                        <div class="wm-price-label">يبدأ من</div>
+                        <div class="wm-price-value">2,200 ريال</div>
+                        <div class="wm-price-period">شهرياً</div>
+                    </div>
+                    
+                    <div class="wm-provider-actions">
+                        <button class="btn btn-primary" data-action="contact" data-provider="efficient-storage">
+                            <i class="fas fa-phone"></i>
+                            تواصل
+                        </button>
+                        <button class="btn btn-outline" data-action="view-portfolio" data-provider="efficient-storage">
+                            <i class="fas fa-eye"></i>
+                            معرض الأعمال
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Pricing Plans -->
-        <section class="section-container">
-            <div class="section-header">
-                <h3 class="section-title">
-                    <i class="fas fa-tags section-icon"></i> خطط الأسعار
-                </h3>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h4>الخطة الأساسية</h4>
-                        <div class="pricing-amount">
-                            <span class="amount">500</span>
-                            <span class="currency">ريال/شهر</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>إدارة مخزون أساسية</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>تقارير شهرية</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>دعم فني أساسي</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-block">اختيار الخطة</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="pricing-header">
-                        <h4>الخطة المتقدمة</h4>
-                        <div class="pricing-amount">
-                            <span class="amount">1200</span>
-                            <span class="currency">ريال/شهر</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>إدارة مخزون متقدمة</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>تقارير فورية</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>دعم فني 24/7</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>تكامل مع أنظمة أخرى</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-block">اختيار الخطة</button>
-                </div>
-            </div>
+    </div>
         </section>
     </div>
