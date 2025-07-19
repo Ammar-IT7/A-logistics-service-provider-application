@@ -188,7 +188,8 @@ const Router = {
             'marketing': 'MarketingController',
             'order-form': 'OrderFormController',
             'order-details': 'OrderDetailsController',
-            'getting-started': 'GettingStartedController'
+            'getting-started': 'GettingStartedController',
+            'warehouse-management-form': 'WarehouseManagementFormController'
         };
         
         // Get controller name from map or generate default

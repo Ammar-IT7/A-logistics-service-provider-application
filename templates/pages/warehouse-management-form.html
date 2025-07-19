@@ -1,0 +1,697 @@
+<!-- Warehouse Management Service Form -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="warehouse-management">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header-title">إضافة خدمة إدارة مستودعات</h1>
+    <button class="header-action" data-action="save-warehouse" aria-label="حفظ">
+        <i class="fas fa-save"></i>
+    </button>
+</div>
+
+<div class="content">
+    <!-- Progress Bar -->
+    <div class="wm-form-progress-bar">
+        <div class="wm-form-progress-step active" data-step="1">
+            <div class="wm-form-progress-number">1</div>
+            <div class="wm-form-progress-label">معلومات أساسية</div>
+        </div>
+        <div class="wm-form-progress-step" data-step="2">
+            <div class="wm-form-progress-number">2</div>
+            <div class="wm-form-progress-label">تفاصيل الخدمة</div>
+        </div>
+        <div class="wm-form-progress-step" data-step="3">
+            <div class="wm-form-progress-number">3</div>
+            <div class="wm-form-progress-label">الأسعار والتغطية</div>
+        </div>
+        <div class="wm-form-progress-step" data-step="4">
+            <div class="wm-form-progress-number">4</div>
+            <div class="wm-form-progress-label">الوثائق والملفات</div>
+        </div>
+    </div>
+
+    <form id="warehouseForm" class="wm-form">
+        <!-- Step 1: Basic Information -->
+        <div class="wm-form-slide active" data-step="1">
+            <div class="wm-form-section">
+                <h3 class="wm-form-section-title">معلومات أساسية</h3>
+                
+                <div class="wm-form-group">
+                    <label class="wm-form-label">اسم خدمة إدارة المستودعات <span class="required">*</span></label>
+                    <input type="text" name="warehouseServiceName" class="wm-form-control" placeholder="مثال: إدارة مستودعات ذكية للشركات" value="إدارة مستودعات ذكية شاملة للشركات" required>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">نوع الخدمة <span class="required">*</span></label>
+                    <select name="warehouseServiceType" id="warehouseServiceType" class="wm-form-control" required>
+                        <option value="">اختر نوع الخدمة</option>
+                        <option value="inventory-management" selected>إدارة المخزون</option>
+                        <option value="warehouse-automation">أتمتة المستودعات</option>
+                        <option value="smart-warehouse">المستودعات الذكية</option>
+                        <option value="warehouse-software">برامج إدارة المستودعات</option>
+                        <option value="warehouse-consulting">استشارات إدارة المستودعات</option>
+                        <option value="warehouse-design">تصميم المستودعات</option>
+                        <option value="warehouse-security">أمن المستودعات</option>
+                        <option value="warehouse-maintenance">صيانة المستودعات</option>
+                        <option value="warehouse-optimization">تحسين المستودعات</option>
+                        <option value="warehouse-analytics">تحليل بيانات المستودعات</option>
+                        <option value="warehouse-integration">تكامل أنظمة المستودعات</option>
+                        <option value="warehouse-training">تدريب موظفي المستودعات</option>
+                        <option value="warehouse-outsourcing">استعانة خارجية بإدارة المستودعات</option>
+                    </select>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">وصف الخدمة <span class="required">*</span></label>
+                    <textarea name="warehouseServiceDescription" class="wm-form-control" rows="4" placeholder="صف الخدمة بالتفصيل، الميزات، الفوائد، والنتائج المتوقعة للعملاء..." required>خدمة إدارة مستودعات ذكية شاملة تشمل إدارة المخزون، تتبع الشحنات، أتمتة العمليات، تحليل البيانات، وتحسين الكفاءة. نضمن تحسين إدارة المخزون بنسبة 60% وخفض التكاليف بنسبة 30% خلال 6 أشهر.</textarea>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">حالة الخدمة</label>
+                    <select name="warehouseServiceStatus" class="wm-form-control">
+                        <option value="active" selected>متاحة للعملاء</option>
+                        <option value="inactive">غير متاحة مؤقتاً</option>
+                        <option value="coming-soon">قريباً - قيد التطوير</option>
+                        <option value="limited">متاحة لعدد محدود من العملاء</option>
+                    </select>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">مستوى الخبرة المطلوب</label>
+                    <select name="experienceLevel" class="wm-form-control">
+                        <option value="beginner">مبتدئ - مناسبة للشركات الناشئة</option>
+                        <option value="intermediate" selected>متوسط - مناسبة للشركات الصغيرة والمتوسطة</option>
+                        <option value="advanced">متقدم - مناسبة للشركات الكبيرة</option>
+                        <option value="enterprise">مؤسسات - مناسبة للشركات الكبرى</option>
+                    </select>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">الحد الأدنى لمساحة المستودع</label>
+                    <input type="number" name="minWarehouseSize" class="wm-form-control" placeholder="المساحة بالمتر المربع" min="0" value="500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Service Details -->
+        <div class="wm-form-slide" data-step="2">
+            <div class="wm-form-section">
+                <h3 class="wm-form-section-title">تفاصيل الخدمة</h3>
+                
+                <div class="wm-form-group">
+                    <label class="wm-form-label">الميزات المقدمة</label>
+                    <div class="wm-form-features-container">
+                        <div class="wm-form-feature-input">
+                            <input type="text" id="featureInput" class="wm-form-control" placeholder="مثال: إدارة مخزون ذكية">
+                            <button type="button" class="btn btn-outline btn-sm" id="addFeature">
+                                <i class="fas fa-plus"></i>
+                                إضافة
+                            </button>
+                        </div>
+                        <div id="warehouseFeaturesChips" class="wm-form-chips-container">
+                            <div class="wm-form-chip">
+                                <span>إدارة مخزون ذكية</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>تتبع الشحنات في الوقت الفعلي</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>أتمتة عمليات التخزين</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>تحليل البيانات والتقارير</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>إدارة الطلبات والطلبات</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>نظام أمان متقدم</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>تكامل مع أنظمة ERP</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>دعم فني 24/7</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">متطلبات العميل</label>
+                    <textarea name="clientRequirements" class="wm-form-control" rows="3" placeholder="ما الذي يحتاجه العميل للحصول على هذه الخدمة؟ (مثال: مساحة مستودع، عدد المنتجات، حجم المخزون...)">مستودع بمساحة لا تقل عن 500 متر مربع، نظام إدارة موجود أو الحاجة لتطوير نظام جديد، بيانات المخزون الحالي، معلومات الشحنات والطلبات، متطلبات الأمان والمراقبة، عدد الموظفين المتوقع.</textarea>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">مدة التنفيذ</label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="number" name="executionDuration" class="wm-form-control" placeholder="المدة" min="1" value="45">
+                        </div>
+                        <div class="wm-form-col">
+                            <select name="executionUnit" class="wm-form-control">
+                                <option value="days">أيام</option>
+                                <option value="weeks" selected>أسابيع</option>
+                                <option value="months">أشهر</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">النتائج المتوقعة</label>
+                    <div class="wm-form-results-container">
+                        <div class="wm-form-result-item">
+                            <input type="text" name="expectedResults[]" class="wm-form-control" placeholder="مثال: تحسين إدارة المخزون" value="تحسين إدارة المخزون">
+                            <input type="text" name="resultMetrics[]" class="wm-form-control" placeholder="مثال: 60% خلال 6 أشهر" value="60% خلال 6 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="wm-form-result-item">
+                            <input type="text" name="expectedResults[]" class="wm-form-control" placeholder="مثال: خفض التكاليف" value="خفض التكاليف التشغيلية">
+                            <input type="text" name="resultMetrics[]" class="wm-form-control" placeholder="مثال: 30% خلال 6 أشهر" value="30% خلال 6 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="wm-form-result-item">
+                            <input type="text" name="expectedResults[]" class="wm-form-control" placeholder="مثال: تحسين الكفاءة" value="تحسين كفاءة العمليات">
+                            <input type="text" name="resultMetrics[]" class="wm-form-control" placeholder="مثال: 40% خلال 4 أشهر" value="40% خلال 4 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="wm-form-result-item">
+                            <input type="text" name="expectedResults[]" class="wm-form-control" placeholder="مثال: تقليل الأخطاء" value="تقليل أخطاء المخزون">
+                            <input type="text" name="resultMetrics[]" class="wm-form-control" placeholder="مثال: 80% خلال 3 أشهر" value="80% خلال 3 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline btn-sm" id="addResult">
+                        <i class="fas fa-plus"></i>
+                        إضافة نتيجة أخرى
+                    </button>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">الأدوات والتقنيات المستخدمة</label>
+                    <textarea name="toolsAndTechnologies" class="wm-form-control" rows="3" placeholder="مثال: SAP, Oracle, Microsoft Dynamics, RFID, IoT sensors, Warehouse Management Systems...">SAP Warehouse Management, Oracle WMS, Microsoft Dynamics 365, RFID Technology, IoT Sensors, Barcode Scanners, Automated Storage Systems, Robotics Process Automation, Cloud-based WMS, Mobile Applications, Real-time Analytics, Machine Learning Algorithms, Predictive Analytics, Blockchain for Supply Chain.</textarea>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">نوع الخدمات المقدمة</label>
+                    <div class="wm-form-checkbox-group">
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="serviceTypes[]" value="inventory-tracking" checked>
+                            <span class="wm-form-checkmark"></span>
+                            تتبع المخزون في الوقت الفعلي
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="serviceTypes[]" value="order-management" checked>
+                            <span class="wm-form-checkmark"></span>
+                            إدارة الطلبات والطلبات
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="serviceTypes[]" value="shipping-tracking">
+                            <span class="wm-form-checkmark"></span>
+                            تتبع الشحنات
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="serviceTypes[]" value="warehouse-automation">
+                            <span class="wm-form-checkmark"></span>
+                            أتمتة عمليات المستودع
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="serviceTypes[]" value="data-analytics">
+                            <span class="wm-form-checkmark"></span>
+                            تحليل البيانات والتقارير
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="serviceTypes[]" value="security-monitoring">
+                            <span class="wm-form-checkmark"></span>
+                            مراقبة الأمان
+                        </label>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">عدد المنتجات المدعومة</label>
+                    <input type="number" name="supportedProducts" class="wm-form-control" placeholder="عدد المنتجات" min="1" value="10000">
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">سعة التخزين المدعومة</label>
+                    <input type="number" name="storageCapacity" class="wm-form-control" placeholder="السعة بالمتر المكعب" min="1" value="5000">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Pricing and Coverage -->
+        <div class="wm-form-slide" data-step="3">
+            <div class="wm-form-section">
+                <h3 class="wm-form-section-title">الأسعار والتغطية</h3>
+                
+                <div class="wm-form-group">
+                    <label class="wm-form-label">نوع التسعير</label>
+                    <select name="pricingType" id="pricingType" class="wm-form-control">
+                        <option value="fixed">سعر ثابت للمشروع</option>
+                        <option value="hourly">سعر بالساعة</option>
+                        <option value="monthly" selected>سعر شهري</option>
+                        <option value="quarterly">سعر ربع سنوي</option>
+                        <option value="yearly">سعر سنوي</option>
+                        <option value="per-square-meter">سعر بالمتر المربع</option>
+                        <option value="per-item">سعر بالمنتج</option>
+                        <option value="commission">عمولة على المبيعات</option>
+                    </select>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">السعر الأساسي <span class="required">*</span></label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="number" name="basePrice" class="wm-form-control" placeholder="السعر" min="0" step="0.01" required value="3500">
+                        </div>
+                        <div class="wm-form-col">
+                            <select name="currency" class="wm-form-control">
+                                <option value="SAR" selected>ريال سعودي (SAR)</option>
+                                <option value="USD">دولار أمريكي (USD)</option>
+                                <option value="EUR">يورو (EUR)</option>
+                                <option value="AED">درهم إماراتي (AED)</option>
+                                <option value="KWD">دينار كويتي (KWD)</option>
+                                <option value="QAR">ريال قطري (QAR)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">المناطق المغطاة</label>
+                    <div class="wm-form-coverage-container">
+                        <div class="wm-form-coverage-input">
+                            <input type="text" id="coverageInput" class="wm-form-control" placeholder="مثال: الرياض">
+                            <button type="button" class="btn btn-outline btn-sm" id="addCoverage">
+                                <i class="fas fa-plus"></i>
+                                إضافة
+                            </button>
+                        </div>
+                        <div id="warehouseCoverageChips" class="wm-form-chips-container">
+                            <div class="wm-form-chip">
+                                <span>الرياض</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>جدة</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>الدمام</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>مكة المكرمة</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>المدينة المنورة</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>تبوك</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>أبها</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>جميع أنحاء المملكة</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">القطاعات المستهدفة</label>
+                    <div class="wm-form-sectors-container">
+                        <div class="wm-form-sector-input">
+                            <input type="text" id="sectorInput" class="wm-form-control" placeholder="مثال: التجارة الإلكترونية">
+                            <button type="button" class="btn btn-outline btn-sm" id="addSector">
+                                <i class="fas fa-plus"></i>
+                                إضافة
+                            </button>
+                        </div>
+                        <div id="warehouseSectorsChips" class="wm-form-chips-container">
+                            <div class="wm-form-chip">
+                                <span>التجارة الإلكترونية</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>التجزئة</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>التصنيع</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>المواد الغذائية</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>الأدوية والرعاية الصحية</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>الملابس والأزياء</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>الإلكترونيات</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="wm-form-chip">
+                                <span>المواد الكيميائية</span>
+                                <span class="wm-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">حجم الشركات المستهدفة</label>
+                    <div class="wm-form-checkbox-group">
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="startup" checked>
+                            <span class="wm-form-checkmark"></span>
+                            الشركات الناشئة (1-10 موظف)
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="small" checked>
+                            <span class="wm-form-checkmark"></span>
+                            الشركات الصغيرة (11-50 موظف)
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="medium" checked>
+                            <span class="wm-form-checkmark"></span>
+                            الشركات المتوسطة (51-200 موظف)
+                        </label>
+                        <label class="wm-form-checkbox-item">
+                            <input type="checkbox" name="targetCompanySize[]" value="large" checked>
+                            <span class="wm-form-checkmark"></span>
+                            الشركات الكبيرة (200+ موظف)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">نطاق الميزانية المطلوب</label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="number" name="minBudget" class="wm-form-control" placeholder="الحد الأدنى" min="0" value="3000">
+                        </div>
+                        <div class="wm-form-col">
+                            <input type="number" name="maxBudget" class="wm-form-control" placeholder="الحد الأقصى" min="0" value="100000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">الخصومات والعروض</label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="number" name="discountPercentage" class="wm-form-control" placeholder="نسبة الخصم" min="0" max="100" value="15">
+                        </div>
+                        <div class="wm-form-col">
+                            <select name="discountType" class="wm-form-control">
+                                <option value="first-month">خصم الشهر الأول</option>
+                                <option value="quarterly" selected>خصم الاشتراك ربع السنوي</option>
+                                <option value="yearly">خصم الاشتراك السنوي</option>
+                                <option value="new-client">خصم العملاء الجدد</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">شروط الدفع</label>
+                    <select name="paymentTerms" class="wm-form-control">
+                        <option value="monthly" selected>دفع شهري</option>
+                        <option value="quarterly">دفع ربع سنوي</option>
+                        <option value="yearly">دفع سنوي</option>
+                        <option value="project">دفع عند التسليم</option>
+                        <option value="installments">دفع على أقساط</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Documents and Files -->
+        <div class="wm-form-slide" data-step="4">
+            <div class="wm-form-section">
+                <h3 class="wm-form-section-title">الوثائق والملفات</h3>
+                
+                <div class="wm-form-group">
+                    <label class="wm-form-label">عرض الخدمة (PDF)</label>
+                    <div class="wm-form-file-upload-container">
+                        <input type="file" name="serviceProposal" class="wm-form-control" accept=".pdf">
+                        <button type="button" class="btn btn-outline btn-sm wm-form-file-upload-btn">
+                            <i class="fas fa-upload"></i>
+                            اختر الملف
+                        </button>
+                        <span class="wm-form-file-name">لم يتم اختيار ملف</span>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">نماذج المستودعات السابقة</label>
+                    <div class="wm-form-file-upload-container">
+                        <input type="file" name="portfolioFiles" class="wm-form-control" accept="image/*,.pdf" multiple>
+                        <button type="button" class="btn btn-outline btn-sm wm-form-file-upload-btn">
+                            <i class="fas fa-images"></i>
+                            اختر الملفات
+                        </button>
+                        <span class="wm-form-file-name">لم يتم اختيار ملفات</span>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">شهادات الاعتماد والتراخيص</label>
+                    <div class="wm-form-file-upload-container">
+                        <input type="file" name="certifications" class="wm-form-control" accept="image/*,.pdf" multiple>
+                        <button type="button" class="btn btn-outline btn-sm wm-form-file-upload-btn">
+                            <i class="fas fa-certificate"></i>
+                            اختر الملفات
+                        </button>
+                        <span class="wm-form-file-name">لم يتم اختيار ملفات</span>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">روابط معرض الأعمال</label>
+                    <div class="wm-form-links-container">
+                        <div class="wm-form-link-input">
+                            <input type="url" name="portfolioLinks[]" class="wm-form-control" placeholder="مثال: https://behance.net/portfolio" value="https://behance.net/warehouse-portfolio">
+                        </div>
+                        <div class="wm-form-link-input">
+                            <input type="url" name="portfolioLinks[]" class="wm-form-control" placeholder="مثال: https://dribbble.com/portfolio" value="https://dribbble.com/warehouse-portfolio">
+                        </div>
+                        <div class="wm-form-link-input">
+                            <input type="url" name="portfolioLinks[]" class="wm-form-control" placeholder="مثال: https://www.linkedin.com/company/portfolio" value="https://www.linkedin.com/company/warehouse-portfolio">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline btn-sm" id="addPortfolioLink">
+                        <i class="fas fa-plus"></i>
+                        إضافة رابط آخر
+                    </button>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">روابط وسائل التواصل الاجتماعي</label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="url" name="socialLinks[linkedin]" class="wm-form-control" placeholder="رابط LinkedIn" value="https://www.linkedin.com/company/warehouse-example">
+                        </div>
+                        <div class="wm-form-col">
+                            <input type="url" name="socialLinks[twitter]" class="wm-form-control" placeholder="رابط Twitter" value="https://twitter.com/warehouse-example">
+                        </div>
+                    </div>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="url" name="socialLinks[instagram]" class="wm-form-control" placeholder="رابط Instagram" value="https://instagram.com/warehouse-example">
+                        </div>
+                        <div class="wm-form-col">
+                            <input type="url" name="socialLinks[facebook]" class="wm-form-control" placeholder="رابط Facebook" value="https://facebook.com/warehouse-example">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">معلومات الاتصال</label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <input type="tel" name="contactPhone" class="wm-form-control" placeholder="رقم الهاتف" value="+966501234567">
+                        </div>
+                        <div class="wm-form-col">
+                            <input type="email" name="contactEmail" class="wm-form-control" placeholder="البريد الإلكتروني" value="info@warehouse-example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">ساعات العمل</label>
+                    <div class="wm-form-row">
+                        <div class="wm-form-col">
+                            <select name="workDays" class="wm-form-control">
+                                <option value="sunday-thursday" selected>الأحد - الخميس</option>
+                                <option value="monday-friday">الاثنين - الجمعة</option>
+                                <option value="saturday-wednesday">السبت - الأربعاء</option>
+                                <option value="all-week">طوال الأسبوع</option>
+                            </select>
+                        </div>
+                        <div class="wm-form-col">
+                            <select name="workHours" class="wm-form-control">
+                                <option value="9-5">9:00 ص - 5:00 م</option>
+                                <option value="8-4" selected>8:00 ص - 4:00 م</option>
+                                <option value="10-6">10:00 ص - 6:00 م</option>
+                                <option value="24-7">24/7</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">ملاحظات إضافية</label>
+                    <textarea name="additionalNotes" class="wm-form-control" rows="4" placeholder="أي معلومات إضافية تريد إضافتها للخدمة، شروط خاصة، أو متطلبات إضافية...">نقدم استشارة مجانية لمدة ساعة قبل بدء العمل. نضمن النتائج خلال 6 أشهر أو استرداد كامل للمبلغ. نعمل مع جميع أنواع المستودعات ونقدم حلول مخصصة لكل عميل. نقدم تدريب للموظفين على النظام الجديد.</textarea>
+                </div>
+
+                <div class="wm-form-group">
+                    <label class="wm-form-label">كلمات مفتاحية للبحث</label>
+                    <textarea name="keywords" class="wm-form-control" rows="3" placeholder="أدخل الكلمات المفتاحية التي تساعد في العثور على خدمتك (مفصولة بفواصل)">إدارة مستودعات، إدارة مخزون، أتمتة مستودعات، مستودعات ذكية، تتبع شحنات، إدارة طلبات، تحليل بيانات مستودعات، تكامل أنظمة، أمن مستودعات، تحسين كفاءة</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="wm-form-navigation">
+            <button type="button" class="btn btn-outline" id="prevStep" style="display: none;">
+                <i class="fas fa-arrow-right"></i>
+                السابق
+            </button>
+            <button type="button" class="btn btn-primary" id="nextStep">
+                التالي
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <button type="submit" class="btn btn-success" id="submitForm" style="display: none;">
+                <i class="fas fa-check"></i>
+                حفظ الخدمة
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+// Simple test script for step navigation
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, testing warehouse form step navigation...');
+    
+    let currentStep = 1;
+    const totalSteps = 4;
+    
+    // Get navigation buttons
+    const nextBtn = document.getElementById('nextStep');
+    const prevBtn = document.getElementById('prevStep');
+    const submitBtn = document.getElementById('submitForm');
+    
+    console.log('Buttons found:', { nextBtn, prevBtn, submitBtn });
+    
+    // Next button click
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            console.log('Next clicked, current step:', currentStep);
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+                updateProgressBar();
+                updateNavigationButtons();
+            }
+        });
+    }
+    
+    // Previous button click
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            console.log('Previous clicked, current step:', currentStep);
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgressBar();
+                updateNavigationButtons();
+            }
+        });
+    }
+    
+    function showStep(step) {
+        console.log('Showing step:', step);
+        
+        // Hide all slides
+        const slides = document.querySelectorAll('.wm-form-slide');
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Show current slide - use more specific selector for form slides
+        const currentSlide = document.querySelector(`.wm-form-slide[data-step="${step}"]`);
+        if (currentSlide) {
+            currentSlide.classList.add('active');
+            console.log('Step', step, 'is now active');
+        } else {
+            console.error('Slide not found for step:', step);
+        }
+    }
+    
+    function updateProgressBar() {
+        const steps = document.querySelectorAll('.wm-form-progress-step');
+        steps.forEach((step, index) => {
+            const stepNumber = index + 1;
+            step.classList.remove('active', 'completed');
+            
+            if (stepNumber < currentStep) {
+                step.classList.add('completed');
+            } else if (stepNumber === currentStep) {
+                step.classList.add('active');
+            }
+        });
+    }
+    
+    function updateNavigationButtons() {
+        if (prevBtn) {
+            prevBtn.style.display = currentStep > 1 ? 'flex' : 'none';
+        }
+        
+        if (nextBtn) {
+            nextBtn.style.display = currentStep < totalSteps ? 'flex' : 'none';
+        }
+        
+        if (submitBtn) {
+            submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
+        }
+    }
+    
+    // Initialize
+    updateProgressBar();
+    updateNavigationButtons();
+    console.log('Warehouse form step navigation test initialized');
+});
+</script> 
