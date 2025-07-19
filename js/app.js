@@ -99,7 +99,15 @@ const App = {
                         Router.navigate('profile');
                         break;
                     case 'menu':
-                        Router.navigate('profile');
+                        // Check if we're on the dashboard page
+                        const currentPage = State.get('currentPage');
+                        if (currentPage === 'dashboard' && window.DashboardController) {
+                            // Let the dashboard controller handle the menu
+                            window.DashboardController.toggleSideDrawer();
+                        } else {
+                            // Default behavior for other pages
+                            Router.navigate('profile');
+                        }
                         break;
                 }
             }

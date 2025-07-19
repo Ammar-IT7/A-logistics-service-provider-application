@@ -493,7 +493,9 @@ const DashboardController = {
                 
                 switch (action) {
                     case 'menu':
-                        this.toggleSideMenu();
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.toggleSideDrawer();
                         break;
                     case 'search':
                         this.openSearch();
@@ -504,6 +506,67 @@ const DashboardController = {
                 }
             }
         });
+
+        // Handle side drawer navigation
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.side-drawer-nav-item')) {
+                const navItem = e.target.closest('.side-drawer-nav-item');
+                const page = navItem.dataset.page;
+                if (page) {
+                    e.preventDefault();
+                    this.handleSideDrawerNavigation(page);
+                }
+            }
+        });
+
+        // Handle side drawer quick actions
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.side-drawer-quick-btn')) {
+                const quickBtn = e.target.closest('.side-drawer-quick-btn');
+                const page = quickBtn.dataset.page;
+                if (page) {
+                    e.preventDefault();
+                    this.handleSideDrawerNavigation(page);
+                }
+            }
+        });
+
+        // Handle side drawer footer actions
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.side-drawer-footer-btn')) {
+                const footerBtn = e.target.closest('.side-drawer-footer-btn');
+                const action = footerBtn.dataset.action;
+                if (action) {
+                    e.preventDefault();
+                    this.handleSideDrawerAction(action);
+                }
+            }
+        });
+
+        // Handle side drawer close button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.side-drawer-close') || e.target.closest('[data-action="close-side-drawer"]')) {
+                e.preventDefault();
+                this.closeSideDrawer();
+            }
+        });
+
+        // Handle side drawer overlay click
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'sideDrawerOverlay') {
+                this.closeSideDrawer();
+            }
+        });
+
+        // Handle ESC key to close drawer
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const sideDrawer = document.getElementById('sideDrawer');
+                if (sideDrawer && sideDrawer.classList.contains('open')) {
+                    this.closeSideDrawer();
+                }
+            }
+        });
     },
     
     /**
@@ -511,7 +574,123 @@ const DashboardController = {
      */
     toggleSideMenu: function() {
         console.log('Toggle side menu');
-        // Implementation for side menu toggle
+        this.toggleSideDrawer();
+    },
+
+    /**
+     * Toggle side drawer
+     */
+    toggleSideDrawer: function() {
+        const sideDrawer = document.getElementById('sideDrawer');
+        const sideDrawerOverlay = document.getElementById('sideDrawerOverlay');
+        
+        if (sideDrawer && sideDrawerOverlay) {
+            const isOpen = sideDrawer.classList.contains('open');
+            
+            if (isOpen) {
+                this.closeSideDrawer();
+            } else {
+                this.openSideDrawer();
+            }
+        }
+    },
+
+    /**
+     * Open side drawer
+     */
+    openSideDrawer: function() {
+        const sideDrawer = document.getElementById('sideDrawer');
+        const sideDrawerOverlay = document.getElementById('sideDrawerOverlay');
+        
+        if (sideDrawer && sideDrawerOverlay) {
+            sideDrawer.classList.add('open');
+            sideDrawerOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            
+            // Add entrance animation for nav items
+            this.animateNavItems();
+        }
+    },
+
+    /**
+     * Close side drawer
+     */
+    closeSideDrawer: function() {
+        const sideDrawer = document.getElementById('sideDrawer');
+        const sideDrawerOverlay = document.getElementById('sideDrawerOverlay');
+        
+        if (sideDrawer && sideDrawerOverlay) {
+            sideDrawer.classList.remove('open');
+            sideDrawerOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    },
+
+    /**
+     * Animate navigation items on drawer open
+     */
+    animateNavItems: function() {
+        const navItems = document.querySelectorAll('.side-drawer-nav-item');
+        
+        navItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 100 + (index * 50));
+        });
+    },
+
+    /**
+     * Handle side drawer navigation
+     */
+    handleSideDrawerNavigation: function(page) {
+        this.closeSideDrawer();
+        
+        // Add a small delay for smooth transition
+        setTimeout(() => {
+            Router.navigate(page);
+        }, 300);
+    },
+
+    /**
+     * Handle side drawer actions
+     */
+    handleSideDrawerAction: function(action) {
+        switch (action) {
+            case 'settings':
+                this.closeSideDrawer();
+                Router.navigate('settings');
+                break;
+            case 'help':
+                this.closeSideDrawer();
+                Router.navigate('help');
+                break;
+            case 'logout':
+                this.closeSideDrawer();
+                this.handleLogout();
+                break;
+        }
+    },
+
+    /**
+     * Handle logout
+     */
+    handleLogout: function() {
+        // Show confirmation dialog
+        if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+            // Clear user data
+            State.clear();
+            
+            // Navigate to login
+            Router.navigate('login');
+            
+            // Show success message
+            Toast.show('تم تسجيل الخروج بنجاح', 'شكراً لاستخدامك التطبيق', 'success');
+        }
     },
     
     /**
@@ -563,14 +742,7 @@ function closeProfileDrawer() {
 // Make function globally accessible
 window.closeProfileDrawer = closeProfileDrawer;
 
-// Open drawer on menu icon click
-const dashboardMenuBtn = document.querySelector('.dashboard-header-action[data-action="menu"]');
-if (dashboardMenuBtn) {
-    dashboardMenuBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openProfileDrawer();
-    });
-}
+// Note: Menu button click is now handled in the main event listener above
 // Close drawer on overlay click
 if (profileDrawerOverlay) {
     profileDrawerOverlay.addEventListener('click', closeProfileDrawer);
