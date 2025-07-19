@@ -96,7 +96,55 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Service Header */
+/* Provider Header */
+.mkt-provider-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.mkt-provider-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.mkt-provider-info .sp-service-title {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    line-height: 1.3;
+    text-align: right;
+}
+
+.mkt-provider-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.mkt-rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.mkt-rating-stars i {
+    color: #fbbf24;
+    font-size: 14px;
+}
+
+.mkt-rating-value {
+    color: var(--gray-color);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Service Header (Legacy - keeping for compatibility) */
 .mkt-service-header {
     display: flex;
     justify-content: space-between;
@@ -202,6 +250,8 @@
     display: flex;
     gap: 8px;
     margin-top: auto;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .mkt-service-actions .btn {
@@ -215,6 +265,10 @@
     justify-content: center;
     gap: 4px;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mkt-service-actions .btn-primary {
@@ -244,16 +298,16 @@
 
 /* Enhanced Service Icon */
 .sp-service-card.mkt-enhanced .sp-service-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 24px;
+    flex-shrink: 0;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
 }
@@ -498,8 +552,9 @@
     }
     
     .mkt-service-actions {
-        flex-direction: column;
+        flex-direction: row;
         gap: 8px;
+        flex-wrap: nowrap;
     }
     
     .mkt-service-meta {
@@ -567,6 +622,12 @@
 }
 
 [dir="rtl"] .mkt-meta-item {
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .mkt-provider-header {
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .mkt-provider-rating {
     flex-direction: row-reverse;
 } 
 
