@@ -38,7 +38,7 @@
                 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">اسم خدمة التسويق <span class="required">*</span></label>
-                    <input type="text" name="marketingServiceName" class="mkt-form-control" placeholder="أدخل اسم خدمة التسويق" required>
+                    <input type="text" name="marketingServiceName" class="mkt-form-control" placeholder="مثال: حملة إعلانات جوجل للشركات الناشئة" value="حملة إعلانات جوجل شاملة للشركات الناشئة" required>
                 </div>
 
                 <div class="mkt-form-group">
@@ -46,30 +46,49 @@
                     <select name="marketingServiceType" id="marketingServiceType" class="mkt-form-control" required>
                         <option value="">اختر نوع الخدمة</option>
                         <option value="seo">تحسين محركات البحث (SEO)</option>
-                        <option value="google-ads">إعلانات جوجل (Google Ads)</option>
-                        <option value="social-media">التسويق عبر وسائل التواصل</option>
+                        <option value="google-ads" selected>إعلانات جوجل (Google Ads)</option>
+                        <option value="facebook-ads">إعلانات فيسبوك وإنستغرام</option>
+                        <option value="social-media">إدارة وسائل التواصل الاجتماعي</option>
                         <option value="email-marketing">التسويق عبر البريد الإلكتروني</option>
                         <option value="content-marketing">التسويق بالمحتوى</option>
-                        <option value="data-analytics">تحليل البيانات والتقارير</option>
+                        <option value="influencer-marketing">التسويق عبر المؤثرين</option>
+                        <option value="video-marketing">التسويق بالفيديو</option>
                         <option value="branding">تصميم الهوية البصرية</option>
                         <option value="web-design">تصميم المواقع الإلكترونية</option>
-                        <option value="video-marketing">التسويق بالفيديو</option>
-                        <option value="influencer-marketing">التسويق عبر المؤثرين</option>
+                        <option value="data-analytics">تحليل البيانات والتقارير</option>
+                        <option value="marketing-automation">أتمتة التسويق</option>
+                        <option value="pr-marketing">العلاقات العامة والتسويق</option>
                     </select>
                 </div>
 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">وصف الخدمة <span class="required">*</span></label>
-                    <textarea name="marketingServiceDescription" class="mkt-form-control" rows="4" placeholder="أدخل وصف مفصل للخدمة" required></textarea>
+                    <textarea name="marketingServiceDescription" class="mkt-form-control" rows="4" placeholder="صف الخدمة بالتفصيل، الميزات، الفوائد، والنتائج المتوقعة للعملاء..." required>حملة إعلانات جوجل شاملة تشمل إعداد الحساب، اختيار الكلمات المفتاحية، تصميم الإعلانات، إدارة الميزانية، وتحسين الأداء المستمر. نضمن زيادة حركة المرور المؤهلة وتحسين معدل التحويل بنسبة 40% خلال 3 أشهر.</textarea>
                 </div>
 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">حالة الخدمة</label>
                     <select name="marketingServiceStatus" class="mkt-form-control">
-                        <option value="active">متاحة</option>
-                        <option value="inactive">غير متاحة</option>
-                        <option value="coming-soon">قريباً</option>
+                        <option value="active" selected>متاحة للعملاء</option>
+                        <option value="inactive">غير متاحة مؤقتاً</option>
+                        <option value="coming-soon">قريباً - قيد التطوير</option>
+                        <option value="limited">متاحة لعدد محدود من العملاء</option>
                     </select>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">مستوى الخبرة المطلوب</label>
+                    <select name="experienceLevel" class="mkt-form-control">
+                        <option value="beginner">مبتدئ - مناسبة للشركات الناشئة</option>
+                        <option value="intermediate" selected>متوسط - مناسبة للشركات الصغيرة والمتوسطة</option>
+                        <option value="advanced">متقدم - مناسبة للشركات الكبيرة</option>
+                        <option value="enterprise">مؤسسات - مناسبة للشركات الكبرى</option>
+                    </select>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">الحد الأدنى للميزانية الشهرية</label>
+                    <input type="number" name="minMonthlyBudget" class="mkt-form-control" placeholder="الحد الأدنى للميزانية" min="0" value="2000">
                 </div>
             </div>
         </div>
@@ -83,30 +102,64 @@
                     <label class="mkt-form-label">الميزات المقدمة</label>
                     <div class="mkt-form-features-container">
                         <div class="mkt-form-feature-input">
-                            <input type="text" id="featureInput" class="mkt-form-control" placeholder="أدخل ميزة جديدة">
-                            <button type="button" class="btn btn-outline btn-sm" id="addFeature">إضافة</button>
+                            <input type="text" id="featureInput" class="mkt-form-control" placeholder="مثال: تحليل شامل للكلمات المفتاحية">
+                            <button type="button" class="btn btn-outline btn-sm" id="addFeature">
+                                <i class="fas fa-plus"></i>
+                                إضافة
+                            </button>
                         </div>
                         <div id="marketingFeaturesChips" class="mkt-form-chips-container">
-                            <!-- Features will be added here -->
+                            <div class="mkt-form-chip">
+                                <span>إعداد وإدارة حساب جوجل إعلانات</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>تحليل شامل للكلمات المفتاحية</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>تصميم إعلانات جذابة ومحسنة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>إدارة الميزانية وتحسين الأداء</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>تقارير شهرية مفصلة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>دعم فني 24/7</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>تحسين مستمر للحملة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>استهداف جغرافي دقيق</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">متطلبات العميل</label>
-                    <textarea name="clientRequirements" class="mkt-form-control" rows="3" placeholder="أدخل متطلبات العميل للحصول على الخدمة"></textarea>
+                    <textarea name="clientRequirements" class="mkt-form-control" rows="3" placeholder="ما الذي يحتاجه العميل للحصول على هذه الخدمة؟ (مثال: ميزانية شهرية، معلومات الشركة، أهداف التسويق...)">ميزانية إعلانية شهرية لا تقل عن 2000 ريال، معلومات الشركة والمنتجات، أهداف التسويق والمبيعات، قائمة الكلمات المفتاحية المستهدفة، معلومات الاتصال للتواصل المستمر.</textarea>
                 </div>
 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">مدة التنفيذ</label>
                     <div class="mkt-form-row">
                         <div class="mkt-form-col">
-                            <input type="number" name="executionDuration" class="mkt-form-control" placeholder="المدة" min="1">
+                            <input type="number" name="executionDuration" class="mkt-form-control" placeholder="المدة" min="1" value="30">
                         </div>
                         <div class="mkt-form-col">
                             <select name="executionUnit" class="mkt-form-control">
                                 <option value="days">أيام</option>
-                                <option value="weeks">أسابيع</option>
+                                <option value="weeks" selected>أسابيع</option>
                                 <option value="months">أشهر</option>
                             </select>
                         </div>
@@ -117,16 +170,89 @@
                     <label class="mkt-form-label">النتائج المتوقعة</label>
                     <div class="mkt-form-results-container">
                         <div class="mkt-form-result-item">
-                            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="نتيجة متوقعة">
-                            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مقياس النتيجة">
+                            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="مثال: زيادة حركة المرور" value="زيادة حركة المرور المؤهلة">
+                            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مثال: 50% خلال 3 أشهر" value="50% خلال 3 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="mkt-form-result-item">
+                            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="مثال: تحسين معدل التحويل" value="تحسين معدل التحويل">
+                            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مثال: 25% خلال 6 أشهر" value="40% خلال 6 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="mkt-form-result-item">
+                            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="مثال: خفض تكلفة الحصول على العميل" value="خفض تكلفة الحصول على العميل">
+                            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مثال: 30% خلال 4 أشهر" value="30% خلال 4 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="mkt-form-result-item">
+                            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="مثال: زيادة المبيعات" value="زيادة المبيعات">
+                            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مثال: 60% خلال 6 أشهر" value="60% خلال 6 أشهر">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-outline btn-sm" id="addResult">إضافة نتيجة أخرى</button>
+                    <button type="button" class="btn btn-outline btn-sm" id="addResult">
+                        <i class="fas fa-plus"></i>
+                        إضافة نتيجة أخرى
+                    </button>
                 </div>
 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">الأدوات والتقنيات المستخدمة</label>
-                    <textarea name="toolsAndTechnologies" class="mkt-form-control" rows="3" placeholder="أدخل الأدوات والتقنيات المستخدمة في الخدمة"></textarea>
+                    <textarea name="toolsAndTechnologies" class="mkt-form-control" rows="3" placeholder="مثال: Google Analytics, SEMrush, Facebook Ads Manager, Mailchimp, Canva, Adobe Creative Suite...">Google Ads, Google Analytics, Google Tag Manager, SEMrush, Ahrefs, Google Keyword Planner, Google Trends, Google Data Studio, Canva, Adobe Creative Suite, Hotjar, Crazy Egg, Optimizely, Unbounce.</textarea>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">نوع المحتوى المقدم</label>
+                    <div class="mkt-form-checkbox-group">
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="contentTypes[]" value="text-content" checked>
+                            <span class="mkt-form-checkmark"></span>
+                            محتوى نصي (إعلانات، وصف المنتجات)
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="contentTypes[]" value="visual-content" checked>
+                            <span class="mkt-form-checkmark"></span>
+                            محتوى مرئي (صور إعلانية، بانرات)
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="contentTypes[]" value="video-content">
+                            <span class="mkt-form-checkmark"></span>
+                            محتوى فيديو (إعلانات فيديو)
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="contentTypes[]" value="interactive-content">
+                            <span class="mkt-form-checkmark"></span>
+                            محتوى تفاعلي (إعلانات تفاعلية)
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="contentTypes[]" value="landing-pages">
+                            <span class="mkt-form-checkmark"></span>
+                            صفحات هبوط محسنة
+                        </label>
+                        <label class="mkt-form-checkbox-item">
+                            <input type="checkbox" name="contentTypes[]" value="reports">
+                            <span class="mkt-form-checkmark"></span>
+                            تقارير تحليلية مفصلة
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">عدد الإعلانات المقدمة</label>
+                    <input type="number" name="numberOfAds" class="mkt-form-control" placeholder="عدد الإعلانات" min="1" value="10">
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">عدد الكلمات المفتاحية</label>
+                    <input type="number" name="numberOfKeywords" class="mkt-form-control" placeholder="عدد الكلمات المفتاحية" min="1" value="50">
                 </div>
             </div>
         </div>
@@ -139,11 +265,13 @@
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">نوع التسعير</label>
                     <select name="pricingType" id="pricingType" class="mkt-form-control">
-                        <option value="fixed">سعر ثابت</option>
+                        <option value="fixed">سعر ثابت للمشروع</option>
                         <option value="hourly">سعر بالساعة</option>
-                        <option value="monthly">سعر شهري</option>
-                        <option value="project">سعر بالمشروع</option>
-                        <option value="performance">سعر بالأداء</option>
+                        <option value="monthly" selected>سعر شهري</option>
+                        <option value="quarterly">سعر ربع سنوي</option>
+                        <option value="yearly">سعر سنوي</option>
+                        <option value="performance">سعر بالأداء (CPA/CPL)</option>
+                        <option value="commission">عمولة على المبيعات</option>
                     </select>
                 </div>
 
@@ -151,14 +279,16 @@
                     <label class="mkt-form-label">السعر الأساسي <span class="required">*</span></label>
                     <div class="mkt-form-row">
                         <div class="mkt-form-col">
-                            <input type="number" name="basePrice" class="mkt-form-control" placeholder="السعر" min="0" step="0.01" required>
+                            <input type="number" name="basePrice" class="mkt-form-control" placeholder="السعر" min="0" step="0.01" required value="2500">
                         </div>
                         <div class="mkt-form-col">
                             <select name="currency" class="mkt-form-control">
-                                <option value="SAR">ريال سعودي</option>
-                                <option value="USD">دولار أمريكي</option>
-                                <option value="EUR">يورو</option>
-                                <option value="AED">درهم إماراتي</option>
+                                <option value="SAR" selected>ريال سعودي (SAR)</option>
+                                <option value="USD">دولار أمريكي (USD)</option>
+                                <option value="EUR">يورو (EUR)</option>
+                                <option value="AED">درهم إماراتي (AED)</option>
+                                <option value="KWD">دينار كويتي (KWD)</option>
+                                <option value="QAR">ريال قطري (QAR)</option>
                             </select>
                         </div>
                     </div>
@@ -168,11 +298,45 @@
                     <label class="mkt-form-label">المناطق المغطاة</label>
                     <div class="mkt-form-coverage-container">
                         <div class="mkt-form-coverage-input">
-                            <input type="text" id="coverageInput" class="mkt-form-control" placeholder="أدخل منطقة جديدة">
-                            <button type="button" class="btn btn-outline btn-sm" id="addCoverage">إضافة</button>
+                            <input type="text" id="coverageInput" class="mkt-form-control" placeholder="مثال: الرياض">
+                            <button type="button" class="btn btn-outline btn-sm" id="addCoverage">
+                                <i class="fas fa-plus"></i>
+                                إضافة
+                            </button>
                         </div>
                         <div id="marketingCoverageChips" class="mkt-form-chips-container">
-                            <!-- Coverage areas will be added here -->
+                            <div class="mkt-form-chip">
+                                <span>الرياض</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>جدة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>الدمام</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>مكة المكرمة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>المدينة المنورة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>تبوك</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>أبها</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>جميع أنحاء المملكة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,11 +345,45 @@
                     <label class="mkt-form-label">القطاعات المستهدفة</label>
                     <div class="mkt-form-sectors-container">
                         <div class="mkt-form-sector-input">
-                            <input type="text" id="sectorInput" class="mkt-form-control" placeholder="أدخل قطاع جديد">
-                            <button type="button" class="btn btn-outline btn-sm" id="addSector">إضافة</button>
+                            <input type="text" id="sectorInput" class="mkt-form-control" placeholder="مثال: التجارة الإلكترونية">
+                            <button type="button" class="btn btn-outline btn-sm" id="addSector">
+                                <i class="fas fa-plus"></i>
+                                إضافة
+                            </button>
                         </div>
                         <div id="marketingSectorsChips" class="mkt-form-chips-container">
-                            <!-- Sectors will be added here -->
+                            <div class="mkt-form-chip">
+                                <span>التجارة الإلكترونية</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>الخدمات المهنية</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>السياحة والسفر</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>الرعاية الصحية</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>التعليم والتدريب</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>العقارات</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>المطاعم والضيافة</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
+                            <div class="mkt-form-chip">
+                                <span>التكنولوجيا والبرمجيات</span>
+                                <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,26 +392,66 @@
                     <label class="mkt-form-label">حجم الشركات المستهدفة</label>
                     <div class="mkt-form-checkbox-group">
                         <label class="mkt-form-checkbox-item">
-                            <input type="checkbox" name="targetCompanySize[]" value="startup">
+                            <input type="checkbox" name="targetCompanySize[]" value="startup" checked>
                             <span class="mkt-form-checkmark"></span>
-                            الشركات الناشئة
+                            الشركات الناشئة (1-10 موظف)
                         </label>
                         <label class="mkt-form-checkbox-item">
-                            <input type="checkbox" name="targetCompanySize[]" value="small">
+                            <input type="checkbox" name="targetCompanySize[]" value="small" checked>
                             <span class="mkt-form-checkmark"></span>
-                            الشركات الصغيرة
+                            الشركات الصغيرة (11-50 موظف)
                         </label>
                         <label class="mkt-form-checkbox-item">
-                            <input type="checkbox" name="targetCompanySize[]" value="medium">
+                            <input type="checkbox" name="targetCompanySize[]" value="medium" checked>
                             <span class="mkt-form-checkmark"></span>
-                            الشركات المتوسطة
+                            الشركات المتوسطة (51-200 موظف)
                         </label>
                         <label class="mkt-form-checkbox-item">
                             <input type="checkbox" name="targetCompanySize[]" value="large">
                             <span class="mkt-form-checkmark"></span>
-                            الشركات الكبيرة
+                            الشركات الكبيرة (200+ موظف)
                         </label>
                     </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">نطاق الميزانية المطلوب</label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="number" name="minBudget" class="mkt-form-control" placeholder="الحد الأدنى" min="0" value="2000">
+                        </div>
+                        <div class="mkt-form-col">
+                            <input type="number" name="maxBudget" class="mkt-form-control" placeholder="الحد الأقصى" min="0" value="50000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">الخصومات والعروض</label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="number" name="discountPercentage" class="mkt-form-control" placeholder="نسبة الخصم" min="0" max="100" value="10">
+                        </div>
+                        <div class="mkt-form-col">
+                            <select name="discountType" class="mkt-form-control">
+                                <option value="first-month">خصم الشهر الأول</option>
+                                <option value="quarterly" selected>خصم الاشتراك ربع السنوي</option>
+                                <option value="yearly">خصم الاشتراك السنوي</option>
+                                <option value="new-client">خصم العملاء الجدد</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">شروط الدفع</label>
+                    <select name="paymentTerms" class="mkt-form-control">
+                        <option value="monthly" selected>دفع شهري</option>
+                        <option value="quarterly">دفع ربع سنوي</option>
+                        <option value="yearly">دفع سنوي</option>
+                        <option value="project">دفع عند التسليم</option>
+                        <option value="installments">دفع على أقساط</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -227,7 +465,10 @@
                     <label class="mkt-form-label">عرض الخدمة (PDF)</label>
                     <div class="mkt-form-file-upload-container">
                         <input type="file" name="serviceProposal" class="mkt-form-control" accept=".pdf">
-                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">اختر الملف</button>
+                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">
+                            <i class="fas fa-upload"></i>
+                            اختر الملف
+                        </button>
                         <span class="mkt-form-file-name">لم يتم اختيار ملف</span>
                     </div>
                 </div>
@@ -236,7 +477,10 @@
                     <label class="mkt-form-label">نماذج الأعمال السابقة</label>
                     <div class="mkt-form-file-upload-container">
                         <input type="file" name="portfolioFiles" class="mkt-form-control" accept="image/*,.pdf" multiple>
-                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">اختر الملفات</button>
+                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">
+                            <i class="fas fa-images"></i>
+                            اختر الملفات
+                        </button>
                         <span class="mkt-form-file-name">لم يتم اختيار ملفات</span>
                     </div>
                 </div>
@@ -245,7 +489,10 @@
                     <label class="mkt-form-label">شهادات الاعتماد</label>
                     <div class="mkt-form-file-upload-container">
                         <input type="file" name="certifications" class="mkt-form-control" accept="image/*,.pdf" multiple>
-                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">اختر الملفات</button>
+                        <button type="button" class="btn btn-outline btn-sm mkt-form-file-upload-btn">
+                            <i class="fas fa-certificate"></i>
+                            اختر الملفات
+                        </button>
                         <span class="mkt-form-file-name">لم يتم اختيار ملفات</span>
                     </div>
                 </div>
@@ -254,24 +501,196 @@
                     <label class="mkt-form-label">روابط معرض الأعمال</label>
                     <div class="mkt-form-links-container">
                         <div class="mkt-form-link-input">
-                            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="أدخل رابط معرض الأعمال">
+                            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="مثال: https://behance.net/portfolio" value="https://behance.net/portfolio">
+                        </div>
+                        <div class="mkt-form-link-input">
+                            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="مثال: https://dribbble.com/portfolio" value="https://dribbble.com/portfolio">
+                        </div>
+                        <div class="mkt-form-link-input">
+                            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="مثال: https://www.linkedin.com/company/portfolio" value="https://www.linkedin.com/company/portfolio">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-outline btn-sm" id="addPortfolioLink">إضافة رابط آخر</button>
+                    <button type="button" class="btn btn-outline btn-sm" id="addPortfolioLink">
+                        <i class="fas fa-plus"></i>
+                        إضافة رابط آخر
+                    </button>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">روابط وسائل التواصل الاجتماعي</label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="url" name="socialLinks[linkedin]" class="mkt-form-control" placeholder="رابط LinkedIn" value="https://www.linkedin.com/company/example">
+                        </div>
+                        <div class="mkt-form-col">
+                            <input type="url" name="socialLinks[twitter]" class="mkt-form-control" placeholder="رابط Twitter" value="https://twitter.com/example">
+                        </div>
+                    </div>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="url" name="socialLinks[instagram]" class="mkt-form-control" placeholder="رابط Instagram" value="https://instagram.com/example">
+                        </div>
+                        <div class="mkt-form-col">
+                            <input type="url" name="socialLinks[facebook]" class="mkt-form-control" placeholder="رابط Facebook" value="https://facebook.com/example">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">معلومات الاتصال</label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <input type="tel" name="contactPhone" class="mkt-form-control" placeholder="رقم الهاتف" value="+966501234567">
+                        </div>
+                        <div class="mkt-form-col">
+                            <input type="email" name="contactEmail" class="mkt-form-control" placeholder="البريد الإلكتروني" value="info@example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">ساعات العمل</label>
+                    <div class="mkt-form-row">
+                        <div class="mkt-form-col">
+                            <select name="workDays" class="mkt-form-control">
+                                <option value="sunday-thursday" selected>الأحد - الخميس</option>
+                                <option value="monday-friday">الاثنين - الجمعة</option>
+                                <option value="saturday-wednesday">السبت - الأربعاء</option>
+                                <option value="all-week">طوال الأسبوع</option>
+                            </select>
+                        </div>
+                        <div class="mkt-form-col">
+                            <select name="workHours" class="mkt-form-control">
+                                <option value="9-5">9:00 ص - 5:00 م</option>
+                                <option value="8-4" selected>8:00 ص - 4:00 م</option>
+                                <option value="10-6">10:00 ص - 6:00 م</option>
+                                <option value="24-7">24/7</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mkt-form-group">
                     <label class="mkt-form-label">ملاحظات إضافية</label>
-                    <textarea name="additionalNotes" class="mkt-form-control" rows="4" placeholder="أدخل أي ملاحظات إضافية"></textarea>
+                    <textarea name="additionalNotes" class="mkt-form-control" rows="4" placeholder="أي معلومات إضافية تريد إضافتها للخدمة، شروط خاصة، أو متطلبات إضافية...">نقدم استشارة مجانية لمدة 30 دقيقة قبل بدء العمل. نضمن النتائج خلال 3 أشهر أو استرداد كامل للمبلغ. نعمل مع جميع أنواع الشركات ونقدم حلول مخصصة لكل عميل.</textarea>
+                </div>
+
+                <div class="mkt-form-group">
+                    <label class="mkt-form-label">كلمات مفتاحية للبحث</label>
+                    <textarea name="keywords" class="mkt-form-control" rows="3" placeholder="أدخل الكلمات المفتاحية التي تساعد في العثور على خدمتك (مفصولة بفواصل)">إعلانات جوجل، تسويق رقمي، إعلانات مدفوعة، تحسين محركات البحث، تسويق إلكتروني، إدارة الحملات الإعلانية، كلمات مفتاحية، تحسين الأداء، زيادة المبيعات، استهداف العملاء</textarea>
                 </div>
             </div>
         </div>
 
         <!-- Navigation Buttons -->
         <div class="mkt-form-navigation">
-            <button type="button" class="btn btn-outline" id="prevStep" style="display: none;">السابق</button>
-            <button type="button" class="btn btn-primary" id="nextStep">التالي</button>
-            <button type="submit" class="btn btn-success" id="submitForm" style="display: none;">حفظ الخدمة</button>
+            <button type="button" class="btn btn-outline" id="prevStep" style="display: none;">
+                <i class="fas fa-arrow-right"></i>
+                السابق
+            </button>
+            <button type="button" class="btn btn-primary" id="nextStep">
+                التالي
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <button type="submit" class="btn btn-success" id="submitForm" style="display: none;">
+                <i class="fas fa-check"></i>
+                حفظ الخدمة
+            </button>
         </div>
     </form>
-</div> 
+</div>
+
+<script>
+// Simple test script for step navigation
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, testing step navigation...');
+    
+    let currentStep = 1;
+    const totalSteps = 4;
+    
+    // Get navigation buttons
+    const nextBtn = document.getElementById('nextStep');
+    const prevBtn = document.getElementById('prevStep');
+    const submitBtn = document.getElementById('submitForm');
+    
+    console.log('Buttons found:', { nextBtn, prevBtn, submitBtn });
+    
+    // Next button click
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            console.log('Next clicked, current step:', currentStep);
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+                updateProgressBar();
+                updateNavigationButtons();
+            }
+        });
+    }
+    
+    // Previous button click
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            console.log('Previous clicked, current step:', currentStep);
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgressBar();
+                updateNavigationButtons();
+            }
+        });
+    }
+    
+    function showStep(step) {
+        console.log('Showing step:', step);
+        
+        // Hide all slides
+        const slides = document.querySelectorAll('.mkt-form-slide');
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Show current slide - use more specific selector for form slides
+        const currentSlide = document.querySelector(`.mkt-form-slide[data-step="${step}"]`);
+        if (currentSlide) {
+            currentSlide.classList.add('active');
+            console.log('Step', step, 'is now active');
+        } else {
+            console.error('Slide not found for step:', step);
+        }
+    }
+    
+    function updateProgressBar() {
+        const steps = document.querySelectorAll('.mkt-form-progress-step');
+        steps.forEach((step, index) => {
+            const stepNumber = index + 1;
+            step.classList.remove('active', 'completed');
+            
+            if (stepNumber < currentStep) {
+                step.classList.add('completed');
+            } else if (stepNumber === currentStep) {
+                step.classList.add('active');
+            }
+        });
+    }
+    
+    function updateNavigationButtons() {
+        if (prevBtn) {
+            prevBtn.style.display = currentStep > 1 ? 'flex' : 'none';
+        }
+        
+        if (nextBtn) {
+            nextBtn.style.display = currentStep < totalSteps ? 'flex' : 'none';
+        }
+        
+        if (submitBtn) {
+            submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
+        }
+    }
+    
+    // Initialize
+    updateProgressBar();
+    updateNavigationButtons();
+    console.log('Step navigation test initialized');
+});
+</script> 

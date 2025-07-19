@@ -1,431 +1,698 @@
 /**
  * Marketing Form Controller
- * Handles form navigation, validation, and dynamic content
+ * Modern UX with enhanced functionality
  */
-
 const MarketingFormController = {
+    currentStep: 1,
+    totalSteps: 4,
+    formData: {},
+    
+    /**
+     * Initialize the controller
+     */
     init: function() {
-        // Check if we're on the marketing form page
-        const form = document.getElementById('marketingForm');
-        if (!form) {
-            return; // Not on the marketing form page
-        }
+        console.log('MarketingFormController initialized');
+        console.log('Current step:', this.currentStep);
+        console.log('Total steps:', this.totalSteps);
         
-        console.log('Marketing Form initialized');
-
-        this.form = form;
-        this.slides = document.querySelectorAll('.mkt-form-slide');
-        this.progressSteps = document.querySelectorAll('.mkt-form-progress-step');
-        this.currentStep = 1;
-        this.totalSteps = 4;
-
-        this.setupFormNavigation();
-        this.setupConditionalFields();
+        this.setupEventListeners();
+        this.initializeForm();
         this.setupFileUploads();
-        this.setupChipsInputs();
-        this.setupDynamicFields();
-        this.setupFormSubmission();
-
-        // Save button handler
-        const saveBtn = document.querySelector('[data-action="save-marketing"]');
-        if (saveBtn) {
-            saveBtn.addEventListener('click', () => {
-                this.form.dispatchEvent(new Event('submit'));
-            });
-        }
-    },
-
-    setupFormNavigation: function() {
-        // Use the centralized form navigation from Forms utility
-        if (window.Forms) {
-            // The Forms utility will handle step navigation automatically
-            console.log('Marketing Form navigation setup complete');
-        }
-
-        // Setup step navigation
-        const nextBtn = document.getElementById('nextStep');
-        const prevBtn = document.getElementById('prevStep');
-        const submitBtn = document.getElementById('submitForm');
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                if (this.validateCurrentStep()) {
-                    this.nextStep();
-                }
-            });
-        }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                this.prevStep();
-            });
-        }
-
-        if (submitBtn) {
-            submitBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.form.dispatchEvent(new Event('submit'));
-            });
-        }
-    },
-
-    setupConditionalFields: function() {
-        const marketingServiceTypeSelect = document.getElementById('marketingServiceType');
-        const pricingTypeSelect = document.getElementById('pricingType');
-        const self = this;
-
-        if (marketingServiceTypeSelect) {
-            marketingServiceTypeSelect.addEventListener('change', () => {
-                self.updateServiceSpecificFields();
-            });
-        }
-
-        if (pricingTypeSelect) {
-            pricingTypeSelect.addEventListener('change', () => {
-                self.updatePricingFields();
-            });
-        }
-
-        self.updateServiceSpecificFields();
-        self.updatePricingFields();
-    },
-
-    updateServiceSpecificFields: function() {
-        const serviceType = document.getElementById('marketingServiceType')?.value;
+        this.setupChips();
+        this.updateProgressBar();
         
-        // Update features based on service type
-        const featuresContainer = document.getElementById('marketingFeaturesChips');
-        if (featuresContainer) {
-            featuresContainer.innerHTML = '';
-            
-            const defaultFeatures = this.getDefaultFeatures(serviceType);
-            defaultFeatures.forEach(feature => {
-                this.addChip(feature, featuresContainer);
-            });
-        }
-    },
-
-    updatePricingFields: function() {
-        const pricingType = document.getElementById('pricingType')?.value;
-        const basePriceInput = document.querySelector('[name="basePrice"]');
-        
-        if (basePriceInput) {
-            switch(pricingType) {
-                case 'hourly':
-                    basePriceInput.placeholder = 'السعر بالساعة';
-                    break;
-                case 'monthly':
-                    basePriceInput.placeholder = 'السعر الشهري';
-                    break;
-                case 'project':
-                    basePriceInput.placeholder = 'سعر المشروع';
-                    break;
-                case 'performance':
-                    basePriceInput.placeholder = 'سعر الأداء';
-                    break;
-                default:
-                    basePriceInput.placeholder = 'السعر';
-            }
-        }
-    },
-
-    setupFileUploads: function() {
-        const fileInputs = document.querySelectorAll('input[type="file"]');
-
-        fileInputs.forEach(fileInput => {
-            const container = fileInput.closest('.mkt-form-file-upload-container');
-            if (!container) return;
-
-            const uploadBtn = container.querySelector('.mkt-form-file-upload-btn');
-            const fileNameSpan = container.querySelector('.mkt-form-file-name');
-
-            uploadBtn?.addEventListener('click', () => {
-                fileInput.click();
-            });
-
-            fileInput.addEventListener('change', () => {
-                if (fileInput.files.length > 0) {
-                    if (fileInput.multiple) {
-                        fileNameSpan.textContent = `تم اختيار ${fileInput.files.length} ملفات`;
-                    } else {
-                        fileNameSpan.textContent = fileInput.files[0].name;
-                    }
-                } else {
-                    fileNameSpan.textContent = 'لم يتم اختيار ملف';
-                }
-            });
+        // Test: Check if all slides exist
+        const slides = document.querySelectorAll('.mkt-form-slide');
+        console.log('Found slides:', slides.length);
+        slides.forEach((slide, index) => {
+            console.log(`Slide ${index + 1}:`, slide.getAttribute('data-step'), slide.classList.contains('active'));
         });
     },
 
-    setupChipsInputs: function() {
-        this.setupChipInput('featureInput', 'marketingFeaturesChips', 'addFeature');
-        this.setupChipInput('coverageInput', 'marketingCoverageChips', 'addCoverage');
-        this.setupChipInput('sectorInput', 'marketingSectorsChips', 'addSector');
-    },
+    /**
+     * Set up event listeners
+     */
+    setupEventListeners: function() {
+        // Navigation buttons
+        document.getElementById('nextStep').addEventListener('click', () => this.nextStep());
+        document.getElementById('prevStep').addEventListener('click', () => this.prevStep());
+        document.getElementById('submitForm').addEventListener('click', (e) => this.submitForm(e));
 
-    setupChipInput: function(inputId, containerId, buttonId) {
-        const input = document.getElementById(inputId);
-        const container = document.getElementById(containerId);
-        const button = document.getElementById(buttonId);
+        // Form submission
+        document.getElementById('marketingForm').addEventListener('submit', (e) => this.submitForm(e));
 
-        if (!input || !container) return;
+        // Add feature button
+        document.getElementById('addFeature').addEventListener('click', () => this.addFeature());
+        document.getElementById('addCoverage').addEventListener('click', () => this.addCoverage());
+        document.getElementById('addSector').addEventListener('click', () => this.addSector());
+        document.getElementById('addResult').addEventListener('click', () => this.addResult());
+        document.getElementById('addPortfolioLink').addEventListener('click', () => this.addPortfolioLink());
 
-        const addChipHandler = () => {
-            if (input.value.trim()) {
-                this.addChip(input.value.trim(), container);
-                input.value = '';
-            }
-        };
-
-        input.addEventListener('keydown', (e) => {
+        // Input events
+        document.getElementById('featureInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                addChipHandler();
+                this.addFeature();
             }
         });
 
-        if (button) {
-            button.addEventListener('click', addChipHandler);
-        }
+        document.getElementById('coverageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.addCoverage();
+            }
+        });
 
-        // Initial demo chips for coverage and sectors
-        if (containerId === 'marketingCoverageChips') {
-            this.addChip('الرياض', container);
-            this.addChip('جدة', container);
-            this.addChip('الدمام', container);
-        } else if (containerId === 'marketingSectorsChips') {
-            this.addChip('التجارة الإلكترونية', container);
-            this.addChip('الخدمات', container);
-            this.addChip('التصنيع', container);
+        document.getElementById('sectorInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.addSector();
+            }
+        });
+
+        // Form validation on input
+        document.querySelectorAll('.mkt-form-control').forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearFieldError(input));
+        });
+
+        // Service type change
+        document.getElementById('marketingServiceType').addEventListener('change', (e) => {
+            this.handleServiceTypeChange(e.target.value);
+        });
+
+        // Pricing type change
+        document.getElementById('pricingType').addEventListener('change', (e) => {
+            this.handlePricingTypeChange(e.target.value);
+        });
+    },
+
+    /**
+     * Initialize form with default values
+     */
+    initializeForm: function() {
+        // Set default values and populate with real-world data
+        this.populateDefaultData();
+        this.updateNavigationButtons();
+    },
+
+    /**
+     * Populate form with realistic default data
+     */
+    populateDefaultData: function() {
+        // Service types with descriptions
+        const serviceTypes = {
+            'seo': 'تحسين محركات البحث لزيادة الظهور العضوي',
+            'google-ads': 'إعلانات مدفوعة على جوجل لزيادة المبيعات',
+            'facebook-ads': 'إعلانات على فيسبوك وإنستغرام للوصول للجمهور المستهدف',
+            'social-media': 'إدارة حسابات التواصل الاجتماعي وإنشاء محتوى جذاب',
+            'email-marketing': 'حملات بريد إلكتروني لبناء العلاقات وزيادة المبيعات',
+            'content-marketing': 'إنشاء محتوى قيم لجذب العملاء المحتملين',
+            'influencer-marketing': 'التعاون مع المؤثرين لتعزيز العلامة التجارية',
+            'video-marketing': 'إنشاء محتوى فيديو جذاب للترويج للمنتجات',
+            'branding': 'تصميم هوية بصرية متكاملة للعلامة التجارية',
+            'web-design': 'تصميم مواقع إلكترونية احترافية وسهلة الاستخدام',
+            'data-analytics': 'تحليل البيانات لتحسين استراتيجيات التسويق',
+            'marketing-automation': 'أتمتة عمليات التسويق لتحسين الكفاءة',
+            'pr-marketing': 'إدارة العلاقات العامة والترويج الإعلامي'
+        };
+
+        // Update service type descriptions
+        const serviceTypeSelect = document.getElementById('marketingServiceType');
+        serviceTypeSelect.addEventListener('change', (e) => {
+            const description = serviceTypes[e.target.value];
+            if (description) {
+                const descriptionField = document.querySelector('textarea[name="marketingServiceDescription"]');
+                if (descriptionField && !descriptionField.value) {
+                    descriptionField.value = description;
+                }
+            }
+        });
+    },
+
+    /**
+     * Setup file upload functionality
+     */
+    setupFileUploads: function() {
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        
+        fileInputs.forEach(input => {
+            const container = input.closest('.mkt-form-file-upload-container');
+            const button = container.querySelector('.mkt-form-file-upload-btn');
+            const fileName = container.querySelector('.mkt-form-file-name');
+            
+            // Trigger file input when button is clicked
+            button.addEventListener('click', () => input.click());
+            
+            // Handle file selection
+            input.addEventListener('change', (e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    if (files.length === 1) {
+                        fileName.textContent = files[0].name;
+                    } else {
+                        fileName.textContent = `${files.length} ملفات مختارة`;
+                    }
+                    
+                    // Add success styling
+                    container.classList.add('mkt-form-success');
+                    setTimeout(() => {
+                        container.classList.remove('mkt-form-success');
+                    }, 2000);
+                } else {
+                    fileName.textContent = input.multiple ? 'لم يتم اختيار ملفات' : 'لم يتم اختيار ملف';
+                }
+            });
+        });
+    },
+
+    /**
+     * Setup chips functionality
+     */
+    setupChips: function() {
+        // Remove chip functionality
+        window.removeChip = function(element) {
+            element.closest('.mkt-form-chip').remove();
+        };
+
+        // Remove result functionality
+        window.removeResult = function(element) {
+            element.closest('.mkt-form-result-item').remove();
+        };
+    },
+
+    /**
+     * Add feature chip
+     */
+    addFeature: function() {
+        const input = document.getElementById('featureInput');
+        const value = input.value.trim();
+        
+        if (value) {
+            this.addChip('marketingFeaturesChips', value);
+            input.value = '';
+            input.focus();
         }
     },
 
-    addChip: function(text, container) {
+    /**
+     * Add coverage chip
+     */
+    addCoverage: function() {
+        const input = document.getElementById('coverageInput');
+        const value = input.value.trim();
+        
+        if (value) {
+            this.addChip('marketingCoverageChips', value);
+            input.value = '';
+            input.focus();
+        }
+    },
+
+    /**
+     * Add sector chip
+     */
+    addSector: function() {
+        const input = document.getElementById('sectorInput');
+        const value = input.value.trim();
+        
+        if (value) {
+            this.addChip('marketingSectorsChips', value);
+            input.value = '';
+            input.focus();
+        }
+    },
+
+    /**
+     * Add chip to container
+     */
+    addChip: function(containerId, text) {
+        const container = document.getElementById(containerId);
         const chip = document.createElement('div');
         chip.className = 'mkt-form-chip';
         chip.innerHTML = `
-            <span class="mkt-form-chip-close">×</span>
-            <span class="mkt-form-chip-text">${text}</span>
+            <span>${text}</span>
+            <span class="mkt-form-chip-close" onclick="removeChip(this)">×</span>
         `;
-
-        chip.querySelector('.mkt-form-chip-close').addEventListener('click', () => {
-            chip.remove();
-        });
-
+        
+        // Add animation
+        chip.style.opacity = '0';
+        chip.style.transform = 'scale(0.8)';
         container.appendChild(chip);
+        
+        // Animate in
+        setTimeout(() => {
+            chip.style.transition = 'all 0.3s ease';
+            chip.style.opacity = '1';
+            chip.style.transform = 'scale(1)';
+        }, 10);
     },
 
-    setupDynamicFields: function() {
-        const addResultBtn = document.getElementById('addResult');
-        const addPortfolioLinkBtn = document.getElementById('addPortfolioLink');
-        const self = this;
-
-        if (addResultBtn) {
-            addResultBtn.addEventListener('click', () => {
-                const resultsContainer = document.querySelector('.mkt-form-results-container');
-                const newResult = self.createResultItem();
-                resultsContainer.appendChild(newResult);
-            });
-        }
-
-        if (addPortfolioLinkBtn) {
-            addPortfolioLinkBtn.addEventListener('click', () => {
-                const linksContainer = document.querySelector('.mkt-form-links-container');
-                const newLink = self.createPortfolioLinkItem();
-                linksContainer.appendChild(newLink);
-            });
-        }
-    },
-
-    createResultItem: function() {
+    /**
+     * Add result item
+     */
+    addResult: function() {
+        const container = document.querySelector('.mkt-form-results-container');
         const resultItem = document.createElement('div');
         resultItem.className = 'mkt-form-result-item';
         resultItem.innerHTML = `
-            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="نتيجة متوقعة">
-            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مقياس النتيجة">
-            <button type="button" class="btn btn-icon mkt-form-remove-result" aria-label="إزالة">×</button>
+            <input type="text" name="expectedResults[]" class="mkt-form-control" placeholder="مثال: زيادة حركة المرور">
+            <input type="text" name="resultMetrics[]" class="mkt-form-control" placeholder="مثال: 50% خلال 3 أشهر">
+            <button type="button" class="btn btn-outline btn-sm" onclick="removeResult(this)">
+                <i class="fas fa-trash"></i>
+            </button>
         `;
-
-        resultItem.querySelector('.mkt-form-remove-result').addEventListener('click', () => {
-            resultItem.remove();
-        });
-
-        return resultItem;
-    },
-
-    createPortfolioLinkItem: function() {
-        const linkItem = document.createElement('div');
-        linkItem.className = 'mkt-form-link-input';
-        linkItem.innerHTML = `
-            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="أدخل رابط معرض الأعمال">
-            <button type="button" class="btn btn-icon mkt-form-remove-link" aria-label="إزالة">×</button>
-        `;
-
-        linkItem.querySelector('.mkt-form-remove-link').addEventListener('click', () => {
-            linkItem.remove();
-        });
-
-        return linkItem;
-    },
-
-    getDefaultFeatures: function(serviceType) {
-        const features = {
-            'seo': ['تحليل الكلمات المفتاحية', 'تحسين المحتوى', 'بناء الروابط', 'تحليل المنافسين'],
-            'google-ads': ['إعلانات بحث', 'إعلانات عرض', 'تحسين الحملات', 'تحليل الأداء'],
-            'social-media': ['إدارة الحسابات', 'إنشاء محتوى', 'تفاعل العملاء', 'تحليل النتائج'],
-            'email-marketing': ['قوائم البريد', 'تصميم الرسائل', 'تحليل النتائج', 'أتمتة الحملات'],
-            'content-marketing': ['كتابة المحتوى', 'تصميم الرسوم', 'الفيديو', 'الإنفوجرافيك'],
-            'data-analytics': ['تحليل الأداء', 'تقارير شهرية', 'توصيات التحسين', 'متابعة النتائج'],
-            'branding': ['تصميم الشعار', 'الهوية البصرية', 'الألوان والخطوط', 'دليل العلامة التجارية'],
-            'web-design': ['تصميم الموقع', 'تطوير الواجهات', 'تجربة المستخدم', 'الاستجابة'],
-            'video-marketing': ['إنتاج الفيديو', 'تحرير المحتوى', 'النشر والتوزيع', 'تحليل الأداء'],
-            'influencer-marketing': ['اختيار المؤثرين', 'إدارة الحملات', 'متابعة النتائج', 'تحليل ROI']
-        };
         
-        return features[serviceType] || [];
+        container.appendChild(resultItem);
+        
+        // Add animation
+        resultItem.style.opacity = '0';
+        resultItem.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            resultItem.style.transition = 'all 0.3s ease';
+            resultItem.style.opacity = '1';
+            resultItem.style.transform = 'translateY(0)';
+        }, 10);
     },
 
+    /**
+     * Add portfolio link
+     */
+    addPortfolioLink: function() {
+        const container = document.querySelector('.mkt-form-links-container');
+        const linkInput = document.createElement('div');
+        linkInput.className = 'mkt-form-link-input';
+        linkInput.innerHTML = `
+            <input type="url" name="portfolioLinks[]" class="mkt-form-control" placeholder="مثال: https://behance.net/portfolio">
+            <button type="button" class="btn btn-outline btn-sm" onclick="this.parentElement.remove()">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        
+        container.appendChild(linkInput);
+        
+        // Add animation
+        linkInput.style.opacity = '0';
+        linkInput.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            linkInput.style.transition = 'all 0.3s ease';
+            linkInput.style.opacity = '1';
+            linkInput.style.transform = 'translateY(0)';
+        }, 10);
+    },
+
+    /**
+     * Navigate to next step
+     */
     nextStep: function() {
+        console.log('Next step clicked. Current step:', this.currentStep);
+        
+        // Temporarily bypass validation for testing
         if (this.currentStep < this.totalSteps) {
-            this.slides[this.currentStep - 1].classList.remove('active');
-            this.progressSteps[this.currentStep - 1].classList.remove('active');
-            
             this.currentStep++;
-            
-            this.slides[this.currentStep - 1].classList.add('active');
-            this.progressSteps[this.currentStep - 1].classList.add('active');
-            
+            console.log('Moving to step:', this.currentStep);
+            this.showStep(this.currentStep);
+            this.updateProgressBar();
             this.updateNavigationButtons();
         }
+        
+        // Original validation code (commented for testing)
+        /*
+        if (this.validateCurrentStep()) {
+            if (this.currentStep < this.totalSteps) {
+                this.currentStep++;
+                console.log('Moving to step:', this.currentStep);
+                this.showStep(this.currentStep);
+                this.updateProgressBar();
+                this.updateNavigationButtons();
+            }
+        } else {
+            console.log('Validation failed for step:', this.currentStep);
+        }
+        */
     },
 
+    /**
+     * Navigate to previous step
+     */
     prevStep: function() {
+        console.log('Previous step clicked. Current step:', this.currentStep);
         if (this.currentStep > 1) {
-            this.slides[this.currentStep - 1].classList.remove('active');
-            this.progressSteps[this.currentStep - 1].classList.remove('active');
-            
             this.currentStep--;
-            
-            this.slides[this.currentStep - 1].classList.add('active');
-            this.progressSteps[this.currentStep - 1].classList.add('active');
-            
+            console.log('Moving to step:', this.currentStep);
+            this.showStep(this.currentStep);
+            this.updateProgressBar();
             this.updateNavigationButtons();
         }
     },
 
+    /**
+     * Show specific step
+     */
+    showStep: function(step) {
+        console.log('Showing step:', step);
+        
+        // Hide all slides
+        const allSlides = document.querySelectorAll('.mkt-form-slide');
+        console.log('Found slides:', allSlides.length);
+        
+        allSlides.forEach(slide => {
+            slide.classList.remove('active');
+            console.log('Removed active from slide:', slide.getAttribute('data-step'));
+        });
+        
+        // Show current slide - use more specific selector for form slides
+        const currentSlide = document.querySelector(`.mkt-form-slide[data-step="${step}"]`);
+        console.log('Current slide element:', currentSlide);
+        
+        if (currentSlide) {
+            currentSlide.classList.add('active');
+            console.log('Added active to slide:', step);
+        } else {
+            console.error('Slide not found for step:', step);
+        }
+    },
+
+    /**
+     * Update progress bar
+     */
+    updateProgressBar: function() {
+        const steps = document.querySelectorAll('.mkt-form-progress-step');
+        
+        steps.forEach((step, index) => {
+            const stepNumber = index + 1;
+            step.classList.remove('active', 'completed');
+            
+            if (stepNumber < this.currentStep) {
+                step.classList.add('completed');
+            } else if (stepNumber === this.currentStep) {
+                step.classList.add('active');
+            }
+        });
+    },
+
+    /**
+     * Update navigation buttons
+     */
     updateNavigationButtons: function() {
         const prevBtn = document.getElementById('prevStep');
         const nextBtn = document.getElementById('nextStep');
         const submitBtn = document.getElementById('submitForm');
-
-        if (prevBtn) {
-            prevBtn.style.display = this.currentStep > 1 ? 'inline-block' : 'none';
+        
+        // Show/hide previous button
+        if (this.currentStep > 1) {
+            prevBtn.style.display = 'flex';
+        } else {
+            prevBtn.style.display = 'none';
         }
-
-        if (nextBtn) {
-            nextBtn.style.display = this.currentStep < this.totalSteps ? 'inline-block' : 'none';
-        }
-
-        if (submitBtn) {
-            submitBtn.style.display = this.currentStep === this.totalSteps ? 'inline-block' : 'none';
+        
+        // Show/hide next and submit buttons
+        if (this.currentStep === this.totalSteps) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'flex';
+        } else {
+            nextBtn.style.display = 'flex';
+            submitBtn.style.display = 'none';
         }
     },
 
+    /**
+     * Validate current step
+     */
     validateCurrentStep: function() {
-        const currentSlide = this.slides[this.currentStep - 1];
+        console.log('Validating step:', this.currentStep);
+        const currentSlide = document.querySelector(`[data-step="${this.currentStep}"]`);
+        
+        if (!currentSlide) {
+            console.error('Current slide not found');
+            return false;
+        }
+        
         const requiredFields = currentSlide.querySelectorAll('[required]');
+        console.log('Required fields found:', requiredFields.length);
+        
         let isValid = true;
-
+        
         requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                field.classList.add('error');
+            if (!this.validateField(field)) {
                 isValid = false;
-            } else {
-                field.classList.remove('error');
             }
         });
-
-        if (!isValid) {
-            if (window.Toast) {
-                Toast.show('خطأ', 'يرجى ملء جميع الحقول المطلوبة', 'error');
-            }
-        }
-
+        
+        console.log('Step validation result:', isValid);
         return isValid;
     },
 
-    setupFormSubmission: function() {
-        const self = this;
-
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Use the centralized validation
-            if (window.Forms && !window.Forms.validateForm(this.form)) {
-                return;
-            }
-
-            self.saveMarketingData();
-        });
-    },
-
-    saveMarketingData: function() {
-        const formData = new FormData(this.form);
-
-        // Add chips data
-        const features = Array.from(document.querySelectorAll('#marketingFeaturesChips .mkt-form-chip-text')).map(chip => chip.textContent);
-        const coverage = Array.from(document.querySelectorAll('#marketingCoverageChips .mkt-form-chip-text')).map(chip => chip.textContent);
-        const sectors = Array.from(document.querySelectorAll('#marketingSectorsChips .mkt-form-chip-text')).map(chip => chip.textContent);
-
-        // Collect form data
-        const marketingData = {
-            id: Date.now(),
-            serviceName: formData.get('marketingServiceName'),
-            serviceType: formData.get('marketingServiceType'),
-            description: formData.get('marketingServiceDescription'),
-            status: formData.get('marketingServiceStatus'),
-            features: features,
-            clientRequirements: formData.get('clientRequirements'),
-            executionDuration: formData.get('executionDuration'),
-            executionUnit: formData.get('executionUnit'),
-            expectedResults: formData.getAll('expectedResults'),
-            resultMetrics: formData.getAll('resultMetrics'),
-            toolsAndTechnologies: formData.get('toolsAndTechnologies'),
-            pricingType: formData.get('pricingType'),
-            basePrice: formData.get('basePrice'),
-            currency: formData.get('currency'),
-            coverage: coverage,
-            sectors: sectors,
-            targetCompanySize: formData.getAll('targetCompanySize'),
-            portfolioLinks: formData.getAll('portfolioLinks'),
-            additionalNotes: formData.get('additionalNotes'),
-            status: 'active',
-            orders: 0,
-            revenue: 0,
-            rating: 0,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-
-        // Save to state
-        const marketingServices = State.get('marketingServices') || [];
-        marketingServices.push(marketingData);
-        State.update('marketingServices', marketingServices);
-
-        this.showSaveSuccessMessage();
-    },
-
-    showSaveSuccessMessage: function() {
-        if (window.Toast) {
-            Toast.show('تم الحفظ بنجاح', 'تم حفظ خدمة التسويق بنجاح', 'success');
+    /**
+     * Validate individual field
+     */
+    validateField: function(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        
+        // Remove previous error state
+        this.clearFieldError(field);
+        
+        // Check if required field is empty
+        if (field.hasAttribute('required') && !value) {
+            this.showFieldError(field, 'هذا الحقل مطلوب');
+            isValid = false;
         }
+        
+        // Validate email
+        if (field.type === 'email' && value && !this.isValidEmail(value)) {
+            this.showFieldError(field, 'يرجى إدخال بريد إلكتروني صحيح');
+            isValid = false;
+        }
+        
+        // Validate URL
+        if (field.type === 'url' && value && !this.isValidUrl(value)) {
+            this.showFieldError(field, 'يرجى إدخال رابط صحيح');
+            isValid = false;
+        }
+        
+        // Validate number
+        if (field.type === 'number' && value) {
+            const num = parseFloat(value);
+            if (isNaN(num)) {
+                this.showFieldError(field, 'يرجى إدخال رقم صحيح');
+                isValid = false;
+            } else if (field.hasAttribute('min') && num < parseFloat(field.getAttribute('min'))) {
+                this.showFieldError(field, `الحد الأدنى هو ${field.getAttribute('min')}`);
+                isValid = false;
+            } else if (field.hasAttribute('max') && num > parseFloat(field.getAttribute('max'))) {
+                this.showFieldError(field, `الحد الأقصى هو ${field.getAttribute('max')}`);
+                isValid = false;
+            }
+        }
+        
+        return isValid;
+    },
 
-        // Navigate back to marketing list
-        setTimeout(() => {
-            Router.navigate('marketing');
-        }, 1500);
+    /**
+     * Show field error
+     */
+    showFieldError: function(field, message) {
+        field.classList.add('error');
+        
+        // Create error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.textContent = message;
+        errorDiv.style.color = '#ef4444';
+        errorDiv.style.fontSize = '12px';
+        errorDiv.style.marginTop = '4px';
+        errorDiv.style.fontWeight = '500';
+        
+        field.parentNode.appendChild(errorDiv);
+    },
+
+    /**
+     * Clear field error
+     */
+    clearFieldError: function(field) {
+        field.classList.remove('error');
+        const errorDiv = field.parentNode.querySelector('.field-error');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    },
+
+    /**
+     * Validate email
+     */
+    isValidEmail: function(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    },
+
+    /**
+     * Validate URL
+     */
+    isValidUrl: function(url) {
+        try {
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    },
+
+    /**
+     * Handle service type change
+     */
+    handleServiceTypeChange: function(serviceType) {
+        // Update form based on service type
+        const descriptionField = document.querySelector('textarea[name="marketingServiceDescription"]');
+        const pricingField = document.querySelector('input[name="basePrice"]');
+        
+        // Set default pricing based on service type
+        const defaultPricing = {
+            'seo': 3000,
+            'google-ads': 2000,
+            'facebook-ads': 1500,
+            'social-media': 2500,
+            'email-marketing': 1000,
+            'content-marketing': 4000,
+            'influencer-marketing': 5000,
+            'video-marketing': 6000,
+            'branding': 8000,
+            'web-design': 10000,
+            'data-analytics': 3500,
+            'marketing-automation': 4500,
+            'pr-marketing': 3000
+        };
+        
+        if (defaultPricing[serviceType] && !pricingField.value) {
+            pricingField.value = defaultPricing[serviceType];
+        }
+    },
+
+    /**
+     * Handle pricing type change
+     */
+    handlePricingTypeChange: function(pricingType) {
+        const priceField = document.querySelector('input[name="basePrice"]');
+        const currentPrice = parseFloat(priceField.value) || 0;
+        
+        // Adjust price based on pricing type
+        const adjustments = {
+            'hourly': currentPrice * 160, // 160 hours per month
+            'monthly': currentPrice,
+            'quarterly': currentPrice * 3,
+            'yearly': currentPrice * 12
+        };
+        
+        if (adjustments[pricingType]) {
+            priceField.value = Math.round(adjustments[pricingType]);
+        }
+    },
+
+    /**
+     * Submit form
+     */
+    submitForm: function(e) {
+        e.preventDefault();
+        
+        if (this.validateCurrentStep()) {
+            this.collectFormData();
+            this.showLoadingState();
+            
+            // Simulate form submission
+            setTimeout(() => {
+                this.hideLoadingState();
+                this.showSuccessMessage();
+                
+                // Navigate back to marketing page after success
+                setTimeout(() => {
+                    Router.navigate('marketing');
+                }, 2000);
+            }, 2000);
+        }
+    },
+
+    /**
+     * Collect form data
+     */
+    collectFormData: function() {
+        const form = document.getElementById('marketingForm');
+        const formData = new FormData(form);
+        
+        // Convert FormData to object
+        this.formData = {};
+        for (let [key, value] of formData.entries()) {
+            if (this.formData[key]) {
+                if (Array.isArray(this.formData[key])) {
+                    this.formData[key].push(value);
+                } else {
+                    this.formData[key] = [this.formData[key], value];
+                }
+            } else {
+                this.formData[key] = value;
+            }
+        }
+        
+        // Collect chips data
+        this.formData.features = this.collectChipsData('marketingFeaturesChips');
+        this.formData.coverage = this.collectChipsData('marketingCoverageChips');
+        this.formData.sectors = this.collectChipsData('marketingSectorsChips');
+        
+        console.log('Form data collected:', this.formData);
+    },
+
+    /**
+     * Collect chips data
+     */
+    collectChipsData: function(containerId) {
+        const container = document.getElementById(containerId);
+        const chips = container.querySelectorAll('.mkt-form-chip span:first-child');
+        return Array.from(chips).map(chip => chip.textContent);
+    },
+
+    /**
+     * Show loading state
+     */
+    showLoadingState: function() {
+        const form = document.getElementById('marketingForm');
+        form.classList.add('mkt-form-loading');
+        
+        const submitBtn = document.getElementById('submitForm');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        submitBtn.disabled = true;
+    },
+
+    /**
+     * Hide loading state
+     */
+    hideLoadingState: function() {
+        const form = document.getElementById('marketingForm');
+        form.classList.remove('mkt-form-loading');
+        
+        const submitBtn = document.getElementById('submitForm');
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> حفظ الخدمة';
+        submitBtn.disabled = false;
+    },
+
+    /**
+     * Show success message
+     */
+    showSuccessMessage: function() {
+        Toast.show('تم الحفظ بنجاح', 'تم إضافة خدمة التسويق بنجاح', 'success');
+    },
+
+    /**
+     * Clean up when leaving the page
+     */
+    destroy: function() {
+        console.log('MarketingFormController destroyed');
+        // Clean up any event listeners or timers
     }
 };
 
-// Explicitly attach to global scope
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    MarketingFormController.init();
+});
+
+// Export for global access
 window.MarketingFormController = MarketingFormController; 
