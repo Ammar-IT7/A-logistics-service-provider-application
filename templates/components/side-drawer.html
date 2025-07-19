@@ -1,0 +1,234 @@
+<!-- Side Drawer Overlay -->
+<div id="sideDrawerOverlay" class="side-drawer-overlay"></div>
+
+<!-- Side Drawer Container -->
+<div id="sideDrawer" class="side-drawer">
+    <!-- Side Drawer Header -->
+    <div class="side-drawer-header">
+        <div class="side-drawer-header-content">
+            <div class="side-drawer-logo">
+                <i class="fas fa-truck"></i>
+                <span>خدمات لوجستية</span>
+            </div>
+            <button class="side-drawer-close" data-action="close-side-drawer" aria-label="إغلاق القائمة">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Side Drawer Content -->
+    <div class="side-drawer-content">
+        <!-- User Section -->
+        <div class="side-drawer-user">
+            <div class="side-drawer-user-avatar">
+                <img src="https://via.placeholder.com/60x60/667eea/ffffff?text=أ" alt="صورة المستخدم">
+                <div class="side-drawer-user-status side-drawer-status-online"></div>
+            </div>
+            <div class="side-drawer-user-info">
+                <h3 class="side-drawer-user-name">أحمد محمد</h3>
+                <p class="side-drawer-user-role">مدير الخدمات اللوجستية</p>
+            </div>
+        </div>
+
+        <!-- Navigation Sections -->
+        <nav class="side-drawer-nav">
+            <!-- Main Services -->
+            <div class="side-drawer-nav-section">
+                <h5 class="side-drawer-nav-title">الخدمات الرئيسية</h5>
+                <div class="side-drawer-nav-items">
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="dashboard">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">لوحة التحكم</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="orders">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">الطلبات</span>
+                        <div class="side-drawer-nav-badge">24</div>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="reports">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التقارير</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="analytics">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التحليلات</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="billing">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">الفواتير</span>
+                        <div class="side-drawer-nav-badge side-drawer-nav-badge-warning">8</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- My Services -->
+            <div class="side-drawer-nav-section">
+                <h5 class="side-drawer-nav-title">خدماتي</h5>
+                <div class="side-drawer-nav-items">
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="myshipping">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">خدمات الشحن</span>
+                        <div class="side-drawer-nav-badge">3</div>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="mywarehouses">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">المخازن</span>
+                        <div class="side-drawer-nav-badge">2</div>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="mycustoms">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التخليص الجمركي</span>
+                        <div class="side-drawer-nav-badge">8</div>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-packaging">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">خدمات التغليف</span>
+                        <div class="side-drawer-nav-badge">2</div>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-lc-services">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">خطابات الاعتماد</span>
+                        <div class="side-drawer-nav-badge">0</div>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-last-mile">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التوصيل النهائي</span>
+                        <div class="side-drawer-nav-badge">0</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Public Services -->
+            <div class="side-drawer-nav-section">
+                <h5 class="side-drawer-nav-title">الخدمات العامة</h5>
+                <div class="side-drawer-nav-items">
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="shipping">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">خدمات الشحن</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="warehouses">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">المخازن</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="customs">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التخليص الجمركي</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="packaging">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">خدمات التغليف</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="lc-services">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">خطابات الاعتماد</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="last-mile-delivery">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التوصيل النهائي</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="side-drawer-quick-actions">
+                <h5 class="side-drawer-nav-title">إجراءات سريعة</h5>
+                <div class="side-drawer-quick-grid">
+                    <button class="side-drawer-quick-btn" data-action="navigate" data-page="warehouse-form">
+                        <i class="fas fa-plus"></i>
+                        <span>إضافة مخزن</span>
+                    </button>
+                    <button class="side-drawer-quick-btn" data-action="navigate" data-page="shipping-form">
+                        <i class="fas fa-truck"></i>
+                        <span>إضافة شحن</span>
+                    </button>
+                    <button class="side-drawer-quick-btn" data-action="navigate" data-page="customs-form">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>إضافة تخليص</span>
+                    </button>
+                    <button class="side-drawer-quick-btn" data-action="navigate" data-page="packaging-form">
+                        <i class="fas fa-box"></i>
+                        <span>إضافة تغليف</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="side-drawer-system-status">
+                <div class="side-drawer-status-item">
+                    <div class="side-drawer-status-indicator side-drawer-status-online"></div>
+                    <span class="side-drawer-status-text">النظام متصل</span>
+                </div>
+                <div class="side-drawer-status-item">
+                    <div class="side-drawer-status-indicator side-drawer-status-sync"></div>
+                    <span class="side-drawer-status-text">مزامنة البيانات</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="side-drawer-footer">
+        <div class="side-drawer-footer-actions">
+            <button class="side-drawer-footer-btn" data-action="settings">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </button>
+            <button class="side-drawer-footer-btn" data-action="help">
+                <i class="fas fa-question-circle"></i>
+                <span>المساعدة</span>
+            </button>
+            <button class="side-drawer-footer-btn" data-action="logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </div>
+</div> 
