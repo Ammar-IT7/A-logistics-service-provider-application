@@ -1,153 +1,340 @@
 <!-- templates/pages/packaging-services.html -->
 <div class="header">
-    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+    <button class="header-action" data-action="navigate" data-page="service-providers">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <h1 class="header-title">مقدمي خدمات التغليف والتعبئة</h1>
     <button class="header-action" data-action="navigate" data-page="packaging-form" aria-label="إضافة مقدم خدمة">
-        <span class="icon"></span>
+        <i class="fas fa-plus"></i>
     </button>
 </div>
+
+<!-- Main Content -->
 <div class="content">
-    <div class="search-filter-section mb-3">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="بحث في خدمات التغليف...">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
+    <!-- Search and Filter Bar -->
+    <section class="pkg-search-section">
+        <div class="pkg-search-bar">
+            <div class="pkg-search-input-wrapper">
+                <i class="fas fa-search pkg-search-icon"></i>
+                <input type="text" class="pkg-search-input" placeholder="البحث في خدمات التغليف والتعبئة...">
+            </div>
+            <button class="pkg-filter-btn">
+                <i class="fas fa-sliders-h"></i>
+                <span>تصفية</span>
+            </button>
         </div>
+    </section>
 
-        <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">الكل</button>
-            <button class="filter-btn" data-filter="wood">خشب</button>
-            <button class="filter-btn" data-filter="plastic">بلاستيك</button>
-            <button class="filter-btn" data-filter="bubble">فقاعات هوائية</button>
-            <button class="filter-btn" data-filter="custom">تغليف خاص</button>
+    <!-- Stats Overview -->
+    <section class="pkg-stats-overview">
+        <div class="pkg-stat-item">
+            <div class="pkg-stat-icon">
+                <i class="fas fa-box"></i>
+            </div>
+            <div class="pkg-stat-content">
+                <div class="pkg-stat-value">65+</div>
+                <div class="pkg-stat-label">مزود خدمة</div>
+            </div>
         </div>
-    </div>
+        
+        <div class="pkg-stat-item">
+            <div class="pkg-stat-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="pkg-stat-content">
+                <div class="pkg-stat-value">12</div>
+                <div class="pkg-stat-label">مدينة</div>
+            </div>
+        </div>
+        
+        <div class="pkg-stat-item">
+            <div class="pkg-stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="pkg-stat-content">
+                <div class="pkg-stat-value">4.5</div>
+                <div class="pkg-stat-label">متوسط التقييم</div>
+            </div>
+        </div>
+        
+        <div class="pkg-stat-item">
+            <div class="pkg-stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="pkg-stat-content">
+                <div class="pkg-stat-value">950+</div>
+                <div class="pkg-stat-label">عميل راضي</div>
+            </div>
+        </div>
+    </section>
 
-    <div class="pkg-service-cards">
-        <div class="pkg-card" data-action="view-service" data-id="1">
-            <div class="pkg-card-header">
-                <h3>شركة اليمن للتغليف</h3>
-                <span class="status-badge available">متاح</span>
-            </div>
-            <div class="pkg-card-content">
-                <div class="pkg-card-info">
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">المواد المستخدمة:</div>
-                        <div class="pkg-info-value">خشب، كرتون، بلاستيك</div>
+    <!-- Service Providers -->
+    <section class="pkg-service-providers">
+        <div class="pkg-providers-grid">
+            <!-- Provider 1 -->
+            <div class="pkg-provider-card" data-provider="yemen-packaging">
+                <div class="pkg-provider-header">
+                    <div class="pkg-provider-avatar">
+                        <i class="fas fa-box"></i>
                     </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">التغليف حسب الطلب:</div>
-                        <div class="pkg-info-value">
-                            <span class="pkg-tag">المواد الهشة</span>
-                            <span class="pkg-tag">الإلكترونيات</span>
-                            <span class="pkg-tag">الأثاث</span>
-                        </div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">الموقع:</div>
-                        <div class="pkg-info-value">صنعاء، شارع الزبيري</div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">التقييم:</div>
-                        <div class="pkg-rating">
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star">★</span>
-                            <span class="pkg-rating-count">(42)</span>
+                    <div class="pkg-provider-info">
+                        <h4 class="pkg-provider-name">شركة اليمن للتغليف</h4>
+                        <div class="pkg-provider-rating">
+                            <span class="pkg-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="pkg-rating-value">4.2</span>
                         </div>
                     </div>
                 </div>
-                <div class="pkg-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="packaging-details" data-id="1">التفاصيل</button>
+                
+                <div class="pkg-provider-description">
+                    خدمات تغليف وتعبئة متكاملة لجميع أنواع المنتجات
+                </div>
+                
+                <div class="pkg-provider-features">
+                    <span class="pkg-feature-tag">خشب</span>
+                    <span class="pkg-feature-tag">كرتون</span>
+                    <span class="pkg-feature-tag">بلاستيك</span>
+                    <span class="pkg-feature-tag">تغليف خاص</span>
+                </div>
+                
+                <div class="pkg-provider-meta">
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>صنعاء، شارع الزبيري</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8 سنوات خبرة</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>180+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-pricing">
+                    <div class="pkg-price-label">يبدأ من</div>
+                    <div class="pkg-price-value">150 ريال</div>
+                    <div class="pkg-price-period">للمتر المكعب</div>
+                </div>
+                
+                <div class="pkg-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="yemen-packaging">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="yemen-packaging">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 2 -->
+            <div class="pkg-provider-card" data-provider="safety-packaging">
+                <div class="pkg-provider-header">
+                    <div class="pkg-provider-avatar">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="pkg-provider-info">
+                        <h4 class="pkg-provider-name">مؤسسة الأمان للتغليف</h4>
+                        <div class="pkg-provider-rating">
+                            <span class="pkg-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="pkg-rating-value">3.8</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-description">
+                    خدمات تغليف آمنة ومتخصصة للمواد الهشة والإلكترونيات
+                </div>
+                
+                <div class="pkg-provider-features">
+                    <span class="pkg-feature-tag">فقاعات هوائية</span>
+                    <span class="pkg-feature-tag">بلاستيك</span>
+                    <span class="pkg-feature-tag">مواد عازلة</span>
+                    <span class="pkg-feature-tag">حماية متقدمة</span>
+                </div>
+                
+                <div class="pkg-provider-meta">
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>عدن، المنطقة الصناعية</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>5 سنوات خبرة</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>120+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-pricing">
+                    <div class="pkg-price-label">يبدأ من</div>
+                    <div class="pkg-price-value">200 ريال</div>
+                    <div class="pkg-price-period">للمتر المكعب</div>
+                </div>
+                
+                <div class="pkg-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="safety-packaging">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="safety-packaging">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 3 -->
+            <div class="pkg-provider-card" data-provider="modern-packaging">
+                <div class="pkg-provider-header">
+                    <div class="pkg-provider-avatar">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="pkg-provider-info">
+                        <h4 class="pkg-provider-name">الشركة الحديثة للتعبئة</h4>
+                        <div class="pkg-provider-rating">
+                            <span class="pkg-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="pkg-rating-value">4.9</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-description">
+                    خدمات تعبئة حديثة ومتطورة للمواد الغذائية والزراعية
+                </div>
+                
+                <div class="pkg-provider-features">
+                    <span class="pkg-feature-tag">كرتون مقوى</span>
+                    <span class="pkg-feature-tag">خشب</span>
+                    <span class="pkg-feature-tag">فلين</span>
+                    <span class="pkg-feature-tag">فقاعات هوائية</span>
+                </div>
+                
+                <div class="pkg-provider-meta">
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>الحديدة، حي السلام</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>12 سنوات خبرة</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>250+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-pricing">
+                    <div class="pkg-price-label">يبدأ من</div>
+                    <div class="pkg-price-value">180 ريال</div>
+                    <div class="pkg-price-period">للمتر المكعب</div>
+                </div>
+                
+                <div class="pkg-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="modern-packaging">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="modern-packaging">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 4 -->
+            <div class="pkg-provider-card" data-provider="premium-packaging">
+                <div class="pkg-provider-header">
+                    <div class="pkg-provider-avatar">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="pkg-provider-info">
+                        <h4 class="pkg-provider-name">شركة التغليف المميز</h4>
+                        <div class="pkg-provider-rating">
+                            <span class="pkg-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="pkg-rating-value">4.7</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-description">
+                    خدمات تغليف فاخرة ومميزة للمنتجات عالية القيمة
+                </div>
+                
+                <div class="pkg-provider-features">
+                    <span class="pkg-feature-tag">تغليف فاخر</span>
+                    <span class="pkg-feature-tag">مواد مميزة</span>
+                    <span class="pkg-feature-tag">تصميم مخصص</span>
+                    <span class="pkg-feature-tag">خدمة VIP</span>
+                </div>
+                
+                <div class="pkg-provider-meta">
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>تعز، المركز التجاري</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>15 سنوات خبرة</span>
+                    </div>
+                    <div class="pkg-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>80+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="pkg-provider-pricing">
+                    <div class="pkg-price-label">يبدأ من</div>
+                    <div class="pkg-price-value">350 ريال</div>
+                    <div class="pkg-price-period">للمتر المكعب</div>
+                </div>
+                
+                <div class="pkg-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="premium-packaging">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="premium-packaging">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
         </div>
-
-        <div class="pkg-card" data-action="view-service" data-id="2">
-            <div class="pkg-card-header">
-                <h3>مؤسسة الأمان للتغليف</h3>
-                <span class="status-badge busy">مشغول</span>
-            </div>
-            <div class="pkg-card-content">
-                <div class="pkg-card-info">
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">المواد المستخدمة:</div>
-                        <div class="pkg-info-value">فقاعات هوائية، بلاستيك، مواد عازلة</div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">التغليف حسب الطلب:</div>
-                        <div class="pkg-info-value">
-                            <span class="pkg-tag">الإلكترونيات</span>
-                            <span class="pkg-tag">المواد القابلة للكسر</span>
-                            <span class="pkg-tag">الأجهزة الطبية</span>
-                        </div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">الموقع:</div>
-                        <div class="pkg-info-value">عدن، المنطقة الصناعية</div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">التقييم:</div>
-                        <div class="pkg-rating">
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star">★</span>
-                            <span class="pkg-star">★</span>
-                            <span class="pkg-rating-count">(28)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="pkg-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="packaging-details" data-id="2">التفاصيل</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="pkg-card" data-action="view-service" data-id="3">
-            <div class="pkg-card-header">
-                <h3>الشركة الحديثة للتعبئة</h3>
-                <span class="status-badge available">متاح</span>
-            </div>
-            <div class="pkg-card-content">
-                <div class="pkg-card-info">
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">المواد المستخدمة:</div>
-                        <div class="pkg-info-value">كرتون مقوى، خشب، فلين، فقاعات هوائية</div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">التغليف حسب الطلب:</div>
-                        <div class="pkg-info-value">
-                            <span class="pkg-tag">الأغذية</span>
-                            <span class="pkg-tag">المنتجات الزراعية</span>
-                            <span class="pkg-tag">المواد سريعة التلف</span>
-                        </div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">الموقع:</div>
-                        <div class="pkg-info-value">الحديدة، حي السلام</div>
-                    </div>
-                    <div class="pkg-info-item">
-                        <div class="pkg-info-label">التقييم:</div>
-                        <div class="pkg-rating">
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-star filled">★</span>
-                            <span class="pkg-rating-count">(56)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="pkg-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="packaging-details" data-id="3">التفاصيل</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <button class="floating-action-button" data-action="navigate" data-page="packaging-form">
-        <span class="icon">+</span>
-    </button>
+    </section>
 </div>
+
+<!-- Floating Action Button -->
+<button class="floating-action-button" data-action="navigate" data-page="packaging-form">
+    <span class="icon">+</span>
+</button>
