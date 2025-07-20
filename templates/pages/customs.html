@@ -1,145 +1,340 @@
 <!-- templates/pages/customs.html -->
 <div class="header">
-    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+    <button class="header-action" data-action="navigate" data-page="service-providers">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <h1 class="header-title">مكاتب التخليص الجمركي</h1>
     <button class="header-action" data-action="navigate" data-page="customs-form" aria-label="إضافة مكتب تخليص">
-        <span class="icon"></span>
+        <i class="fas fa-plus"></i>
     </button>
 </div>
 
+<!-- Main Content -->
 <div class="content">
-    <div class="search-section">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="بحث في مكاتب التخليص...">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
+    <!-- Search and Filter Bar -->
+    <section class="cst-search-section">
+        <div class="cst-search-bar">
+            <div class="cst-search-input-wrapper">
+                <i class="fas fa-search cst-search-icon"></i>
+                <input type="text" class="cst-search-input" placeholder="البحث في مكاتب التخليص الجمركي...">
+            </div>
+            <button class="cst-filter-btn">
+                <i class="fas fa-sliders-h"></i>
+                <span>تصفية</span>
+            </button>
         </div>
+    </section>
 
-        <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">الكل</button>
-            <button class="filter-btn" data-filter="sea">بحري</button>
-            <button class="filter-btn" data-filter="air">جوي</button>
-            <button class="filter-btn" data-filter="land">بري</button>
+    <!-- Stats Overview -->
+    <section class="cst-stats-overview">
+        <div class="cst-stat-item">
+            <div class="cst-stat-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="cst-stat-content">
+                <div class="cst-stat-value">45+</div>
+                <div class="cst-stat-label">مكتب تخليص</div>
+            </div>
         </div>
-    </div>
+        
+        <div class="cst-stat-item">
+            <div class="cst-stat-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="cst-stat-content">
+                <div class="cst-stat-value">8</div>
+                <div class="cst-stat-label">منفذ جمركي</div>
+            </div>
+        </div>
+        
+        <div class="cst-stat-item">
+            <div class="cst-stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="cst-stat-content">
+                <div class="cst-stat-value">4.4</div>
+                <div class="cst-stat-label">متوسط التقييم</div>
+            </div>
+        </div>
+        
+        <div class="cst-stat-item">
+            <div class="cst-stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="cst-stat-content">
+                <div class="cst-stat-value">650+</div>
+                <div class="cst-stat-label">عميل راضي</div>
+            </div>
+        </div>
+    </section>
 
-    <div class="co-cards">
-        <div class="co-card" data-action="view-customs-office" data-id="1">
-            <div class="co-card-header">
-                <h3 class="co-card-title">مكتب اليمن للتخليص الجمركي - صنعاء</h3>
-                <div class="co-rating">
-                    <span class="co-rating-value">4.7</span>
-                    <span class="co-rating-stars">★★★★★</span>
+    <!-- Service Providers -->
+    <section class="cst-service-providers">
+        <div class="cst-providers-grid">
+            <!-- Provider 1 -->
+            <div class="cst-provider-card" data-provider="yemen-customs">
+                <div class="cst-provider-header">
+                    <div class="cst-provider-avatar">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="cst-provider-info">
+                        <h4 class="cst-provider-name">مكتب اليمن للتخليص الجمركي - صنعاء</h4>
+                        <div class="cst-provider-rating">
+                            <span class="cst-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="cst-rating-value">4.7</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-description">
+                    خدمات تخليص جمركي متكاملة في مطار صنعاء الدولي
+                </div>
+                
+                <div class="cst-provider-features">
+                    <span class="cst-feature-tag">جوي</span>
+                    <span class="cst-feature-tag">تخليص سريع</span>
+                    <span class="cst-feature-tag">خدمة 24/7</span>
+                    <span class="cst-feature-tag">متابعة مباشرة</span>
+                </div>
+                
+                <div class="cst-provider-meta">
+                    <div class="cst-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>مطار صنعاء الدولي</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8 سنوات خبرة</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>120+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-pricing">
+                    <div class="cst-price-label">يبدأ من</div>
+                    <div class="cst-price-value">500 ريال</div>
+                    <div class="cst-price-period">للتخليص</div>
+                </div>
+                
+                <div class="cst-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="yemen-customs">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="yemen-customs">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
-            <div class="co-card-content">
-                <div class="co-info">
-                    <div class="info-item">
-                        <div class="info-icon">🪪</div>
-                        <div class="info-content">
-                            <div class="info-label">ترخيص التخليص:</div>
-                            <div class="info-value">YC-5423-23</div>
-                        </div>
+            
+            <!-- Provider 2 -->
+            <div class="cst-provider-card" data-provider="hodeidah-customs">
+                <div class="cst-provider-header">
+                    <div class="cst-provider-avatar">
+                        <i class="fas fa-ship"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">🏢</div>
-                        <div class="info-content">
-                            <div class="info-label">المنافذ:</div>
-                            <div class="info-value">مطار صنعاء الدولي</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">⏱️</div>
-                        <div class="info-content">
-                            <div class="info-label">الخبرة:</div>
-                            <div class="info-value">8 سنوات</div>
+                    <div class="cst-provider-info">
+                        <h4 class="cst-provider-name">مكتب الحديدة للتخليص الجمركي</h4>
+                        <div class="cst-provider-rating">
+                            <span class="cst-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="cst-rating-value">4.5</span>
                         </div>
                     </div>
                 </div>
-                <div class="co-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="customs-details" data-id="1">التفاصيل</button>
+                
+                <div class="cst-provider-description">
+                    خدمات تخليص جمركي بحري في ميناء الحديدة
+                </div>
+                
+                <div class="cst-provider-features">
+                    <span class="cst-feature-tag">بحري</span>
+                    <span class="cst-feature-tag">حاويات</span>
+                    <span class="cst-feature-tag">بضائع عامة</span>
+                    <span class="cst-feature-tag">تخليص شامل</span>
+                </div>
+                
+                <div class="cst-provider-meta">
+                    <div class="cst-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>ميناء الحديدة</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>12 سنة خبرة</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>200+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-pricing">
+                    <div class="cst-price-label">يبدأ من</div>
+                    <div class="cst-price-value">800 ريال</div>
+                    <div class="cst-price-period">للتخليص</div>
+                </div>
+                
+                <div class="cst-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="hodeidah-customs">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="hodeidah-customs">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 3 -->
+            <div class="cst-provider-card" data-provider="aden-customs">
+                <div class="cst-provider-header">
+                    <div class="cst-provider-avatar">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="cst-provider-info">
+                        <h4 class="cst-provider-name">مكتب عدن للتخليص الجمركي</h4>
+                        <div class="cst-provider-rating">
+                            <span class="cst-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="cst-rating-value">4.3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-description">
+                    خدمات تخليص جمركي متعددة المنافذ في عدن
+                </div>
+                
+                <div class="cst-provider-features">
+                    <span class="cst-feature-tag">بحري</span>
+                    <span class="cst-feature-tag">بري</span>
+                    <span class="cst-feature-tag">جوي</span>
+                    <span class="cst-feature-tag">خدمة شاملة</span>
+                </div>
+                
+                <div class="cst-provider-meta">
+                    <div class="cst-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>ميناء عدن، منفذ المنظر</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>5 سنوات خبرة</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>80+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-pricing">
+                    <div class="cst-price-label">يبدأ من</div>
+                    <div class="cst-price-value">600 ريال</div>
+                    <div class="cst-price-period">للتخليص</div>
+                </div>
+                
+                <div class="cst-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="aden-customs">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="aden-customs">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 4 -->
+            <div class="cst-provider-card" data-provider="mukalla-customs">
+                <div class="cst-provider-header">
+                    <div class="cst-provider-avatar">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="cst-provider-info">
+                        <h4 class="cst-provider-name">مكتب المكلا للتخليص الجمركي</h4>
+                        <div class="cst-provider-rating">
+                            <span class="cst-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="cst-rating-value">4.8</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-description">
+                    خدمات تخليص جمركي بري وبحري في المكلا
+                </div>
+                
+                <div class="cst-provider-features">
+                    <span class="cst-feature-tag">بري</span>
+                    <span class="cst-feature-tag">بحري</span>
+                    <span class="cst-feature-tag">تخليص سريع</span>
+                    <span class="cst-feature-tag">أسعار تنافسية</span>
+                </div>
+                
+                <div class="cst-provider-meta">
+                    <div class="cst-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>ميناء المكلا، منفذ الشحر</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>10 سنوات خبرة</span>
+                    </div>
+                    <div class="cst-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>150+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="cst-provider-pricing">
+                    <div class="cst-price-label">يبدأ من</div>
+                    <div class="cst-price-value">400 ريال</div>
+                    <div class="cst-price-period">للتخليص</div>
+                </div>
+                
+                <div class="cst-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="mukalla-customs">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="mukalla-customs">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
         </div>
-
-        <div class="co-card" data-action="view-customs-office" data-id="2">
-            <div class="co-card-header">
-                <h3 class="co-card-title">مكتب الحديدة للتخليص الجمركي</h3>
-                <div class="co-rating">
-                    <span class="co-rating-value">4.5</span>
-                    <span class="co-rating-stars">★★★★☆</span>
-                </div>
-            </div>
-            <div class="co-card-content">
-                <div class="co-info">
-                    <div class="info-item">
-                        <div class="info-icon">🪪</div>
-                        <div class="info-content">
-                            <div class="info-label">ترخيص التخليص:</div>
-                            <div class="info-value">YC-3287-22</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">🏢</div>
-                        <div class="info-content">
-                            <div class="info-label">المنافذ:</div>
-                            <div class="info-value">ميناء الحديدة</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">⏱️</div>
-                        <div class="info-content">
-                            <div class="info-label">الخبرة:</div>
-                            <div class="info-value">12 سنة</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="co-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="customs-details" data-id="2">التفاصيل</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="co-card" data-action="view-customs-office" data-id="3">
-            <div class="co-card-header">
-                <h3 class="co-card-title">مكتب عدن للتخليص الجمركي</h3>
-                <div class="co-rating">
-                    <span class="co-rating-value">4.3</span>
-                    <span class="co-rating-stars">★★★★☆</span>
-                </div>
-            </div>
-            <div class="co-card-content">
-                <div class="co-info">
-                    <div class="info-item">
-                        <div class="info-icon">🪪</div>
-                        <div class="info-content">
-                            <div class="info-label">ترخيص التخليص:</div>
-                            <div class="info-value">YC-7845-23</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">🏢</div>
-                        <div class="info-content">
-                            <div class="info-label">المنافذ:</div>
-                            <div class="info-value">ميناء عدن، منفذ المنظر البري</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">⏱️</div>
-                        <div class="info-content">
-                            <div class="info-label">الخبرة:</div>
-                            <div class="info-value">5 سنوات</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="co-actions">
-                    <button class="btn btn-sm" data-action="edit-customs-office" data-id="3">تعديل</button>
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="customs-details" data-id="3">التفاصيل</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <button class="floating-action-button" data-action="navigate" data-page="customs-form">
-        <span class="icon">+</span>
-    </button>
+    </section>
 </div>
+
+<!-- Floating Action Button -->
+<button class="floating-action-button" data-action="navigate" data-page="customs-form">
+    <span class="icon">+</span>
+</button>

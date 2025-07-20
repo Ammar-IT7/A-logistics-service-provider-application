@@ -1,128 +1,340 @@
 <!-- templates/pages/warehouses.html -->
 <div class="header">
-    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+    <button class="header-action" data-action="navigate" data-page="service-providers">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <h1 class="header-title">المستودعات</h1>
     <button class="header-action" data-action="navigate" data-page="warehouse-form" aria-label="إضافة مستودع">
-        <span class="icon"></span>
+        <i class="fas fa-plus"></i>
     </button>
 </div>
+
+<!-- Main Content -->
 <div class="content">
-    <div class="search-filter-section mb-3">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="بحث في المستودعات...">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
-        </div>
-
-        <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">الكل</button>
-            <button class="filter-btn" data-filter="general">عادي</button>
-            <button class="filter-btn" data-filter="refrigerated">مبرد</button>
-            <button class="filter-btn" data-filter="medical">طبي</button>
-        </div>
-    </div>
-
-    <div class="warehouse-cards">
-        <div class="wh-card" data-action="view-warehouse" data-id="1">
-            <div class="wh-card-header">
-                <h3>مستودع صنعاء المركزي</h3>
-                <span class="wh-status-badge available">متاح</span>
+    <!-- Search and Filter Bar -->
+    <section class="wh-search-section">
+        <div class="wh-search-bar">
+            <div class="wh-search-input-wrapper">
+                <i class="fas fa-search wh-search-icon"></i>
+                <input type="text" class="wh-search-input" placeholder="البحث في المستودعات...">
             </div>
-            <div class="wh-card-content">
-                <div class="wh-card-info">
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">النوع:</div>
-                        <div class="wh-info-value">مستودع عادي</div>
+            <button class="wh-filter-btn">
+                <i class="fas fa-sliders-h"></i>
+                <span>تصفية</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="wh-stats-overview">
+        <div class="wh-stat-item">
+            <div class="wh-stat-icon">
+                <i class="fas fa-warehouse"></i>
+            </div>
+            <div class="wh-stat-content">
+                <div class="wh-stat-value">85+</div>
+                <div class="wh-stat-label">مستودع متاح</div>
+            </div>
+        </div>
+        
+        <div class="wh-stat-item">
+            <div class="wh-stat-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="wh-stat-content">
+                <div class="wh-stat-value">15</div>
+                <div class="wh-stat-label">مدينة</div>
+            </div>
+        </div>
+        
+        <div class="wh-stat-item">
+            <div class="wh-stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="wh-stat-content">
+                <div class="wh-stat-value">4.6</div>
+                <div class="wh-stat-label">متوسط التقييم</div>
+            </div>
+        </div>
+        
+        <div class="wh-stat-item">
+            <div class="wh-stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="wh-stat-content">
+                <div class="wh-stat-value">1,200+</div>
+                <div class="wh-stat-label">عميل راضي</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Providers -->
+    <section class="wh-service-providers">
+        <div class="wh-providers-grid">
+            <!-- Provider 1 -->
+            <div class="wh-provider-card" data-provider="sanaa-central">
+                <div class="wh-provider-header">
+                    <div class="wh-provider-avatar">
+                        <i class="fas fa-warehouse"></i>
                     </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">الموقع:</div>
-                        <div class="wh-info-value">صنعاء، الحي التجاري</div>
-                    </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">المساحة:</div>
-                        <div class="wh-info-value">1,500 م²</div>
-                    </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">نسبة الإشغال:</div>
-                        <div class="wh-occupation-indicator">
-                            <div class="wh-occupation-bar" style="width: 35%"></div>
-                            <span>35%</span>
+                    <div class="wh-provider-info">
+                        <h4 class="wh-provider-name">مستودع صنعاء المركزي</h4>
+                        <div class="wh-provider-rating">
+                            <span class="wh-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="wh-rating-value">4.8</span>
                         </div>
                     </div>
                 </div>
-                <div class="wh-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="1">التفاصيل</button>
+                
+                <div class="wh-provider-description">
+                    مستودع مركزي في قلب العاصمة صنعاء مع إمكانيات تخزين متقدمة
+                </div>
+                
+                <div class="wh-provider-features">
+                    <span class="wh-feature-tag">عادي</span>
+                    <span class="wh-feature-tag">مركزي</span>
+                    <span class="wh-feature-tag">أمن عالي</span>
+                    <span class="wh-feature-tag">24/7</span>
+                </div>
+                
+                <div class="wh-provider-meta">
+                    <div class="wh-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>صنعاء، الحي التجاري</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>1,500 م²</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>35% إشغال</span>
+                    </div>
+                </div>
+                
+                <div class="wh-provider-pricing">
+                    <div class="wh-price-label">يبدأ من</div>
+                    <div class="wh-price-value">25 ريال</div>
+                    <div class="wh-price-period">للمتر المربع/شهر</div>
+                </div>
+                
+                <div class="wh-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="sanaa-central">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="sanaa-central">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <div class="wh-card" data-action="view-warehouse" data-id="2">
-            <div class="wh-card-header">
-                <h3>مستودع عدن المبرد</h3>
-                <span class="wh-status-badge busy">مشغول</span>
-            </div>
-            <div class="wh-card-content">
-                <div class="wh-card-info">
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">النوع:</div>
-                        <div class="wh-info-value">مستودع مبرد</div>
+            
+            <!-- Provider 2 -->
+            <div class="wh-provider-card" data-provider="aden-refrigerated">
+                <div class="wh-provider-header">
+                    <div class="wh-provider-avatar">
+                        <i class="fas fa-snowflake"></i>
                     </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">الموقع:</div>
-                        <div class="wh-info-value">عدن، المنطقة الصناعية</div>
-                    </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">المساحة:</div>
-                        <div class="wh-info-value">800 م²</div>
-                    </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">نسبة الإشغال:</div>
-                        <div class="wh-occupation-indicator">
-                            <div class="wh-occupation-bar" style="width: 90%"></div>
-                            <span>90%</span>
+                    <div class="wh-provider-info">
+                        <h4 class="wh-provider-name">مستودع عدن المبرد</h4>
+                        <div class="wh-provider-rating">
+                            <span class="wh-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="wh-rating-value">4.3</span>
                         </div>
                     </div>
                 </div>
-                <div class="wh-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="2">التفاصيل</button>
+                
+                <div class="wh-provider-description">
+                    مستودع مبرد متخصص للمواد الغذائية والمنتجات الطازجة
+                </div>
+                
+                <div class="wh-provider-features">
+                    <span class="wh-feature-tag">مبرد</span>
+                    <span class="wh-feature-tag">مواد غذائية</span>
+                    <span class="wh-feature-tag">تحكم حراري</span>
+                    <span class="wh-feature-tag">مراقبة مستمرة</span>
+                </div>
+                
+                <div class="wh-provider-meta">
+                    <div class="wh-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>عدن، المنطقة الصناعية</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>800 م²</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>90% إشغال</span>
+                    </div>
+                </div>
+                
+                <div class="wh-provider-pricing">
+                    <div class="wh-price-label">يبدأ من</div>
+                    <div class="wh-price-value">45 ريال</div>
+                    <div class="wh-price-period">للمتر المربع/شهر</div>
+                </div>
+                
+                <div class="wh-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="aden-refrigerated">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="aden-refrigerated">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <div class="wh-card" data-action="view-warehouse" data-id="3">
-            <div class="wh-card-header">
-                <h3>مستودع الحديدة الطبي</h3>
-                <span class="wh-status-badge available">متاح</span>
-            </div>
-            <div class="wh-card-content">
-                <div class="wh-card-info">
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">النوع:</div>
-                        <div class="wh-info-value">مستودع طبي</div>
+            
+            <!-- Provider 3 -->
+            <div class="wh-provider-card" data-provider="hodeidah-medical">
+                <div class="wh-provider-header">
+                    <div class="wh-provider-avatar">
+                        <i class="fas fa-heartbeat"></i>
                     </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">الموقع:</div>
-                        <div class="wh-info-value">الحديدة، حي الميناء</div>
-                    </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">المساحة:</div>
-                        <div class="wh-info-value">600 م²</div>
-                    </div>
-                    <div class="wh-info-item">
-                        <div class="wh-info-label">نسبة الإشغال:</div>
-                        <div class="wh-occupation-indicator">
-                            <div class="wh-occupation-bar" style="width: 20%"></div>
-                            <span>20%</span>
+                    <div class="wh-provider-info">
+                        <h4 class="wh-provider-name">مستودع الحديدة الطبي</h4>
+                        <div class="wh-provider-rating">
+                            <span class="wh-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="wh-rating-value">4.9</span>
                         </div>
                     </div>
                 </div>
-                <div class="wh-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="warehouse-details" data-id="3">التفاصيل</button>
+                
+                <div class="wh-provider-description">
+                    مستودع طبي متخصص للأدوية والمعدات الطبية مع معايير صحية عالية
+                </div>
+                
+                <div class="wh-provider-features">
+                    <span class="wh-feature-tag">طبي</span>
+                    <span class="wh-feature-tag">أدوية</span>
+                    <span class="wh-feature-tag">معدات طبية</span>
+                    <span class="wh-feature-tag">معايير صحية</span>
+                </div>
+                
+                <div class="wh-provider-meta">
+                    <div class="wh-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>الحديدة، حي الميناء</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>600 م²</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>20% إشغال</span>
+                    </div>
+                </div>
+                
+                <div class="wh-provider-pricing">
+                    <div class="wh-price-label">يبدأ من</div>
+                    <div class="wh-price-value">60 ريال</div>
+                    <div class="wh-price-period">للمتر المربع/شهر</div>
+                </div>
+                
+                <div class="wh-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="hodeidah-medical">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="hodeidah-medical">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 4 -->
+            <div class="wh-provider-card" data-provider="taiz-industrial">
+                <div class="wh-provider-header">
+                    <div class="wh-provider-avatar">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="wh-provider-info">
+                        <h4 class="wh-provider-name">مستودع تعز الصناعي</h4>
+                        <div class="wh-provider-rating">
+                            <span class="wh-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="wh-rating-value">4.5</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wh-provider-description">
+                    مستودع صناعي كبير للمواد الخام والمنتجات الصناعية
+                </div>
+                
+                <div class="wh-provider-features">
+                    <span class="wh-feature-tag">صناعي</span>
+                    <span class="wh-feature-tag">مواد خام</span>
+                    <span class="wh-feature-tag">رافعات</span>
+                    <span class="wh-feature-tag">سكك حديدية</span>
+                </div>
+                
+                <div class="wh-provider-meta">
+                    <div class="wh-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>تعز، المنطقة الصناعية</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>2,500 م²</span>
+                    </div>
+                    <div class="wh-meta-item">
+                        <i class="fas fa-percentage"></i>
+                        <span>75% إشغال</span>
+                    </div>
+                </div>
+                
+                <div class="wh-provider-pricing">
+                    <div class="wh-price-label">يبدأ من</div>
+                    <div class="wh-price-value">20 ريال</div>
+                    <div class="wh-price-period">للمتر المربع/شهر</div>
+                </div>
+                
+                <div class="wh-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="taiz-industrial">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="taiz-industrial">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <button class="floating-action-button" data-action="navigate" data-page="warehouse-form">
-        <span class="icon">+</span>
-    </button>
+    </section>
 </div>
+
+<!-- Floating Action Button -->
+<button class="floating-action-button" data-action="navigate" data-page="warehouse-form">
+    <span class="icon">+</span>
+</button>
