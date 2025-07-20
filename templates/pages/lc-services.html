@@ -1,141 +1,340 @@
 <!-- templates/pages/lc-services.html -->
 <div class="header">
-    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+    <button class="header-action" data-action="navigate" data-page="service-providers">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <h1 class="header-title">خدمات الاعتمادات المستندية</h1>
     <button class="header-action" data-action="navigate" data-page="lc-service-form" aria-label="إضافة مكتب تجاري">
-        <span class="icon"></span>
+        <i class="fas fa-plus"></i>
     </button>
 </div>
+
+<!-- Main Content -->
 <div class="content">
-    <div class="search-filter-section mb-3">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="بحث في مكاتب الاعتمادات المستندية...">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
-        </div>
-
-        <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">الكل</button>
-            <button class="filter-btn" data-filter="asia">آسيا</button>
-            <button class="filter-btn" data-filter="europe">أوروبا</button>
-            <button class="filter-btn" data-filter="americas">الأمريكتين</button>
-            <button class="filter-btn" data-filter="africa">أفريقيا</button>
-        </div>
-    </div>
-
-    <div class="lcs-cards">
-        <div class="lcs-card" data-action="view-lc-service" data-id="1">
-            <div class="lcs-card-header">
-                <h3>مكتب الصين التجاري - قوانغتشو</h3>
-                <span class="lcs-status-badge available">متاح</span>
+    <!-- Search and Filter Bar -->
+    <section class="lcs-search-section">
+        <div class="lcs-search-bar">
+            <div class="lcs-search-input-wrapper">
+                <i class="fas fa-search lcs-search-icon"></i>
+                <input type="text" class="lcs-search-input" placeholder="البحث في مكاتب الاعتمادات المستندية...">
             </div>
-            <div class="lcs-card-content">
-                <div class="lcs-card-info">
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">المنطقة:</div>
-                        <div class="lcs-info-value">آسيا</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">العنوان:</div>
-                        <div class="lcs-info-value">قوانغتشو، حي التجارة الدولية</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">التخصص:</div>
-                        <div class="lcs-info-value">مواد البناء، الأجهزة الإلكترونية</div>
-                    </div>
-                </div>
-                <div class="lcs-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="1">التفاصيل</button>
-                </div>
+            <button class="lcs-filter-btn">
+                <i class="fas fa-sliders-h"></i>
+                <span>تصفية</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="lcs-stats-overview">
+        <div class="lcs-stat-item">
+            <div class="lcs-stat-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="lcs-stat-content">
+                <div class="lcs-stat-value">85+</div>
+                <div class="lcs-stat-label">مكتب تجاري</div>
             </div>
         </div>
-
-        <div class="lcs-card" data-action="view-lc-service" data-id="2">
-            <div class="lcs-card-header">
-                <h3>مكتب تركيا التجاري - إسطنبول</h3>
-                <span class="lcs-status-badge busy">مشغول</span>
+        
+        <div class="lcs-stat-item">
+            <div class="lcs-stat-icon">
+                <i class="fas fa-globe"></i>
             </div>
-            <div class="lcs-card-content">
-                <div class="lcs-card-info">
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">المنطقة:</div>
-                        <div class="lcs-info-value">آسيا/أوروبا</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">العنوان:</div>
-                        <div class="lcs-info-value">إسطنبول، حي السلطان أحمد</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">التخصص:</div>
-                        <div class="lcs-info-value">المنسوجات، الأثاث، المواد الغذائية</div>
-                    </div>
-                </div>
-                <div class="lcs-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="2">التفاصيل</button>
-                </div>
+            <div class="lcs-stat-content">
+                <div class="lcs-stat-value">25</div>
+                <div class="lcs-stat-label">دولة</div>
             </div>
         </div>
-
-        <div class="lcs-card" data-action="view-lc-service" data-id="3">
-            <div class="lcs-card-header">
-                <h3>مكتب ألمانيا التجاري - ميونخ</h3>
-                <span class="lcs-status-badge available">متاح</span>
+        
+        <div class="lcs-stat-item">
+            <div class="lcs-stat-icon">
+                <i class="fas fa-star"></i>
             </div>
-            <div class="lcs-card-content">
-                <div class="lcs-card-info">
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">المنطقة:</div>
-                        <div class="lcs-info-value">أوروبا</div>
+            <div class="lcs-stat-content">
+                <div class="lcs-stat-value">4.7</div>
+                <div class="lcs-stat-label">متوسط التقييم</div>
+            </div>
+        </div>
+        
+        <div class="lcs-stat-item">
+            <div class="lcs-stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="lcs-stat-content">
+                <div class="lcs-stat-value">1,200+</div>
+                <div class="lcs-stat-label">عميل راضي</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Providers -->
+    <section class="lcs-service-providers">
+        <div class="lcs-providers-grid">
+            <!-- Provider 1 -->
+            <div class="lcs-provider-card" data-provider="china-office">
+                <div class="lcs-provider-header">
+                    <div class="lcs-provider-avatar">
+                        <i class="fas fa-building"></i>
                     </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">العنوان:</div>
-                        <div class="lcs-info-value">ميونخ، المركز التجاري</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">التخصص:</div>
-                        <div class="lcs-info-value">المعدات الطبية، السيارات، الآلات الصناعية</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">الطلبات الحالية:</div>
-                        <div class="lcs-occupation-indicator">
-                            <div class="lcs-occupation-bar" style="width: 30%"></div>
-                            <span>8 طلبات</span>
+                    <div class="lcs-provider-info">
+                        <h4 class="lcs-provider-name">مكتب الصين التجاري - قوانغتشو</h4>
+                        <div class="lcs-provider-rating">
+                            <span class="lcs-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="lcs-rating-value">4.8</span>
                         </div>
                     </div>
                 </div>
-                <div class="lcs-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="3">التفاصيل</button>
+                
+                <div class="lcs-provider-description">
+                    خدمات اعتمادات مستندية متخصصة في التجارة مع الصين
+                </div>
+                
+                <div class="lcs-provider-features">
+                    <span class="lcs-feature-tag">مواد البناء</span>
+                    <span class="lcs-feature-tag">إلكترونيات</span>
+                    <span class="lcs-feature-tag">منسوجات</span>
+                    <span class="lcs-feature-tag">أثاث</span>
+                </div>
+                
+                <div class="lcs-provider-meta">
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>قوانغتشو، الصين</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8 سنوات خبرة</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>200+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-pricing">
+                    <div class="lcs-price-label">يبدأ من</div>
+                    <div class="lcs-price-value">1,500 ريال</div>
+                    <div class="lcs-price-period">لكل معاملة</div>
+                </div>
+                
+                <div class="lcs-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="china-office">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="china-office">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 2 -->
+            <div class="lcs-provider-card" data-provider="turkey-office">
+                <div class="lcs-provider-header">
+                    <div class="lcs-provider-avatar">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="lcs-provider-info">
+                        <h4 class="lcs-provider-name">مكتب تركيا التجاري - إسطنبول</h4>
+                        <div class="lcs-provider-rating">
+                            <span class="lcs-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="lcs-rating-value">4.2</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-description">
+                    خدمات اعتمادات مستندية متخصصة في التجارة مع تركيا
+                </div>
+                
+                <div class="lcs-provider-features">
+                    <span class="lcs-feature-tag">منسوجات</span>
+                    <span class="lcs-feature-tag">أثاث</span>
+                    <span class="lcs-feature-tag">مواد غذائية</span>
+                    <span class="lcs-feature-tag">مواد بناء</span>
+                </div>
+                
+                <div class="lcs-provider-meta">
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>إسطنبول، تركيا</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>6 سنوات خبرة</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>150+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-pricing">
+                    <div class="lcs-price-label">يبدأ من</div>
+                    <div class="lcs-price-value">1,200 ريال</div>
+                    <div class="lcs-price-period">لكل معاملة</div>
+                </div>
+                
+                <div class="lcs-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="turkey-office">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="turkey-office">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 3 -->
+            <div class="lcs-provider-card" data-provider="germany-office">
+                <div class="lcs-provider-header">
+                    <div class="lcs-provider-avatar">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="lcs-provider-info">
+                        <h4 class="lcs-provider-name">مكتب ألمانيا التجاري - ميونخ</h4>
+                        <div class="lcs-provider-rating">
+                            <span class="lcs-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="lcs-rating-value">4.9</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-description">
+                    خدمات اعتمادات مستندية متخصصة في التجارة مع ألمانيا
+                </div>
+                
+                <div class="lcs-provider-features">
+                    <span class="lcs-feature-tag">معدات طبية</span>
+                    <span class="lcs-feature-tag">سيارات</span>
+                    <span class="lcs-feature-tag">آلات صناعية</span>
+                    <span class="lcs-feature-tag">تقنيات متقدمة</span>
+                </div>
+                
+                <div class="lcs-provider-meta">
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>ميونخ، ألمانيا</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>10 سنوات خبرة</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>300+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-pricing">
+                    <div class="lcs-price-label">يبدأ من</div>
+                    <div class="lcs-price-value">2,500 ريال</div>
+                    <div class="lcs-price-period">لكل معاملة</div>
+                </div>
+                
+                <div class="lcs-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="germany-office">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="germany-office">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 4 -->
+            <div class="lcs-provider-card" data-provider="usa-office">
+                <div class="lcs-provider-header">
+                    <div class="lcs-provider-avatar">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="lcs-provider-info">
+                        <h4 class="lcs-provider-name">مكتب الولايات المتحدة - نيويورك</h4>
+                        <div class="lcs-provider-rating">
+                            <span class="lcs-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="lcs-rating-value">4.5</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-description">
+                    خدمات اعتمادات مستندية متخصصة في التجارة مع الولايات المتحدة
+                </div>
+                
+                <div class="lcs-provider-features">
+                    <span class="lcs-feature-tag">تكنولوجيا</span>
+                    <span class="lcs-feature-tag">برمجيات</span>
+                    <span class="lcs-feature-tag">معدات طبية</span>
+                    <span class="lcs-feature-tag">تقنيات متقدمة</span>
+                </div>
+                
+                <div class="lcs-provider-meta">
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>نيويورك، الولايات المتحدة</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>12 سنوات خبرة</span>
+                    </div>
+                    <div class="lcs-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>250+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lcs-provider-pricing">
+                    <div class="lcs-price-label">يبدأ من</div>
+                    <div class="lcs-price-value">3,000 ريال</div>
+                    <div class="lcs-price-period">لكل معاملة</div>
+                </div>
+                
+                <div class="lcs-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="usa-office">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="usa-office">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
         </div>
-
-        <div class="lcs-card" data-action="view-lc-service" data-id="4">
-            <div class="lcs-card-header">
-                <h3>مكتب الولايات المتحدة - نيويورك</h3>
-                <span class="lcs-status-badge maintenance">صيانة</span>
-            </div>
-            <div class="lcs-card-content">
-                <div class="lcs-card-info">
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">المنطقة:</div>
-                        <div class="lcs-info-value">الأمريكتين</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">العنوان:</div>
-                        <div class="lcs-info-value">نيويورك، مانهاتن</div>
-                    </div>
-                    <div class="lcs-info-item">
-                        <div class="lcs-info-label">التخصص:</div>
-                        <div class="lcs-info-value">التكنولوجيا، البرمجيات، المعدات الطبية المتقدمة</div>
-                    </div>
-                </div>
-                <div class="lcs-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="4">التفاصيل</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <button class="floating-action-button" data-action="navigate" data-page="lc-service-form">
-        <span class="icon">+</span>
-    </button>
+    </section>
 </div>
+
+<!-- Floating Action Button -->
+<button class="floating-action-button" data-action="navigate" data-page="lc-service-form">
+    <span class="icon">+</span>
+</button>
