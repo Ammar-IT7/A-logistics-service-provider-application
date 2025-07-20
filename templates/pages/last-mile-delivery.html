@@ -1,127 +1,340 @@
 <!-- templates/pages/last-mile-delivery.html -->
 <div class="header">
-    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+    <button class="header-action" data-action="navigate" data-page="service-providers">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <h1 class="header-title">مقدمي خدمات التوصيل الداخلي</h1>
     <button class="header-action" data-action="navigate" data-page="delivery-provider-form" aria-label="إضافة مزود خدمة">
-        <span class="icon"></span>
+        <i class="fas fa-plus"></i>
     </button>
 </div>
+
+<!-- Main Content -->
 <div class="content">
-    <div class="search-filter-section mb-3">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="بحث في مقدمي الخدمات...">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
-        </div>
-
-        <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">الكل</button>
-            <button class="filter-btn" data-filter="motorcycle">دراجات نارية</button>
-            <button class="filter-btn" data-filter="car">سيارات صغيرة</button>
-        </div>
-    </div>
-
-    <div class="ld-provider-cards">
-        <div class="ld-card" data-action="view-provider" data-id="1">
-            <div class="ld-card-header">
-                <h3>الشركة اليمنية للتوصيل السريع</h3>
-                <span class="status-badge available">نشط</span>
+    <!-- Search and Filter Bar -->
+    <section class="lmd-search-section">
+        <div class="lmd-search-bar">
+            <div class="lmd-search-input-wrapper">
+                <i class="fas fa-search lmd-search-icon"></i>
+                <input type="text" class="lmd-search-input" placeholder="البحث في مقدمي خدمات التوصيل...">
             </div>
-            <div class="ld-card-content">
-                <div class="ld-card-info">
-                    <div class="info-item">
-                        <div class="info-label">نوع المركبات:</div>
-                        <div class="info-value">دراجات نارية</div>
+            <button class="lmd-filter-btn">
+                <i class="fas fa-sliders-h"></i>
+                <span>تصفية</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="lmd-stats-overview">
+        <div class="lmd-stat-item">
+            <div class="lmd-stat-icon">
+                <i class="fas fa-motorcycle"></i>
+            </div>
+            <div class="lmd-stat-content">
+                <div class="lmd-stat-value">120+</div>
+                <div class="lmd-stat-label">مزود خدمة</div>
+            </div>
+        </div>
+        
+        <div class="lmd-stat-item">
+            <div class="lmd-stat-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="lmd-stat-content">
+                <div class="lmd-stat-value">15</div>
+                <div class="lmd-stat-label">مدينة</div>
+            </div>
+        </div>
+        
+        <div class="lmd-stat-item">
+            <div class="lmd-stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="lmd-stat-content">
+                <div class="lmd-stat-value">4.6</div>
+                <div class="lmd-stat-label">متوسط التقييم</div>
+            </div>
+        </div>
+        
+        <div class="lmd-stat-item">
+            <div class="lmd-stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="lmd-stat-content">
+                <div class="lmd-stat-value">800+</div>
+                <div class="lmd-stat-label">عميل راضي</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Providers -->
+    <section class="lmd-service-providers">
+        <div class="lmd-providers-grid">
+            <!-- Provider 1 -->
+            <div class="lmd-provider-card" data-provider="yemen-express">
+                <div class="lmd-provider-header">
+                    <div class="lmd-provider-avatar">
+                        <i class="fas fa-motorcycle"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">نطاق التغطية:</div>
-                        <div class="info-value">صنعاء، عدن، تعز</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">عدد المركبات:</div>
-                        <div class="info-value">45 دراجة</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">معدل التوصيل:</div>
-                        <div class="ld-delivery-indicator">
-                            <div class="ld-delivery-bar" style="width: 85%"></div>
-                            <span>85%</span>
+                    <div class="lmd-provider-info">
+                        <h4 class="lmd-provider-name">الشركة اليمنية للتوصيل السريع</h4>
+                        <div class="lmd-provider-rating">
+                            <span class="lmd-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="lmd-rating-value">4.8</span>
                         </div>
                     </div>
                 </div>
-                <div class="ld-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="delivery-provider-details" data-id="1">التفاصيل</button>
+                
+                <div class="lmd-provider-description">
+                    خدمات توصيل سريعة وموثوقة في جميع أنحاء اليمن
+                </div>
+                
+                <div class="lmd-provider-features">
+                    <span class="lmd-feature-tag">دراجات نارية</span>
+                    <span class="lmd-feature-tag">توصيل سريع</span>
+                    <span class="lmd-feature-tag">تتبع مباشر</span>
+                    <span class="lmd-feature-tag">تغطية شاملة</span>
+                </div>
+                
+                <div class="lmd-provider-meta">
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>صنعاء، عدن، تعز</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>6 سنوات خبرة</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>150+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lmd-provider-pricing">
+                    <div class="lmd-price-label">يبدأ من</div>
+                    <div class="lmd-price-value">25 ريال</div>
+                    <div class="lmd-price-period">للتوصيل</div>
+                </div>
+                
+                <div class="lmd-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="yemen-express">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="yemen-express">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <div class="ld-card" data-action="view-provider" data-id="2">
-            <div class="ld-card-header">
-                <h3>توصيل اكسبريس</h3>
-                <span class="status-badge busy">مشغول</span>
-            </div>
-            <div class="ld-card-content">
-                <div class="ld-card-info">
-                    <div class="info-item">
-                        <div class="info-label">نوع المركبات:</div>
-                        <div class="info-value">سيارات صغيرة</div>
+            
+            <!-- Provider 2 -->
+            <div class="lmd-provider-card" data-provider="express-delivery">
+                <div class="lmd-provider-header">
+                    <div class="lmd-provider-avatar">
+                        <i class="fas fa-car"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">نطاق التغطية:</div>
-                        <div class="info-value">صنعاء، الحديدة</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">عدد المركبات:</div>
-                        <div class="info-value">12 سيارة</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">معدل التوصيل:</div>
-                        <div class="ld-delivery-indicator">
-                            <div class="ld-delivery-bar" style="width: 92%"></div>
-                            <span>92%</span>
+                    <div class="lmd-provider-info">
+                        <h4 class="lmd-provider-name">توصيل اكسبريس</h4>
+                        <div class="lmd-provider-rating">
+                            <span class="lmd-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="lmd-rating-value">4.2</span>
                         </div>
                     </div>
                 </div>
-                <div class="ld-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="delivery-provider-details" data-id="2">التفاصيل</button>
+                
+                <div class="lmd-provider-description">
+                    خدمات توصيل احترافية بسيارات صغيرة ودراجات نارية
+                </div>
+                
+                <div class="lmd-provider-features">
+                    <span class="lmd-feature-tag">سيارات صغيرة</span>
+                    <span class="lmd-feature-tag">توصيل آمن</span>
+                    <span class="lmd-feature-tag">تأمين شامل</span>
+                    <span class="lmd-feature-tag">خدمة 24/7</span>
+                </div>
+                
+                <div class="lmd-provider-meta">
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>صنعاء، الحديدة</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>4 سنوات خبرة</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>80+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lmd-provider-pricing">
+                    <div class="lmd-price-label">يبدأ من</div>
+                    <div class="lmd-price-value">35 ريال</div>
+                    <div class="lmd-price-period">للتوصيل</div>
+                </div>
+                
+                <div class="lmd-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="express-delivery">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="express-delivery">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <div class="ld-card" data-action="view-provider" data-id="3">
-            <div class="ld-card-header">
-                <h3>سرعة للتوصيل المحلي</h3>
-                <span class="status-badge available">نشط</span>
-            </div>
-            <div class="ld-card-content">
-                <div class="ld-card-info">
-                    <div class="info-item">
-                        <div class="info-label">نوع المركبات:</div>
-                        <div class="info-value">دراجات نارية، سيارات صغيرة</div>
+            
+            <!-- Provider 3 -->
+            <div class="lmd-provider-card" data-provider="speed-delivery">
+                <div class="lmd-provider-header">
+                    <div class="lmd-provider-avatar">
+                        <i class="fas fa-shipping-fast"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">نطاق التغطية:</div>
-                        <div class="info-value">عدن، تعز، إب</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">عدد المركبات:</div>
-                        <div class="info-value">30 دراجة، 8 سيارات</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">معدل التوصيل:</div>
-                        <div class="ld-delivery-indicator">
-                            <div class="ld-delivery-bar" style="width: 78%"></div>
-                            <span>78%</span>
+                    <div class="lmd-provider-info">
+                        <h4 class="lmd-provider-name">سرعة للتوصيل المحلي</h4>
+                        <div class="lmd-provider-rating">
+                            <span class="lmd-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span class="lmd-rating-value">4.9</span>
                         </div>
                     </div>
                 </div>
-                <div class="ld-card-actions">
-                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="delivery-provider-details" data-id="3">التفاصيل</button>
+                
+                <div class="lmd-provider-description">
+                    خدمات توصيل محلية سريعة وموثوقة في جميع المدن
+                </div>
+                
+                <div class="lmd-provider-features">
+                    <span class="lmd-feature-tag">دراجات نارية</span>
+                    <span class="lmd-feature-tag">سيارات صغيرة</span>
+                    <span class="lmd-feature-tag">توصيل فوري</span>
+                    <span class="lmd-feature-tag">أسعار تنافسية</span>
+                </div>
+                
+                <div class="lmd-provider-meta">
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>عدن، تعز، إب</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8 سنوات خبرة</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>200+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lmd-provider-pricing">
+                    <div class="lmd-price-label">يبدأ من</div>
+                    <div class="lmd-price-value">20 ريال</div>
+                    <div class="lmd-price-period">للتوصيل</div>
+                </div>
+                
+                <div class="lmd-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="speed-delivery">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="speed-delivery">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Provider 4 -->
+            <div class="lmd-provider-card" data-provider="reliable-delivery">
+                <div class="lmd-provider-header">
+                    <div class="lmd-provider-avatar">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="lmd-provider-info">
+                        <h4 class="lmd-provider-name">الموثوق للتوصيل</h4>
+                        <div class="lmd-provider-rating">
+                            <span class="lmd-rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span class="lmd-rating-value">4.5</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lmd-provider-description">
+                    خدمات توصيل موثوقة مع ضمان الجودة والسرعة
+                </div>
+                
+                <div class="lmd-provider-features">
+                    <span class="lmd-feature-tag">شاحنات صغيرة</span>
+                    <span class="lmd-feature-tag">دراجات نارية</span>
+                    <span class="lmd-feature-tag">ضمان الجودة</span>
+                    <span class="lmd-feature-tag">تتبع مباشر</span>
+                </div>
+                
+                <div class="lmd-provider-meta">
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>جميع المدن</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>10 سنوات خبرة</span>
+                    </div>
+                    <div class="lmd-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>300+ عميل</span>
+                    </div>
+                </div>
+                
+                <div class="lmd-provider-pricing">
+                    <div class="lmd-price-label">يبدأ من</div>
+                    <div class="lmd-price-value">40 ريال</div>
+                    <div class="lmd-price-period">للتوصيل</div>
+                </div>
+                
+                <div class="lmd-provider-actions">
+                    <button class="btn btn-primary" data-action="contact" data-provider="reliable-delivery">
+                        <i class="fas fa-phone"></i>
+                        تواصل
+                    </button>
+                    <button class="btn btn-outline" data-action="view-details" data-provider="reliable-delivery">
+                        <i class="fas fa-eye"></i>
+                        التفاصيل
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <button class="floating-action-button" data-action="navigate" data-page="delivery-provider-form">
-        <span class="icon">+</span>
-    </button>
+    </section>
 </div>
+
+<!-- Floating Action Button -->
+<button class="floating-action-button" data-action="navigate" data-page="delivery-provider-form">
+    <span class="icon">+</span>
+</button>
