@@ -11,657 +11,550 @@
 
     <!-- Main Content -->
     <div class="content">
-        <!-- Revenue Summary -->
-        <section class="bil-billing-summary">
-            <div class="bil-summary-card">
-                <div class="bil-summary-icon">
-                    <i class="fas fa-ship"></i>
-                </div>
-                <div class="bil-summary-content">
-                    <div class="bil-summary-value">45,250 ريال</div>
-                    <div class="bil-summary-label">إيرادات الشحن</div>
-                    <div class="bil-summary-trend bil-positive">
-                        <i class="fas fa-arrow-up"></i>
-                        +18%
-                    </div>
-                </div>
+
+        <!-- Tab Navigation -->
+        <section class="bil-tab-navigation">
+            <div class="bil-tab-container">
+                <button class="bil-tab-btn bil-active" data-tab="overview">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>نظرة عامة</span>
+                </button>
+                <button class="bil-tab-btn" data-tab="invoices">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>الفواتير</span>
+                </button>
+                <button class="bil-tab-btn" data-tab="payments">
+                    <i class="fas fa-credit-card"></i>
+                    <span>المدفوعات</span>
+                </button>
+                <button class="bil-tab-btn" data-tab="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>الإعدادات</span>
+                </button>
             </div>
-            
-            <div class="bil-summary-card">
-                <div class="bil-summary-icon">
-                    <i class="fas fa-warehouse"></i>
-                </div>
-                <div class="bil-summary-content">
-                    <div class="bil-summary-value">28,400 ريال</div>
-                    <div class="bil-summary-label">إيرادات التخزين</div>
-                    <div class="bil-summary-trend bil-positive">
-                        <i class="fas fa-arrow-up"></i>
-                        +12%
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bil-summary-card">
-                <div class="bil-summary-icon">
-                    <i class="fas fa-truck"></i>
-                </div>
-                <div class="bil-summary-content">
-                    <div class="bil-summary-value">15,800 ريال</div>
-                    <div class="bil-summary-label">إيرادات النقل البري</div>
-                    <div class="bil-summary-trend bil-negative">
-                        <i class="fas fa-arrow-down"></i>
-                        -5%
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bil-summary-card">
-                <div class="bil-summary-icon">
-                    <i class="fas fa-cogs"></i>
-                </div>
-                <div class="bil-summary-content">
-                    <div class="bil-summary-value">8,950 ريال</div>
-                    <div class="bil-summary-label">إيرادات التخليص الجمركي</div>
-                    <div class="bil-summary-trend bil-positive">
-                        <i class="fas fa-arrow-up"></i>
-                        +8%
-                    </div>
-                </div>
-            </div>
+
         </section>
 
-        <!-- Quick Actions -->
-        <section class="bil-quick-actions">
-            <div class="bil-action-card" data-action="create-invoice">
-                <div class="bil-action-icon">
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="bil-action-content">
-                    <div class="bil-action-title">إنشاء فاتورة جديدة</div>
-                    <div class="bil-action-desc">إنشاء فاتورة للعميل مقابل الخدمات المقدمة</div>
-                </div>
-                <div class="bil-action-arrow">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-            </div>
-            
-            <div class="bil-action-card" data-action="export-reports">
-                <div class="bil-action-icon">
-                    <i class="fas fa-download"></i>
-                </div>
-                <div class="bil-action-content">
-                    <div class="bil-action-title">تصدير التقارير</div>
-                    <div class="bil-action-desc">تحميل تقارير الإيرادات والفواتير</div>
-                </div>
-                <div class="bil-action-arrow">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
+        <!-- Tab Content -->
+        <div class="bil-tab-content">
+            <!-- Overview Tab -->
+            <div class="bil-tab-panel bil-active" data-tab="overview">
+                <!-- Quick Actions -->
+                <section class="bil-quick-actions">
+                    <div class="bil-action-card" data-action="create-invoice">
+                        <div class="bil-action-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="bil-action-content">
+                            <div class="bil-action-title">إنشاء فاتورة جديدة</div>
+                            <div class="bil-action-desc">إنشاء فاتورة للعميل مقابل الخدمات المقدمة</div>
+                        </div>
+                        <div class="bil-action-arrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bil-action-card" data-action="export-reports">
+                        <div class="bil-action-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="bil-action-content">
+                            <div class="bil-action-title">تصدير التقارير</div>
+                            <div class="bil-action-desc">تحميل تقارير الإيرادات والفواتير</div>
+                        </div>
+                        <div class="bil-action-arrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                    </div>
+
+                    <div class="bil-action-card" data-action="bulk-reminders">
+                        <div class="bil-action-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="bil-action-content">
+                            <div class="bil-action-title">إرسال تذكيرات جماعية</div>
+                            <div class="bil-action-desc">إرسال تذكيرات للفواتير المتأخرة والمعلقة</div>
+                        </div>
+                        <div class="bil-action-arrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                    </div>
+
+                    <div class="bil-action-card" data-action="financial-reports">
+                        <div class="bil-action-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="bil-action-content">
+                            <div class="bil-action-title">التقارير المالية</div>
+                            <div class="bil-action-desc">عرض وتحليل الأداء المالي والخدمات</div>
+                        </div>
+                        <div class="bil-action-arrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Activity -->
+                <section class="bil-section-container">
+                    <div class="bil-section-header">
+                        <h3 class="bil-section-title">
+                            <i class="fas fa-clock bil-section-icon"></i> النشاط الأخير
+                        </h3>
+                        <a href="#" class="bil-section-link" data-action="navigate" data-page="all-activity">
+                            عرض الكل <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bil-activity-list">
+                        <div class="bil-activity-item">
+                            <div class="bil-activity-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <div class="bil-activity-content">
+                                <div class="bil-activity-title">تم إنشاء فاتورة جديدة #INV-2024-016</div>
+                                <div class="bil-activity-desc">شركة التقنية المتقدمة - شحن بحري</div>
+                                <div class="bil-activity-time">منذ 5 دقائق</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bil-activity-item">
+                            <div class="bil-activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="bil-activity-content">
+                                <div class="bil-activity-title">تم دفع فاتورة #INV-2024-011</div>
+                                <div class="bil-activity-desc">شركة الأغذية العالمية - 8,450 ريال</div>
+                                <div class="bil-activity-time">منذ ساعة واحدة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bil-activity-item">
+                            <div class="bil-activity-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="bil-activity-content">
+                                <div class="bil-activity-title">تم إرسال تذكير للفواتير المتأخرة</div>
+                                <div class="bil-activity-desc">3 فواتير متأخرة تم إرسال تذكيرات لها</div>
+                                <div class="bil-activity-time">منذ 3 ساعات</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <div class="bil-action-card" data-action="bulk-reminders">
-                <div class="bil-action-icon">
-                    <i class="fas fa-bell"></i>
+            <!-- Invoices Tab -->
+            <div class="bil-tab-panel" data-tab="invoices">
+                <!-- Search and Filters -->
+                <section class="bil-section-container">
+                    <div class="bil-section-header">
+                        <h3 class="bil-section-title">
+                            <i class="fas fa-search bil-section-icon"></i> البحث والتصفية
+                        </h3>
+                        <button class="bil-btn bil-btn-outline" data-action="clear-filters">
+                            <i class="fas fa-times"></i>
+                            مسح الفلاتر
+                        </button>
+                    </div>
+                    
+                    <div class="bil-search-filters">
+                        <div class="bil-search-row">
+                            <div class="bil-search-col">
+                                <input type="text" class="bil-search-input" placeholder="البحث في الفواتير..." data-filter="search">
+                            </div>
+                            <div class="bil-search-col">
+                                <select class="bil-search-select" data-filter="status">
+                                    <option value="">جميع الحالات</option>
+                                    <option value="pending">معلق</option>
+                                    <option value="paid">مدفوع</option>
+                                    <option value="overdue">متأخر</option>
+                                    <option value="partial">مدفوع جزئياً</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="bil-search-row">
+                            <div class="bil-search-col">
+                                <select class="bil-search-select" data-filter="serviceType">
+                                    <option value="">جميع الخدمات</option>
+                                    <option value="shipping">شحن</option>
+                                    <option value="storage">تخزين</option>
+                                    <option value="transport">نقل</option>
+                                    <option value="customs">جمارك</option>
+                                    <option value="packaging">تغليف</option>
+                                    <option value="lastmile">توصيل نهائي</option>
+                                </select>
+                            </div>
+                            <div class="bil-search-col">
+                                <input type="date" class="bil-search-input" placeholder="من تاريخ" data-filter="dateFrom">
+                            </div>
+                        </div>
+                        
+                        <div class="bil-search-row">
+                            <div class="bil-search-col">
+                                <input type="date" class="bil-search-input" placeholder="إلى تاريخ" data-filter="dateTo">
+                            </div>
+                            <div class="bil-search-col">
+                                <input type="number" class="bil-search-input" placeholder="الحد الأدنى للمبلغ" data-filter="minAmount">
+                            </div>
+                        </div>
+                        
+                        <div class="bil-search-row">
+                            <div class="bil-search-col">
+                                <input type="number" class="bil-search-input" placeholder="الحد الأقصى للمبلغ" data-filter="maxAmount">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bulk Actions Bar -->
+                <div class="bil-bulk-actions">
+                    <div class="bil-bulk-info">
+                        <i class="fas fa-check-square"></i>
+                        <span class="bil-bulk-count">0 فاتورة محددة</span>
+                    </div>
+                    <div class="bil-bulk-actions-buttons">
+                        <button class="bil-bulk-btn" data-action="send-reminders">
+                            <i class="fas fa-bell"></i>
+                            تذكيرات
+                        </button>
+                        <button class="bil-bulk-btn" data-action="export-selected">
+                            <i class="fas fa-download"></i>
+                            تصدير
+                        </button>
+                        <button class="bil-bulk-btn" data-action="apply-discount">
+                            <i class="fas fa-percentage"></i>
+                            خصم
+                        </button>
+                        <button class="bil-bulk-btn" data-action="mark-as-paid">
+                            <i class="fas fa-check"></i>
+                            مدفوع
+                        </button>
+                    </div>
                 </div>
-                <div class="bil-action-content">
-                    <div class="bil-action-title">إرسال تذكيرات جماعية</div>
-                    <div class="bil-action-desc">إرسال تذكيرات للفواتير المتأخرة والمعلقة</div>
-                </div>
-                <div class="bil-action-arrow">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
+
+                <!-- Client Invoices -->
+                <section class="bil-section-container">
+                    <div class="bil-section-header">
+                        <h3 class="bil-section-title">
+                            <i class="fas fa-file-invoice bil-section-icon"></i> فواتير العملاء
+                        </h3>
+                        <a href="#" class="bil-section-link" data-action="navigate" data-page="all-invoices">
+                            عرض الكل <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bil-invoices-list">
+                        <div class="bil-invoice-item bil-urgent">
+                            <div class="bil-invoice-header">
+                                <div class="bil-invoice-checkbox-container">
+                                    <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-015">
+                                </div>
+                                <div class="bil-invoice-number">#INV-2024-015</div>
+                                <div class="bil-invoice-status bil-overdue">متأخر</div>
+                            </div>
+                            <div class="bil-invoice-content">
+                                <div class="bil-invoice-info">
+                                    <div class="bil-invoice-title">شركة التقنية المتقدمة - شحن بحري - ديسمبر 2024</div>
+                                    <div class="bil-invoice-details">
+                                        <span class="bil-invoice-date">20 ديسمبر 2024</span>
+                                        <span class="bil-invoice-due bil-overdue">متأخر: 15 ديسمبر 2024</span>
+                                    </div>
+                                    <div class="bil-invoice-services">
+                                        <span class="bil-service-tag">شحن بحري</span>
+                                        <span class="bil-service-tag">تخليص جمركي</span>
+                                        <span class="bil-service-tag">تأمين</span>
+                                    </div>
+                                </div>
+                                <div class="bil-invoice-amount">12,450 ريال</div>
+                            </div>
+                            <div class="bil-invoice-actions">
+                                <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                                    <i class="fas fa-eye"></i>
+                                    عرض
+                                </button>
+                                <button class="bil-btn bil-btn-danger" data-action="send-reminder">
+                                    <i class="fas fa-bell"></i>
+                                    تذكير
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bil-invoice-item">
+                            <div class="bil-invoice-header">
+                                <div class="bil-invoice-checkbox-container">
+                                    <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-014">
+                                </div>
+                                <div class="bil-invoice-number">#INV-2024-014</div>
+                                <div class="bil-invoice-status bil-pending">معلق</div>
+                            </div>
+                            <div class="bil-invoice-content">
+                                <div class="bil-invoice-info">
+                                    <div class="bil-invoice-title">شركة الأغذية العالمية - تخزين بارد - ديسمبر 2024</div>
+                                    <div class="bil-invoice-details">
+                                        <span class="bil-invoice-date">18 ديسمبر 2024</span>
+                                        <span class="bil-invoice-due">استحقاق: 31 ديسمبر 2024</span>
+                                    </div>
+                                    <div class="bil-invoice-services">
+                                        <span class="bil-service-tag">تخزين بارد</span>
+                                        <span class="bil-service-tag">إدارة مخزون</span>
+                                        <span class="bil-service-tag">تتبع GPS</span>
+                                    </div>
+                                </div>
+                                <div class="bil-invoice-amount">8,800 ريال</div>
+                            </div>
+                            <div class="bil-invoice-actions">
+                                <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                                    <i class="fas fa-eye"></i>
+                                    عرض
+                                </button>
+                                <button class="bil-btn bil-btn-primary" data-action="send-invoice">
+                                    <i class="fas fa-paper-plane"></i>
+                                    إرسال
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bil-invoice-item">
+                            <div class="bil-invoice-header">
+                                <div class="bil-invoice-checkbox-container">
+                                    <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-013">
+                                </div>
+                                <div class="bil-invoice-number">#INV-2024-013</div>
+                                <div class="bil-invoice-status bil-paid">مدفوع</div>
+                            </div>
+                            <div class="bil-invoice-content">
+                                <div class="bil-invoice-info">
+                                    <div class="bil-invoice-title">شركة النقل السريع - نقل بري - نوفمبر 2024</div>
+                                    <div class="bil-invoice-details">
+                                        <span class="bil-invoice-date">30 نوفمبر 2024</span>
+                                        <span class="bil-invoice-paid">مدفوع: 15 ديسمبر 2024</span>
+                                    </div>
+                                    <div class="bil-invoice-services">
+                                        <span class="bil-service-tag">نقل بري</span>
+                                        <span class="bil-service-tag">تتبع مباشر</span>
+                                        <span class="bil-service-tag">تأمين</span>
+                                    </div>
+                                </div>
+                                <div class="bil-invoice-amount">5,950 ريال</div>
+                            </div>
+                            <div class="bil-invoice-actions">
+                                <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                                    <i class="fas fa-eye"></i>
+                                    عرض
+                                </button>
+                                <button class="bil-btn bil-btn-outline" data-action="download-invoice">
+                                    <i class="fas fa-download"></i>
+                                    تحميل
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <div class="bil-action-card" data-action="financial-reports">
-                <div class="bil-action-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="bil-action-content">
-                    <div class="bil-action-title">التقارير المالية</div>
-                    <div class="bil-action-desc">عرض وتحليل الأداء المالي والخدمات</div>
-                </div>
-                <div class="bil-action-arrow">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-            </div>
-        </section>
+            <!-- Payments Tab -->
+            <div class="bil-tab-panel" data-tab="payments">
+                <!-- Payment Methods -->
+                <section class="bil-section-container">
+                    <div class="bil-section-header">
+                        <h3 class="bil-section-title">
+                            <i class="fas fa-credit-card bil-section-icon"></i> طرق دفع العملاء
+                        </h3>
+                        <button class="bil-btn bil-btn-outline" data-action="navigate" data-page="add-payment-method">
+                            <i class="fas fa-plus"></i>
+                            إضافة طريقة دفع
+                        </button>
+                    </div>
+                    
+                    <div class="bil-payment-methods">
+                        <div class="bil-payment-method bil-active">
+                            <div class="bil-method-icon">
+                                <i class="fab fa-cc-visa"></i>
+                            </div>
+                            <div class="bil-method-info">
+                                <div class="bil-method-name">Visa - عميل افتراضي</div>
+                                <div class="bil-method-expiry">تنتهي في 12/25</div>
+                                <div class="bil-method-limit">الحد الأقصى: 100,000 ريال</div>
+                            </div>
+                            <div class="bil-method-status">مقبول</div>
+                        </div>
+                        
+                        <div class="bil-payment-method">
+                            <div class="bil-method-icon">
+                                <i class="fab fa-cc-mastercard"></i>
+                            </div>
+                            <div class="bil-method-info">
+                                <div class="bil-method-name">Mastercard - عميل افتراضي</div>
+                                <div class="bil-method-expiry">تنتهي في 08/26</div>
+                                <div class="bil-method-limit">الحد الأقصى: 150,000 ريال</div>
+                            </div>
+                            <div class="bil-method-actions">
+                                <button class="bil-action-btn" data-action="set-default">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button class="bil-action-btn" data-action="remove-method">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bil-payment-method">
+                            <div class="bil-method-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="bil-method-info">
+                                <div class="bil-method-name">تحويل بنكي</div>
+                                <div class="bil-method-details">البنك الأهلي السعودي</div>
+                                <div class="bil-method-limit">حساب: 1234567890</div>
+                            </div>
+                            <div class="bil-method-actions">
+                                <button class="bil-action-btn" data-action="set-default">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button class="bil-action-btn" data-action="remove-method">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Advanced Search and Filters -->
-        <section class="bil-section-container">
-            <div class="bil-section-header">
-                <h3 class="bil-section-title">
-                    <i class="fas fa-search bil-section-icon"></i> البحث والتصفية
-                </h3>
-                <button class="bil-btn bil-btn-outline" data-action="clear-filters">
-                    <i class="fas fa-times"></i>
-                    مسح الفلاتر
-                </button>
+                <!-- Revenue History -->
+                <section class="bil-section-container">
+                    <div class="bil-section-header">
+                        <h3 class="bil-section-title">
+                            <i class="fas fa-history bil-section-icon"></i> سجل الإيرادات
+                        </h3>
+                        <button class="bil-btn bil-btn-outline" data-action="export-revenue">
+                            <i class="fas fa-download"></i>
+                            تصدير
+                        </button>
+                    </div>
+                    
+                    <div class="bil-payment-history">
+                        <div class="bil-payment-item">
+                            <div class="bil-payment-icon">
+                                <i class="fab fa-cc-visa"></i>
+                            </div>
+                            <div class="bil-payment-info">
+                                <div class="bil-payment-title">دفع فاتورة شحن بحري #INV-2024-011</div>
+                                <div class="bil-payment-details">شركة التقنية المتقدمة - Visa</div>
+                                <div class="bil-payment-date">15 ديسمبر 2024 - 14:30</div>
+                            </div>
+                            <div class="bil-payment-amount">+8,450 ريال</div>
+                            <div class="bil-payment-status bil-completed">مكتمل</div>
+                        </div>
+                        
+                        <div class="bil-payment-item">
+                            <div class="bil-payment-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="bil-payment-info">
+                                <div class="bil-payment-title">تحويل بنكي - فاتورة تخزين #INV-2024-010</div>
+                                <div class="bil-payment-details">شركة الأغذية العالمية - البنك الأهلي</div>
+                                <div class="bil-payment-date">10 ديسمبر 2024 - 09:15</div>
+                            </div>
+                            <div class="bil-payment-amount">+6,800 ريال</div>
+                            <div class="bil-payment-status bil-completed">مكتمل</div>
+                        </div>
+                        
+                        <div class="bil-payment-item">
+                            <div class="bil-payment-icon">
+                                <i class="fab fa-cc-mastercard"></i>
+                            </div>
+                            <div class="bil-payment-info">
+                                <div class="bil-payment-title">دفع فاتورة نقل بري #INV-2024-009</div>
+                                <div class="bil-payment-details">شركة النقل السريع - Mastercard</div>
+                                <div class="bil-payment-date">5 ديسمبر 2024 - 16:45</div>
+                            </div>
+                            <div class="bil-payment-amount">+4,750 ريال</div>
+                            <div class="bil-payment-status bil-completed">مكتمل</div>
+                        </div>
+                    </div>
+                </section>
             </div>
-            
-            <div class="bil-search-filters">
-                <div class="bil-search-row">
-                    <div class="bil-search-col">
-                        <input type="text" class="bil-search-input" placeholder="البحث في الفواتير..." data-filter="search">
-                    </div>
-                    <div class="bil-search-col">
-                        <select class="bil-search-select" data-filter="status">
-                            <option value="">جميع الحالات</option>
-                            <option value="pending">معلق</option>
-                            <option value="paid">مدفوع</option>
-                            <option value="overdue">متأخر</option>
-                            <option value="partial">مدفوع جزئياً</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="bil-search-row">
-                    <div class="bil-search-col">
-                        <select class="bil-search-select" data-filter="serviceType">
-                            <option value="">جميع الخدمات</option>
-                            <option value="shipping">شحن</option>
-                            <option value="storage">تخزين</option>
-                            <option value="transport">نقل</option>
-                            <option value="customs">جمارك</option>
-                            <option value="packaging">تغليف</option>
-                            <option value="lastmile">توصيل نهائي</option>
-                        </select>
-                    </div>
-                    <div class="bil-search-col">
-                        <input type="date" class="bil-search-input" placeholder="من تاريخ" data-filter="dateFrom">
-                    </div>
-                </div>
-                
-                <div class="bil-search-row">
-                    <div class="bil-search-col">
-                        <input type="date" class="bil-search-input" placeholder="إلى تاريخ" data-filter="dateTo">
-                    </div>
-                    <div class="bil-search-col">
-                        <input type="number" class="bil-search-input" placeholder="الحد الأدنى للمبلغ" data-filter="minAmount">
-                    </div>
-                </div>
-                
-                <div class="bil-search-row">
-                    <div class="bil-search-col">
-                        <input type="number" class="bil-search-input" placeholder="الحد الأقصى للمبلغ" data-filter="maxAmount">
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Bulk Actions Bar -->
-        <div class="bil-bulk-actions">
-            <div class="bil-bulk-info">
-                <i class="fas fa-check-square"></i>
-                <span class="bil-bulk-count">0 فاتورة محددة</span>
-            </div>
-            <div class="bil-bulk-actions-buttons">
-                <button class="bil-bulk-btn" data-action="send-reminders">
-                    <i class="fas fa-bell"></i>
-                    تذكيرات
-                </button>
-                <button class="bil-bulk-btn" data-action="export-selected">
-                    <i class="fas fa-download"></i>
-                    تصدير
-                </button>
-                <button class="bil-bulk-btn" data-action="apply-discount">
-                    <i class="fas fa-percentage"></i>
-                    خصم
-                </button>
-                <button class="bil-bulk-btn" data-action="mark-as-paid">
-                    <i class="fas fa-check"></i>
-                    مدفوع
-                </button>
+
+
+            <!-- Settings Tab -->
+            <div class="bil-tab-panel" data-tab="settings">
+                <!-- Billing Settings -->
+                <section class="bil-section-container">
+                    <div class="bil-section-header">
+                        <h3 class="bil-section-title">
+                            <i class="fas fa-cog bil-section-icon"></i> إعدادات الفواتير
+                        </h3>
+                    </div>
+                    
+                    <div class="bil-billing-settings">
+                        <div class="bil-setting-item">
+                            <div class="bil-setting-info">
+                                <div class="bil-setting-title">إشعارات الفواتير</div>
+                                <div class="bil-setting-desc">استلام إشعارات عند إنشاء فواتير جديدة</div>
+                            </div>
+                            <label class="bil-switch">
+                                <input type="checkbox" checked>
+                                <span class="bil-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="bil-setting-item">
+                            <div class="bil-setting-info">
+                                <div class="bil-setting-title">تذكير الدفع</div>
+                                <div class="bil-setting-desc">تذكير العملاء قبل 3 أيام من موعد الاستحقاق</div>
+                            </div>
+                            <label class="bil-switch">
+                                <input type="checkbox" checked>
+                                <span class="bil-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="bil-setting-item">
+                            <div class="bil-setting-info">
+                                <div class="bil-setting-title">الدفع التلقائي</div>
+                                <div class="bil-setting-desc">قبول المدفوعات التلقائية من العملاء</div>
+                            </div>
+                            <label class="bil-switch">
+                                <input type="checkbox">
+                                <span class="bil-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="bil-setting-item">
+                            <div class="bil-setting-info">
+                                <div class="bil-setting-title">فواتير PDF</div>
+                                <div class="bil-setting-desc">إرسال نسخة PDF من الفواتير للعملاء</div>
+                            </div>
+                            <label class="bil-switch">
+                                <input type="checkbox" checked>
+                                <span class="bil-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="bil-setting-item">
+                            <div class="bil-setting-info">
+                                <div class="bil-setting-title">تحديثات تلقائية</div>
+                                <div class="bil-setting-desc">تحديث حالة الفواتير تلقائياً</div>
+                            </div>
+                            <label class="bil-switch">
+                                <input type="checkbox" checked>
+                                <span class="bil-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="bil-setting-item">
+                            <div class="bil-setting-info">
+                                <div class="bil-setting-title">تقارير شهرية</div>
+                                <div class="bil-setting-desc">إرسال تقرير شهري بالإيرادات للعملاء</div>
+                            </div>
+                            <label class="bil-switch">
+                                <input type="checkbox">
+                                <span class="bil-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
-
-        <!-- Payment Methods (Client Payment Methods) -->
-        <section class="bil-section-container">
-            <div class="bil-section-header">
-                <h3 class="bil-section-title">
-                    <i class="fas fa-credit-card bil-section-icon"></i> طرق دفع العملاء
-                </h3>
-                <button class="bil-btn bil-btn-outline" data-action="navigate" data-page="add-payment-method">
-                    <i class="fas fa-plus"></i>
-                    إضافة طريقة دفع
-                </button>
-            </div>
-            
-            <div class="bil-payment-methods">
-                <div class="bil-payment-method bil-active">
-                    <div class="bil-method-icon">
-                        <i class="fab fa-cc-visa"></i>
-                    </div>
-                    <div class="bil-method-info">
-                        <div class="bil-method-name">Visa - عميل افتراضي</div>
-                        <div class="bil-method-expiry">تنتهي في 12/25</div>
-                        <div class="bil-method-limit">الحد الأقصى: 100,000 ريال</div>
-                    </div>
-                    <div class="bil-method-status">مقبول</div>
-                </div>
-                
-                <div class="bil-payment-method">
-                    <div class="bil-method-icon">
-                        <i class="fab fa-cc-mastercard"></i>
-                    </div>
-                    <div class="bil-method-info">
-                        <div class="bil-method-name">Mastercard - عميل افتراضي</div>
-                        <div class="bil-method-expiry">تنتهي في 08/26</div>
-                        <div class="bil-method-limit">الحد الأقصى: 150,000 ريال</div>
-                    </div>
-                    <div class="bil-method-actions">
-                        <button class="bil-action-btn" data-action="set-default">
-                            <i class="fas fa-star"></i>
-                        </button>
-                        <button class="bil-action-btn" data-action="remove-method">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-payment-method">
-                    <div class="bil-method-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="bil-method-info">
-                        <div class="bil-method-name">تحويل بنكي</div>
-                        <div class="bil-method-details">البنك الأهلي السعودي</div>
-                        <div class="bil-method-limit">حساب: 1234567890</div>
-                    </div>
-                    <div class="bil-method-actions">
-                        <button class="bil-action-btn" data-action="set-default">
-                            <i class="fas fa-star"></i>
-                        </button>
-                        <button class="bil-action-btn" data-action="remove-method">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-payment-method">
-                    <div class="bil-method-icon">
-                        <i class="fab fa-cc-paypal"></i>
-                    </div>
-                    <div class="bil-method-info">
-                        <div class="bil-method-name">PayPal</div>
-                        <div class="bil-method-details">user@example.com</div>
-                        <div class="bil-method-limit">متصل بالحساب المصرفي</div>
-                    </div>
-                    <div class="bil-method-actions">
-                        <button class="bil-action-btn" data-action="set-default">
-                            <i class="fas fa-star"></i>
-                        </button>
-                        <button class="bil-action-btn" data-action="remove-method">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Client Invoices -->
-        <section class="bil-section-container">
-            <div class="bil-section-header">
-                <h3 class="bil-section-title">
-                    <i class="fas fa-file-invoice bil-section-icon"></i> فواتير العملاء
-                </h3>
-                <a href="#" class="bil-section-link" data-action="navigate" data-page="all-invoices">
-                    عرض الكل <i class="fas fa-chevron-left"></i>
-                </a>
-            </div>
-            
-            <div class="bil-invoices-list">
-                <div class="bil-invoice-item bil-urgent">
-                    <div class="bil-invoice-header">
-                        <div class="bil-invoice-checkbox-container">
-                            <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-015">
-                        </div>
-                        <div class="bil-invoice-number">#INV-2024-015</div>
-                        <div class="bil-invoice-status bil-overdue">متأخر</div>
-                    </div>
-                    <div class="bil-invoice-content">
-                        <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">شركة التقنية المتقدمة - شحن بحري - ديسمبر 2024</div>
-                            <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">20 ديسمبر 2024</span>
-                                <span class="bil-invoice-due bil-overdue">متأخر: 15 ديسمبر 2024</span>
-                            </div>
-                            <div class="bil-invoice-services">
-                                <span class="bil-service-tag">شحن بحري</span>
-                                <span class="bil-service-tag">تخليص جمركي</span>
-                                <span class="bil-service-tag">تأمين</span>
-                            </div>
-                        </div>
-                        <div class="bil-invoice-amount">12,450 ريال</div>
-                    </div>
-                    <div class="bil-invoice-actions">
-                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
-                            <i class="fas fa-eye"></i>
-                            عرض
-                        </button>
-                        <button class="bil-btn bil-btn-danger" data-action="send-reminder">
-                            <i class="fas fa-bell"></i>
-                            تذكير
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-invoice-item">
-                    <div class="bil-invoice-header">
-                        <div class="bil-invoice-checkbox-container">
-                            <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-014">
-                        </div>
-                        <div class="bil-invoice-number">#INV-2024-014</div>
-                        <div class="bil-invoice-status bil-pending">معلق</div>
-                    </div>
-                    <div class="bil-invoice-content">
-                        <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">شركة الأغذية العالمية - تخزين بارد - ديسمبر 2024</div>
-                            <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">18 ديسمبر 2024</span>
-                                <span class="bil-invoice-due">استحقاق: 31 ديسمبر 2024</span>
-                            </div>
-                            <div class="bil-invoice-services">
-                                <span class="bil-service-tag">تخزين بارد</span>
-                                <span class="bil-service-tag">إدارة مخزون</span>
-                                <span class="bil-service-tag">تتبع GPS</span>
-                            </div>
-                        </div>
-                        <div class="bil-invoice-amount">8,800 ريال</div>
-                    </div>
-                    <div class="bil-invoice-actions">
-                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
-                            <i class="fas fa-eye"></i>
-                            عرض
-                        </button>
-                        <button class="bil-btn bil-btn-primary" data-action="send-invoice">
-                            <i class="fas fa-paper-plane"></i>
-                            إرسال
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-invoice-item">
-                    <div class="bil-invoice-header">
-                        <div class="bil-invoice-checkbox-container">
-                            <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-013">
-                        </div>
-                        <div class="bil-invoice-number">#INV-2024-013</div>
-                        <div class="bil-invoice-status bil-paid">مدفوع</div>
-                    </div>
-                    <div class="bil-invoice-content">
-                        <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">شركة النقل السريع - نقل بري - نوفمبر 2024</div>
-                            <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">30 نوفمبر 2024</span>
-                                <span class="bil-invoice-paid">مدفوع: 15 ديسمبر 2024</span>
-                            </div>
-                            <div class="bil-invoice-services">
-                                <span class="bil-service-tag">نقل بري</span>
-                                <span class="bil-service-tag">تتبع مباشر</span>
-                                <span class="bil-service-tag">تأمين</span>
-                            </div>
-                        </div>
-                        <div class="bil-invoice-amount">5,950 ريال</div>
-                    </div>
-                    <div class="bil-invoice-actions">
-                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
-                            <i class="fas fa-eye"></i>
-                            عرض
-                        </button>
-                        <button class="bil-btn bil-btn-outline" data-action="download-invoice">
-                            <i class="fas fa-download"></i>
-                            تحميل
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-invoice-item">
-                    <div class="bil-invoice-header">
-                        <div class="bil-invoice-checkbox-container">
-                            <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-012">
-                        </div>
-                        <div class="bil-invoice-number">#INV-2024-012</div>
-                        <div class="bil-invoice-status bil-pending">معلق</div>
-                    </div>
-                    <div class="bil-invoice-content">
-                        <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">شركة الإلكترونيات الحديثة - تخليص جمركي - ديسمبر 2024</div>
-                            <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">16 ديسمبر 2024</span>
-                                <span class="bil-invoice-due">استحقاق: 30 ديسمبر 2024</span>
-                            </div>
-                            <div class="bil-invoice-services">
-                                <span class="bil-service-tag">تخليص جمركي</span>
-                                <span class="bil-service-tag">وثائق شحن</span>
-                                <span class="bil-service-tag">فحص جمركي</span>
-                            </div>
-                        </div>
-                        <div class="bil-invoice-amount">3,850 ريال</div>
-                    </div>
-                    <div class="bil-invoice-actions">
-                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
-                            <i class="fas fa-eye"></i>
-                            عرض
-                        </button>
-                        <button class="bil-btn bil-btn-primary" data-action="send-invoice">
-                            <i class="fas fa-paper-plane"></i>
-                            إرسال
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-invoice-item">
-                    <div class="bil-invoice-header">
-                        <div class="bil-invoice-checkbox-container">
-                            <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-011">
-                        </div>
-                        <div class="bil-invoice-number">#INV-2024-011</div>
-                        <div class="bil-invoice-status bil-pending">معلق</div>
-                    </div>
-                    <div class="bil-invoice-content">
-                        <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">شركة التوصيل السريع - توصيل نهائي - ديسمبر 2024</div>
-                            <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">14 ديسمبر 2024</span>
-                                <span class="bil-invoice-due">استحقاق: 28 ديسمبر 2024</span>
-                            </div>
-                            <div class="bil-invoice-services">
-                                <span class="bil-service-tag">توصيل داخلي</span>
-                                <span class="bil-service-tag">تتبع مباشر</span>
-                                <span class="bil-service-tag">توقيع إلكتروني</span>
-                            </div>
-                        </div>
-                        <div class="bil-invoice-amount">2,200 ريال</div>
-                    </div>
-                    <div class="bil-invoice-actions">
-                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
-                            <i class="fas fa-eye"></i>
-                            عرض
-                        </button>
-                        <button class="bil-btn bil-btn-primary" data-action="send-invoice">
-                            <i class="fas fa-paper-plane"></i>
-                            إرسال
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bil-invoice-item">
-                    <div class="bil-invoice-header">
-                        <div class="bil-invoice-checkbox-container">
-                            <input type="checkbox" class="bil-invoice-checkbox" data-invoice-id="INV-2024-010">
-                        </div>
-                        <div class="bil-invoice-number">#INV-2024-010</div>
-                        <div class="bil-invoice-status bil-pending">معلق</div>
-                    </div>
-                    <div class="bil-invoice-content">
-                        <div class="bil-invoice-info">
-                            <div class="bil-invoice-title">شركة الهدايا الفاخرة - تغليف وتعبئة - ديسمبر 2024</div>
-                            <div class="bil-invoice-details">
-                                <span class="bil-invoice-date">12 ديسمبر 2024</span>
-                                <span class="bil-invoice-due">استحقاق: 26 ديسمبر 2024</span>
-                            </div>
-                            <div class="bil-invoice-services">
-                                <span class="bil-service-tag">تغليف خاص</span>
-                                <span class="bil-service-tag">تعبئة آمنة</span>
-                                <span class="bil-service-tag">طباعة تخصيصية</span>
-                            </div>
-                        </div>
-                        <div class="bil-invoice-amount">1,800 ريال</div>
-                    </div>
-                    <div class="bil-invoice-actions">
-                        <button class="bil-btn bil-btn-outline" data-action="view-invoice">
-                            <i class="fas fa-eye"></i>
-                            عرض
-                        </button>
-                        <button class="bil-btn bil-btn-primary" data-action="send-invoice">
-                            <i class="fas fa-paper-plane"></i>
-                            إرسال
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Revenue History -->
-        <section class="bil-section-container">
-            <div class="bil-section-header">
-                <h3 class="bil-section-title">
-                    <i class="fas fa-history bil-section-icon"></i> سجل الإيرادات
-                </h3>
-                <button class="bil-btn bil-btn-outline" data-action="export-revenue">
-                    <i class="fas fa-download"></i>
-                    تصدير
-                </button>
-            </div>
-            
-            <div class="bil-payment-history">
-                <div class="bil-payment-item">
-                    <div class="bil-payment-icon">
-                        <i class="fab fa-cc-visa"></i>
-                    </div>
-                    <div class="bil-payment-info">
-                        <div class="bil-payment-title">دفع فاتورة شحن بحري #INV-2024-011</div>
-                        <div class="bil-payment-details">شركة التقنية المتقدمة - Visa</div>
-                        <div class="bil-payment-date">15 ديسمبر 2024 - 14:30</div>
-                    </div>
-                    <div class="bil-payment-amount">+8,450 ريال</div>
-                    <div class="bil-payment-status bil-completed">مكتمل</div>
-                </div>
-                
-                <div class="bil-payment-item">
-                    <div class="bil-payment-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="bil-payment-info">
-                        <div class="bil-payment-title">تحويل بنكي - فاتورة تخزين #INV-2024-010</div>
-                        <div class="bil-payment-details">شركة الأغذية العالمية - البنك الأهلي</div>
-                        <div class="bil-payment-date">10 ديسمبر 2024 - 09:15</div>
-                    </div>
-                    <div class="bil-payment-amount">+6,800 ريال</div>
-                    <div class="bil-payment-status bil-completed">مكتمل</div>
-                </div>
-                
-                <div class="bil-payment-item">
-                    <div class="bil-payment-icon">
-                        <i class="fab fa-cc-mastercard"></i>
-                    </div>
-                    <div class="bil-payment-info">
-                        <div class="bil-payment-title">دفع فاتورة نقل بري #INV-2024-009</div>
-                        <div class="bil-payment-details">شركة النقل السريع - Mastercard</div>
-                        <div class="bil-payment-date">5 ديسمبر 2024 - 16:45</div>
-                    </div>
-                    <div class="bil-payment-amount">+4,750 ريال</div>
-                    <div class="bil-payment-status bil-completed">مكتمل</div>
-                </div>
-                
-                <div class="bil-payment-item">
-                    <div class="bil-payment-icon">
-                        <i class="fab fa-cc-paypal"></i>
-                    </div>
-                    <div class="bil-payment-info">
-                        <div class="bil-payment-title">دفع فاتورة تخليص جمركي #INV-2024-008</div>
-                        <div class="bil-payment-details">شركة الإلكترونيات الحديثة - PayPal</div>
-                        <div class="bil-payment-date">30 نوفمبر 2024 - 11:20</div>
-                    </div>
-                    <div class="bil-payment-amount">+3,100 ريال</div>
-                    <div class="bil-payment-status bil-completed">مكتمل</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Billing Settings -->
-        <section class="bil-section-container">
-            <div class="bil-section-header">
-                <h3 class="bil-section-title">
-                    <i class="fas fa-cog bil-section-icon"></i> إعدادات الفواتير
-                </h3>
-            </div>
-            
-            <div class="bil-billing-settings">
-                <div class="bil-setting-item">
-                    <div class="bil-setting-info">
-                        <div class="bil-setting-title">إشعارات الفواتير</div>
-                        <div class="bil-setting-desc">استلام إشعارات عند إنشاء فواتير جديدة</div>
-                    </div>
-                    <label class="bil-switch">
-                        <input type="checkbox" checked>
-                        <span class="bil-slider"></span>
-                    </label>
-                </div>
-                
-                <div class="bil-setting-item">
-                    <div class="bil-setting-info">
-                        <div class="bil-setting-title">تذكير الدفع</div>
-                        <div class="bil-setting-desc">تذكير العملاء قبل 3 أيام من موعد الاستحقاق</div>
-                    </div>
-                    <label class="bil-switch">
-                        <input type="checkbox" checked>
-                        <span class="bil-slider"></span>
-                    </label>
-                </div>
-                
-                <div class="bil-setting-item">
-                    <div class="bil-setting-info">
-                        <div class="bil-setting-title">الدفع التلقائي</div>
-                        <div class="bil-setting-desc">قبول المدفوعات التلقائية من العملاء</div>
-                    </div>
-                    <label class="bil-switch">
-                        <input type="checkbox">
-                        <span class="bil-slider"></span>
-                    </label>
-                </div>
-                
-                <div class="bil-setting-item">
-                    <div class="bil-setting-info">
-                        <div class="bil-setting-title">فواتير PDF</div>
-                        <div class="bil-setting-desc">إرسال نسخة PDF من الفواتير للعملاء</div>
-                    </div>
-                    <label class="bil-switch">
-                        <input type="checkbox" checked>
-                        <span class="bil-slider"></span>
-                    </label>
-                </div>
-                
-                <div class="bil-setting-item">
-                    <div class="bil-setting-info">
-                        <div class="bil-setting-title">تحديثات تلقائية</div>
-                        <div class="bil-setting-desc">تحديث حالة الفواتير تلقائياً</div>
-                    </div>
-                    <label class="bil-switch">
-                        <input type="checkbox" checked>
-                        <span class="bil-slider"></span>
-                    </label>
-                </div>
-                
-                <div class="bil-setting-item">
-                    <div class="bil-setting-info">
-                        <div class="bil-setting-title">تقارير شهرية</div>
-                        <div class="bil-setting-desc">إرسال تقرير شهري بالإيرادات للعملاء</div>
-                    </div>
-                    <label class="bil-switch">
-                        <input type="checkbox">
-                        <span class="bil-slider"></span>
-                    </label>
-                </div>
-            </div>
-        </section>
     </div>
+

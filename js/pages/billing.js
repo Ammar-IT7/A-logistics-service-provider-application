@@ -1,3 +1,6 @@
+// Global flag to prevent multiple initializations
+let BillingControllerInitialized = false;
+
 /**
  * Billing Controller - Service Provider Revenue Management
  */
@@ -6,12 +9,6 @@ const BillingController = {
      * Billing data structure - Service Provider Revenue Focus
      */
     data: {
-        summary: {
-            totalRevenue: 98750,
-            pendingInvoices: 12,
-            daysUntilDue: 3,
-            onTimePaymentRate: 94
-        },
         clientPaymentMethods: [
             {
                 id: 1,
@@ -101,15 +98,15 @@ const BillingController = {
             {
                 id: 'INV-2024-011',
                 client: 'شركة التوصيل السريع',
-                title: 'توصيل نهائي - شحنة من جدة إلى الرياض - ديسمبر 2024',
+                title: 'توصيل نهائي - شحنة من الرياض إلى الدمام - ديسمبر 2024',
                 amount: 2200,
                 status: 'pending',
                 date: '14 ديسمبر 2024',
                 dueDate: '28 ديسمبر 2024',
                 services: ['توصيل داخلي', 'تتبع مباشر', 'توقيع إلكتروني'],
                 serviceType: 'lastmile',
-                deliveryArea: 'وسط الرياض',
-                vehicleType: 'دراجات نارية'
+                route: 'الرياض - الدمام',
+                deliveryType: 'توصيل منزل'
             },
             {
                 id: 'INV-2024-010',
@@ -121,7 +118,8 @@ const BillingController = {
                 dueDate: '26 ديسمبر 2024',
                 services: ['تغليف خاص', 'تعبئة آمنة', 'طباعة تخصيصية'],
                 serviceType: 'packaging',
-                packagingType: 'تغليف فاخر'
+                packagingType: 'تغليف فاخر',
+                specialRequirements: 'طباعة شعار الشركة'
             }
         ],
         revenueHistory: [
@@ -215,101 +213,355 @@ const BillingController = {
         }
     },
 
+    // Flag to prevent multiple initializations
+    initialized: false,
+
     /**
      * Initialize the billing page
      */
     init: function() {
-        console.log('BillingController initialized - Service Provider Revenue Management');
+        if (BillingControllerInitialized) {
+            console.log('BillingController already initialized globally.');
+            return;
+        }
+        
+        if (this.initialized) {
+            console.log('BillingController already initialized locally.');
+            return;
+        }
+        
+        console.log('BillingController initializing...');
         this.setupEventListeners();
         this.loadBillingData();
         this.addAnimations();
         this.setupRealTimeUpdates();
         this.optimizeForMobile();
+        this.initializeTabFromHash();
+        this.initializeDefaultTabState();
+        
+        this.initialized = true;
+        BillingControllerInitialized = true;
+        console.log('BillingController initialization complete');
     },
     
     /**
-     * Set up page-specific event listeners
+     * Set up event listeners
      */
     setupEventListeners: function() {
-        const billingPage = document.getElementById('billing');
-        if (!billingPage) return;
+        // Tab navigation
+        const tabButtons = document.querySelectorAll('.bil-tab-btn');
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.switchTab(e.target.closest('.bil-tab-btn'));
+            });
+        });
+
+        // Quick actions
+        document.querySelectorAll('.bil-action-card').forEach(card => {
+            card.addEventListener('click', (e) => this.handleQuickAction(e.currentTarget.dataset.action));
+        });
+
+        // Invoice actions
+        document.querySelectorAll('[data-action]').forEach(element => {
+            element.addEventListener('click', (e) => this.handleInvoiceAction(e.currentTarget.dataset.action, e.currentTarget));
+        });
+
+        // Invoice selection
+        document.querySelectorAll('.bil-invoice-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => this.handleInvoiceSelection(e.target));
+        });
+
+        // Bulk actions
+        document.querySelectorAll('.bil-bulk-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.handleBulkAction(e.currentTarget.dataset.action));
+        });
+
+        // Search and filters
+        document.querySelectorAll('[data-filter]').forEach(input => {
+            input.addEventListener('input', (e) => this.handleFilterChange(e.target));
+        });
+
+        // Clear filters
+        const clearFiltersBtn = document.querySelector('[data-action="clear-filters"]');
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', () => this.clearFilters());
+        }
+
+        // Payment method actions
+        document.querySelectorAll('.bil-action-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.handlePaymentMethodAction(e.currentTarget.dataset.action, e.currentTarget));
+        });
+
+
+
+        // Settings toggles
+        document.querySelectorAll('.bil-switch input').forEach(toggle => {
+            toggle.addEventListener('change', (e) => this.handleSettingToggle(e.target));
+        });
+    },
+
+    /**
+     * Switch between tabs
+     */
+    switchTab: function(activeTab) {
+        if (!activeTab) return;
         
-        // Handle client payment method actions
-        billingPage.addEventListener('click', (e) => {
-            const actionBtn = e.target.closest('.bil-action-btn');
-            if (actionBtn) {
-                e.preventDefault();
-                const action = actionBtn.dataset.action;
-                this.handlePaymentMethodAction(action, actionBtn);
-            }
+        const targetTab = activeTab.dataset.tab;
+        
+        // Update tab buttons
+        document.querySelectorAll('.bil-tab-btn').forEach(btn => {
+            btn.classList.remove('bil-active');
+        });
+        activeTab.classList.add('bil-active');
+        
+        // Update tab panels - hide all first
+        document.querySelectorAll('.bil-tab-panel').forEach(panel => {
+            panel.classList.remove('bil-active');
+            panel.style.display = 'none'; // Force hide
         });
         
-        // Handle invoice actions (service provider perspective)
-        billingPage.addEventListener('click', (e) => {
-            const invoiceBtn = e.target.closest('.bil-btn');
-            if (invoiceBtn) {
-                e.preventDefault();
-                const action = invoiceBtn.dataset.action;
-                this.handleInvoiceAction(action, invoiceBtn);
-            }
-        });
+        // Show the target panel
+        const targetPanel = document.querySelector(`.bil-tab-panel[data-tab="${targetTab}"]`);
+        if (targetPanel) {
+            targetPanel.classList.add('bil-active');
+            targetPanel.style.display = 'block'; // Force show
+        }
         
-        // Handle client payment method toggle
-        billingPage.addEventListener('click', (e) => {
-            const methodItem = e.target.closest('.bil-payment-method');
-            if (methodItem && !e.target.closest('.bil-action-btn')) {
-                this.togglePaymentMethod(methodItem);
-            }
-        });
+        // Add animation
+        targetPanel?.classList.add('bil-fade-in');
+        setTimeout(() => {
+            targetPanel?.classList.remove('bil-fade-in');
+        }, 300);
         
-        // Handle billing settings toggle
-        billingPage.addEventListener('change', (e) => {
-            if (e.target.type === 'checkbox') {
-                this.handleBillingSetting(e.target);
-            }
-        });
+        // Update URL hash for deep linking
+        window.location.hash = targetTab;
+        
+        // Load tab-specific data if needed
+        this.loadTabData(targetTab);
+    },
 
-        // Handle quick action cards (service provider actions)
-        billingPage.addEventListener('click', (e) => {
-            const actionCard = e.target.closest('.bil-action-card');
-            if (actionCard) {
-                const action = actionCard.dataset.action;
-                this.handleQuickAction(action, actionCard);
-            }
-        });
+    /**
+     * Load data specific to each tab
+     */
+    loadTabData: function(tabName) {
+        switch (tabName) {
+            case 'overview':
+                this.loadOverviewData();
+                break;
+            case 'invoices':
+                this.loadInvoiceData();
+                break;
+            case 'payments':
+                this.loadPaymentData();
+                break;
 
-        // Handle summary card interactions
-        billingPage.addEventListener('click', (e) => {
-            const summaryCard = e.target.closest('.bil-summary-card');
-            if (summaryCard) {
-                this.handleSummaryCardClick(summaryCard);
-            }
-        });
+            case 'settings':
+                this.loadSettingsData();
+                break;
+        }
+    },
 
-        // Handle search and filter interactions
-        billingPage.addEventListener('input', (e) => {
-            const searchInput = e.target.closest('[data-filter]');
-            if (searchInput) {
-                this.handleSearchFilter(searchInput);
-            }
-        });
+    /**
+     * Load overview data
+     */
+    loadOverviewData: function() {
+        // Load recent activity
+        this.updateRecentActivity();
+        
+        // Update quick action counts
+        this.updateQuickActionCounts();
+    },
 
-        // Handle bulk action buttons
-        billingPage.addEventListener('click', (e) => {
-            const bulkBtn = e.target.closest('.bil-bulk-btn');
-            if (bulkBtn) {
-                const action = bulkBtn.dataset.action;
-                this.handleBulkAction(action);
-            }
-        });
+    /**
+     * Load invoice data
+     */
+    loadInvoiceData: function() {
+        // Load filtered invoices
+        this.updateInvoiceListDisplay(this.data.clientInvoices);
+        
+        // Update invoice counts
+        this.updateInvoiceCounts();
+    },
 
-        // Handle invoice checkboxes for bulk selection
-        billingPage.addEventListener('change', (e) => {
-            const checkbox = e.target.closest('.bil-invoice-checkbox');
-            if (checkbox) {
-                this.handleInvoiceSelection(checkbox);
+    /**
+     * Load payment data
+     */
+    loadPaymentData: function() {
+        // Load payment methods
+        this.updatePaymentMethods();
+        
+        // Load payment history
+        this.updatePaymentHistory();
+    },
+
+
+
+    /**
+     * Load settings data
+     */
+    loadSettingsData: function() {
+        // Load billing settings
+        this.updateBillingSettings();
+    },
+
+    /**
+     * Update recent activity
+     */
+    updateRecentActivity: function() {
+        const activityList = document.querySelector('.bil-activity-list');
+        if (!activityList) return;
+        
+        // Simulate loading recent activities
+        const activities = [
+            {
+                icon: 'fas fa-file-invoice',
+                title: 'تم إنشاء فاتورة جديدة #INV-2024-016',
+                desc: 'شركة التقنية المتقدمة - شحن بحري',
+                time: 'منذ 5 دقائق'
+            },
+            {
+                icon: 'fas fa-check-circle',
+                title: 'تم دفع فاتورة #INV-2024-011',
+                desc: 'شركة الأغذية العالمية - 8,450 ريال',
+                time: 'منذ ساعة واحدة'
+            },
+            {
+                icon: 'fas fa-bell',
+                title: 'تم إرسال تذكير للفواتير المتأخرة',
+                desc: '3 فواتير متأخرة تم إرسال تذكيرات لها',
+                time: 'منذ 3 ساعات'
+            }
+        ];
+        
+        // Update activity items with animation
+        activities.forEach((activity, index) => {
+            const activityItem = activityList.children[index];
+            if (activityItem) {
+                activityItem.classList.add('bil-slide-in');
+                setTimeout(() => {
+                    activityItem.classList.remove('bil-slide-in');
+                }, 300 + (index * 100));
             }
         });
+    },
+
+    /**
+     * Update quick action counts
+     */
+    updateQuickActionCounts: function() {
+        // Update action card counts if needed
+        const actionCards = document.querySelectorAll('.bil-action-card');
+        actionCards.forEach(card => {
+            card.classList.add('bil-scale-in');
+            setTimeout(() => {
+                card.classList.remove('bil-scale-in');
+            }, 200);
+        });
+    },
+
+    /**
+     * Update invoice counts
+     */
+    updateInvoiceCounts: function() {
+        const pendingCount = this.data.clientInvoices.filter(inv => inv.status === 'pending').length;
+        const overdueCount = this.data.clientInvoices.filter(inv => inv.status === 'overdue').length;
+        
+        // Update counts in UI if needed
+    },
+
+    /**
+     * Update payment methods
+     */
+    updatePaymentMethods: function() {
+        const paymentMethods = document.querySelectorAll('.bil-payment-method');
+        paymentMethods.forEach((method, index) => {
+            method.classList.add('bil-fade-in');
+            setTimeout(() => {
+                method.classList.remove('bil-fade-in');
+            }, 200 + (index * 100));
+        });
+    },
+
+    /**
+     * Update payment history
+     */
+    updatePaymentHistory: function() {
+        const paymentItems = document.querySelectorAll('.bil-payment-item');
+        paymentItems.forEach((item, index) => {
+            item.classList.add('bil-slide-in');
+            setTimeout(() => {
+                item.classList.remove('bil-slide-in');
+            }, 200 + (index * 100));
+        });
+    },
+
+
+
+    /**
+     * Update billing settings
+     */
+    updateBillingSettings: function() {
+        const settingItems = document.querySelectorAll('.bil-setting-item');
+        settingItems.forEach((item, index) => {
+            item.classList.add('bil-slide-in');
+            setTimeout(() => {
+                item.classList.remove('bil-slide-in');
+            }, 200 + (index * 100));
+        });
+    },
+
+
+
+    /**
+     * Handle setting toggle
+     */
+    handleSettingToggle: function(toggle) {
+        const settingName = toggle.closest('.bil-setting-item')?.querySelector('.bil-setting-title')?.textContent;
+        const isEnabled = toggle.checked;
+        
+        Toast.show(
+            'تحديث الإعدادات', 
+            `${settingName} ${isEnabled ? 'مفعل' : 'معطل'}`, 
+            'info'
+        );
+    },
+
+    /**
+     * Initialize tab from URL hash
+     */
+    initializeTabFromHash: function() {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && ['overview', 'invoices', 'payments', 'settings'].includes(hash)) {
+            const targetTab = document.querySelector(`[data-tab="${hash}"]`);
+            if (targetTab) {
+                this.switchTab(targetTab);
+            }
+        }
+    },
+
+    /**
+     * Initialize default tab state
+     */
+    initializeDefaultTabState: function() {
+        // Ensure overview tab is active by default
+        const overviewTab = document.querySelector('[data-tab="overview"]');
+        const overviewPanel = document.querySelector('.bil-tab-panel[data-tab="overview"]');
+        
+        if (overviewTab && overviewPanel) {
+            // Remove active from all tabs and panels
+            document.querySelectorAll('.bil-tab-btn').forEach(btn => {
+                btn.classList.remove('bil-active');
+            });
+            document.querySelectorAll('.bil-tab-panel').forEach(panel => {
+                panel.classList.remove('bil-active');
+                panel.style.display = 'none'; // Force hide all
+            });
+            
+            // Set overview as active
+            overviewTab.classList.add('bil-active');
+            overviewPanel.classList.add('bil-active');
+            overviewPanel.style.display = 'block'; // Force show overview
+        }
     },
     
     /**
@@ -408,19 +660,7 @@ const BillingController = {
         }
     },
     
-    /**
-     * Handle summary card click
-     */
-    handleSummaryCardClick: function(summaryCard) {
-        const label = summaryCard.querySelector('.bil-summary-label').textContent;
-        Toast.show('تفاصيل الإيرادات', `عرض تفاصيل ${label}`, 'info');
-        
-        // Add click animation
-        summaryCard.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-            summaryCard.style.transform = '';
-        }, 150);
-    },
+
     
     /**
      * Create new invoice for client
@@ -591,7 +831,6 @@ const BillingController = {
         
         // Simulate loading billing data
         setTimeout(() => {
-            this.updateRevenueSummary();
             this.updateClientPaymentMethods();
             this.updateClientInvoices();
             this.updateRevenueHistory();
@@ -599,85 +838,7 @@ const BillingController = {
         }, 800);
     },
     
-    /**
-     * Update revenue summary with enhanced animations
-     */
-    updateRevenueSummary: function() {
-        const summaryCards = document.querySelectorAll('.bil-summary-card');
-        summaryCards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-            card.classList.add('bil-fade-in');
-            
-            // Animate values
-            const valueElement = card.querySelector('.bil-summary-value');
-            if (valueElement) {
-                this.animateValue(valueElement);
-            }
-        });
-    },
     
-    /**
-     * Animate numeric values
-     */
-    animateValue: function(element) {
-        const text = element.textContent;
-        const isCurrency = text.includes('ريال');
-        const isPercentage = text.includes('%');
-        const isDays = text.includes('أيام');
-        
-        let targetValue = 0;
-        if (isCurrency) {
-            targetValue = this.data.summary.totalRevenue;
-        } else if (isPercentage) {
-            targetValue = this.data.summary.onTimePaymentRate;
-        } else if (isDays) {
-            targetValue = this.data.summary.daysUntilDue;
-        } else {
-            targetValue = this.data.summary.pendingInvoices;
-        }
-        
-        // Animate the value
-        this.animateNumber(element, targetValue, isCurrency, isPercentage, isDays);
-    },
-    
-    /**
-     * Animate number with smooth transitions
-     */
-    animateNumber: function(element, target, isCurrency, isPercentage, isDays) {
-        const start = 0;
-        const duration = 1000;
-        const startTime = performance.now();
-        
-        const animate = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            const current = start + (target - start) * this.easeOutQuart(progress);
-            
-            if (isCurrency) {
-                element.textContent = `${Math.round(current).toLocaleString()} ريال`;
-            } else if (isPercentage) {
-                element.textContent = `${Math.round(current)}%`;
-            } else if (isDays) {
-                element.textContent = `${Math.round(current)} أيام`;
-            } else {
-                element.textContent = Math.round(current);
-            }
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-        
-        requestAnimationFrame(animate);
-    },
-    
-    /**
-     * Easing function for smooth animations
-     */
-    easeOutQuart: function(t) {
-        return 1 - Math.pow(1 - t, 4);
-    },
     
     /**
      * Update client payment methods with enhanced animations
@@ -739,12 +900,7 @@ const BillingController = {
         const billingPage = document.getElementById('billing');
         if (!billingPage) return;
         
-        // Add fade-in animation to summary cards
-        const summaryCards = billingPage.querySelectorAll('.bil-summary-card');
-        summaryCards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-            card.classList.add('bil-fade-in');
-        });
+
         
         // Add slide-in animation to payment methods
         const paymentMethods = billingPage.querySelectorAll('.bil-payment-method');
@@ -772,9 +928,9 @@ const BillingController = {
      * Setup real-time updates
      */
     setupRealTimeUpdates: function() {
-        // Update summary every 30 seconds
+        // Real-time updates for billing data
         setInterval(() => {
-            this.updateRevenueSummary();
+            // Update billing data as needed
         }, 30000);
     },
     
@@ -804,12 +960,7 @@ const BillingController = {
         }, 1000);
     },
     
-    /**
-     * Get revenue summary
-     */
-    getRevenueSummary: function() {
-        return this.data.summary;
-    },
+
     
     /**
      * Get client payment methods
@@ -1116,29 +1267,7 @@ const BillingController = {
         return reports[reportType] || null;
     },
 
-    /**
-     * Generate revenue summary report
-     */
-    generateRevenueSummary: function(dateRange) {
-        const invoices = this.data.clientInvoices.filter(inv => 
-            new Date(inv.date) >= new Date(dateRange.start) &&
-            new Date(inv.date) <= new Date(dateRange.end)
-        );
-        
-        const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
-        const paidInvoices = invoices.filter(inv => inv.status === 'paid');
-        const pendingInvoices = invoices.filter(inv => inv.status === 'pending');
-        const overdueInvoices = invoices.filter(inv => inv.status === 'overdue');
-        
-        return {
-            totalRevenue,
-            totalInvoices: invoices.length,
-            paidInvoices: paidInvoices.length,
-            pendingInvoices: pendingInvoices.length,
-            overdueInvoices: overdueInvoices.length,
-            averageInvoiceAmount: totalRevenue / invoices.length || 0
-        };
-    },
+
 
     /**
      * Generate outstanding invoices report
@@ -1610,7 +1739,7 @@ const BillingController = {
      */
     setupMobileInteractions: function() {
         // Add touch feedback for cards
-        const cards = document.querySelectorAll('.bil-summary-card, .bil-action-card, .bil-payment-method, .bil-invoice-item');
+        const cards = document.querySelectorAll('.bil-action-card, .bil-payment-method, .bil-invoice-item');
         cards.forEach(card => {
             card.addEventListener('touchstart', function() {
                 this.style.transform = 'scale(0.98)';
