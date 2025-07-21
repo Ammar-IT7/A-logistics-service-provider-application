@@ -13,6 +13,11 @@ const ReportsController = {
         this.setupEventListeners();
         this.updateDesignerNotes();
         this.initializeAnimations();
+        
+        // Reconnect menu buttons for drawer functionality
+        if (typeof DrawerHelper !== 'undefined') {
+            DrawerHelper.reconnectMenuButtons();
+        }
     },
 
     /**

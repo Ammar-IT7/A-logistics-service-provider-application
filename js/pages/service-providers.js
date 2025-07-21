@@ -11,6 +11,11 @@ const ServiceProvidersController = {
         console.log('Service Providers page initialized');
         this.renderServiceProviders();
         this.setupEventListeners();
+        
+        // Reconnect menu buttons for drawer functionality
+        if (typeof DrawerHelper !== 'undefined') {
+            DrawerHelper.reconnectMenuButtons();
+        }
     },
     
     /**

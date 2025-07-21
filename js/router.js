@@ -45,6 +45,22 @@ const Router = {
                 setTimeout(() => {
                     this.initializePageController(pageId);
                 }, 100);
+                
+                // Ensure side drawer is properly connected after navigation
+                setTimeout(() => {
+                    if (typeof DrawerHelper !== 'undefined') {
+                        DrawerHelper.reconnectMenuButtons();
+                    }
+                    
+                    // Ensure side drawer exists and is properly initialized
+                    if (typeof SideDrawer !== 'undefined') {
+                        // Check if drawer exists, if not recreate it
+                        if (!document.getElementById('sideDrawer')) {
+                            console.log('Side drawer not found, recreating...');
+                            SideDrawer.forceRecreate();
+                        }
+                    }
+                }, 300);
             })
             .catch(error => {
                 console.error('Error loading page:', error);
@@ -203,6 +219,11 @@ const Router = {
         if (window[controllerName]) {
             console.log(`Initializing controller: ${controllerName} for page: ${pageId}`);
             window[controllerName].init();
+            
+            // Dispatch custom event for side drawer integration
+            setTimeout(() => {
+                document.dispatchEvent(new CustomEvent('pageLoaded', { detail: { pageId: pageId } }));
+            }, 200);
         } else {
             console.log(`Controller not found: ${controllerName} for page: ${pageId}`);
             console.log('Available controllers:', Object.keys(window).filter(key => key.endsWith('Controller')));

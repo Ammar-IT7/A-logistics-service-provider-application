@@ -6,6 +6,8 @@ const DrawerHelper = {
      * Initialize drawer for any page
      */
     init: function() {
+        console.log('DrawerHelper initialized');
+        
         // Ensure SideDrawer component is loaded
         if (typeof SideDrawer === 'undefined') {
             console.warn('SideDrawer component not found. Make sure to include side-drawer.js');
@@ -20,18 +22,25 @@ const DrawerHelper = {
         
         // Setup navigation listeners for SPA routing
         this.setupNavigationListeners();
+        
+        console.log('DrawerHelper initialization complete');
     },
 
     /**
      * Connect existing menu buttons to the drawer
      */
     connectExistingMenuButtons: function() {
+        console.log('Connecting existing menu buttons...');
+        
         // Find all existing menu buttons
         const menuButtons = document.querySelectorAll('[data-action="menu"], [data-action="toggle-drawer"], .menu-btn, .hamburger-btn, .sidebar-toggle');
         
-        menuButtons.forEach(button => {
+        console.log(`Found ${menuButtons.length} menu buttons`);
+        
+        menuButtons.forEach((button, index) => {
             // Check if this button already has our click handler
             if (button.hasAttribute('data-drawer-connected')) {
+                console.log(`Menu button ${index + 1} already connected`);
                 return; // Skip if already connected
             }
             
@@ -40,13 +49,18 @@ const DrawerHelper = {
             
             // Add click handler directly without replacing the element
             button.addEventListener('click', (e) => {
+                console.log('Menu button clicked, toggling drawer');
                 e.preventDefault();
                 e.stopPropagation();
                 if (typeof SideDrawer !== 'undefined') {
                     SideDrawer.toggle();
                 }
             });
+            
+            console.log(`Connected menu button ${index + 1}`);
         });
+        
+        console.log('Menu button connection complete');
     },
 
     /**

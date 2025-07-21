@@ -23,6 +23,11 @@ const OrdersController = {
         
         // Initialize floating filter
         this.initFloatingFilter();
+        
+        // Reconnect menu buttons for drawer functionality
+        if (typeof DrawerHelper !== 'undefined') {
+            DrawerHelper.reconnectMenuButtons();
+        }
     },
 
     /**

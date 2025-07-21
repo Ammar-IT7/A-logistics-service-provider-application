@@ -34,6 +34,27 @@ const App = {
         Loader.init();
         Forms.init();
         
+        // Initialize side drawer components
+        if (typeof SideDrawer !== 'undefined') {
+            SideDrawer.init();
+        }
+        if (typeof DrawerHelper !== 'undefined') {
+            DrawerHelper.init();
+        }
+        
+        // Fallback initialization for side drawer components
+        setTimeout(() => {
+            if (typeof SideDrawer !== 'undefined' && !document.getElementById('sideDrawer')) {
+                SideDrawer.init();
+            }
+            if (typeof DrawerHelper !== 'undefined') {
+                DrawerHelper.reconnectMenuButtons();
+            }
+            
+            // Check drawer status and fix any issues
+            this.checkDrawerStatus();
+        }, 500);
+        
         // Initialize page controllers
         this.initializePageControllers();
         
@@ -45,6 +66,91 @@ const App = {
         
         // Update notification badge
         this.updateNotificationBadge();
+        
+        // Test side drawer functionality
+        this.testSideDrawer();
+    },
+
+    /**
+     * Test side drawer functionality
+     */
+    testSideDrawer: function() {
+        setTimeout(() => {
+            console.log('Testing side drawer functionality...');
+            console.log('SideDrawer available:', typeof SideDrawer !== 'undefined');
+            console.log('DrawerHelper available:', typeof DrawerHelper !== 'undefined');
+            console.log('Side drawer element exists:', !!document.getElementById('sideDrawer'));
+            console.log('Menu buttons found:', document.querySelectorAll('[data-action="menu"]').length);
+            
+            if (typeof SideDrawer !== 'undefined') {
+                console.log('Side drawer is ready for use');
+            } else {
+                console.warn('Side drawer not available');
+            }
+        }, 1000);
+    },
+
+    /**
+     * Global test function for side drawer (can be called from console)
+     */
+    testDrawer: function() {
+        console.log('=== Side Drawer Test ===');
+        console.log('1. Testing SideDrawer availability:', typeof SideDrawer !== 'undefined');
+        console.log('2. Testing DrawerHelper availability:', typeof DrawerHelper !== 'undefined');
+        console.log('3. Testing side drawer element:', !!document.getElementById('sideDrawer'));
+        console.log('4. Testing menu buttons:', document.querySelectorAll('[data-action="menu"]').length);
+        
+        if (typeof SideDrawer !== 'undefined') {
+            console.log('5. Testing drawer toggle...');
+            SideDrawer.toggle();
+            setTimeout(() => {
+                console.log('6. Drawer toggle test complete');
+            }, 1000);
+        }
+        
+        if (typeof DrawerHelper !== 'undefined') {
+            console.log('7. Testing menu button reconnection...');
+            DrawerHelper.reconnectMenuButtons();
+        }
+        
+        console.log('=== Test Complete ===');
+    },
+
+    /**
+     * Check drawer status and fix issues
+     */
+    checkDrawerStatus: function() {
+        console.log('=== Drawer Status Check ===');
+        
+        const sideDrawer = document.getElementById('sideDrawer');
+        const sideDrawerOverlay = document.getElementById('sideDrawerOverlay');
+        const menuButtons = document.querySelectorAll('[data-action="menu"]');
+        
+        console.log('Drawer element exists:', !!sideDrawer);
+        console.log('Overlay element exists:', !!sideDrawerOverlay);
+        console.log('Menu buttons found:', menuButtons.length);
+        
+        if (!sideDrawer || !sideDrawerOverlay) {
+            console.log('Drawer elements missing, recreating...');
+            if (typeof SideDrawer !== 'undefined') {
+                SideDrawer.forceRecreate();
+            }
+        }
+        
+        if (menuButtons.length === 0) {
+            console.log('No menu buttons found');
+        } else {
+            console.log('Menu buttons found, checking connections...');
+            menuButtons.forEach((btn, index) => {
+                console.log(`Button ${index + 1}:`, {
+                    connected: btn.hasAttribute('data-drawer-connected'),
+                    visible: btn.offsetParent !== null,
+                    clickable: btn.style.pointerEvents !== 'none'
+                });
+            });
+        }
+        
+        console.log('=== Status Check Complete ===');
     },
 
     /**
@@ -97,6 +203,14 @@ const App = {
                         break;
                     case 'profile':
                         Router.navigate('profile');
+                        break;
+                    case 'menu':
+                        // Handle menu button clicks for side drawer
+                        if (typeof SideDrawer !== 'undefined') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            SideDrawer.toggle();
+                        }
                         break;
                 }
             }
@@ -164,6 +278,10 @@ const App = {
         }
     }
 };
+
+// Attach test function to window for console access
+window.testDrawer = App.testDrawer;
+window.checkDrawerStatus = App.checkDrawerStatus;
 
 // Designer notes for each page
 const designerNotes = {
