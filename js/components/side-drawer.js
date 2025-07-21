@@ -431,6 +431,18 @@ const SideDrawer = {
             }
         });
 
+        // Handle side drawer quick add service buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.side-drawer-quick-add-btn')) {
+                const quickAddBtn = e.target.closest('.side-drawer-quick-add-btn');
+                const page = quickAddBtn.dataset.page;
+                if (page) {
+                    e.preventDefault();
+                    this.handleQuickAddService(page);
+                }
+            }
+        });
+
         // Handle side drawer footer actions
         document.addEventListener('click', (e) => {
             if (e.target.closest('.side-drawer-footer-btn')) {
@@ -1005,9 +1017,142 @@ const SideDrawer = {
     },
 
     /**
+     * Handle quick add service navigation
+     */
+    handleQuickAddService: function(page) {
+        console.log('Quick add service clicked:', page);
+        
+        // Close the drawer first
+        this.close();
+        
+        // Show loading indicator
+        this.showLoadingIndicator();
+        
+        // Add a small delay for smooth transition
+        setTimeout(() => {
+            if (typeof Router !== 'undefined' && Router.navigate) {
+                Router.navigate(page);
+            } else {
+                // Fallback navigation
+                window.location.href = `#${page}`;
+            }
+            
+            // Hide loading indicator
+            this.hideLoadingIndicator();
+            
+            // Show success message
+            this.showSuccessMessage('تم فتح نموذج إضافة الخدمة');
+        }, 300);
+    },
+
+    /**
+     * Show loading indicator
+     */
+    showLoadingIndicator: function() {
+        // Create loading overlay if it doesn't exist
+        if (!document.getElementById('loadingOverlay')) {
+            const loadingHTML = `
+                <div id="loadingOverlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 999999;
+                    backdrop-filter: blur(4px);
+                ">
+                    <div style="
+                        background: white;
+                        padding: 20px;
+                        border-radius: 12px;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                    ">
+                        <div class="spinner" style="
+                            width: 20px;
+                            height: 20px;
+                            border: 2px solid #f3f3f3;
+                            border-top: 2px solid var(--primary-color);
+                            border-radius: 50%;
+                            animation: spin 1s linear infinite;
+                        "></div>
+                        <span style="color: var(--text-primary); font-weight: 600;">جاري التحميل...</span>
+                    </div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+            document.body.insertAdjacentHTML('beforeend', loadingHTML);
+        } else {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+    },
+
+    /**
+     * Hide loading indicator
+     */
+    hideLoadingIndicator: function() {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.style.display = 'none';
+        }
+    },
+
+    /**
+     * Show success message
+     */
+    showSuccessMessage: function(message) {
+        // Create success message if it doesn't exist
+        if (!document.getElementById('successMessage')) {
+            const successHTML = `
+                <div id="successMessage" style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #2ed573;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(46, 213, 115, 0.3);
+                    z-index: 999999;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                ">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', successHTML);
+        }
+        
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.transform = 'translateX(0)';
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+            successMessage.style.transform = 'translateX(100%)';
+        }, 3000);
+    },
+
+    /**
      * Handle navigation to different pages
      */
     handleNavigation: function(page) {
+        console.log('Navigating to:', page);
+        
         this.close();
         
         // Add a small delay for smooth transition
@@ -1026,6 +1171,12 @@ const SideDrawer = {
      */
     handleFooterAction: function(action) {
         switch (action) {
+            case 'navigate':
+                const page = event.target.closest('.side-drawer-footer-btn').dataset.page;
+                if (page) {
+                    this.handleNavigation(page);
+                }
+                break;
             case 'settings':
                 this.close();
                 if (typeof Router !== 'undefined' && Router.navigate) {

@@ -30,6 +30,37 @@
             </div>
         </div>
 
+        <!-- Quick Add Service Section -->
+        <div class="side-drawer-quick-add">
+            <h5 class="side-drawer-nav-title">إضافة خدمة جديدة</h5>
+            <div class="side-drawer-quick-add-grid">
+                <button class="side-drawer-quick-add-btn" data-action="navigate" data-page="shipping-form">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>خدمة شحن</span>
+                </button>
+                <button class="side-drawer-quick-add-btn" data-action="navigate" data-page="warehouse-form">
+                    <i class="fas fa-warehouse"></i>
+                    <span>مخزن</span>
+                </button>
+                <button class="side-drawer-quick-add-btn" data-action="navigate" data-page="customs-form">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>تخليص جمركي</span>
+                </button>
+                <button class="side-drawer-quick-add-btn" data-action="navigate" data-page="packaging-form">
+                    <i class="fas fa-box"></i>
+                    <span>تغليف</span>
+                </button>
+                <button class="side-drawer-quick-add-btn" data-action="navigate" data-page="lc-service-form">
+                    <i class="fas fa-file-contract"></i>
+                    <span>خطاب اعتماد</span>
+                </button>
+                <button class="side-drawer-quick-add-btn" data-action="navigate" data-page="delivery-provider-form">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>توصيل نهائي</span>
+                </button>
+            </div>
+        </div>
+
         <!-- Navigation Sections -->
         <nav class="side-drawer-nav">
             <!-- Main Services -->
@@ -177,6 +208,41 @@
                 </div>
             </div>
 
+            <!-- Management & Tools -->
+            <div class="side-drawer-nav-section">
+                <h5 class="side-drawer-nav-title">الإدارة والأدوات</h5>
+                <div class="side-drawer-nav-items">
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="service-providers">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">مقدمي الخدمات</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="warehouse-management">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-dolly-flatbed"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">إدارة المستودعات</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="marketing">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">التسويق</span>
+                    </a>
+                    
+                    <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="notifications">
+                        <div class="side-drawer-nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <span class="side-drawer-nav-text">الإشعارات</span>
+                        <div class="side-drawer-nav-badge side-drawer-nav-badge-warning">5</div>
+                    </a>
+                </div>
+            </div>
+
             <!-- Quick Actions -->
             <div class="side-drawer-quick-actions">
                 <h5 class="side-drawer-nav-title">إجراءات سريعة</h5>
@@ -217,11 +283,15 @@
     <!-- Drawer Footer -->
     <div class="side-drawer-footer">
         <div class="side-drawer-footer-actions">
-            <button class="side-drawer-footer-btn" data-action="settings">
+            <button class="side-drawer-footer-btn" data-action="navigate" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>الملف الشخصي</span>
+            </button>
+            <button class="side-drawer-footer-btn" data-action="navigate" data-page="settings">
                 <i class="fas fa-cog"></i>
                 <span>الإعدادات</span>
             </button>
-            <button class="side-drawer-footer-btn" data-action="help">
+            <button class="side-drawer-footer-btn" data-action="navigate" data-page="help">
                 <i class="fas fa-question-circle"></i>
                 <span>المساعدة</span>
             </button>
