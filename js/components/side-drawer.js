@@ -204,52 +204,12 @@ const SideDrawer = {
                         <div class="side-drawer-nav-section">
                             <h5 class="side-drawer-nav-title">خدماتي</h5>
                             <div class="side-drawer-nav-items">
-                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="myshipping">
+                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-services">
                                     <div class="side-drawer-nav-icon">
-                                        <i class="fas fa-truck"></i>
+                                        <i class="fas fa-briefcase"></i>
                                     </div>
-                                    <span class="side-drawer-nav-text">خدمات الشحن</span>
-                                    <div class="side-drawer-nav-badge">3</div>
-                                </a>
-                                
-                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="mywarehouses">
-                                    <div class="side-drawer-nav-icon">
-                                        <i class="fas fa-warehouse"></i>
-                                    </div>
-                                    <span class="side-drawer-nav-text">المخازن</span>
-                                    <div class="side-drawer-nav-badge">2</div>
-                                </a>
-                                
-                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="mycustoms">
-                                    <div class="side-drawer-nav-icon">
-                                        <i class="fas fa-clipboard-check"></i>
-                                    </div>
-                                    <span class="side-drawer-nav-text">التخليص الجمركي</span>
-                                    <div class="side-drawer-nav-badge">8</div>
-                                </a>
-                                
-                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-packaging">
-                                    <div class="side-drawer-nav-icon">
-                                        <i class="fas fa-box"></i>
-                                    </div>
-                                    <span class="side-drawer-nav-text">خدمات التغليف</span>
-                                    <div class="side-drawer-nav-badge">2</div>
-                                </a>
-                                
-                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-lc-services">
-                                    <div class="side-drawer-nav-icon">
-                                        <i class="fas fa-file-contract"></i>
-                                    </div>
-                                    <span class="side-drawer-nav-text">خطابات الاعتماد</span>
-                                    <div class="side-drawer-nav-badge">0</div>
-                                </a>
-                                
-                                <a href="#" class="side-drawer-nav-item" data-action="navigate" data-page="my-last-mile">
-                                    <div class="side-drawer-nav-icon">
-                                        <i class="fas fa-motorcycle"></i>
-                                    </div>
-                                    <span class="side-drawer-nav-text">التوصيل النهائي</span>
-                                    <div class="side-drawer-nav-badge">0</div>
+                                    <span class="side-drawer-nav-text">خدماتي</span>
+                                    <div class="side-drawer-nav-badge">24</div>
                                 </a>
                             </div>
                         </div>
@@ -1255,12 +1215,7 @@ const SideDrawer = {
         const badgeData = {
             orders: 24,
             billing: 8,
-            myshipping: 3,
-            mywarehouses: 2,
-            mycustoms: 8,
-            'my-packaging': 2,
-            'my-lc-services': 0,
-            'my-last-mile': 0
+            'my-services': 24
         };
 
         // Update badges

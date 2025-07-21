@@ -195,6 +195,7 @@ const Router = {
             'my-packaging': 'MyPackagingController',
             'my-lc-services': 'MyLcServicesController',
             'my-last-mile': 'MyLastMileController',
+            'my-services': 'MyServicesController',
             'service-providers': 'ServiceProvidersController',
             'notifications': 'NotificationsController',
             'profile': 'ProfileController',
