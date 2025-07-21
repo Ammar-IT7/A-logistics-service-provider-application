@@ -284,6 +284,31 @@ const BillingController = {
                 this.handleSummaryCardClick(summaryCard);
             }
         });
+
+        // Handle search and filter interactions
+        billingPage.addEventListener('input', (e) => {
+            const searchInput = e.target.closest('[data-filter]');
+            if (searchInput) {
+                this.handleSearchFilter(searchInput);
+            }
+        });
+
+        // Handle bulk action buttons
+        billingPage.addEventListener('click', (e) => {
+            const bulkBtn = e.target.closest('.bil-bulk-btn');
+            if (bulkBtn) {
+                const action = bulkBtn.dataset.action;
+                this.handleBulkAction(action);
+            }
+        });
+
+        // Handle invoice checkboxes for bulk selection
+        billingPage.addEventListener('change', (e) => {
+            const checkbox = e.target.closest('.bil-invoice-checkbox');
+            if (checkbox) {
+                this.handleInvoiceSelection(checkbox);
+            }
+        });
     },
     
     /**
@@ -826,6 +851,757 @@ const BillingController = {
     getTotalRevenueByServiceType: function(serviceType) {
         const invoices = this.getInvoicesByServiceType(serviceType);
         return invoices.reduce((total, invoice) => total + invoice.amount, 0);
+    },
+
+    /**
+     * Create new invoice with detailed service breakdown
+     */
+    createDetailedInvoice: function(clientData, services, terms) {
+        const invoice = {
+            id: this.generateInvoiceId(),
+            client: clientData.name,
+            clientId: clientData.id,
+            title: `${services[0].type} - ${clientData.name} - ${new Date().toLocaleDateString('ar-SA')}`,
+            amount: services.reduce((total, service) => total + service.amount, 0),
+            status: 'pending',
+            date: new Date().toLocaleDateString('ar-SA'),
+            dueDate: this.calculateDueDate(terms.paymentTerms),
+            services: services.map(s => s.name),
+            serviceType: services[0].type,
+            terms: terms,
+            items: services.map(service => ({
+                description: service.name,
+                quantity: service.quantity,
+                unitPrice: service.unitPrice,
+                total: service.amount
+            }))
+        };
+        
+        this.data.clientInvoices.unshift(invoice);
+        this.updateClientInvoices();
+        return invoice;
+    },
+
+    /**
+     * Generate unique invoice ID
+     */
+    generateInvoiceId: function() {
+        const year = new Date().getFullYear();
+        const count = this.data.clientInvoices.length + 1;
+        return `INV-${year}-${count.toString().padStart(3, '0')}`;
+    },
+
+    /**
+     * Calculate due date based on payment terms
+     */
+    calculateDueDate: function(paymentTerms) {
+        const today = new Date();
+        let dueDate = new Date(today);
+        
+        switch (paymentTerms) {
+            case 'immediate':
+                dueDate.setDate(today.getDate());
+                break;
+            case '7days':
+                dueDate.setDate(today.getDate() + 7);
+                break;
+            case '15days':
+                dueDate.setDate(today.getDate() + 15);
+                break;
+            case '30days':
+                dueDate.setDate(today.getDate() + 30);
+                break;
+            case 'net30':
+                dueDate.setDate(today.getDate() + 30);
+                break;
+            default:
+                dueDate.setDate(today.getDate() + 30);
+        }
+        
+        return dueDate.toLocaleDateString('ar-SA');
+    },
+
+    /**
+     * Apply discount to invoice
+     */
+    applyDiscount: function(invoiceId, discountType, discountValue) {
+        const invoice = this.data.clientInvoices.find(inv => inv.id === invoiceId);
+        if (!invoice) return false;
+        
+        let discountAmount = 0;
+        if (discountType === 'percentage') {
+            discountAmount = (invoice.amount * discountValue) / 100;
+        } else if (discountType === 'fixed') {
+            discountAmount = discountValue;
+        }
+        
+        invoice.originalAmount = invoice.amount;
+        invoice.amount = Math.max(0, invoice.amount - discountAmount);
+        invoice.discount = {
+            type: discountType,
+            value: discountValue,
+            amount: discountAmount
+        };
+        
+        this.updateClientInvoices();
+        return true;
+    },
+
+    /**
+     * Add late fees to overdue invoices
+     */
+    addLateFees: function(invoiceId, feePercentage = 5) {
+        const invoice = this.data.clientInvoices.find(inv => inv.id === invoiceId);
+        if (!invoice || invoice.status !== 'overdue') return false;
+        
+        const lateFee = (invoice.amount * feePercentage) / 100;
+        invoice.lateFees = lateFee;
+        invoice.totalAmount = invoice.amount + lateFee;
+        
+        this.updateClientInvoices();
+        return true;
+    },
+
+    /**
+     * Process partial payment
+     */
+    processPartialPayment: function(invoiceId, paymentAmount, paymentMethod) {
+        const invoice = this.data.clientInvoices.find(inv => inv.id === invoiceId);
+        if (!invoice || invoice.status === 'paid') return false;
+        
+        if (!invoice.payments) invoice.payments = [];
+        
+        const payment = {
+            id: Date.now(),
+            amount: paymentAmount,
+            method: paymentMethod,
+            date: new Date().toLocaleDateString('ar-SA'),
+            status: 'completed'
+        };
+        
+        invoice.payments.push(payment);
+        
+        const totalPaid = invoice.payments.reduce((sum, p) => sum + p.amount, 0);
+        const remainingAmount = invoice.amount - totalPaid;
+        
+        if (remainingAmount <= 0) {
+            invoice.status = 'paid';
+            invoice.paidDate = new Date().toLocaleDateString('ar-SA');
+        } else {
+            invoice.status = 'partial';
+            invoice.remainingAmount = remainingAmount;
+        }
+        
+        // Add to revenue history
+        this.data.revenueHistory.unshift({
+            id: Date.now(),
+            invoiceId: invoiceId,
+            client: invoice.client,
+            method: paymentMethod,
+            amount: paymentAmount,
+            date: `${new Date().toLocaleDateString('ar-SA')} - ${new Date().toLocaleTimeString('ar-SA')}`,
+            status: 'completed',
+            serviceType: invoice.serviceType
+        });
+        
+        this.updateClientInvoices();
+        this.updateRevenueHistory();
+        return true;
+    },
+
+    /**
+     * Generate recurring invoice
+     */
+    generateRecurringInvoice: function(templateId, frequency) {
+        const template = this.getInvoiceTemplate(templateId);
+        if (!template) return false;
+        
+        const nextDueDate = this.calculateNextRecurringDate(frequency);
+        const invoice = {
+            ...template,
+            id: this.generateInvoiceId(),
+            date: new Date().toLocaleDateString('ar-SA'),
+            dueDate: nextDueDate,
+            status: 'pending',
+            isRecurring: true,
+            recurringFrequency: frequency,
+            templateId: templateId
+        };
+        
+        this.data.clientInvoices.unshift(invoice);
+        this.updateClientInvoices();
+        return invoice;
+    },
+
+    /**
+     * Get invoice template
+     */
+    getInvoiceTemplate: function(templateId) {
+        // This would typically fetch from database
+        const templates = {
+            'shipping-monthly': {
+                client: 'شركة التقنية المتقدمة',
+                services: ['شحن بحري', 'تخليص جمركي', 'تأمين'],
+                serviceType: 'shipping',
+                amount: 12450,
+                terms: { paymentTerms: 'net30' }
+            },
+            'storage-quarterly': {
+                client: 'شركة الأغذية العالمية',
+                services: ['تخزين بارد', 'إدارة مخزون', 'تتبع GPS'],
+                serviceType: 'storage',
+                amount: 8800,
+                terms: { paymentTerms: 'net30' }
+            }
+        };
+        
+        return templates[templateId];
+    },
+
+    /**
+     * Calculate next recurring date
+     */
+    calculateNextRecurringDate: function(frequency) {
+        const today = new Date();
+        let nextDate = new Date(today);
+        
+        switch (frequency) {
+            case 'weekly':
+                nextDate.setDate(today.getDate() + 7);
+                break;
+            case 'monthly':
+                nextDate.setMonth(today.getMonth() + 1);
+                break;
+            case 'quarterly':
+                nextDate.setMonth(today.getMonth() + 3);
+                break;
+            case 'yearly':
+                nextDate.setFullYear(today.getFullYear() + 1);
+                break;
+        }
+        
+        return nextDate.toLocaleDateString('ar-SA');
+    },
+
+    /**
+     * Send bulk reminders
+     */
+    sendBulkReminders: function(invoiceIds) {
+        const invoices = this.data.clientInvoices.filter(inv => invoiceIds.includes(inv.id));
+        let successCount = 0;
+        
+        invoices.forEach(invoice => {
+            if (invoice.status === 'pending' || invoice.status === 'overdue') {
+                this.sendReminder(invoice.id, invoice.client);
+                successCount++;
+            }
+        });
+        
+        Toast.show('إرسال التذكيرات', `تم إرسال ${successCount} تذكير بنجاح`, 'success');
+        return successCount;
+    },
+
+    /**
+     * Generate financial reports
+     */
+    generateFinancialReport: function(reportType, dateRange) {
+        const reports = {
+            'revenue-summary': this.generateRevenueSummary(dateRange),
+            'outstanding-invoices': this.generateOutstandingInvoices(dateRange),
+            'payment-analysis': this.generatePaymentAnalysis(dateRange),
+            'service-performance': this.generateServicePerformance(dateRange)
+        };
+        
+        return reports[reportType] || null;
+    },
+
+    /**
+     * Generate revenue summary report
+     */
+    generateRevenueSummary: function(dateRange) {
+        const invoices = this.data.clientInvoices.filter(inv => 
+            new Date(inv.date) >= new Date(dateRange.start) &&
+            new Date(inv.date) <= new Date(dateRange.end)
+        );
+        
+        const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
+        const paidInvoices = invoices.filter(inv => inv.status === 'paid');
+        const pendingInvoices = invoices.filter(inv => inv.status === 'pending');
+        const overdueInvoices = invoices.filter(inv => inv.status === 'overdue');
+        
+        return {
+            totalRevenue,
+            totalInvoices: invoices.length,
+            paidInvoices: paidInvoices.length,
+            pendingInvoices: pendingInvoices.length,
+            overdueInvoices: overdueInvoices.length,
+            averageInvoiceAmount: totalRevenue / invoices.length || 0
+        };
+    },
+
+    /**
+     * Generate outstanding invoices report
+     */
+    generateOutstandingInvoices: function(dateRange) {
+        return this.data.clientInvoices.filter(inv => 
+            inv.status === 'pending' || inv.status === 'overdue'
+        );
+    },
+
+    /**
+     * Generate payment analysis report
+     */
+    generatePaymentAnalysis: function(dateRange) {
+        const payments = this.data.revenueHistory.filter(payment => 
+            new Date(payment.date) >= new Date(dateRange.start) &&
+            new Date(payment.date) <= new Date(dateRange.end)
+        );
+        
+        const paymentMethods = {};
+        payments.forEach(payment => {
+            if (!paymentMethods[payment.method]) {
+                paymentMethods[payment.method] = { count: 0, total: 0 };
+            }
+            paymentMethods[payment.method].count++;
+            paymentMethods[payment.method].total += payment.amount;
+        });
+        
+        return {
+            totalPayments: payments.length,
+            totalAmount: payments.reduce((sum, p) => sum + p.amount, 0),
+            paymentMethods,
+            averagePayment: payments.reduce((sum, p) => sum + p.amount, 0) / payments.length || 0
+        };
+    },
+
+    /**
+     * Generate service performance report
+     */
+    generateServicePerformance: function(dateRange) {
+        const serviceStats = {};
+        
+        this.data.clientInvoices.forEach(invoice => {
+            if (!serviceStats[invoice.serviceType]) {
+                serviceStats[invoice.serviceType] = {
+                    totalRevenue: 0,
+                    invoiceCount: 0,
+                    averageAmount: 0
+                };
+            }
+            
+            serviceStats[invoice.serviceType].totalRevenue += invoice.amount;
+            serviceStats[invoice.serviceType].invoiceCount++;
+        });
+        
+        // Calculate averages
+        Object.keys(serviceStats).forEach(service => {
+            serviceStats[service].averageAmount = 
+                serviceStats[service].totalRevenue / serviceStats[service].invoiceCount;
+        });
+        
+        return serviceStats;
+    },
+
+    /**
+     * Validate invoice data
+     */
+    validateInvoiceData: function(invoiceData) {
+        const errors = [];
+        
+        if (!invoiceData.client) {
+            errors.push('اسم العميل مطلوب');
+        }
+        
+        if (!invoiceData.amount || invoiceData.amount <= 0) {
+            errors.push('مبلغ الفاتورة يجب أن يكون أكبر من صفر');
+        }
+        
+        if (!invoiceData.services || invoiceData.services.length === 0) {
+            errors.push('يجب تحديد خدمة واحدة على الأقل');
+        }
+        
+        if (!invoiceData.dueDate) {
+            errors.push('تاريخ الاستحقاق مطلوب');
+        }
+        
+        return {
+            isValid: errors.length === 0,
+            errors: errors
+        };
+    },
+
+    /**
+     * Archive old invoices
+     */
+    archiveOldInvoices: function(monthsOld = 12) {
+        const cutoffDate = new Date();
+        cutoffDate.setMonth(cutoffDate.getMonth() - monthsOld);
+        
+        const invoicesToArchive = this.data.clientInvoices.filter(invoice => {
+            const invoiceDate = new Date(invoice.date);
+            return invoiceDate < cutoffDate && invoice.status === 'paid';
+        });
+        
+        // Move to archived invoices (in real app, this would be a separate table)
+        if (!this.data.archivedInvoices) {
+            this.data.archivedInvoices = [];
+        }
+        
+        this.data.archivedInvoices.push(...invoicesToArchive);
+        this.data.clientInvoices = this.data.clientInvoices.filter(invoice => 
+            !invoicesToArchive.includes(invoice)
+        );
+        
+        this.updateClientInvoices();
+        return invoicesToArchive.length;
+    },
+
+    /**
+     * Get invoice statistics
+     */
+    getInvoiceStatistics: function() {
+        const totalInvoices = this.data.clientInvoices.length;
+        const paidInvoices = this.data.clientInvoices.filter(inv => inv.status === 'paid').length;
+        const pendingInvoices = this.data.clientInvoices.filter(inv => inv.status === 'pending').length;
+        const overdueInvoices = this.data.clientInvoices.filter(inv => inv.status === 'overdue').length;
+        
+        return {
+            total: totalInvoices,
+            paid: paidInvoices,
+            pending: pendingInvoices,
+            overdue: overdueInvoices,
+            paidPercentage: totalInvoices > 0 ? (paidInvoices / totalInvoices) * 100 : 0,
+            overduePercentage: totalInvoices > 0 ? (overdueInvoices / totalInvoices) * 100 : 0
+        };
+    },
+
+    /**
+     * Search invoices
+     */
+    searchInvoices: function(query, filters = {}) {
+        let results = this.data.clientInvoices;
+        
+        // Text search
+        if (query) {
+            results = results.filter(invoice => 
+                invoice.client.toLowerCase().includes(query.toLowerCase()) ||
+                invoice.id.toLowerCase().includes(query.toLowerCase()) ||
+                invoice.title.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+        
+        // Status filter
+        if (filters.status) {
+            results = results.filter(invoice => invoice.status === filters.status);
+        }
+        
+        // Service type filter
+        if (filters.serviceType) {
+            results = results.filter(invoice => invoice.serviceType === filters.serviceType);
+        }
+        
+        // Date range filter
+        if (filters.dateFrom && filters.dateTo) {
+            results = results.filter(invoice => {
+                const invoiceDate = new Date(invoice.date);
+                const fromDate = new Date(filters.dateFrom);
+                const toDate = new Date(filters.dateTo);
+                return invoiceDate >= fromDate && invoiceDate <= toDate;
+            });
+        }
+        
+        // Amount range filter
+        if (filters.minAmount || filters.maxAmount) {
+            results = results.filter(invoice => {
+                if (filters.minAmount && invoice.amount < filters.minAmount) return false;
+                if (filters.maxAmount && invoice.amount > filters.maxAmount) return false;
+                return true;
+            });
+        }
+        
+        return results;
+    },
+
+    /**
+     * Handle search and filter input
+     */
+    handleSearchFilter: function(input) {
+        const filterType = input.dataset.filter;
+        const value = input.value;
+        
+        // Store filter in session
+        if (!this.currentFilters) this.currentFilters = {};
+        this.currentFilters[filterType] = value;
+        
+        // Apply filters with debounce
+        clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(() => {
+            this.applySearchFilters();
+        }, 300);
+    },
+
+    /**
+     * Apply search filters to invoice list
+     */
+    applySearchFilters: function() {
+        const filters = this.currentFilters || {};
+        const results = this.searchInvoices(filters.search, filters);
+        
+        // Update invoice list display
+        this.updateInvoiceListDisplay(results);
+        
+        // Show results count
+        const resultsCount = results.length;
+        Toast.show('نتائج البحث', `تم العثور على ${resultsCount} فاتورة`, 'info');
+    },
+
+    /**
+     * Update invoice list display with filtered results
+     */
+    updateInvoiceListDisplay: function(invoices) {
+        const invoiceList = document.querySelector('.bil-invoices-list');
+        if (!invoiceList) return;
+        
+        // Clear current display
+        invoiceList.innerHTML = '';
+        
+        if (invoices.length === 0) {
+            invoiceList.innerHTML = `
+                <div class="bil-no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>لا توجد نتائج</h3>
+                    <p>لم يتم العثور على فواتير تطابق معايير البحث</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Recreate invoice items
+        invoices.forEach(invoice => {
+            const invoiceElement = this.createInvoiceElement(invoice);
+            invoiceList.appendChild(invoiceElement);
+        });
+    },
+
+    /**
+     * Create invoice element for display
+     */
+    createInvoiceElement: function(invoice) {
+        const div = document.createElement('div');
+        div.className = `bil-invoice-item ${invoice.isUrgent ? 'bil-urgent' : ''}`;
+        div.innerHTML = `
+            <div class="bil-invoice-header">
+                <div class="bil-invoice-number">#${invoice.id}</div>
+                <div class="bil-invoice-status bil-${invoice.status}">${this.getStatusText(invoice.status)}</div>
+            </div>
+            <div class="bil-invoice-content">
+                <div class="bil-invoice-info">
+                    <div class="bil-invoice-title">${invoice.title}</div>
+                    <div class="bil-invoice-details">
+                        <span class="bil-invoice-date">${invoice.date}</span>
+                        <span class="bil-invoice-due">استحقاق: ${invoice.dueDate}</span>
+                    </div>
+                    <div class="bil-invoice-services">
+                        ${invoice.services.map(service => `<span class="bil-service-tag">${service}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="bil-invoice-amount">${invoice.amount.toLocaleString()} ريال</div>
+            </div>
+            <div class="bil-invoice-actions">
+                <button class="bil-btn bil-btn-outline" data-action="view-invoice">
+                    <i class="fas fa-eye"></i>
+                    عرض
+                </button>
+                ${this.getActionButtons(invoice)}
+            </div>
+        `;
+        
+        return div;
+    },
+
+    /**
+     * Get status text in Arabic
+     */
+    getStatusText: function(status) {
+        const statusMap = {
+            'pending': 'معلق',
+            'paid': 'مدفوع',
+            'overdue': 'متأخر',
+            'partial': 'مدفوع جزئياً'
+        };
+        return statusMap[status] || status;
+    },
+
+    /**
+     * Get appropriate action buttons for invoice
+     */
+    getActionButtons: function(invoice) {
+        switch (invoice.status) {
+            case 'pending':
+                return `
+                    <button class="bil-btn bil-btn-primary" data-action="send-invoice">
+                        <i class="fas fa-paper-plane"></i>
+                        إرسال
+                    </button>
+                `;
+            case 'overdue':
+                return `
+                    <button class="bil-btn bil-btn-danger" data-action="send-reminder">
+                        <i class="fas fa-bell"></i>
+                        تذكير
+                    </button>
+                `;
+            case 'paid':
+                return `
+                    <button class="bil-btn bil-btn-outline" data-action="download-invoice">
+                        <i class="fas fa-download"></i>
+                        تحميل
+                    </button>
+                `;
+            default:
+                return '';
+        }
+    },
+
+    /**
+     * Handle invoice selection for bulk actions
+     */
+    handleInvoiceSelection: function(checkbox) {
+        const invoiceItem = checkbox.closest('.bil-invoice-item');
+        const invoiceId = invoiceItem.querySelector('.bil-invoice-number').textContent.replace('#', '');
+        
+        if (!this.selectedInvoices) this.selectedInvoices = new Set();
+        
+        if (checkbox.checked) {
+            this.selectedInvoices.add(invoiceId);
+            invoiceItem.classList.add('bil-selected');
+        } else {
+            this.selectedInvoices.delete(invoiceId);
+            invoiceItem.classList.remove('bil-selected');
+        }
+        
+        this.updateBulkActionsBar();
+    },
+
+    /**
+     * Update bulk actions bar visibility
+     */
+    updateBulkActionsBar: function() {
+        const bulkBar = document.querySelector('.bil-bulk-actions');
+        if (!bulkBar) return;
+        
+        if (this.selectedInvoices && this.selectedInvoices.size > 0) {
+            bulkBar.classList.add('bil-active');
+            const countElement = bulkBar.querySelector('.bil-bulk-count');
+            if (countElement) {
+                countElement.textContent = `${this.selectedInvoices.size} فاتورة محددة`;
+            }
+        } else {
+            bulkBar.classList.remove('bil-active');
+        }
+    },
+
+    /**
+     * Handle bulk actions
+     */
+    handleBulkAction: function(action) {
+        if (!this.selectedInvoices || this.selectedInvoices.size === 0) {
+            Toast.show('خطأ', 'يرجى تحديد فواتير أولاً', 'error');
+            return;
+        }
+        
+        const invoiceIds = Array.from(this.selectedInvoices);
+        
+        switch (action) {
+            case 'send-reminders':
+                this.sendBulkReminders(invoiceIds);
+                break;
+            case 'export-selected':
+                this.exportSelectedInvoices(invoiceIds);
+                break;
+            case 'apply-discount':
+                this.showBulkDiscountDialog(invoiceIds);
+                break;
+            case 'mark-as-paid':
+                this.markInvoicesAsPaid(invoiceIds);
+                break;
+            default:
+                console.log(`Unknown bulk action: ${action}`);
+        }
+    },
+
+    /**
+     * Export selected invoices
+     */
+    exportSelectedInvoices: function(invoiceIds) {
+        const invoices = this.data.clientInvoices.filter(inv => invoiceIds.includes(inv.id));
+        
+        Toast.show('تصدير الفواتير', `جاري تصدير ${invoices.length} فاتورة...`, 'info');
+        
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = `selected-invoices-${new Date().toISOString().split('T')[0]}.pdf`;
+            link.click();
+            Toast.show('تصدير الفواتير', 'تم تصدير الفواتير المحددة بنجاح', 'success');
+        }, 1500);
+    },
+
+    /**
+     * Show bulk discount dialog
+     */
+    showBulkDiscountDialog: function(invoiceIds) {
+        // In a real app, this would show a modal dialog
+        const discountType = prompt('نوع الخصم (percentage/fixed):', 'percentage');
+        const discountValue = prompt('قيمة الخصم:', '10');
+        
+        if (discountType && discountValue) {
+            let successCount = 0;
+            invoiceIds.forEach(invoiceId => {
+                if (this.applyDiscount(invoiceId, discountType, parseFloat(discountValue))) {
+                    successCount++;
+                }
+            });
+            
+            Toast.show('تطبيق الخصم', `تم تطبيق الخصم على ${successCount} فاتورة`, 'success');
+        }
+    },
+
+    /**
+     * Mark invoices as paid
+     */
+    markInvoicesAsPaid: function(invoiceIds) {
+        let successCount = 0;
+        
+        invoiceIds.forEach(invoiceId => {
+            const invoice = this.data.clientInvoices.find(inv => inv.id === invoiceId);
+            if (invoice && invoice.status !== 'paid') {
+                invoice.status = 'paid';
+                invoice.paidDate = new Date().toLocaleDateString('ar-SA');
+                successCount++;
+            }
+        });
+        
+        if (successCount > 0) {
+            this.updateClientInvoices();
+            Toast.show('تحديث الحالة', `تم تحديث ${successCount} فاتورة كمدفوعة`, 'success');
+        }
+    },
+
+    /**
+     * Clear all filters
+     */
+    clearFilters: function() {
+        this.currentFilters = {};
+        
+        // Clear all filter inputs
+        document.querySelectorAll('[data-filter]').forEach(input => {
+            input.value = '';
+        });
+        
+        // Reset invoice list
+        this.updateInvoiceListDisplay(this.data.clientInvoices);
+        Toast.show('مسح الفلاتر', 'تم مسح جميع الفلاتر', 'info');
     }
 };
 
