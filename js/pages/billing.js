@@ -224,6 +224,7 @@ const BillingController = {
         this.loadBillingData();
         this.addAnimations();
         this.setupRealTimeUpdates();
+        this.optimizeForMobile();
     },
     
     /**
@@ -1468,7 +1469,7 @@ const BillingController = {
      */
     handleInvoiceSelection: function(checkbox) {
         const invoiceItem = checkbox.closest('.bil-invoice-item');
-        const invoiceId = invoiceItem.querySelector('.bil-invoice-number').textContent.replace('#', '');
+        const invoiceId = checkbox.dataset.invoiceId;
         
         if (!this.selectedInvoices) this.selectedInvoices = new Set();
         
@@ -1602,6 +1603,76 @@ const BillingController = {
         // Reset invoice list
         this.updateInvoiceListDisplay(this.data.clientInvoices);
         Toast.show('مسح الفلاتر', 'تم مسح جميع الفلاتر', 'info');
+    },
+
+    /**
+     * Enhanced mobile touch interactions
+     */
+    setupMobileInteractions: function() {
+        // Add touch feedback for cards
+        const cards = document.querySelectorAll('.bil-summary-card, .bil-action-card, .bil-payment-method, .bil-invoice-item');
+        cards.forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            card.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Add swipe gestures for invoice items
+        const invoiceItems = document.querySelectorAll('.bil-invoice-item');
+        invoiceItems.forEach(item => {
+            let startX = 0;
+            let currentX = 0;
+            
+            item.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+            });
+            
+            item.addEventListener('touchmove', function(e) {
+                currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+                
+                if (Math.abs(diff) > 50) {
+                    this.style.transform = `translateX(${diff * 0.3}px)`;
+                }
+            });
+            
+            item.addEventListener('touchend', function() {
+                this.style.transform = '';
+                const diff = currentX - startX;
+                
+                if (diff > 100) {
+                    // Swipe right - mark as paid
+                    this.querySelector('[data-action="mark-as-paid"]')?.click();
+                } else if (diff < -100) {
+                    // Swipe left - send reminder
+                    this.querySelector('[data-action="send-reminder"]')?.click();
+                }
+            });
+        });
+    },
+
+    /**
+     * Optimize for mobile performance
+     */
+    optimizeForMobile: function() {
+        // Reduce animations on mobile for better performance
+        if (window.innerWidth <= 768) {
+            document.documentElement.style.setProperty('--animation-duration', '0.2s');
+        }
+        
+        // Add mobile-specific event listeners
+        this.setupMobileInteractions();
+        
+        // Optimize touch targets
+        const buttons = document.querySelectorAll('.bil-btn, .bil-action-btn, .bil-bulk-btn');
+        buttons.forEach(button => {
+            button.style.minHeight = '44px'; // iOS recommended touch target size
+            button.style.minWidth = '44px';
+        });
     }
 };
 
