@@ -1042,8 +1042,16 @@ const OrdersController = {
      */
     submitOffer: function() {
         console.log('Submitting offer...');
-        // Implementation for submitting offer
-        Router.navigate('offer-form');
+        // Get the current global request ID from the active card
+        const activeGlobalCard = document.querySelector('.orders-order-card.orders-global');
+        if (activeGlobalCard) {
+            const requestId = activeGlobalCard.dataset.requestId;
+            // Navigate to offer form with request ID
+            Router.navigate(`offer-form?requestId=${requestId}`);
+        } else {
+            // Fallback to offer form without specific request ID
+            Router.navigate('offer-form');
+        }
     }
 };
 

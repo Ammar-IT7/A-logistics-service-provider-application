@@ -13,12 +13,17 @@ const Router = {
     },
     
     /**
-     * Navigate to a specific page
+     * Navigate to a page
      * @param {string} pageId - ID of the page to navigate to
      */
     navigate: function(pageId) {
+        console.log(`Navigating to: ${pageId}`);
+        
+        // Clean the pageId to remove query parameters for comparison
+        const cleanPageId = pageId.split('?')[0];
+        
         // Don't navigate if we're already on this page
-        if (this.currentPage === pageId) return;
+        if (this.currentPage === cleanPageId) return;
         
         // Show loader during navigation
         Loader.show();
@@ -36,10 +41,10 @@ const Router = {
                 setTimeout(() => Loader.hide(), 300);
                 
                 // Update current page
-                this.currentPage = pageId;
+                this.currentPage = cleanPageId;
                 
                 // Update app state
-                State.update('currentPage', pageId);
+                State.update('currentPage', cleanPageId);
                 
                 // Initialize page controller if exists - ensure DOM is ready
                 setTimeout(() => {
@@ -76,15 +81,18 @@ const Router = {
      */
     loadPage: function(pageId) {
         return new Promise((resolve, reject) => {
+            // Clean the pageId to remove query parameters
+            const cleanPageId = pageId.split('?')[0];
+            
             // Check if the page is cached
-            if (this.pageCache[pageId]) {
-                this.renderPage(pageId, this.pageCache[pageId]);
+            if (this.pageCache[cleanPageId]) {
+                this.renderPage(cleanPageId, this.pageCache[cleanPageId]);
                 resolve();
                 return;
             }
             
             // Fetch the page template
-            fetch(`templates/pages/${pageId}.html`)
+            fetch(`templates/pages/${cleanPageId}.html`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Page not found');
@@ -93,10 +101,10 @@ const Router = {
                 })
                 .then(html => {
                     // Cache the page
-                    this.pageCache[pageId] = html;
+                    this.pageCache[cleanPageId] = html;
                     
                     // Render the page
-                    this.renderPage(pageId, html);
+                    this.renderPage(cleanPageId, html);
                     
                     resolve();
                 })
@@ -112,12 +120,15 @@ const Router = {
      * @param {string} html - HTML content of the page
      */
     renderPage: function(pageId, html) {
+        // Clean the pageId to remove query parameters
+        const cleanPageId = pageId.split('?')[0];
+        
         // Create page element if it doesn't exist
-        let pageElement = document.getElementById(pageId);
+        let pageElement = document.getElementById(cleanPageId);
         
         if (!pageElement) {
             pageElement = document.createElement('div');
-            pageElement.id = pageId;
+            pageElement.id = cleanPageId;
             pageElement.className = 'page';
             this.pageContainer.appendChild(pageElement);
         }
@@ -132,6 +143,9 @@ const Router = {
      */
     setActivePage: function(pageId) {
         console.log(`Setting active page: ${pageId}`);
+        // Clean the pageId to remove query parameters
+        const cleanPageId = pageId.split('?')[0];
+        
         // Hide all pages
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
@@ -139,13 +153,13 @@ const Router = {
         });
         
         // Show the active page
-        const activePage = document.getElementById(pageId);
+        const activePage = document.getElementById(cleanPageId);
         if (activePage) {
             activePage.classList.add('active');
             activePage.style.display = 'flex'; // Force show active page
-            console.log(`Activated page: ${pageId}`);
+            console.log(`Activated page: ${cleanPageId}`);
         } else {
-            console.error(`Page element not found: ${pageId}`);
+            console.error(`Page element not found: ${cleanPageId}`);
         }
     },
     
@@ -154,13 +168,16 @@ const Router = {
      * @param {string} pageId - ID of the active page
      */
     updateNavigation: function(pageId) {
+        // Clean the pageId to remove query parameters
+        const cleanPageId = pageId.split('?')[0];
+        
         // Remove active class from all nav items
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
         });
         
         // Add active class to the current nav item
-        const activeNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+        const activeNav = document.querySelector(`.nav-item[data-page="${cleanPageId}"]`);
         if (activeNav) {
             activeNav.classList.add('active');
         }
@@ -171,6 +188,9 @@ const Router = {
      * @param {string} pageId - ID of the page to initialize controller for
      */
     initializePageController: function(pageId) {
+        // Clean the pageId to remove query parameters
+        const cleanPageId = pageId.split('?')[0];
+        
         // Map page IDs to controller names
         const controllerMap = {
             'warehouse-form': 'WarehouseFormController',
@@ -189,9 +209,6 @@ const Router = {
             'billing': 'BillingController',
             'help': 'HelpController',
             'account-management': 'AccountManagementController',
-            'myshipping': 'MyShippingController',
-            'mycustoms': 'MyCustomsController',
-            'mywarehouses': 'MyWarehousesController',
             'my-packaging': 'MyPackagingController',
             'my-lc-services': 'MyLcServicesController',
             'my-last-mile': 'MyLastMileController',
@@ -207,11 +224,14 @@ const Router = {
             'order-details': 'OrderDetailsController',
             'global-request-details': 'GlobalRequestDetailsController',
             'getting-started': 'GettingStartedController',
-            'warehouse-management-form': 'WarehouseManagementFormController'
+            'warehouse-management-form': 'WarehouseManagementFormController',
+            'offer-form': 'OfferFormController',
+            'my-offers': 'MyOffersController',
+            
         };
         
         // Get controller name from map or generate default
-        const controllerName = controllerMap[pageId] || pageId.charAt(0).toUpperCase() + pageId.slice(1) + 'Controller';
+        const controllerName = controllerMap[cleanPageId] || cleanPageId.charAt(0).toUpperCase() + cleanPageId.slice(1) + 'Controller';
         
         // Debug: Check what controllers are available
         console.log(`Looking for controller: ${controllerName}`);
@@ -219,15 +239,15 @@ const Router = {
         
         // Initialize controller if it exists
         if (window[controllerName]) {
-            console.log(`Initializing controller: ${controllerName} for page: ${pageId}`);
+            console.log(`Initializing controller: ${controllerName} for page: ${cleanPageId}`);
             window[controllerName].init();
             
             // Dispatch custom event for side drawer integration
             setTimeout(() => {
-                document.dispatchEvent(new CustomEvent('pageLoaded', { detail: { pageId: pageId } }));
+                document.dispatchEvent(new CustomEvent('pageLoaded', { detail: { pageId: cleanPageId } }));
             }, 200);
         } else {
-            console.log(`Controller not found: ${controllerName} for page: ${pageId}`);
+            console.log(`Controller not found: ${controllerName} for page: ${cleanPageId}`);
             console.log('Available controllers:', Object.keys(window).filter(key => key.endsWith('Controller')));
         }
     }

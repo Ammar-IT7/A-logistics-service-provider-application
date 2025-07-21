@@ -290,8 +290,9 @@ const GlobalRequestDetailsController = {
      */
     submitOffer: function() {
         console.log('Submit offer action triggered');
-        // This would typically navigate to offer form
-        this.showMessage('سيتم فتح نموذج تقديم العرض قريباً');
+        // Get the current request ID and navigate to offer form
+        const requestId = this.getRequestId();
+        Router.navigate(`offer-form?requestId=${requestId}`);
     },
 
     /**

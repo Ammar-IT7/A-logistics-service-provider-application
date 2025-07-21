@@ -1,0 +1,324 @@
+    <!-- Header -->
+    <div class="offer-form-header">
+        <button class="offer-form-header-action" data-action="navigate" data-page="global-request-details">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="offer-form-header-title">تقديم عرض للطلب العام #GLB-2024-1253</h1>
+        <button class="offer-form-header-action" data-action="save-draft" aria-label="حفظ كمسودة">
+            <i class="fas fa-save"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="offer-form-content">
+        <!-- Progress Bar -->
+        <section class="offer-form-progress">
+            <div class="offer-form-progress-bar">
+                <div class="offer-form-progress-step offer-form-active" data-step="1">
+                    <div class="offer-form-progress-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <span class="offer-form-progress-text">المعلومات الأساسية</span>
+                </div>
+                <div class="offer-form-progress-step" data-step="2">
+                    <div class="offer-form-progress-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <span class="offer-form-progress-text">التسعير</span>
+                </div>
+                <div class="offer-form-progress-step" data-step="3">
+                    <div class="offer-form-progress-icon">
+                        <i class="fas fa-list-check"></i>
+                    </div>
+                    <span class="offer-form-progress-text">المميزات والخدمات</span>
+                </div>
+                <div class="offer-form-progress-step" data-step="4">
+                    <div class="offer-form-progress-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <span class="offer-form-progress-text">الشروط والأحكام</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Request Summary -->
+        <section class="offer-form-summary">
+            <div class="offer-form-summary-card">
+                <div class="offer-form-summary-header">
+                    <h3>ملخص الطلب</h3>
+                    <span class="offer-form-summary-status">مفتوح للعروض</span>
+                </div>
+                <div class="offer-form-summary-content">
+                    <div class="offer-form-summary-item">
+                        <span class="offer-form-summary-label">نوع الخدمة:</span>
+                        <span class="offer-form-summary-value">تخزين</span>
+                    </div>
+                    <div class="offer-form-summary-item">
+                        <span class="offer-form-summary-label">العميل:</span>
+                        <span class="offer-form-summary-value">شركة التقنية المتقدمة للتجارة</span>
+                    </div>
+                    <div class="offer-form-summary-item">
+                        <span class="offer-form-summary-label">الموقع:</span>
+                        <span class="offer-form-summary-value">الرياض، المملكة العربية السعودية</span>
+                    </div>
+                    <div class="offer-form-summary-item">
+                        <span class="offer-form-summary-label">المدة:</span>
+                        <span class="offer-form-summary-value">6 أشهر</span>
+                    </div>
+                    <div class="offer-form-summary-item">
+                        <span class="offer-form-summary-label">الموعد النهائي:</span>
+                        <span class="offer-form-summary-value">20 يناير 2024</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form -->
+        <form id="offerForm" class="offer-form">
+            <!-- Step 1: Basic Information -->
+            <div class="offer-form-slide offer-form-active" data-slide="1">
+                <div class="offer-form-section">
+                    <h3 class="offer-form-section-title">
+                        <i class="fas fa-info-circle"></i>
+                        المعلومات الأساسية
+                    </h3>
+                    
+                    <div class="offer-form-grid">
+                        <div class="offer-form-field">
+                            <label for="offerTitle" class="offer-form-label">عنوان العرض *</label>
+                            <input type="text" id="offerTitle" name="offerTitle" class="offer-form-input" required placeholder="مثال: عرض تخزين مكيف مع خدمات متقدمة">
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="offerDescription" class="offer-form-label">وصف العرض *</label>
+                            <textarea id="offerDescription" name="offerDescription" class="offer-form-textarea" required placeholder="وصف تفصيلي للخدمات المقدمة في هذا العرض"></textarea>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="serviceLocation" class="offer-form-label">موقع الخدمة *</label>
+                            <input type="text" id="serviceLocation" name="serviceLocation" class="offer-form-input" required placeholder="موقع الخدمة المقدمة">
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="deliveryTime" class="offer-form-label">وقت التسليم *</label>
+                            <select id="deliveryTime" name="deliveryTime" class="offer-form-select" required>
+                                <option value="">اختر وقت التسليم</option>
+                                <option value="immediate">فوري</option>
+                                <option value="24h">خلال 24 ساعة</option>
+                                <option value="48h">خلال 48 ساعة</option>
+                                <option value="72h">خلال 72 ساعة</option>
+                                <option value="custom">مخصص</option>
+                            </select>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="offerValidity" class="offer-form-label">صلاحية العرض *</label>
+                            <select id="offerValidity" name="offerValidity" class="offer-form-select" required>
+                                <option value="">اختر مدة الصلاحية</option>
+                                <option value="3">3 أيام</option>
+                                <option value="7">7 أيام</option>
+                                <option value="14">14 يوم</option>
+                                <option value="30">30 يوم</option>
+                                <option value="custom">مخصص</option>
+                            </select>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="contactPerson" class="offer-form-label">الشخص المسؤول *</label>
+                            <input type="text" id="contactPerson" name="contactPerson" class="offer-form-input" required placeholder="اسم الشخص المسؤول عن هذا العرض">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Pricing -->
+            <div class="offer-form-slide" data-slide="2">
+                <div class="offer-form-section">
+                    <h3 class="offer-form-section-title">
+                        <i class="fas fa-tag"></i>
+                        التسعير
+                    </h3>
+                    
+                    <div class="offer-form-grid">
+                        <div class="offer-form-field">
+                            <label for="basePrice" class="offer-form-label">السعر الأساسي *</label>
+                            <div class="offer-form-price-input">
+                                <input type="number" id="basePrice" name="basePrice" class="offer-form-input" required placeholder="0">
+                                <select id="priceUnit" name="priceUnit" class="offer-form-select" required>
+                                    <option value="">الوحدة</option>
+                                    <option value="monthly">شهرياً</option>
+                                    <option value="quarterly">ربع سنوي</option>
+                                    <option value="yearly">سنوياً</option>
+                                    <option value="one-time">مرة واحدة</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="discountPercentage" class="offer-form-label">نسبة الخصم</label>
+                            <div class="offer-form-discount-input">
+                                <input type="number" id="discountPercentage" name="discountPercentage" class="offer-form-input" placeholder="0" min="0" max="100">
+                                <span class="offer-form-discount-symbol">%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="finalPrice" class="offer-form-label">السعر النهائي</label>
+                            <input type="text" id="finalPrice" name="finalPrice" class="offer-form-input" readonly placeholder="سيتم الحساب تلقائياً">
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="paymentTerms" class="offer-form-label">شروط الدفع *</label>
+                            <select id="paymentTerms" name="paymentTerms" class="offer-form-select" required>
+                                <option value="">اختر شروط الدفع</option>
+                                <option value="advance">دفع مقدم</option>
+                                <option value="monthly">دفع شهري</option>
+                                <option value="quarterly">دفع ربع سنوي</option>
+                                <option value="custom">شروط مخصصة</option>
+                            </select>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="additionalFees" class="offer-form-label">رسوم إضافية</label>
+                            <textarea id="additionalFees" name="additionalFees" class="offer-form-textarea" placeholder="أي رسوم إضافية أو شروط خاصة بالدفع"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Features and Services -->
+            <div class="offer-form-slide" data-slide="3">
+                <div class="offer-form-section">
+                    <h3 class="offer-form-section-title">
+                        <i class="fas fa-list-check"></i>
+                        المميزات والخدمات
+                    </h3>
+                    
+                    <div class="offer-form-features">
+                        <div class="offer-form-features-header">
+                            <h4>المميزات المقدمة</h4>
+                            <button type="button" class="offer-form-btn offer-form-btn-outline" data-action="add-feature">
+                                <i class="fas fa-plus"></i>
+                                إضافة ميزة
+                            </button>
+                        </div>
+                        
+                        <div class="offer-form-features-list" id="featuresList">
+                            <div class="offer-form-feature-item">
+                                <input type="text" name="features[]" class="offer-form-input" placeholder="أدخل الميزة" required>
+                                <button type="button" class="offer-form-btn offer-form-btn-danger" data-action="remove-feature">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="offer-form-services">
+                        <div class="offer-form-services-header">
+                            <h4>الخدمات الإضافية</h4>
+                            <button type="button" class="offer-form-btn offer-form-btn-outline" data-action="add-service">
+                                <i class="fas fa-plus"></i>
+                                إضافة خدمة
+                            </button>
+                        </div>
+                        
+                        <div class="offer-form-services-list" id="servicesList">
+                            <div class="offer-form-service-item">
+                                <div class="offer-form-service-inputs">
+                                    <input type="text" name="serviceNames[]" class="offer-form-input" placeholder="اسم الخدمة" required>
+                                    <input type="number" name="servicePrices[]" class="offer-form-input" placeholder="السعر" required>
+                                </div>
+                                <button type="button" class="offer-form-btn offer-form-btn-danger" data-action="remove-service">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="offer-form-field">
+                        <label for="specialRequirements" class="offer-form-label">متطلبات خاصة</label>
+                        <textarea id="specialRequirements" name="specialRequirements" class="offer-form-textarea" placeholder="أي متطلبات خاصة أو شروط إضافية"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Terms and Conditions -->
+            <div class="offer-form-slide" data-slide="4">
+                <div class="offer-form-section">
+                    <h3 class="offer-form-section-title">
+                        <i class="fas fa-file-contract"></i>
+                        الشروط والأحكام
+                    </h3>
+                    
+                    <div class="offer-form-grid">
+                        <div class="offer-form-field">
+                            <label for="warrantyPeriod" class="offer-form-label">فترة الضمان</label>
+                            <select id="warrantyPeriod" name="warrantyPeriod" class="offer-form-select">
+                                <option value="">اختر فترة الضمان</option>
+                                <option value="none">لا يوجد ضمان</option>
+                                <option value="30">30 يوم</option>
+                                <option value="90">90 يوم</option>
+                                <option value="180">6 أشهر</option>
+                                <option value="365">سنة واحدة</option>
+                                <option value="custom">مخصص</option>
+                            </select>
+                        </div>
+                        
+                        <div class="offer-form-field">
+                            <label for="cancellationPolicy" class="offer-form-label">سياسة الإلغاء</label>
+                            <select id="cancellationPolicy" name="cancellationPolicy" class="offer-form-select">
+                                <option value="">اختر سياسة الإلغاء</option>
+                                <option value="flexible">مرنة</option>
+                                <option value="moderate">متوسطة</option>
+                                <option value="strict">صارمة</option>
+                                <option value="custom">مخصصة</option>
+                            </select>
+                        </div>
+                        
+                        <div class="offer-form-field offer-form-full-width">
+                            <label for="termsConditions" class="offer-form-label">الشروط والأحكام *</label>
+                            <textarea id="termsConditions" name="termsConditions" class="offer-form-textarea" required placeholder="الشروط والأحكام الخاصة بهذا العرض"></textarea>
+                        </div>
+                        
+                        <div class="offer-form-field offer-form-full-width">
+                            <label class="offer-form-label">التأكيدات</label>
+                            <div class="offer-form-checkboxes">
+                                <label class="offer-form-checkbox">
+                                    <input type="checkbox" name="confirmTerms" required>
+                                    <span class="offer-form-checkbox-text">أؤكد أن جميع المعلومات المقدمة صحيحة وكاملة</span>
+                                </label>
+                                <label class="offer-form-checkbox">
+                                    <input type="checkbox" name="confirmPricing" required>
+                                    <span class="offer-form-checkbox-text">أؤكد أن الأسعار المقدمة نهائية وملزمة</span>
+                                </label>
+                                <label class="offer-form-checkbox">
+                                    <input type="checkbox" name="confirmAvailability" required>
+                                    <span class="offer-form-checkbox-text">أؤكد أن الخدمة متاحة في المواعيد المحددة</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Form Actions -->
+        <section class="offer-form-actions">
+            <div class="offer-form-actions-buttons">
+                <button type="button" class="offer-form-btn offer-form-btn-outline" data-action="prev-step" id="prevStepBtn" style="display: none;">
+                    <i class="fas fa-arrow-right"></i>
+                    السابق
+                </button>
+                
+                <button type="button" class="offer-form-btn offer-form-btn-primary" data-action="next-step" id="nextStepBtn">
+                    التالي
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                
+                <button type="submit" class="offer-form-btn offer-form-btn-success" data-action="submit-offer" id="submitOfferBtn" style="display: none;">
+                    <i class="fas fa-paper-plane"></i>
+                    تقديم العرض
+                </button>
+            </div>
+        </section>
+    </div> 

@@ -1,0 +1,433 @@
+    <!-- Header -->
+    <div class="my-offers-header">
+        <button class="my-offers-header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="my-offers-header-title">عروضي المقدمة</h1>
+        <button class="my-offers-header-action" data-action="notifications" aria-label="الإشعارات">
+            <i class="fas fa-bell"></i>
+            <span class="my-offers-notification-badge">3</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="my-offers-content">
+        <!-- Stats Overview -->
+        <section class="my-offers-stats-overview">
+            <div class="my-offers-stats-row">
+                <div class="my-offers-stat-card my-offers-primary">
+                    <div class="my-offers-stat-header">
+                        <div class="my-offers-stat-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="my-offers-stat-trend my-offers-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>25%</span>
+                        </div>
+                    </div>
+                    <div class="my-offers-stat-content">
+                        <div class="my-offers-stat-value">156</div>
+                        <div class="my-offers-stat-label">إجمالي العروض</div>
+                    </div>
+                </div>
+                
+                <div class="my-offers-stat-card my-offers-success">
+                    <div class="my-offers-stat-header">
+                        <div class="my-offers-stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="my-offers-stat-trend my-offers-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>18%</span>
+                        </div>
+                    </div>
+                    <div class="my-offers-stat-content">
+                        <div class="my-offers-stat-value">23</div>
+                        <div class="my-offers-stat-label">عروض مقبولة</div>
+                    </div>
+                </div>
+                
+                <div class="my-offers-stat-card my-offers-warning">
+                    <div class="my-offers-stat-header">
+                        <div class="my-offers-stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="my-offers-stat-trend my-offers-neutral">
+                            <i class="fas fa-minus"></i>
+                            <span>5%</span>
+                        </div>
+                    </div>
+                    <div class="my-offers-stat-content">
+                        <div class="my-offers-stat-value">89</div>
+                        <div class="my-offers-stat-label">قيد المراجعة</div>
+                    </div>
+                </div>
+                
+                <div class="my-offers-stat-card my-offers-info">
+                    <div class="my-offers-stat-header">
+                        <div class="my-offers-stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="my-offers-stat-trend my-offers-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>32%</span>
+                        </div>
+                    </div>
+                    <div class="my-offers-stat-content">
+                        <div class="my-offers-stat-value">450,000 ريال</div>
+                        <div class="my-offers-stat-label">إجمالي القيمة</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Search -->
+        <section class="my-offers-quick-search">
+            <div class="my-offers-search-container">
+                <div class="my-offers-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="البحث في العروض، العملاء، أو أرقام الطلبات..." class="my-offers-search-input">
+                    <button class="my-offers-search-clear" type="button" aria-label="مسح البحث">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Status Filters -->
+        <section class="my-offers-quick-filters-section">
+            <div class="my-offers-quick-filters">
+                <button class="my-offers-filter-btn my-offers-active" data-filter="all">
+                    <span class="my-offers-filter-icon">
+                        <i class="fas fa-list"></i>
+                    </span>
+                    <span class="my-offers-filter-text">الكل</span>
+                    <span class="my-offers-filter-count">156</span>
+                </button>
+                <button class="my-offers-filter-btn" data-filter="pending">
+                    <span class="my-offers-filter-icon">
+                        <i class="fas fa-clock"></i>
+                    </span>
+                    <span class="my-offers-filter-text">قيد المراجعة</span>
+                    <span class="my-offers-filter-count">89</span>
+                </button>
+                <button class="my-offers-filter-btn" data-filter="accepted">
+                    <span class="my-offers-filter-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </span>
+                    <span class="my-offers-filter-text">مقبولة</span>
+                    <span class="my-offers-filter-count">23</span>
+                </button>
+                <button class="my-offers-filter-btn" data-filter="rejected">
+                    <span class="my-offers-filter-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </span>
+                    <span class="my-offers-filter-text">مرفوضة</span>
+                    <span class="my-offers-filter-count">44</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Offers List -->
+        <section class="my-offers-section">
+            <div class="my-offers-section-header">
+                <h3 class="my-offers-section-title">
+                    <i class="fas fa-handshake my-offers-section-icon"></i>
+                    عروضي المقدمة
+                </h3>
+                <div class="my-offers-section-actions">
+                    <button class="my-offers-btn my-offers-btn-outline" data-action="export-offers">
+                        <i class="fas fa-download"></i>
+                        تصدير
+                    </button>
+                </div>
+            </div>
+            
+            <div class="my-offers-grid">
+                <!-- Offer Card 1 - Pending -->
+                <div class="my-offers-offer-card my-offers-pending" data-action="navigate" data-page="offer-details" data-offer-id="OFF-2024-1253">
+                    <div class="my-offers-offer-header">
+                        <div class="my-offers-offer-type">
+                            <i class="fas fa-warehouse"></i>
+                            <span>تخزين</span>
+                        </div>
+                        <div class="my-offers-offer-status my-offers-pending">
+                            <i class="fas fa-clock"></i>
+                            <span>قيد المراجعة</span>
+                        </div>
+                        <div class="my-offers-offer-badge my-offers-featured-badge">
+                            <i class="fas fa-star"></i>
+                            <span>مميز</span>
+                        </div>
+                    </div>
+                    
+                    <div class="my-offers-offer-content">
+                        <h4 class="my-offers-offer-title">عرض تخزين مكيف مع خدمات متقدمة</h4>
+                        <p class="my-offers-offer-description">تخزين آمن ومكيف للمنتجات الغذائية مع نظام أمان متقدم وتأمين شامل</p>
+                        
+                        <div class="my-offers-offer-details">
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-user"></i>
+                                <span>شركة التقنية المتقدمة للتجارة</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الرياض، المملكة العربية السعودية</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>16 يناير 2024</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>9,200 ريال شهرياً</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-offers-offer-footer">
+                        <div class="my-offers-offer-priority my-offers-high">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>عالية</span>
+                        </div>
+                        <div class="my-offers-offer-time">
+                            <i class="fas fa-clock"></i>
+                            <span>منذ يوم واحد</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offer Card 2 - Accepted -->
+                <div class="my-offers-offer-card my-offers-accepted" data-action="navigate" data-page="offer-details" data-offer-id="OFF-2024-4587">
+                    <div class="my-offers-offer-header">
+                        <div class="my-offers-offer-type">
+                            <i class="fas fa-truck"></i>
+                            <span>شحن</span>
+                        </div>
+                        <div class="my-offers-offer-status my-offers-accepted">
+                            <i class="fas fa-check-circle"></i>
+                            <span>مقبولة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="my-offers-offer-content">
+                        <h4 class="my-offers-offer-title">خدمة شحن سريع مع تتبع متقدم</h4>
+                        <p class="my-offers-offer-description">شحن بري سريع من الرياض إلى الدمام مع خدمة التتبع المتقدمة والتأمين الشامل</p>
+                        
+                        <div class="my-offers-offer-details">
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-user"></i>
+                                <span>شركة النقل السريع للخدمات اللوجستية</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-route"></i>
+                                <span>الرياض → الدمام</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>12 يناير 2024</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>3,500 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-offers-offer-footer">
+                        <div class="my-offers-offer-priority my-offers-medium">
+                            <i class="fas fa-minus-circle"></i>
+                            <span>متوسطة</span>
+                        </div>
+                        <div class="my-offers-offer-time">
+                            <i class="fas fa-clock"></i>
+                            <span>منذ 3 أيام</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offer Card 3 - Rejected -->
+                <div class="my-offers-offer-card my-offers-rejected" data-action="navigate" data-page="offer-details" data-offer-id="OFF-2024-8975">
+                    <div class="my-offers-offer-header">
+                        <div class="my-offers-offer-type">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>تخليص جمركي</span>
+                        </div>
+                        <div class="my-offers-offer-status my-offers-rejected">
+                            <i class="fas fa-times-circle"></i>
+                            <span>مرفوضة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="my-offers-offer-content">
+                        <h4 class="my-offers-offer-title">خدمة تخليص جمركي شاملة</h4>
+                        <p class="my-offers-offer-description">تخليص جمركي شامل للمعدات الإلكترونية مع إدارة المستندات والمرافقة</p>
+                        
+                        <div class="my-offers-offer-details">
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-user"></i>
+                                <span>مصنع الأثاث الحديث للتصنيع</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>ميناء جدة الإسلامي</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>10 يناير 2024</span>
+                            </div>
+                            <div class="my-offers-detail-item">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>8,750 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-offers-offer-footer">
+                        <div class="my-offers-offer-priority my-offers-low">
+                            <i class="fas fa-check-circle"></i>
+                            <span>منخفضة</span>
+                        </div>
+                        <div class="my-offers-offer-time">
+                            <i class="fas fa-clock"></i>
+                            <span>منذ 5 أيام</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Filter Button -->
+    <div class="my-offers-floating-filter" id="floatingFilter">
+        <button class="my-offers-floating-filter-btn" data-action="toggle-advanced-filters">
+            <i class="fas fa-filter"></i>
+            <span class="my-offers-floating-filter-text">فلترة متقدمة</span>
+        </button>
+    </div>
+
+    <!-- Advanced Filters Modal -->
+    <div class="my-offers-filters-modal" id="filtersModal">
+        <div class="my-offers-filters-modal-overlay" data-action="close-filters"></div>
+        <div class="my-offers-filters-modal-content">
+            <div class="my-offers-filters-modal-header">
+                <h3 class="my-offers-filters-modal-title">
+                    <i class="fas fa-filter"></i>
+                    فلترة متقدمة
+                </h3>
+                <button class="my-offers-filters-modal-close" data-action="close-filters">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="my-offers-filters-modal-body">
+                <div class="my-offers-filter-group">
+                    <label class="my-offers-filter-label">نوع الخدمة</label>
+                    <div class="my-offers-filter-options">
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="serviceType" value="warehouse">
+                            <span class="my-offers-option-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </span>
+                            <span class="my-offers-option-text">تخزين</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="serviceType" value="shipping">
+                            <span class="my-offers-option-icon">
+                                <i class="fas fa-truck"></i>
+                            </span>
+                            <span class="my-offers-option-text">شحن</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="serviceType" value="customs">
+                            <span class="my-offers-option-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </span>
+                            <span class="my-offers-option-text">تخليص جمركي</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="serviceType" value="packaging">
+                            <span class="my-offers-option-icon">
+                                <i class="fas fa-box"></i>
+                            </span>
+                            <span class="my-offers-option-text">تغليف</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="my-offers-filter-group">
+                    <label class="my-offers-filter-label">الفترة الزمنية</label>
+                    <div class="my-offers-time-filters">
+                        <label class="my-offers-option">
+                            <input type="radio" name="timePeriod" value="today">
+                            <span class="my-offers-option-text">اليوم</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="radio" name="timePeriod" value="week">
+                            <span class="my-offers-option-text">هذا الأسبوع</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="radio" name="timePeriod" value="month">
+                            <span class="my-offers-option-text">هذا الشهر</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="radio" name="timePeriod" value="quarter">
+                            <span class="my-offers-option-text">هذا الربع</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="radio" name="timePeriod" value="year">
+                            <span class="my-offers-option-text">هذا العام</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="my-offers-filter-group">
+                    <label class="my-offers-filter-label">نطاق السعر</label>
+                    <div class="my-offers-price-range">
+                        <div class="my-offers-price-inputs">
+                            <input type="number" placeholder="من" class="my-offers-price-input" id="priceFrom">
+                            <span class="my-offers-price-separator">-</span>
+                            <input type="number" placeholder="إلى" class="my-offers-price-input" id="priceTo">
+                        </div>
+                        <div class="my-offers-price-slider">
+                            <input type="range" min="0" max="50000" value="0" class="my-offers-range-slider" id="priceRangeMin">
+                            <input type="range" min="0" max="50000" value="50000" class="my-offers-range-slider" id="priceRangeMax">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-offers-filter-group">
+                    <label class="my-offers-filter-label">الموقع</label>
+                    <div class="my-offers-location-filters">
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="location" value="riyadh">
+                            <span class="my-offers-option-text">الرياض</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="location" value="jeddah">
+                            <span class="my-offers-option-text">جدة</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="location" value="dammam">
+                            <span class="my-offers-option-text">الدمام</span>
+                        </label>
+                        <label class="my-offers-option">
+                            <input type="checkbox" name="location" value="other">
+                            <span class="my-offers-option-text">مدن أخرى</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="my-offers-filters-modal-footer">
+                <button type="button" class="my-offers-btn my-offers-btn-outline" data-action="clear-filters">
+                    <i class="fas fa-times"></i>
+                    مسح الفلاتر
+                </button>
+                <button type="button" class="my-offers-btn my-offers-btn-primary" data-action="apply-filters">
+                    <i class="fas fa-check"></i>
+                    تطبيق الفلاتر
+                </button>
+            </div>
+        </div>
+    </div> 

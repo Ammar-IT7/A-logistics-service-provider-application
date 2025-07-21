@@ -1,0 +1,541 @@
+/* Offer Form Page Specific Styles */
+
+/* Offer Form Header */
+.offer-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.offer-form-header-action {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.offer-form-header-action:hover {
+    background: var(--hover-bg);
+}
+
+.offer-form-header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Offer Form Content */
+.offer-form-content {
+    padding: 1rem;
+    padding-bottom: 100px;
+    min-height: calc(100vh - 60px);
+    background: var(--light-color);
+}
+
+/* Progress Bar */
+.offer-form-progress {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.offer-form-progress-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.offer-form-progress-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--border-color);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.offer-form-progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 2;
+    background: var(--card-bg);
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.offer-form-progress-step.offer-form-active {
+    color: var(--primary-color);
+}
+
+.offer-form-progress-step.offer-form-completed {
+    color: var(--success);
+}
+
+.offer-form-progress-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.offer-form-progress-step.offer-form-active .offer-form-progress-icon {
+    background: var(--primary-color);
+    color: white;
+}
+
+.offer-form-progress-step.offer-form-completed .offer-form-progress-icon {
+    background: var(--success);
+    color: white;
+}
+
+.offer-form-progress-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Request Summary */
+.offer-form-summary {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.offer-form-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.offer-form-summary-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.offer-form-summary-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.offer-form-summary-content {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.offer-form-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.offer-form-summary-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.offer-form-summary-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Form */
+.offer-form {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.offer-form-slide {
+    display: none;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.offer-form-slide.offer-form-active {
+    display: block;
+}
+
+.offer-form-section {
+    margin-bottom: 2rem;
+}
+
+.offer-form-section:last-child {
+    margin-bottom: 0;
+}
+
+.offer-form-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.offer-form-section-title i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+/* Form Grid */
+.offer-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.offer-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.offer-form-field.offer-form-full-width {
+    grid-column: 1 / -1;
+}
+
+.offer-form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.offer-form-input,
+.offer-form-textarea,
+.offer-form-select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.offer-form-input:focus,
+.offer-form-textarea:focus,
+.offer-form-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.offer-form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Price Input */
+.offer-form-price-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.offer-form-price-input .offer-form-input {
+    flex: 1;
+}
+
+.offer-form-price-input .offer-form-select {
+    width: 120px;
+}
+
+/* Discount Input */
+.offer-form-discount-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.offer-form-discount-input .offer-form-input {
+    flex: 1;
+}
+
+.offer-form-discount-symbol {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Features and Services */
+.offer-form-features,
+.offer-form-services {
+    margin-bottom: 2rem;
+}
+
+.offer-form-features-header,
+.offer-form-services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.offer-form-features-header h4,
+.offer-form-services-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.offer-form-features-list,
+.offer-form-services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.offer-form-feature-item,
+.offer-form-service-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.offer-form-feature-item .offer-form-input {
+    flex: 1;
+}
+
+.offer-form-service-inputs {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.offer-form-service-inputs .offer-form-input {
+    flex: 1;
+}
+
+/* Buttons */
+.offer-form-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.offer-form-btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.offer-form-btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.offer-form-btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.offer-form-btn-outline:hover {
+    background: var(--hover-bg);
+    border-color: var(--text-secondary);
+}
+
+.offer-form-btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.offer-form-btn-success:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.offer-form-btn-danger {
+    background: var(--danger);
+    color: white;
+    padding: 0.5rem;
+    min-height: 36px;
+}
+
+.offer-form-btn-danger:hover {
+    background: #dc2626;
+}
+
+/* Checkboxes */
+.offer-form-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.offer-form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.offer-form-checkbox input[type="checkbox"] {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.offer-form-checkbox-text {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+/* Form Actions */
+.offer-form-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    z-index: 100;
+}
+
+.offer-form-actions-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .offer-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .offer-form-progress-text {
+        font-size: 0.875rem;
+    }
+    
+    .offer-form-actions-buttons {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 767px) {
+    .offer-form-progress-bar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .offer-form-progress-bar::before {
+        display: none;
+    }
+    
+    .offer-form-progress-step {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+    
+    .offer-form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .offer-form-service-inputs {
+        flex-direction: column;
+    }
+    
+    .offer-form-actions-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .offer-form-actions-buttons > * {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .offer-form-content {
+        padding: 0.75rem;
+    }
+    
+    .offer-form {
+        padding: 1rem;
+    }
+    
+    .offer-form-progress {
+        padding: 1rem;
+    }
+    
+    .offer-form-summary {
+        padding: 1rem;
+    }
+    
+    .offer-form-summary-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+} 
