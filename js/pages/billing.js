@@ -1,33 +1,33 @@
 /**
- * Billing Controller - Modern Enhanced Version
+ * Billing Controller - Service Provider Revenue Management
  */
 const BillingController = {
     /**
-     * Billing data structure - Aligned with logistics service provider app
+     * Billing data structure - Service Provider Revenue Focus
      */
     data: {
         summary: {
-            totalDue: 18750,
+            totalRevenue: 98750,
             pendingInvoices: 12,
             daysUntilDue: 3,
             onTimePaymentRate: 94
         },
-        paymentMethods: [
+        clientPaymentMethods: [
             {
                 id: 1,
                 type: 'visa',
-                name: 'Visa تنتهي بـ 1234',
+                name: 'Visa - عميل افتراضي',
                 expiry: '12/25',
-                limit: '50,000 ريال',
-                isDefault: true
+                limit: '100,000 ريال',
+                isAccepted: true
             },
             {
                 id: 2,
                 type: 'mastercard',
-                name: 'Mastercard تنتهي بـ 5678',
+                name: 'Mastercard - عميل افتراضي',
                 expiry: '08/26',
-                limit: '75,000 ريال',
-                isDefault: false
+                limit: '150,000 ريال',
+                isAccepted: true
             },
             {
                 id: 3,
@@ -35,7 +35,7 @@ const BillingController = {
                 name: 'تحويل بنكي',
                 details: 'البنك الأهلي السعودي',
                 account: '1234567890',
-                isDefault: false
+                isAccepted: true
             },
             {
                 id: 4,
@@ -43,147 +43,127 @@ const BillingController = {
                 name: 'PayPal',
                 details: 'user@example.com',
                 limit: 'متصل بالحساب المصرفي',
-                isDefault: false
+                isAccepted: true
             }
         ],
-        invoices: [
+        clientInvoices: [
             {
                 id: 'INV-2024-015',
-                title: 'خدمات الشحن الدولي - ديسمبر 2024',
-                amount: 4250,
+                client: 'شركة التقنية المتقدمة',
+                title: 'شحن بحري - حاوية 40 قدم - ديسمبر 2024',
+                amount: 12450,
                 status: 'overdue',
                 date: '20 ديسمبر 2024',
                 dueDate: '15 ديسمبر 2024',
                 services: ['شحن بحري', 'تخليص جمركي', 'تأمين'],
                 serviceType: 'shipping',
                 isUrgent: true,
-                client: 'شركة التقنية المتقدمة',
                 route: 'ميناء جدة الإسلامي - الرياض'
             },
             {
                 id: 'INV-2024-014',
-                title: 'خدمات التخزين - ديسمبر 2024',
-                amount: 2800,
+                client: 'شركة الأغذية العالمية',
+                title: 'تخزين بارد - مستودع الرياض - ديسمبر 2024',
+                amount: 8800,
                 status: 'pending',
                 date: '18 ديسمبر 2024',
                 dueDate: '31 ديسمبر 2024',
-                services: ['تخزين بارد', 'إدارة مخزون'],
+                services: ['تخزين بارد', 'إدارة مخزون', 'تتبع GPS'],
                 serviceType: 'storage',
-                client: 'مصنع الأثاث الحديث',
                 warehouse: 'مخزن الرياض الرئيسي'
             },
             {
                 id: 'INV-2024-013',
-                title: 'خدمات التغليف والتعبئة - نوفمبر 2024',
-                amount: 1950,
+                client: 'شركة النقل السريع',
+                title: 'نقل بري - شحنة من الرياض إلى جدة - نوفمبر 2024',
+                amount: 5950,
                 status: 'paid',
                 date: '30 نوفمبر 2024',
                 paidDate: '15 ديسمبر 2024',
-                services: ['تغليف خاص', 'تعبئة آمنة'],
-                serviceType: 'packaging',
-                client: 'شركة الأدوية العالمية',
-                packagingType: 'تغليف فاخر'
-            },
-            {
-                id: 'INV-2024-012',
-                title: 'خدمات النقل البري - ديسمبر 2024',
-                amount: 3100,
-                status: 'pending',
-                date: '16 ديسمبر 2024',
-                dueDate: '30 ديسمبر 2024',
-                services: ['نقل بري', 'تتبع GPS'],
+                services: ['نقل بري', 'تتبع مباشر', 'تأمين'],
                 serviceType: 'transport',
-                client: 'شركة النفط الوطنية',
-                route: 'الرياض - الدمام',
+                route: 'الرياض - جدة',
                 vehicleType: 'شاحنة نقل كبيرة'
             },
             {
-                id: 'INV-2024-011',
-                title: 'خدمات التخليص الجمركي - ديسمبر 2024',
-                amount: 1850,
+                id: 'INV-2024-012',
+                client: 'شركة الإلكترونيات الحديثة',
+                title: 'تخليص جمركي - شحنة إلكترونيات - ديسمبر 2024',
+                amount: 3850,
                 status: 'pending',
-                date: '14 ديسمبر 2024',
-                dueDate: '28 ديسمبر 2024',
-                services: ['تخليص جمركي', 'وثائق شحن'],
+                date: '16 ديسمبر 2024',
+                dueDate: '30 ديسمبر 2024',
+                services: ['تخليص جمركي', 'وثائق شحن', 'فحص جمركي'],
                 serviceType: 'customs',
-                client: 'شركة الاستيراد العالمية',
                 port: 'ميناء الدمام',
                 cargoType: 'معدات إلكترونية'
             },
             {
+                id: 'INV-2024-011',
+                client: 'شركة التوصيل السريع',
+                title: 'توصيل نهائي - شحنة من جدة إلى الرياض - ديسمبر 2024',
+                amount: 2200,
+                status: 'pending',
+                date: '14 ديسمبر 2024',
+                dueDate: '28 ديسمبر 2024',
+                services: ['توصيل داخلي', 'تتبع مباشر', 'توقيع إلكتروني'],
+                serviceType: 'lastmile',
+                deliveryArea: 'وسط الرياض',
+                vehicleType: 'دراجات نارية'
+            },
+            {
                 id: 'INV-2024-010',
-                title: 'خدمات التوصيل النهائي - ديسمبر 2024',
-                amount: 1200,
+                client: 'شركة الهدايا الفاخرة',
+                title: 'تغليف وتعبئة - شحنة هدايا - ديسمبر 2024',
+                amount: 1800,
                 status: 'pending',
                 date: '12 ديسمبر 2024',
                 dueDate: '26 ديسمبر 2024',
-                services: ['توصيل داخلي', 'تتبع مباشر'],
-                serviceType: 'lastmile',
-                client: 'متجر الأزياء الفاخر',
-                deliveryArea: 'وسط الرياض',
-                vehicleType: 'دراجات نارية'
+                services: ['تغليف خاص', 'تعبئة آمنة', 'طباعة تخصيصية'],
+                serviceType: 'packaging',
+                packagingType: 'تغليف فاخر'
             }
         ],
-        payments: [
+        revenueHistory: [
             {
                 id: 1,
-                invoiceId: 'INV-2024-009',
+                invoiceId: 'INV-2024-011',
+                client: 'شركة التقنية المتقدمة',
                 method: 'visa',
-                amount: 2450,
+                amount: 8450,
                 date: '15 ديسمبر 2024 - 14:30',
                 status: 'completed',
-                serviceType: 'shipping',
-                client: 'شركة الشحن السريع'
+                serviceType: 'shipping'
             },
             {
                 id: 2,
-                invoiceId: 'INV-2024-008',
+                invoiceId: 'INV-2024-010',
+                client: 'شركة الأغذية العالمية',
                 method: 'bank',
-                amount: 3800,
+                amount: 6800,
                 date: '10 ديسمبر 2024 - 09:15',
                 status: 'completed',
-                serviceType: 'storage',
-                client: 'مخازن الرياض المتحدة'
+                serviceType: 'storage'
             },
             {
                 id: 3,
-                invoiceId: 'INV-2024-007',
+                invoiceId: 'INV-2024-009',
+                client: 'شركة النقل السريع',
                 method: 'mastercard',
-                amount: 1750,
+                amount: 4750,
                 date: '5 ديسمبر 2024 - 16:45',
                 status: 'completed',
-                serviceType: 'packaging',
-                client: 'شركة التغليف المتخصصة'
+                serviceType: 'transport'
             },
             {
                 id: 4,
-                invoiceId: 'INV-2024-006',
+                invoiceId: 'INV-2024-008',
+                client: 'شركة الإلكترونيات الحديثة',
                 method: 'paypal',
-                amount: 2100,
+                amount: 3100,
                 date: '30 نوفمبر 2024 - 11:20',
                 status: 'completed',
-                serviceType: 'customs',
-                client: 'مكتب التخليص الجمركي المتقدم'
-            },
-            {
-                id: 5,
-                invoiceId: 'INV-2024-005',
-                method: 'visa',
-                amount: 1650,
-                date: '25 نوفمبر 2024 - 13:15',
-                status: 'completed',
-                serviceType: 'transport',
-                client: 'شركة النقل البري'
-            },
-            {
-                id: 6,
-                invoiceId: 'INV-2024-004',
-                method: 'bank',
-                amount: 950,
-                date: '20 نوفمبر 2024 - 10:30',
-                status: 'completed',
-                serviceType: 'lastmile',
-                client: 'خدمات التوصيل السريع'
+                serviceType: 'customs'
             }
         ],
         settings: {
@@ -194,16 +174,16 @@ const BillingController = {
             autoUpdates: true,
             monthlyReports: false
         },
-        // Service-specific billing data aligned with app structure
-        serviceStats: {
+        // Service-specific revenue data aligned with service provider perspective
+        serviceRevenue: {
             shipping: {
-                totalRevenue: 45000,
+                totalRevenue: 45250,
                 pendingAmount: 8500,
                 completedOrders: 25,
                 activeVehicles: 8
             },
             storage: {
-                totalRevenue: 32000,
+                totalRevenue: 28400,
                 pendingAmount: 5600,
                 occupiedSpace: '75%',
                 activeWarehouses: 3
@@ -215,13 +195,13 @@ const BillingController = {
                 activeServices: 2
             },
             customs: {
-                totalRevenue: 28000,
+                totalRevenue: 8950,
                 pendingAmount: 4200,
                 completedClearances: 18,
                 activePorts: 4
             },
             transport: {
-                totalRevenue: 35000,
+                totalRevenue: 15800,
                 pendingAmount: 6800,
                 completedRoutes: 42,
                 activeVehicles: 12
@@ -239,7 +219,7 @@ const BillingController = {
      * Initialize the billing page
      */
     init: function() {
-        console.log('BillingController initialized');
+        console.log('BillingController initialized - Service Provider Revenue Management');
         this.setupEventListeners();
         this.loadBillingData();
         this.addAnimations();
@@ -253,7 +233,7 @@ const BillingController = {
         const billingPage = document.getElementById('billing');
         if (!billingPage) return;
         
-        // Handle payment method actions with enhanced UX
+        // Handle client payment method actions
         billingPage.addEventListener('click', (e) => {
             const actionBtn = e.target.closest('.bil-action-btn');
             if (actionBtn) {
@@ -263,7 +243,7 @@ const BillingController = {
             }
         });
         
-        // Handle invoice actions with enhanced feedback
+        // Handle invoice actions (service provider perspective)
         billingPage.addEventListener('click', (e) => {
             const invoiceBtn = e.target.closest('.bil-btn');
             if (invoiceBtn) {
@@ -273,7 +253,7 @@ const BillingController = {
             }
         });
         
-        // Handle payment method toggle
+        // Handle client payment method toggle
         billingPage.addEventListener('click', (e) => {
             const methodItem = e.target.closest('.bil-payment-method');
             if (methodItem && !e.target.closest('.bil-action-btn')) {
@@ -281,14 +261,14 @@ const BillingController = {
             }
         });
         
-        // Handle billing settings toggle with enhanced feedback
+        // Handle billing settings toggle
         billingPage.addEventListener('change', (e) => {
             if (e.target.type === 'checkbox') {
                 this.handleBillingSetting(e.target);
             }
         });
 
-        // Handle quick action cards
+        // Handle quick action cards (service provider actions)
         billingPage.addEventListener('click', (e) => {
             const actionCard = e.target.closest('.bil-action-card');
             if (actionCard) {
@@ -307,7 +287,7 @@ const BillingController = {
     },
     
     /**
-     * Handle payment method actions with enhanced UX
+     * Handle client payment method actions
      */
     handlePaymentMethodAction: function(action, button) {
         const methodItem = button.closest('.bil-payment-method');
@@ -322,11 +302,11 @@ const BillingController = {
             switch (action) {
                 case 'set-default':
                     this.setDefaultPaymentMethod(methodItem);
-                    Toast.show('طريقة الدفع', `تم تعيين ${methodName} كطريقة دفع افتراضية`, 'success');
+                    Toast.show('طريقة الدفع', `تم تعيين ${methodName} كطريقة دفع مقبولة`, 'success');
                     break;
                 case 'remove-method':
                     this.removePaymentMethod(methodItem);
-                    Toast.show('طريقة الدفع', `تم حذف ${methodName}`, 'info');
+                    Toast.show('طريقة الدفع', `تم حذف ${methodName} من الطرق المقبولة`, 'info');
                     break;
                 default:
                     console.log(`Unknown payment method action: ${action}`);
@@ -339,12 +319,13 @@ const BillingController = {
     },
     
     /**
-     * Handle invoice actions with enhanced feedback
+     * Handle invoice actions (service provider perspective)
      */
     handleInvoiceAction: function(action, button) {
         const invoiceItem = button.closest('.bil-invoice-item');
         const invoiceNumber = invoiceItem.querySelector('.bil-invoice-number').textContent;
         const invoiceAmount = invoiceItem.querySelector('.bil-invoice-amount').textContent;
+        const clientName = invoiceItem.querySelector('.bil-invoice-title').textContent.split(' - ')[0];
         
         // Add button loading state
         const originalHTML = button.innerHTML;
@@ -357,9 +338,13 @@ const BillingController = {
                     this.viewInvoice(invoiceNumber);
                     Toast.show('عرض الفاتورة', `جاري فتح الفاتورة ${invoiceNumber}`, 'info');
                     break;
-                case 'pay-invoice':
-                    this.payInvoice(invoiceNumber, invoiceAmount);
-                    Toast.show('دفع الفاتورة', `جاري معالجة الدفع للفاتورة ${invoiceNumber}`, 'info');
+                case 'send-invoice':
+                    this.sendInvoice(invoiceNumber, clientName);
+                    Toast.show('إرسال الفاتورة', `جاري إرسال الفاتورة ${invoiceNumber} إلى ${clientName}`, 'info');
+                    break;
+                case 'send-reminder':
+                    this.sendReminder(invoiceNumber, clientName);
+                    Toast.show('إرسال تذكير', `جاري إرسال تذكير الدفع إلى ${clientName}`, 'info');
                     break;
                 case 'download-invoice':
                     this.downloadInvoice(invoiceNumber);
@@ -376,7 +361,7 @@ const BillingController = {
     },
     
     /**
-     * Handle quick action cards
+     * Handle quick action cards (service provider actions)
      */
     handleQuickAction: function(action, actionCard) {
         // Add click animation
@@ -386,11 +371,11 @@ const BillingController = {
         }, 150);
         
         switch (action) {
-            case 'pay-all':
-                this.payAllInvoices();
+            case 'create-invoice':
+                this.createNewInvoice();
                 break;
-            case 'export-invoices':
-                this.exportAllInvoices();
+            case 'export-reports':
+                this.exportRevenueReports();
                 break;
             default:
                 console.log(`Unknown quick action: ${action}`);
@@ -402,7 +387,7 @@ const BillingController = {
      */
     handleSummaryCardClick: function(summaryCard) {
         const label = summaryCard.querySelector('.bil-summary-label').textContent;
-        Toast.show('تفاصيل المقياس', `عرض تفاصيل ${label}`, 'info');
+        Toast.show('تفاصيل الإيرادات', `عرض تفاصيل ${label}`, 'info');
         
         // Add click animation
         summaryCard.style.transform = 'scale(0.98)';
@@ -412,39 +397,33 @@ const BillingController = {
     },
     
     /**
-     * Pay all pending invoices
+     * Create new invoice for client
      */
-    payAllInvoices: function() {
-        const pendingInvoices = this.data.invoices.filter(inv => inv.status === 'pending');
-        const totalAmount = pendingInvoices.reduce((sum, inv) => sum + inv.amount, 0);
-        
-        Toast.show('دفع الكل', `جاري معالجة دفع ${pendingInvoices.length} فواتير بقيمة ${totalAmount.toLocaleString()} ريال`, 'info');
+    createNewInvoice: function() {
+        Toast.show('إنشاء فاتورة', 'جاري فتح نموذج إنشاء فاتورة جديدة...', 'info');
         
         setTimeout(() => {
-            Router.navigate('bulk-payment', { 
-                invoices: pendingInvoices.map(inv => inv.id),
-                totalAmount: totalAmount
-            });
+            Router.navigate('create-invoice');
         }, 1000);
     },
     
     /**
-     * Export all invoices
+     * Export revenue reports
      */
-    exportAllInvoices: function() {
-        Toast.show('تصدير الفواتير', 'جاري تحضير ملف PDF للفواتير...', 'info');
+    exportRevenueReports: function() {
+        Toast.show('تصدير التقارير', 'جاري تحضير تقارير الإيرادات...', 'info');
         
         setTimeout(() => {
             const link = document.createElement('a');
             link.href = '#';
-            link.download = `invoices-${new Date().toISOString().split('T')[0]}.pdf`;
+            link.download = `revenue-report-${new Date().toISOString().split('T')[0]}.pdf`;
             link.click();
-            Toast.show('تصدير الفواتير', 'تم تصدير الفواتير بنجاح', 'success');
+            Toast.show('تصدير التقارير', 'تم تصدير تقارير الإيرادات بنجاح', 'success');
         }, 2000);
     },
     
     /**
-     * Set default payment method
+     * Set default payment method (accepted from clients)
      */
     setDefaultPaymentMethod: function(methodItem) {
         // Remove active class from all methods
@@ -457,12 +436,12 @@ const BillingController = {
         // Add active class to selected method
         methodItem.classList.add('bil-active');
         const status = methodItem.querySelector('.bil-method-status');
-        if (status) status.textContent = 'افتراضي';
+        if (status) status.textContent = 'مقبول';
         
         // Update data
         const methodName = methodItem.querySelector('.bil-method-name').textContent;
-        this.data.paymentMethods.forEach(method => {
-            method.isDefault = method.name === methodName;
+        this.data.clientPaymentMethods.forEach(method => {
+            method.isAccepted = method.name === methodName;
         });
     },
     
@@ -476,7 +455,7 @@ const BillingController = {
             
             // Update data
             const methodName = methodItem.querySelector('.bil-method-name').textContent;
-            this.data.paymentMethods = this.data.paymentMethods.filter(method => method.name !== methodName);
+            this.data.clientPaymentMethods = this.data.clientPaymentMethods.filter(method => method.name !== methodName);
         }, 300);
     },
     
@@ -538,13 +517,25 @@ const BillingController = {
     },
     
     /**
-     * Pay invoice with enhanced navigation
+     * Send invoice to client
      */
-    payInvoice: function(invoiceNumber, amount) {
+    sendInvoice: function(invoiceNumber, clientName) {
         setTimeout(() => {
-            Router.navigate('payment', { 
+            Router.navigate('send-invoice', { 
                 invoice: invoiceNumber, 
-                amount: amount 
+                client: clientName 
+            });
+        }, 1000);
+    },
+    
+    /**
+     * Send payment reminder to client
+     */
+    sendReminder: function(invoiceNumber, clientName) {
+        setTimeout(() => {
+            Router.navigate('send-reminder', { 
+                invoice: invoiceNumber, 
+                client: clientName 
             });
         }, 1000);
     },
@@ -574,18 +565,18 @@ const BillingController = {
         
         // Simulate loading billing data
         setTimeout(() => {
-            this.updateBillingSummary();
-            this.updatePaymentMethods();
-            this.updateInvoices();
-            this.updatePaymentHistory();
+            this.updateRevenueSummary();
+            this.updateClientPaymentMethods();
+            this.updateClientInvoices();
+            this.updateRevenueHistory();
             this.removeLoadingState();
         }, 800);
     },
     
     /**
-     * Update billing summary with enhanced animations
+     * Update revenue summary with enhanced animations
      */
-    updateBillingSummary: function() {
+    updateRevenueSummary: function() {
         const summaryCards = document.querySelectorAll('.bil-summary-card');
         summaryCards.forEach((card, index) => {
             card.style.animationDelay = `${index * 0.1}s`;
@@ -610,7 +601,7 @@ const BillingController = {
         
         let targetValue = 0;
         if (isCurrency) {
-            targetValue = this.data.summary.totalDue;
+            targetValue = this.data.summary.totalRevenue;
         } else if (isPercentage) {
             targetValue = this.data.summary.onTimePaymentRate;
         } else if (isDays) {
@@ -663,9 +654,9 @@ const BillingController = {
     },
     
     /**
-     * Update payment methods with enhanced animations
+     * Update client payment methods with enhanced animations
      */
-    updatePaymentMethods: function() {
+    updateClientPaymentMethods: function() {
         const paymentMethods = document.querySelectorAll('.bil-payment-method');
         paymentMethods.forEach((method, index) => {
             method.style.animationDelay = `${index * 0.05}s`;
@@ -674,9 +665,9 @@ const BillingController = {
     },
     
     /**
-     * Update invoices with enhanced animations
+     * Update client invoices with enhanced animations
      */
-    updateInvoices: function() {
+    updateClientInvoices: function() {
         const invoices = document.querySelectorAll('.bil-invoice-item');
         invoices.forEach((invoice, index) => {
             invoice.style.animationDelay = `${index * 0.05}s`;
@@ -685,9 +676,9 @@ const BillingController = {
     },
     
     /**
-     * Update payment history with enhanced animations
+     * Update revenue history with enhanced animations
      */
-    updatePaymentHistory: function() {
+    updateRevenueHistory: function() {
         const payments = document.querySelectorAll('.bil-payment-item');
         payments.forEach((payment, index) => {
             payment.style.animationDelay = `${index * 0.05}s`;
@@ -757,29 +748,29 @@ const BillingController = {
     setupRealTimeUpdates: function() {
         // Update summary every 30 seconds
         setInterval(() => {
-            this.updateBillingSummary();
+            this.updateRevenueSummary();
         }, 30000);
     },
     
     /**
-     * Export billing data with enhanced UX
+     * Export revenue data with enhanced UX
      */
-    exportBillingData: function() {
+    exportRevenueData: function() {
         Toast.show('تصدير البيانات', 'جاري تحضير ملف التصدير...', 'info');
         
         setTimeout(() => {
             const link = document.createElement('a');
             link.href = '#';
-            link.download = `billing-report-${new Date().toISOString().split('T')[0]}.csv`;
+            link.download = `revenue-report-${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
             Toast.show('تصدير البيانات', 'تم تصدير البيانات بنجاح', 'success');
         }, 2000);
     },
     
     /**
-     * Add new payment method with enhanced navigation
+     * Add new client payment method with enhanced navigation
      */
-    addPaymentMethod: function() {
+    addClientPaymentMethod: function() {
         Toast.show('إضافة طريقة دفع', 'جاري فتح نموذج إضافة طريقة دفع جديدة...', 'info');
         
         setTimeout(() => {
@@ -788,45 +779,45 @@ const BillingController = {
     },
     
     /**
-     * Get billing summary
+     * Get revenue summary
      */
-    getBillingSummary: function() {
+    getRevenueSummary: function() {
         return this.data.summary;
     },
     
     /**
-     * Get payment methods
+     * Get client payment methods
      */
-    getPaymentMethods: function() {
-        return this.data.paymentMethods;
+    getClientPaymentMethods: function() {
+        return this.data.clientPaymentMethods;
     },
     
     /**
-     * Get invoices
+     * Get client invoices
      */
-    getInvoices: function() {
-        return this.data.invoices;
+    getClientInvoices: function() {
+        return this.data.clientInvoices;
     },
     
     /**
-     * Get payments
+     * Get revenue history
      */
-    getPayments: function() {
-        return this.data.payments;
+    getRevenueHistory: function() {
+        return this.data.revenueHistory;
     },
     
     /**
-     * Get service statistics
+     * Get service revenue statistics
      */
-    getServiceStats: function() {
-        return this.data.serviceStats;
+    getServiceRevenue: function() {
+        return this.data.serviceRevenue;
     },
     
     /**
      * Get invoices by service type
      */
     getInvoicesByServiceType: function(serviceType) {
-        return this.data.invoices.filter(invoice => invoice.serviceType === serviceType);
+        return this.data.clientInvoices.filter(invoice => invoice.serviceType === serviceType);
     },
     
     /**
