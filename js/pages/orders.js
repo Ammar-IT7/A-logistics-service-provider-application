@@ -1,8 +1,21 @@
 /**
  * Orders Controller
- * Manages the orders page functionality
+ * Manages the orders page functionality for both direct and global requests
  */
 const OrdersController = {
+    // Current request type
+    currentRequestType: 'direct',
+    
+    // Filter state
+    activeFilters: {
+        requestType: [],
+        serviceType: [],
+        location: [],
+        experience: '',
+        price_range: '',
+        rating: ''
+    },
+
     /**
      * Initialize the orders page
      */
@@ -24,9 +37,166 @@ const OrdersController = {
         // Initialize floating filter
         this.initFloatingFilter();
         
+        // Initialize request type tabs
+        this.initRequestTypeTabs();
+        
         // Reconnect menu buttons for drawer functionality
         if (typeof DrawerHelper !== 'undefined') {
             DrawerHelper.reconnectMenuButtons();
+        }
+    },
+
+    /**
+     * Initialize request type tabs
+     */
+    initRequestTypeTabs: function() {
+        const requestTabs = document.querySelectorAll('.orders-request-tab');
+        
+        requestTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const requestType = e.target.closest('.orders-request-tab').dataset.requestType;
+                this.switchRequestType(requestType);
+            });
+        });
+    },
+
+    /**
+     * Switch between request types
+     */
+    switchRequestType: function(requestType) {
+        // Update active tab
+        document.querySelectorAll('.orders-request-tab').forEach(tab => {
+            tab.classList.remove('orders-active');
+        });
+        
+        const activeTab = document.querySelector(`[data-request-type="${requestType}"]`);
+        if (activeTab) {
+            activeTab.classList.add('orders-active');
+        }
+        
+        // Update current request type
+        this.currentRequestType = requestType;
+        
+        // Show/hide sections
+        const directSection = document.getElementById('direct-requests');
+        const globalSection = document.getElementById('global-requests');
+        
+        if (requestType === 'direct') {
+            directSection.style.display = 'block';
+            globalSection.style.display = 'none';
+        } else {
+            directSection.style.display = 'none';
+            globalSection.style.display = 'block';
+        }
+        
+        // Update stats and filters for the new request type
+        this.updateStatsForRequestType(requestType);
+        this.updateFiltersForRequestType(requestType);
+        
+        console.log(`Switched to ${requestType} requests`);
+    },
+
+    /**
+     * Update stats for specific request type
+     */
+    updateStatsForRequestType: function(requestType) {
+        const stats = this.getStatsForRequestType(requestType);
+        
+        // Update stats cards
+        const statsElements = document.querySelectorAll('.orders-stat-value');
+        if (statsElements.length >= 4) {
+            statsElements[0].textContent = stats.total.toLocaleString();
+            statsElements[1].textContent = stats.completed.toLocaleString();
+            statsElements[2].textContent = stats.pending.toLocaleString();
+            statsElements[3].textContent = stats.new.toLocaleString();
+        }
+        
+        // Update filter counts
+        const filterCounts = document.querySelectorAll('.orders-filter-count');
+        if (filterCounts.length >= 4) {
+            filterCounts[0].textContent = stats.total.toLocaleString();
+            filterCounts[1].textContent = stats.new.toLocaleString();
+            filterCounts[2].textContent = stats.pending.toLocaleString();
+            filterCounts[3].textContent = stats.completed.toLocaleString();
+        }
+    },
+
+    /**
+     * Get stats for specific request type
+     */
+    getStatsForRequestType: function(requestType) {
+        const stats = {
+            direct: {
+                total: 1847,
+                new: 168,
+                pending: 223,
+                completed: 1456
+            },
+            global: {
+                total: 1000,
+                new: 100,
+                pending: 200,
+                completed: 700
+            }
+        };
+        
+        return stats[requestType] || stats.direct;
+    },
+
+    /**
+     * Update filters for specific request type
+     */
+    updateFiltersForRequestType: function(requestType) {
+        // Update filter options based on request type
+        const filterOptions = document.querySelectorAll('.orders-filter-options');
+        
+        filterOptions.forEach(option => {
+            if (requestType === 'global') {
+                // Add global-specific filter options
+                this.addGlobalFilterOptions(option);
+            } else {
+                // Remove global-specific filter options
+                this.removeGlobalFilterOptions(option);
+            }
+        });
+    },
+
+    /**
+     * Add global-specific filter options
+     */
+    addGlobalFilterOptions: function(container) {
+        // Add offer count filter if not exists
+        if (!container.querySelector('[name="offerCount"]')) {
+            const offerCountGroup = document.createElement('div');
+            offerCountGroup.className = 'orders-filter-group';
+            offerCountGroup.innerHTML = `
+                <label class="orders-filter-label">عدد العروض</label>
+                <div class="orders-filter-options">
+                    <label class="orders-option">
+                        <input type="checkbox" name="offerCount" value="low">
+                        <span class="orders-option-text">أقل من 5 عروض</span>
+                    </label>
+                    <label class="orders-option">
+                        <input type="checkbox" name="offerCount" value="medium">
+                        <span class="orders-option-text">5-10 عروض</span>
+                    </label>
+                    <label class="orders-option">
+                        <input type="checkbox" name="offerCount" value="high">
+                        <span class="orders-option-text">أكثر من 10 عروض</span>
+                    </label>
+                </div>
+            `;
+            container.appendChild(offerCountGroup);
+        }
+    },
+
+    /**
+     * Remove global-specific filter options
+     */
+    removeGlobalFilterOptions: function(container) {
+        const offerCountGroup = container.querySelector('[name="offerCount"]');
+        if (offerCountGroup) {
+            offerCountGroup.closest('.orders-filter-group').remove();
         }
     },
 
@@ -44,25 +214,15 @@ const OrdersController = {
      * Update stats cards with real data
      */
     updateStatsCards: function() {
-        const stats = State.get('stats') || {};
-        const warehouses = State.get('warehouses') || [];
-        const customsServices = State.get('customsServices') || [];
-        const shippingServices = State.get('shippingServices') || [];
-        const packagingServices = State.get('packagingServices') || [];
-        
-        // Calculate order statistics from all services
-        const totalOrders = 2847;
-        const newOrders = 268;
-        const pendingOrders = 423;
-        const completedOrders = 2156;
+        const stats = this.getStatsForRequestType(this.currentRequestType);
         
         // Update stats in the DOM
         const statsElements = document.querySelectorAll('.orders-stat-value');
         if (statsElements.length >= 4) {
-            statsElements[0].textContent = totalOrders.toLocaleString(); // Total orders
-            statsElements[1].textContent = completedOrders.toLocaleString(); // Completed orders
-            statsElements[2].textContent = pendingOrders.toLocaleString(); // Pending orders
-            statsElements[3].textContent = newOrders.toLocaleString(); // New orders
+            statsElements[0].textContent = stats.total.toLocaleString(); // Total orders
+            statsElements[1].textContent = stats.completed.toLocaleString(); // Completed orders
+            statsElements[2].textContent = stats.pending.toLocaleString(); // Pending orders
+            statsElements[3].textContent = stats.new.toLocaleString(); // New orders
         }
     },
 
@@ -74,12 +234,32 @@ const OrdersController = {
         if (!ordersContainer) return;
         
         // Create comprehensive mock orders with realistic data
-        const mockOrders = [
+        const mockOrders = this.getMockOrders();
+        
+        this.renderOrders(mockOrders);
+    },
+
+    /**
+     * Get mock orders based on current request type
+     */
+    getMockOrders: function() {
+        if (this.currentRequestType === 'direct') {
+            return this.getDirectOrders();
+        } else {
+            return this.getGlobalOrders();
+        }
+    },
+
+    /**
+     * Get direct orders data
+     */
+    getDirectOrders: function() {
+        return [
             {
-                id: 'WH-2024-1253',
+                id: 'DIR-2024-1253',
                 type: 'warehouse',
                 typeText: 'تخزين',
-                title: 'طلب تخزين #WH-2024-1253',
+                title: 'طلب تخزين #DIR-2024-1253',
                 description: 'منتجات غذائية - 3 طن - مخزن الرياض الرئيسي - مدة التخزين: 6 أشهر',
                 status: 'new',
                 statusText: 'جديد',
@@ -91,13 +271,14 @@ const OrdersController = {
                 time: 'منذ ساعتين',
                 icon: 'fas fa-warehouse',
                 statusIcon: 'fas fa-clock',
-                amount: '12,500 ريال'
+                amount: '12,500 ريال',
+                requestType: 'direct'
             },
             {
-                id: 'CUS-2024-4587',
+                id: 'DIR-2024-4587',
                 type: 'customs',
                 typeText: 'تخليص جمركي',
-                title: 'طلب تخليص #CUS-2024-4587',
+                title: 'طلب تخليص #DIR-2024-4587',
                 description: 'معدات إلكترونية - ميناء جدة الإسلامي - 5 حاويات - قيمة الشحنة: 250,000 ريال',
                 status: 'pending',
                 statusText: 'قيد التنفيذ',
@@ -109,13 +290,14 @@ const OrdersController = {
                 time: 'منذ يوم واحد',
                 icon: 'fas fa-clipboard-list',
                 statusIcon: 'fas fa-spinner',
-                amount: '8,750 ريال'
+                amount: '8,750 ريال',
+                requestType: 'direct'
             },
             {
-                id: 'SH-2024-8975',
+                id: 'DIR-2024-8975',
                 type: 'shipping',
                 typeText: 'شحن',
-                title: 'طلب شحن #SH-2024-8975',
+                title: 'طلب شحن #DIR-2024-8975',
                 description: 'الرياض - الدمام - 2 طن - شحن بري - خدمة التوصيل السريع',
                 status: 'completed',
                 statusText: 'مكتمل',
@@ -127,101 +309,84 @@ const OrdersController = {
                 time: 'منذ 3 أيام',
                 icon: 'fas fa-truck',
                 statusIcon: 'fas fa-check-circle',
-                amount: '3,200 ريال'
-            },
-            {
-                id: 'PKG-2024-6321',
-                type: 'packaging',
-                typeText: 'تغليف',
-                title: 'طلب تغليف #PKG-2024-6321',
-                description: 'منتجات زجاجية - خدمة تغليف فاخر - 150 قطعة - تغليف مضاد للكسر',
-                status: 'new',
-                statusText: 'جديد',
-                client: 'شركة الزجاج المتطور للصناعات',
-                location: 'مخزن الرياض الرئيسي',
-                date: '14 يناير 2024',
-                priority: 'medium',
-                priorityText: 'متوسطة',
-                time: 'منذ 4 ساعات',
-                icon: 'fas fa-boxes',
-                statusIcon: 'fas fa-clock',
-                amount: '2,800 ريال'
-            },
-            {
-                id: 'LC-2024-7890',
-                type: 'lc',
-                typeText: 'اعتمادات مستندية',
-                title: 'طلب اعتماد #LC-2024-7890',
-                description: 'اعتماد مستندي - بنك الرياض - 50,000 ريال - استيراد معدات صناعية',
-                status: 'pending',
-                statusText: 'قيد التنفيذ',
-                client: 'شركة الاستيراد العالمية للتجارة',
-                location: 'بنك الرياض',
-                date: '13 يناير 2024',
-                priority: 'high',
-                priorityText: 'عالية',
-                time: 'منذ يومين',
-                icon: 'fas fa-file-invoice-dollar',
-                statusIcon: 'fas fa-spinner',
-                amount: '1,250 ريال'
-            },
-            {
-                id: 'LM-2024-4567',
-                type: 'last-mile',
-                typeText: 'توصيل نهائي',
-                title: 'طلب توصيل #LM-2024-4567',
-                description: 'توصيل منزلي - الرياض - 50 طرد - خدمة التوصيل في نفس اليوم',
-                status: 'completed',
-                statusText: 'مكتمل',
-                client: 'متجر الأزياء الأنيق للتجارة الإلكترونية',
-                location: 'الرياض - حي النرجس',
-                date: '11 يناير 2024',
-                priority: 'low',
-                priorityText: 'منخفضة',
-                time: 'منذ 4 أيام',
-                icon: 'fas fa-shipping-fast',
-                statusIcon: 'fas fa-check-circle',
-                amount: '1,800 ريال'
-            },
-            {
-                id: 'WH-2024-9876',
-                type: 'warehouse',
-                typeText: 'تخزين',
-                title: 'طلب تخزين #WH-2024-9876',
-                description: 'أثاث منزلي - 5 طن - مخزن جدة - مدة التخزين: 3 أشهر - تخزين مكيف',
-                status: 'pending',
-                statusText: 'قيد التنفيذ',
-                client: 'شركة الأثاث الفاخر للاستيراد',
-                location: 'جدة، المملكة العربية السعودية',
-                date: '16 يناير 2024',
-                priority: 'medium',
-                priorityText: 'متوسطة',
-                time: 'منذ 6 ساعات',
-                icon: 'fas fa-warehouse',
-                statusIcon: 'fas fa-spinner',
-                amount: '8,900 ريال'
-            },
-            {
-                id: 'SH-2024-5432',
-                type: 'shipping',
-                typeText: 'شحن',
-                title: 'طلب شحن #SH-2024-5432',
-                description: 'الدمام - الرياض - 1.5 طن - شحن جوي - خدمة الشحن السريع',
-                status: 'new',
-                statusText: 'جديد',
-                client: 'شركة الأدوية المتقدمة للصناعات الطبية',
-                location: 'الدمام → الرياض',
-                date: '17 يناير 2024',
-                priority: 'high',
-                priorityText: 'عالية',
-                time: 'منذ ساعة واحدة',
-                icon: 'fas fa-truck',
-                statusIcon: 'fas fa-clock',
-                amount: '4,500 ريال'
+                amount: '3,200 ريال',
+                requestType: 'direct'
             }
         ];
-        
-        this.renderOrders(mockOrders);
+    },
+
+    /**
+     * Get global orders data
+     */
+    getGlobalOrders: function() {
+        return [
+            {
+                id: 'GLB-2024-1253',
+                type: 'warehouse',
+                typeText: 'تخزين',
+                title: 'طلب تخزين عام #GLB-2024-1253',
+                description: 'منتجات غذائية - 3 طن - مخزن الرياض الرئيسي - مدة التخزين: 6 أشهر',
+                status: 'open_for_offers',
+                statusText: 'مفتوح للعروض',
+                client: 'شركة التقنية المتقدمة للتجارة',
+                location: 'الرياض، المملكة العربية السعودية',
+                date: '15 يناير 2024',
+                priority: 'high',
+                priorityText: 'عالية',
+                time: 'منذ ساعتين',
+                icon: 'fas fa-warehouse',
+                statusIcon: 'fas fa-globe',
+                offersCount: '5 عروض مقدمة',
+                requestType: 'global',
+                myOfferStatus: 'not_submitted', // Provider's offer status
+                myOfferAmount: null,
+                deadline: '20 يناير 2024'
+            },
+            {
+                id: 'GLB-2024-4587',
+                type: 'customs',
+                typeText: 'تخليص جمركي',
+                title: 'طلب تخليص عام #GLB-2024-4587',
+                description: 'معدات إلكترونية - ميناء جدة الإسلامي - 5 حاويات - قيمة الشحنة: 250,000 ريال',
+                status: 'reviewing_offers',
+                statusText: 'قيد مراجعة العروض',
+                client: 'مصنع الأثاث الحديث للتصنيع',
+                location: 'ميناء جدة الإسلامي',
+                date: '12 يناير 2024',
+                priority: 'medium',
+                priorityText: 'متوسطة',
+                time: 'منذ يوم واحد',
+                icon: 'fas fa-clipboard-list',
+                statusIcon: 'fas fa-spinner',
+                offersCount: '8 عروض مقدمة',
+                requestType: 'global',
+                myOfferStatus: 'submitted',
+                myOfferAmount: '8,750 ريال',
+                deadline: '18 يناير 2024'
+            },
+            {
+                id: 'GLB-2024-8975',
+                type: 'shipping',
+                typeText: 'شحن',
+                title: 'طلب شحن عام #GLB-2024-8975',
+                description: 'الرياض - الدمام - 2 طن - شحن بري - خدمة التوصيل السريع',
+                status: 'offer_selected',
+                statusText: 'تم اختيار عرض آخر',
+                client: 'شركة النقل السريع للخدمات اللوجستية',
+                location: 'الرياض → الدمام',
+                date: '10 يناير 2024',
+                priority: 'low',
+                priorityText: 'منخفضة',
+                time: 'منذ 3 أيام',
+                icon: 'fas fa-truck',
+                statusIcon: 'fas fa-times-circle',
+                offersCount: '12 عرض مقدمة',
+                requestType: 'global',
+                myOfferStatus: 'rejected',
+                myOfferAmount: '3,500 ريال',
+                deadline: '15 يناير 2024'
+            }
+        ];
     },
 
     /**
@@ -231,55 +396,86 @@ const OrdersController = {
         const ordersContainer = document.querySelector('.orders-grid');
         if (!ordersContainer) return;
         
-        ordersContainer.innerHTML = orders.map(order => `
-            <div class="orders-order-card orders-${order.status}" data-action="navigate" data-page="order-details" data-order-id="${order.id}">
-                <div class="orders-order-header">
-                    <div class="orders-order-type">
-                        <i class="${order.icon}"></i>
-                        <span>${order.typeText}</span>
+        ordersContainer.innerHTML = orders.map(order => {
+            // For global requests, show provider's offer status
+            let offerStatusBadge = '';
+            if (order.requestType === 'global') {
+                const offerStatusMap = {
+                    'not_submitted': { text: 'لم أقدم عرض', class: 'offer-not-submitted', icon: 'fas fa-plus' },
+                    'submitted': { text: 'عرضي مقدمة', class: 'offer-submitted', icon: 'fas fa-check' },
+                    'rejected': { text: 'عرضي مرفوض', class: 'offer-rejected', icon: 'fas fa-times' },
+                    'selected': { text: 'عرضي مقبول', class: 'offer-selected', icon: 'fas fa-star' }
+                };
+                const status = offerStatusMap[order.myOfferStatus] || offerStatusMap['not_submitted'];
+                offerStatusBadge = `
+                    <div class="orders-offer-status ${status.class}">
+                        <i class="${status.icon}"></i>
+                        <span>${status.text}</span>
                     </div>
-                    <div class="orders-order-status orders-${order.status}">
-                        <i class="${order.statusIcon}"></i>
-                        <span>${order.statusText}</span>
+                `;
+            }
+            
+            return `
+                <div class="orders-order-card orders-${order.status} orders-${order.requestType}" data-action="navigate" data-page="${order.requestType === 'global' ? 'global-request-details' : 'order-details'}" data-${order.requestType === 'global' ? 'request' : 'order'}-id="${order.id}">
+                    <div class="orders-order-header">
+                        <div class="orders-order-type">
+                            <i class="${order.icon}"></i>
+                            <span>${order.typeText}</span>
+                        </div>
+                        <div class="orders-order-status orders-${order.status}">
+                            <i class="${order.statusIcon}"></i>
+                            <span>${order.statusText}</span>
+                        </div>
+                        <div class="orders-request-badge orders-${order.requestType}-badge">
+                            <i class="fas fa-${order.requestType === 'direct' ? 'user-check' : 'globe'}"></i>
+                            <span>${order.requestType === 'direct' ? 'مباشر' : 'عام'}</span>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="orders-order-content">
-                    <h4 class="orders-order-title">${order.title}</h4>
-                    <p class="orders-order-description">${order.description}</p>
                     
-                    <div class="orders-order-details">
-                        <div class="orders-detail-item">
-                            <i class="fas fa-user"></i>
-                            <span>${order.client}</span>
+                    <div class="orders-order-content">
+                        <h4 class="orders-order-title">${order.title}</h4>
+                        <p class="orders-order-description">${order.description}</p>
+                        
+                        <div class="orders-order-details">
+                            <div class="orders-detail-item">
+                                <i class="fas fa-user"></i>
+                                <span>${order.client}</span>
+                            </div>
+                            <div class="orders-detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${order.location}</span>
+                            </div>
+                            <div class="orders-detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>${order.date}</span>
+                            </div>
+                            <div class="orders-detail-item">
+                                <i class="fas fa-${order.requestType === 'direct' ? 'money-bill-wave' : 'users'}"></i>
+                                <span>${order.requestType === 'direct' ? order.amount : order.offersCount}</span>
+                            </div>
+                            ${order.requestType === 'global' && order.myOfferAmount ? `
+                                <div class="orders-detail-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>عرضي: ${order.myOfferAmount}</span>
+                                </div>
+                            ` : ''}
                         </div>
-                        <div class="orders-detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>${order.location}</span>
+                    </div>
+                    
+                    <div class="orders-order-footer">
+                        <div class="orders-order-priority orders-${order.priority}">
+                            <i class="fas fa-${this.getPriorityIcon(order.priority)}"></i>
+                            <span>${order.priorityText}</span>
                         </div>
-                        <div class="orders-detail-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>${order.date}</span>
+                        <div class="orders-order-time">
+                            <i class="fas fa-clock"></i>
+                            <span>${order.time}</span>
                         </div>
-                        <div class="orders-detail-item">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <span>${order.amount}</span>
-                        </div>
+                        ${offerStatusBadge}
                     </div>
                 </div>
-                
-                <div class="orders-order-footer">
-                    <div class="orders-order-priority orders-${order.priority}">
-                        <i class="fas fa-${this.getPriorityIcon(order.priority)}"></i>
-                        <span>${order.priorityText}</span>
-                    </div>
-                    <div class="orders-order-time">
-                        <i class="fas fa-clock"></i>
-                        <span>${order.time}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     },
 
     /**
@@ -298,20 +494,15 @@ const OrdersController = {
      * Update status tabs with counts
      */
     updateStatusTabs: function() {
-        // Calculate counts for each status
-        const totalOrders = 2847;
-        const allCount = totalOrders;
-        const newCount = 268;
-        const pendingCount = 423;
-        const completedCount = 2156;
+        const stats = this.getStatsForRequestType(this.currentRequestType);
         
         // Update tab counts
         const tabCounts = document.querySelectorAll('.orders-filter-count');
         if (tabCounts.length >= 4) {
-            tabCounts[0].textContent = allCount.toLocaleString(); // All
-            tabCounts[1].textContent = newCount.toLocaleString(); // New
-            tabCounts[2].textContent = pendingCount.toLocaleString(); // Pending
-            tabCounts[3].textContent = completedCount.toLocaleString(); // Completed
+            tabCounts[0].textContent = stats.total.toLocaleString(); // All
+            tabCounts[1].textContent = stats.new.toLocaleString(); // New
+            tabCounts[2].textContent = stats.pending.toLocaleString(); // Pending
+            tabCounts[3].textContent = stats.completed.toLocaleString(); // Completed
         }
     },
 
@@ -336,12 +527,14 @@ const OrdersController = {
         // Update any additional stats that might be displayed
         const totalOrdersElement = document.querySelector('.total-orders');
         if (totalOrdersElement) {
-            totalOrdersElement.textContent = '2,847';
+            const stats = this.getStatsForRequestType(this.currentRequestType);
+            totalOrdersElement.textContent = stats.total.toLocaleString();
         }
         
         const monthlyOrdersElement = document.querySelector('.monthly-orders');
         if (monthlyOrdersElement) {
-            monthlyOrdersElement.textContent = '268';
+            const stats = this.getStatsForRequestType(this.currentRequestType);
+            monthlyOrdersElement.textContent = stats.new.toLocaleString();
         }
     },
 
@@ -458,6 +651,13 @@ const OrdersController = {
      * Initialize modal filters
      */
     initModalFilters: function() {
+        // Request type filters
+        document.querySelectorAll('.orders-option input[name="requestType"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.handleModalFilterChange(e);
+            });
+        });
+        
         // Service type filters
         document.querySelectorAll('.orders-option input[name="serviceType"]').forEach(input => {
             input.addEventListener('change', (e) => {
@@ -597,6 +797,17 @@ const OrdersController = {
                 shouldShow = false;
             }
             
+            // Check request type filters
+            const selectedRequestTypes = Array.from(document.querySelectorAll('.orders-option input[name="requestType"]:checked'))
+                .map(input => input.value);
+            
+            if (selectedRequestTypes.length > 0) {
+                const cardRequestType = this.getOrderRequestType(card);
+                if (!selectedRequestTypes.includes(cardRequestType)) {
+                    shouldShow = false;
+                }
+            }
+            
             // Check service type filters
             const selectedServiceTypes = Array.from(document.querySelectorAll('.orders-option input[name="serviceType"]:checked'))
                 .map(input => input.value);
@@ -647,6 +858,15 @@ const OrdersController = {
             // Show/hide card
             card.style.display = shouldShow ? 'block' : 'none';
         });
+    },
+
+    /**
+     * Get order request type from card
+     */
+    getOrderRequestType: function(card) {
+        if (card.classList.contains('orders-direct')) return 'direct';
+        if (card.classList.contains('orders-global')) return 'global';
+        return '';
     },
 
     /**
@@ -759,9 +979,10 @@ const OrdersController = {
         document.addEventListener('click', (e) => {
             const orderCard = e.target.closest('.orders-order-card');
             if (orderCard && orderCard.dataset.action === 'navigate') {
-                const orderId = orderCard.dataset.orderId;
-                console.log(`Navigating to order details: ${orderId}`);
-                Router.navigate('order-details');
+                const orderId = orderCard.dataset.orderId || orderCard.dataset.requestId;
+                const page = orderCard.dataset.page;
+                console.log(`Navigating to ${page}: ${orderId}`);
+                Router.navigate(page);
             }
         });
         
@@ -778,6 +999,12 @@ const OrdersController = {
                     break;
                 case 'new-order':
                     this.createNewOrder();
+                    break;
+                case 'export-offers':
+                    this.exportOffers();
+                    break;
+                case 'submit-offer':
+                    this.submitOffer();
                     break;
             }
         });
@@ -799,6 +1026,24 @@ const OrdersController = {
         console.log('Creating new order...');
         // Implementation for creating new order
         Router.navigate('order-form');
+    },
+
+    /**
+     * Export offers
+     */
+    exportOffers: function() {
+        console.log('Exporting offers...');
+        // Implementation for exporting offers
+        alert('جاري تصدير العروض...');
+    },
+
+    /**
+     * Submit offer
+     */
+    submitOffer: function() {
+        console.log('Submitting offer...');
+        // Implementation for submitting offer
+        Router.navigate('offer-form');
     }
 };
 

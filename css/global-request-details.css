@@ -1,0 +1,848 @@
+/* Global Request Details Page Specific Styles */
+
+/* Global Request Header */
+.global-request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.global-request-header-action {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.global-request-header-action:hover {
+    background: var(--hover-bg);
+}
+
+.global-request-header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Global Request Content */
+.global-request-content {
+    padding: 1rem;
+    padding-bottom: 100px;
+    min-height: calc(100vh - 60px);
+    background: var(--light-color);
+}
+
+/* Request Status Section */
+.global-request-status-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.global-request-status-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #4b5fa2 100%);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.global-request-status-card.global-request-active {
+    background: linear-gradient(135deg, #667eea 0%, #4b5fa2 100%);
+}
+
+.global-request-status-icon {
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+.global-request-status-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.global-request-status-content p {
+    margin: 0 0 0.5rem 0;
+    opacity: 0.9;
+}
+
+.global-request-status-time {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+/* Timeline */
+.global-request-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.global-request-timeline::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+}
+
+.global-request-timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.global-request-timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.global-request-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--border-color);
+    border: 3px solid var(--card-bg);
+    z-index: 2;
+}
+
+.global-request-timeline-item.global-request-completed::before {
+    background: var(--success);
+}
+
+.global-request-timeline-item.global-request-active::before {
+    background: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.global-request-timeline-icon {
+    position: absolute;
+    left: -0.75rem;
+    top: 0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    z-index: 3;
+}
+
+.global-request-timeline-item.global-request-completed .global-request-timeline-icon {
+    color: var(--success);
+}
+
+.global-request-timeline-item.global-request-active .global-request-timeline-icon {
+    color: var(--primary-color);
+}
+
+.global-request-timeline-content h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-timeline-time {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Global Request Section */
+.global-request-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.global-request-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.global-request-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.global-request-section-icon {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.global-request-section-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Global Request Buttons */
+.global-request-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.global-request-btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-height: 36px;
+}
+
+.global-request-btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.global-request-btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.global-request-btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.global-request-btn-outline:hover {
+    background: var(--hover-bg);
+    border-color: var(--text-secondary);
+}
+
+/* Request Info Grid */
+.global-request-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.global-request-info-card {
+    padding: 1rem;
+    background: var(--input-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.global-request-info-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.global-request-info-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-info-value.global-request-priority-high {
+    color: #ef4444;
+}
+
+/* Cargo Details */
+.global-request-cargo {
+    background: var(--input-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.global-request-cargo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.global-request-cargo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.global-request-cargo-item:last-child {
+    border-bottom: none;
+}
+
+.global-request-cargo-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-cargo-value {
+    color: var(--text-secondary);
+}
+
+/* Location Details */
+.global-request-location {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.global-request-location-card {
+    background: var(--input-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.global-request-location-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.global-request-location-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.global-request-location-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-location-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.global-request-location-address strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.global-request-location-address p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.global-request-location-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.global-request-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.global-request-contact-item i {
+    width: 16px;
+    color: var(--primary-color);
+}
+
+/* Offers Grid */
+.global-request-offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Offer Card */
+.global-request-offer-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.global-request-offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.global-request-offer-card.global-request-offer-featured::before {
+    background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.global-request-offer-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.global-request-offer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.global-request-offer-provider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.global-request-offer-avatar {
+    width: 3rem;
+    height: 3rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.global-request-offer-info h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-offer-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #f59e0b;
+}
+
+.global-request-offer-rating span {
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+.global-request-offer-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.global-request-offer-badge.global-request-featured-badge {
+    background: rgba(251, 191, 36, 0.1);
+    color: #f59e0b;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.global-request-offer-badge i {
+    font-size: 0.7rem;
+}
+
+/* Offer Content */
+.global-request-offer-content {
+    margin-bottom: 1.5rem;
+}
+
+.global-request-offer-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.global-request-price-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.global-request-price-period {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.global-request-offer-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.global-request-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.global-request-feature-item i {
+    color: var(--success);
+    font-size: 0.75rem;
+}
+
+.global-request-offer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.global-request-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.global-request-detail-item i {
+    width: 16px;
+    color: var(--primary-color);
+}
+
+/* Offer Footer */
+.global-request-offer-footer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+}
+
+.global-request-offer-footer .global-request-btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* Actions */
+.global-request-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .global-request-info-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .global-request-offers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .global-request-actions {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 767px) {
+    .global-request-section-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .global-request-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .global-request-offers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .global-request-offer-footer {
+        flex-direction: column;
+    }
+    
+    .global-request-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .global-request-content {
+        padding: 0.75rem;
+    }
+    
+    .global-request-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .global-request-status-card {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .global-request-timeline {
+        padding-left: 1.5rem;
+    }
+    
+    .global-request-timeline::before {
+        left: 0.75rem;
+    }
+    
+    .global-request-timeline-item {
+        padding-left: 1.5rem;
+    }
+    
+    .global-request-timeline-item::before {
+        left: -0.25rem;
+    }
+    
+    .global-request-timeline-icon {
+        left: -0.5rem;
+    }
+    
+    .global-request-actions {
+        padding: 1rem;
+    }
+    
+    .global-request-btn {
+        width: 100%;
+        justify-content: center;
+    }
+} 
+
+/* My Offer Section */
+.global-request-my-offer {
+    background: var(--input-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    border: 2px dashed var(--border-color);
+}
+
+.global-request-no-offer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.global-request-no-offer-icon {
+    width: 4rem;
+    height: 4rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.global-request-no-offer h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-no-offer p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* My Offer Content */
+.global-request-my-offer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.global-request-my-offer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.global-request-my-offer-header h4 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-my-offer-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.global-request-my-offer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.global-request-my-offer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.global-request-my-offer-item:first-child {
+    font-weight: 600;
+}
+
+.global-request-offer-status-submitted {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.global-request-my-offer-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.global-request-my-offer-actions .global-request-btn {
+    flex: 1;
+    max-width: 200px;
+}
+
+/* Market Analysis Section */
+.global-request-market-analysis {
+    display: grid;
+    gap: 1rem;
+}
+
+.global-request-analysis-card {
+    background: var(--input-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.global-request-analysis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.global-request-analysis-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.global-request-analysis-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.global-request-analysis-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.global-request-analysis-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.global-request-analysis-item:first-child {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.global-request-analysis-item:nth-child(2) {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.global-request-analysis-item:last-child {
+    color: var(--text-secondary);
+}
+
+/* Updated Order Cards for Request Types */ 

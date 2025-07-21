@@ -205,6 +205,7 @@ const Router = {
             'marketing': 'MarketingController',
             'order-form': 'OrderFormController',
             'order-details': 'OrderDetailsController',
+            'global-request-details': 'GlobalRequestDetailsController',
             'getting-started': 'GettingStartedController',
             'warehouse-management-form': 'WarehouseManagementFormController'
         };

@@ -701,6 +701,253 @@
     gap: 1.5rem;
 }
 
+/* Orders Request Types */
+.orders-request-types {
+    margin-bottom: 1.5rem;
+}
+
+.orders-request-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.orders-request-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    justify-content: center;
+    position: relative;
+}
+
+.orders-request-tab:hover {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+.orders-request-tab.orders-active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.orders-request-tab i {
+    font-size: 1rem;
+}
+
+.orders-request-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: inherit;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: auto;
+}
+
+.orders-request-tab.orders-active .orders-request-count {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Request Badges */
+.orders-request-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+.orders-request-badge.orders-direct-badge {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.orders-request-badge.orders-global-badge {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.orders-request-badge i {
+    font-size: 0.7rem;
+}
+
+/* Offer Status Badges for Global Requests */
+.orders-offer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.orders-offer-status.offer-not-submitted {
+    background: rgba(156, 163, 175, 0.1);
+    color: #6b7280;
+    border: 1px solid rgba(156, 163, 175, 0.2);
+}
+
+.orders-offer-status.offer-submitted {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.orders-offer-status.offer-rejected {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.orders-offer-status.offer-selected {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.orders-offer-status i {
+    font-size: 0.7rem;
+}
+
+/* Updated Order Cards for Request Types */
+.orders-order-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.orders-order-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.orders-order-card.orders-direct::before {
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.orders-order-card.orders-global::before {
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+.orders-order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.orders-order-card:active {
+    transform: translateY(0);
+}
+
+/* Order Header with Badge */
+.orders-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.orders-order-type {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--input-bg);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.orders-order-type i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.orders-order-status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.orders-order-status.orders-new {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.orders-order-status.orders-pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.orders-order-status.orders-completed {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+/* Global Request Specific Styles */
+.orders-order-card.orders-global .orders-order-content {
+    padding-top: 0.5rem;
+}
+
+.orders-order-card.orders-global .orders-order-details .orders-detail-item:last-child {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.orders-order-card.orders-global .orders-order-details .orders-detail-item:last-child i {
+    color: var(--primary-color);
+}
+
+/* Orders Grid */
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
 .orders-order-card {
     background: var(--card-bg);
     border-radius: 16px;
@@ -1144,6 +1391,33 @@
     .orders-filters-modal-content {
         max-height: 95vh;
     }
+
+    .orders-request-tabs {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .orders-request-tab {
+        justify-content: flex-start;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .orders-request-count {
+        margin-right: 0;
+        margin-left: auto;
+    }
+    
+    .orders-request-badge {
+        position: static;
+        margin-top: 0.5rem;
+        align-self: flex-start;
+    }
+    
+    .orders-order-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1226,6 +1500,20 @@
     .orders-btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .orders-request-tab {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+    
+    .orders-request-tab i {
+        font-size: 0.9rem;
+    }
+    
+    .orders-request-count {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
     }
 }
 
