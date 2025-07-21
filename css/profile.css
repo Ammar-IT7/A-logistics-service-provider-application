@@ -155,7 +155,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
 }
 
 .profile-avatar-section {
@@ -322,7 +322,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }

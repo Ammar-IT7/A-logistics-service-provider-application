@@ -141,7 +141,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
 }
 
 .dashboard-stat-card.dashboard-stat-primary {
@@ -370,7 +370,7 @@
 }
 
 .dashboard-legend-color.dashboard-secondary {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
 }
 
 /* Chart Mock */

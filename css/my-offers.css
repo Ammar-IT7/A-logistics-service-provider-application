@@ -154,7 +154,7 @@
 .my-offers-stat-icon {
     width: 3rem;
     height: 3rem;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border-radius: 50%;
     display: flex;
@@ -340,7 +340,7 @@
 }
 
 .my-offers-filter-btn.my-offers-active {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border-color: var(--primary-color);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
@@ -389,7 +389,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 1rem 1.5rem;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border: none;
     border-radius: 50px;
@@ -663,7 +663,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -678,7 +678,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -733,7 +733,7 @@
 }
 
 .my-offers-btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
 }
 

@@ -599,7 +599,7 @@
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
@@ -608,7 +608,7 @@
 .orders-range-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     border-radius: 50%;
     cursor: pointer;
     border: none;
@@ -660,7 +660,7 @@
 }
 
 .orders-btn-primary {
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
 }
 

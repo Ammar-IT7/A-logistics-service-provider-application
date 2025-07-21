@@ -41,7 +41,7 @@
 }
 
 .hlp-search-btn {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border: none;
     border-radius: 8px;

@@ -45,7 +45,7 @@
 .side-drawer-header {
     padding: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .side-drawer-quick-add-btn:hover {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
@@ -302,7 +302,7 @@
 }
 
 .side-drawer-quick-btn:hover {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
@@ -379,7 +379,7 @@
 }
 
 .side-drawer-nav-item:hover .side-drawer-nav-icon {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     transform: scale(1.1);
 }

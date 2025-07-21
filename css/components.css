@@ -1321,7 +1321,7 @@ input:checked + .switch-slider:before {
 }
 
 .stat-card.highlight {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border-color: var(--primary-color);
 }
@@ -1483,7 +1483,7 @@ input:checked + .switch-slider:before {
 }
 
 .service-card.active .service-icon {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
 }
 
@@ -1673,7 +1673,7 @@ input:checked + .switch-slider:before {
 }
 
 .action-card:hover .action-icon {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     transform: scale(1.1);
 }

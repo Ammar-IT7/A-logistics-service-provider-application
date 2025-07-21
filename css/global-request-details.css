@@ -136,7 +136,7 @@
 }
 
 .global-request-timeline-item.global-request-active::before {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
 }
 
@@ -236,7 +236,7 @@
 }
 
 .global-request-btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
 }
 
@@ -344,7 +344,7 @@
 .global-request-location-icon {
     width: 2.5rem;
     height: 2.5rem;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border-radius: 50%;
     display: flex;
@@ -451,7 +451,7 @@
 .global-request-offer-avatar {
     width: 3rem;
     height: 3rem;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border-radius: 50%;
     display: flex;
@@ -699,7 +699,7 @@
 .global-request-no-offer-icon {
     width: 4rem;
     height: 4rem;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border-radius: 50%;
     display: flex;

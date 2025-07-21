@@ -48,7 +48,7 @@
     justify-content: center;
     gap: 8px;
     padding: 12px 16px;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border: none;
     border-radius: 12px;
@@ -212,7 +212,7 @@
     transition: all 0.3s ease;
 }
 .wh-feature-tag:hover {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
 }
 .wh-provider-meta {
@@ -276,7 +276,7 @@
     transition: all 0.3s ease;
 }
 .wh-provider-actions .btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     border: none;
 }
@@ -291,7 +291,7 @@
     border: 1px solid var(--primary-color);
 }
 .wh-provider-actions .btn-outline:hover {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     color: white;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(102,126,234,0.3);

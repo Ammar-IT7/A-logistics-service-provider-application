@@ -151,7 +151,7 @@ const DrawerHelper = {
             width: 56px;
             height: 56px;
             border: none;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
             border-radius: 50%;
             color: white;
             cursor: pointer;
@@ -394,7 +394,7 @@ const DrawerHelper = {
             width: 56px;
             height: 56px;
             border: none;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
             border-radius: 50%;
             color: white;
             cursor: pointer;

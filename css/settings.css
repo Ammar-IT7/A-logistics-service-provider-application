@@ -2,7 +2,7 @@
 
 /* User Profile Section - Matching Profile Style */
 .stg-user-profile {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
     border-radius: var(--stg-radius);
     padding: 28px;
     margin-bottom: 24px;
@@ -197,7 +197,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
 }
 
 .stg-settings-section:hover {
@@ -313,7 +313,7 @@
 }
 
 .stg-toggle-input:checked + .stg-toggle-label {
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-dark) ,var(--primary-color));
 }
 
 .stg-toggle-input:checked + .stg-toggle-label::after {
