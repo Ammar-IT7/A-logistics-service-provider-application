@@ -1,21 +1,10 @@
 /**
  * My Offers Controller
- * Manages the my offers page functionality for providers to view and manage their submitted offers
+ * Manages the my offers page functionality
  */
 const MyOffersController = {
-    // Current filters
-    currentFilters: {
-        status: 'all',
-        serviceType: [],
-        timePeriod: '',
-        priceRange: { min: 0, max: 50000 },
-        location: []
-    },
-    
-    // Search term
+    currentFilters: {},
     searchTerm: '',
-    
-    // Offers data
     offers: [],
 
     /**
@@ -30,10 +19,8 @@ const MyOffersController = {
         // Set up event listeners
         this.setupEventListeners();
         
-        // Initialize search functionality
+        // Initialize search and filters
         this.initSearch();
-        
-        // Initialize filters
         this.initFilters();
         
         // Update stats
@@ -44,7 +31,7 @@ const MyOffersController = {
      * Load offers data
      */
     loadOffersData: function() {
-        // Mock offers data - in real app, this would come from API
+        // Mock data for offers
         this.offers = [
             {
                 id: 'OFF-2024-1253',
@@ -54,11 +41,10 @@ const MyOffersController = {
                 status: 'pending',
                 client: 'شركة التقنية المتقدمة للتجارة',
                 location: 'الرياض، المملكة العربية السعودية',
+                submittedAt: '2024-01-16',
                 price: 9200,
                 priceUnit: 'شهرياً',
                 priority: 'high',
-                submittedAt: '2024-01-16T10:30:00Z',
-                requestId: 'GLB-2024-1253',
                 isFeatured: true
             },
             {
@@ -69,11 +55,10 @@ const MyOffersController = {
                 status: 'accepted',
                 client: 'شركة النقل السريع للخدمات اللوجستية',
                 location: 'الرياض → الدمام',
+                submittedAt: '2024-01-12',
                 price: 3500,
-                priceUnit: 'مرة واحدة',
+                priceUnit: '',
                 priority: 'medium',
-                submittedAt: '2024-01-12T14:15:00Z',
-                requestId: 'GLB-2024-4587',
                 isFeatured: false
             },
             {
@@ -84,16 +69,42 @@ const MyOffersController = {
                 status: 'rejected',
                 client: 'مصنع الأثاث الحديث للتصنيع',
                 location: 'ميناء جدة الإسلامي',
+                submittedAt: '2024-01-10',
                 price: 8750,
-                priceUnit: 'مرة واحدة',
+                priceUnit: '',
                 priority: 'low',
-                submittedAt: '2024-01-10T09:45:00Z',
-                requestId: 'GLB-2024-8975',
+                isFeatured: false
+            },
+            {
+                id: 'OFF-2024-9876',
+                title: 'خدمة تغليف احترافية مع طباعة',
+                description: 'تغليف احترافي للمنتجات الإلكترونية مع طباعة الشعارات والعلامات التجارية',
+                serviceType: 'packaging',
+                status: 'pending',
+                client: 'شركة التغليف المتقدمة',
+                location: 'جدة، المملكة العربية السعودية',
+                submittedAt: '2024-01-14',
+                price: 2800,
+                priceUnit: '',
+                priority: 'medium',
+                isFeatured: false
+            },
+            {
+                id: 'OFF-2024-5432',
+                title: 'خدمة توصيل نهائي سريع',
+                description: 'توصيل نهائي سريع للمنتجات مع خدمة التتبع المباشر والتأكيد الإلكتروني',
+                serviceType: 'last-mile',
+                status: 'accepted',
+                client: 'شركة التوصيل السريع',
+                location: 'الدمام، المملكة العربية السعودية',
+                submittedAt: '2024-01-08',
+                price: 1200,
+                priceUnit: '',
+                priority: 'low',
                 isFeatured: false
             }
         ];
         
-        // Render offers
         this.renderOffers();
     },
 
@@ -104,15 +115,19 @@ const MyOffersController = {
         // Handle offer card clicks
         document.addEventListener('click', (e) => {
             const offerCard = e.target.closest('.my-offers-offer-card');
-            if (offerCard && offerCard.dataset.action === 'navigate') {
-                const offerId = offerCard.dataset.offerId;
+            if (offerCard) {
+                const action = offerCard.dataset.action;
                 const page = offerCard.dataset.page;
-                console.log(`Navigating to ${page}: ${offerId}`);
-                Router.navigate(page);
+                const offerId = offerCard.dataset.offerId;
+                
+                if (action === 'navigate' && page && offerId) {
+                    console.log(`Navigating to ${page} with offer ID: ${offerId}`);
+                    Router.navigate(`${page}?offerId=${offerId}`);
+                }
             }
         });
-        
-        // Handle filter buttons
+
+        // Handle filter button clicks
         document.addEventListener('click', (e) => {
             const filterBtn = e.target.closest('.my-offers-filter-btn');
             if (filterBtn) {
@@ -120,50 +135,47 @@ const MyOffersController = {
                 this.applyStatusFilter(filter);
             }
         });
-        
-        // Handle section action buttons
+
+        // Handle advanced filters modal
         document.addEventListener('click', (e) => {
-            const actionBtn = e.target.closest('[data-action]');
-            if (!actionBtn) return;
+            if (e.target.closest('[data-action="toggle-advanced-filters"]')) {
+                this.toggleAdvancedFilters();
+            }
             
-            const action = actionBtn.dataset.action;
+            if (e.target.closest('[data-action="close-filters"]')) {
+                this.closeAdvancedFilters();
+            }
             
-            switch (action) {
-                case 'export-offers':
-                    this.exportOffers();
-                    break;
-                case 'toggle-advanced-filters':
-                    this.toggleAdvancedFilters();
-                    break;
-                case 'close-filters':
-                    this.closeAdvancedFilters();
-                    break;
-                case 'apply-filters':
-                    this.applyAdvancedFilters();
-                    break;
-                case 'clear-filters':
-                    this.clearFilters();
-                    break;
+            if (e.target.closest('[data-action="apply-filters"]')) {
+                this.applyAdvancedFilters();
+            }
+            
+            if (e.target.closest('[data-action="clear-filters"]')) {
+                this.clearFilters();
             }
         });
-    },
 
-    /**
-     * Initialize search functionality
-     */
-    initSearch: function() {
+        // Handle export action
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-action="export-offers"]')) {
+                this.exportOffers();
+            }
+        });
+
+        // Handle search input
         const searchInput = document.querySelector('.my-offers-search-input');
-        const searchClear = document.querySelector('.my-offers-search-clear');
-        
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
-                this.searchTerm = e.target.value.trim();
+                this.searchTerm = e.target.value;
                 this.performSearch();
             });
         }
-        
+
+        // Handle search clear
+        const searchClear = document.querySelector('.my-offers-search-clear');
         if (searchClear) {
             searchClear.addEventListener('click', () => {
+                const searchInput = document.querySelector('.my-offers-search-input');
                 if (searchInput) {
                     searchInput.value = '';
                     this.searchTerm = '';
@@ -174,13 +186,29 @@ const MyOffersController = {
     },
 
     /**
+     * Initialize search functionality
+     */
+    initSearch: function() {
+        const searchInput = document.querySelector('.my-offers-search-input');
+        const searchClear = document.querySelector('.my-offers-search-clear');
+        
+        if (searchInput) {
+            // Show/hide clear button based on input
+            searchInput.addEventListener('input', (e) => {
+                if (e.target.value.length > 0) {
+                    searchClear.classList.add('visible');
+                } else {
+                    searchClear.classList.remove('visible');
+                }
+            });
+        }
+    },
+
+    /**
      * Initialize filters
      */
     initFilters: function() {
-        // Initialize price range sliders
         this.initPriceRangeSliders();
-        
-        // Initialize filter checkboxes
         this.initFilterCheckboxes();
     },
 
@@ -188,45 +216,28 @@ const MyOffersController = {
      * Initialize price range sliders
      */
     initPriceRangeSliders: function() {
-        const minSlider = document.getElementById('priceRangeMin');
-        const maxSlider = document.getElementById('priceRangeMax');
-        const minInput = document.getElementById('priceFrom');
-        const maxInput = document.getElementById('priceTo');
-        
-        if (minSlider && maxSlider && minInput && maxInput) {
-            // Set initial values
-            minSlider.value = this.currentFilters.priceRange.min;
-            maxSlider.value = this.currentFilters.priceRange.max;
-            minInput.value = this.currentFilters.priceRange.min;
-            maxInput.value = this.currentFilters.priceRange.max;
-            
-            // Add event listeners
-            minSlider.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value);
-                this.currentFilters.priceRange.min = value;
-                minInput.value = value;
-                this.applyFilters();
+        const priceRangeMin = document.getElementById('priceRangeMin');
+        const priceRangeMax = document.getElementById('priceRangeMax');
+        const priceFrom = document.getElementById('priceFrom');
+        const priceTo = document.getElementById('priceTo');
+
+        if (priceRangeMin && priceRangeMax && priceFrom && priceTo) {
+            // Update input fields when sliders change
+            priceRangeMin.addEventListener('input', (e) => {
+                priceFrom.value = e.target.value;
             });
-            
-            maxSlider.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value);
-                this.currentFilters.priceRange.max = value;
-                maxInput.value = value;
-                this.applyFilters();
+
+            priceRangeMax.addEventListener('input', (e) => {
+                priceTo.value = e.target.value;
             });
-            
-            minInput.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value) || 0;
-                this.currentFilters.priceRange.min = value;
-                minSlider.value = value;
-                this.applyFilters();
+
+            // Update sliders when input fields change
+            priceFrom.addEventListener('input', (e) => {
+                priceRangeMin.value = e.target.value;
             });
-            
-            maxInput.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value) || 50000;
-                this.currentFilters.priceRange.max = value;
-                maxSlider.value = value;
-                this.applyFilters();
+
+            priceTo.addEventListener('input', (e) => {
+                priceRangeMax.value = e.target.value;
             });
         }
     },
@@ -235,56 +246,12 @@ const MyOffersController = {
      * Initialize filter checkboxes
      */
     initFilterCheckboxes: function() {
-        // Service type checkboxes
-        const serviceTypeCheckboxes = document.querySelectorAll('input[name="serviceType"]');
-        serviceTypeCheckboxes.forEach(checkbox => {
+        const checkboxes = document.querySelectorAll('.my-offers-option input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
-                this.updateServiceTypeFilter();
+                this.applyFilters();
             });
         });
-        
-        // Location checkboxes
-        const locationCheckboxes = document.querySelectorAll('input[name="location"]');
-        locationCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                this.updateLocationFilter();
-            });
-        });
-        
-        // Time period radio buttons
-        const timePeriodRadios = document.querySelectorAll('input[name="timePeriod"]');
-        timePeriodRadios.forEach(radio => {
-            radio.addEventListener('change', () => {
-                this.updateTimePeriodFilter();
-            });
-        });
-    },
-
-    /**
-     * Update service type filter
-     */
-    updateServiceTypeFilter: function() {
-        const checkedBoxes = document.querySelectorAll('input[name="serviceType"]:checked');
-        this.currentFilters.serviceType = Array.from(checkedBoxes).map(cb => cb.value);
-        this.applyFilters();
-    },
-
-    /**
-     * Update location filter
-     */
-    updateLocationFilter: function() {
-        const checkedBoxes = document.querySelectorAll('input[name="location"]:checked');
-        this.currentFilters.location = Array.from(checkedBoxes).map(cb => cb.value);
-        this.applyFilters();
-    },
-
-    /**
-     * Update time period filter
-     */
-    updateTimePeriodFilter: function() {
-        const checkedRadio = document.querySelector('input[name="timePeriod"]:checked');
-        this.currentFilters.timePeriod = checkedRadio ? checkedRadio.value : '';
-        this.applyFilters();
     },
 
     /**
@@ -292,17 +259,17 @@ const MyOffersController = {
      */
     applyStatusFilter: function(status) {
         // Update active filter button
-        const filterButtons = document.querySelectorAll('.my-offers-filter-btn');
-        filterButtons.forEach(btn => {
+        document.querySelectorAll('.my-offers-filter-btn').forEach(btn => {
             btn.classList.remove('my-offers-active');
         });
         
-        const activeButton = document.querySelector(`[data-filter="${status}"]`);
-        if (activeButton) {
-            activeButton.classList.add('my-offers-active');
+        const activeBtn = document.querySelector(`[data-filter="${status}"]`);
+        if (activeBtn) {
+            activeBtn.classList.add('my-offers-active');
         }
-        
-        this.currentFilters.status = status;
+
+        // Filter offers
+        this.currentFilters.status = status === 'all' ? null : status;
         this.applyFilters();
     },
 
@@ -310,39 +277,53 @@ const MyOffersController = {
      * Apply all filters
      */
     applyFilters: function() {
-        const filteredOffers = this.offers.filter(offer => {
-            // Status filter
-            if (this.currentFilters.status !== 'all' && offer.status !== this.currentFilters.status) {
-                return false;
-            }
-            
-            // Service type filter
-            if (this.currentFilters.serviceType.length > 0 && !this.currentFilters.serviceType.includes(offer.serviceType)) {
-                return false;
-            }
-            
-            // Price range filter
-            if (offer.price < this.currentFilters.priceRange.min || offer.price > this.currentFilters.priceRange.max) {
-                return false;
-            }
-            
-            // Search term filter
-            if (this.searchTerm && !this.matchesSearchTerm(offer)) {
-                return false;
-            }
-            
-            return true;
-        });
-        
+        let filteredOffers = [...this.offers];
+
+        // Apply status filter
+        if (this.currentFilters.status && this.currentFilters.status !== 'all') {
+            filteredOffers = filteredOffers.filter(offer => offer.status === this.currentFilters.status);
+        }
+
+        // Apply search filter
+        if (this.searchTerm) {
+            filteredOffers = filteredOffers.filter(offer => 
+                this.matchesSearchTerm(offer, this.searchTerm)
+            );
+        }
+
+        // Apply service type filter
+        if (this.currentFilters.serviceType && this.currentFilters.serviceType.length > 0) {
+            filteredOffers = filteredOffers.filter(offer => 
+                this.currentFilters.serviceType.includes(offer.serviceType)
+            );
+        }
+
+        // Apply location filter
+        if (this.currentFilters.location && this.currentFilters.location.length > 0) {
+            filteredOffers = filteredOffers.filter(offer => 
+                this.currentFilters.location.some(loc => 
+                    offer.location.toLowerCase().includes(loc.toLowerCase())
+                )
+            );
+        }
+
+        // Apply price range filter
+        if (this.currentFilters.priceRange) {
+            filteredOffers = filteredOffers.filter(offer => 
+                offer.price >= this.currentFilters.priceRange.min && 
+                offer.price <= this.currentFilters.priceRange.max
+            );
+        }
+
         this.renderOffers(filteredOffers);
-        this.updateStats(filteredOffers);
+        this.updateStats();
     },
 
     /**
      * Check if offer matches search term
      */
-    matchesSearchTerm: function(offer) {
-        const searchLower = this.searchTerm.toLowerCase();
+    matchesSearchTerm: function(offer, searchTerm) {
+        const searchLower = searchTerm.toLowerCase();
         return (
             offer.title.toLowerCase().includes(searchLower) ||
             offer.description.toLowerCase().includes(searchLower) ||
@@ -357,16 +338,6 @@ const MyOffersController = {
      */
     performSearch: function() {
         this.applyFilters();
-        
-        // Show/hide clear button
-        const searchClear = document.querySelector('.my-offers-search-clear');
-        if (searchClear) {
-            if (this.searchTerm) {
-                searchClear.classList.add('visible');
-            } else {
-                searchClear.classList.remove('visible');
-            }
-        }
     },
 
     /**
@@ -447,86 +418,220 @@ const MyOffersController = {
     },
 
     /**
-     * Get service icon
+     * Update service type filter
      */
+    updateServiceTypeFilter: function() {
+        const checkboxes = document.querySelectorAll('input[name="serviceType"]:checked');
+        this.currentFilters.serviceType = Array.from(checkboxes).map(cb => cb.value);
+        this.applyFilters();
+    },
+
+    /**
+     * Update location filter
+     */
+    updateLocationFilter: function() {
+        const checkboxes = document.querySelectorAll('input[name="location"]:checked');
+        this.currentFilters.location = Array.from(checkboxes).map(cb => cb.value);
+        this.applyFilters();
+    },
+
+    /**
+     * Update time period filter
+     */
+    updateTimePeriodFilter: function() {
+        const selectedPeriod = document.querySelector('input[name="timePeriod"]:checked');
+        if (selectedPeriod) {
+            this.currentFilters.timePeriod = selectedPeriod.value;
+            this.applyFilters();
+        }
+    },
+
+    /**
+     * Toggle advanced filters modal
+     */
+    toggleAdvancedFilters: function() {
+        const modal = document.getElementById('filtersModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    },
+
+    /**
+     * Close advanced filters modal
+     */
+    closeAdvancedFilters: function() {
+        const modal = document.getElementById('filtersModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    },
+
+    /**
+     * Apply advanced filters
+     */
+    applyAdvancedFilters: function() {
+        // Get selected service types
+        const serviceTypeCheckboxes = document.querySelectorAll('input[name="serviceType"]:checked');
+        this.currentFilters.serviceType = Array.from(serviceTypeCheckboxes).map(cb => cb.value);
+
+        // Get selected locations
+        const locationCheckboxes = document.querySelectorAll('input[name="location"]:checked');
+        this.currentFilters.location = Array.from(locationCheckboxes).map(cb => cb.value);
+
+        // Get price range
+        const priceFrom = document.getElementById('priceFrom').value;
+        const priceTo = document.getElementById('priceTo').value;
+        if (priceFrom && priceTo) {
+            this.currentFilters.priceRange = {
+                min: parseInt(priceFrom),
+                max: parseInt(priceTo)
+            };
+        }
+
+        this.applyFilters();
+        this.closeAdvancedFilters();
+    },
+
+    /**
+     * Clear all filters
+     */
+    clearFilters: function() {
+        // Clear all checkboxes
+        document.querySelectorAll('.my-offers-option input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+        });
+
+        // Clear radio buttons
+        document.querySelectorAll('.my-offers-option input[type="radio"]').forEach(rb => {
+            rb.checked = false;
+        });
+
+        // Clear price inputs
+        document.getElementById('priceFrom').value = '';
+        document.getElementById('priceTo').value = '';
+        document.getElementById('priceRangeMin').value = 0;
+        document.getElementById('priceRangeMax').value = 50000;
+
+        // Reset filters
+        this.currentFilters = {};
+        this.searchTerm = '';
+
+        // Clear search input
+        const searchInput = document.querySelector('.my-offers-search-input');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+
+        // Reset status filter to 'all'
+        this.applyStatusFilter('all');
+
+        this.applyFilters();
+    },
+
+    /**
+     * Update stats
+     */
+    updateStats: function() {
+        const totalOffers = this.offers.length;
+        const acceptedOffers = this.offers.filter(offer => offer.status === 'accepted').length;
+        const pendingOffers = this.offers.filter(offer => offer.status === 'pending').length;
+        const rejectedOffers = this.offers.filter(offer => offer.status === 'rejected').length;
+        const totalValue = this.offers.reduce((sum, offer) => sum + offer.price, 0);
+
+        // Update stat values
+        const statValues = document.querySelectorAll('.my-offers-stat-value');
+        if (statValues.length >= 4) {
+            statValues[0].textContent = totalOffers;
+            statValues[1].textContent = acceptedOffers;
+            statValues[2].textContent = pendingOffers;
+            statValues[3].textContent = `${totalValue.toLocaleString()} ريال`;
+        }
+
+        // Update filter counts
+        const filterCounts = document.querySelectorAll('.my-offers-filter-count');
+        if (filterCounts.length >= 4) {
+            filterCounts[0].textContent = totalOffers;
+            filterCounts[1].textContent = pendingOffers;
+            filterCounts[2].textContent = acceptedOffers;
+            filterCounts[3].textContent = rejectedOffers;
+        }
+    },
+
+    /**
+     * Export offers
+     */
+    exportOffers: function() {
+        console.log('Exporting offers...');
+        // This would typically trigger a file download
+        // For now, just show a message
+        if (typeof Toast !== 'undefined') {
+            Toast.show('تصدير العروض', 'سيتم تحميل ملف Excel قريباً', 'success');
+        } else {
+            alert('سيتم تصدير العروض قريباً');
+        }
+    },
+
+    // Helper functions
     getServiceIcon: function(serviceType) {
         const icons = {
-            warehouse: 'warehouse',
-            shipping: 'truck',
-            customs: 'clipboard-list',
-            packaging: 'box',
-            lc: 'file-invoice-dollar',
+            'warehouse': 'warehouse',
+            'shipping': 'truck',
+            'customs': 'clipboard-list',
+            'packaging': 'box',
             'last-mile': 'shipping-fast'
         };
         return icons[serviceType] || 'cog';
     },
 
-    /**
-     * Get service type text
-     */
     getServiceTypeText: function(serviceType) {
         const texts = {
-            warehouse: 'تخزين',
-            shipping: 'شحن',
-            customs: 'تخليص جمركي',
-            packaging: 'تغليف',
-            lc: 'اعتمادات مستندية',
+            'warehouse': 'تخزين',
+            'shipping': 'شحن',
+            'customs': 'تخليص جمركي',
+            'packaging': 'تغليف',
             'last-mile': 'توصيل نهائي'
         };
         return texts[serviceType] || 'خدمة أخرى';
     },
 
-    /**
-     * Get status icon
-     */
     getStatusIcon: function(status) {
         const icons = {
-            pending: 'clock',
-            accepted: 'check-circle',
-            rejected: 'times-circle'
+            'pending': 'clock',
+            'accepted': 'check-circle',
+            'rejected': 'times-circle'
         };
         return icons[status] || 'question-circle';
     },
 
-    /**
-     * Get status text
-     */
     getStatusText: function(status) {
         const texts = {
-            pending: 'قيد المراجعة',
-            accepted: 'مقبولة',
-            rejected: 'مرفوضة'
+            'pending': 'قيد المراجعة',
+            'accepted': 'مقبولة',
+            'rejected': 'مرفوضة'
         };
-        return texts[status] || 'غير معروف';
+        return texts[status] || 'غير محدد';
     },
 
-    /**
-     * Get priority icon
-     */
     getPriorityIcon: function(priority) {
         const icons = {
-            high: 'exclamation-triangle',
-            medium: 'minus-circle',
-            low: 'check-circle'
+            'high': 'exclamation-triangle',
+            'medium': 'minus-circle',
+            'low': 'check-circle'
         };
         return icons[priority] || 'circle';
     },
 
-    /**
-     * Get priority text
-     */
     getPriorityText: function(priority) {
         const texts = {
-            high: 'عالية',
-            medium: 'متوسطة',
-            low: 'منخفضة'
+            'high': 'عالية',
+            'medium': 'متوسطة',
+            'low': 'منخفضة'
         };
         return texts[priority] || 'غير محدد';
     },
 
-    /**
-     * Format date
-     */
     formatDate: function(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString('ar-SA', {
@@ -536,120 +641,21 @@ const MyOffersController = {
         });
     },
 
-    /**
-     * Get time ago
-     */
     getTimeAgo: function(dateString) {
         const date = new Date(dateString);
         const now = new Date();
         const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
         
         if (diffInHours < 1) {
-            return 'منذ لحظات';
+            return 'منذ أقل من ساعة';
         } else if (diffInHours < 24) {
             return `منذ ${diffInHours} ساعة`;
+        } else if (diffInHours < 48) {
+            return 'منذ يوم واحد';
+        } else if (diffInHours < 168) {
+            return `منذ ${Math.floor(diffInHours / 24)} أيام`;
         } else {
-            const diffInDays = Math.floor(diffInHours / 24);
-            return `منذ ${diffInDays} يوم`;
-        }
-    },
-
-    /**
-     * Update stats
-     */
-    updateStats: function(offers = this.offers) {
-        const stats = {
-            total: offers.length,
-            accepted: offers.filter(o => o.status === 'accepted').length,
-            pending: offers.filter(o => o.status === 'pending').length,
-            rejected: offers.filter(o => o.status === 'rejected').length,
-            totalValue: offers.reduce((sum, o) => sum + o.price, 0)
-        };
-        
-        // Update stat values
-        const statValues = document.querySelectorAll('.my-offers-stat-value');
-        if (statValues.length >= 4) {
-            statValues[0].textContent = stats.total;
-            statValues[1].textContent = stats.accepted;
-            statValues[2].textContent = stats.pending;
-            statValues[3].textContent = `${stats.totalValue.toLocaleString()} ريال`;
-        }
-        
-        // Update filter counts
-        const filterCounts = document.querySelectorAll('.my-offers-filter-count');
-        if (filterCounts.length >= 4) {
-            filterCounts[0].textContent = stats.total;
-            filterCounts[1].textContent = stats.pending;
-            filterCounts[2].textContent = stats.accepted;
-            filterCounts[3].textContent = stats.rejected;
-        }
-    },
-
-    /**
-     * Toggle advanced filters
-     */
-    toggleAdvancedFilters: function() {
-        const modal = document.getElementById('filtersModal');
-        if (modal) {
-            modal.classList.add('active');
-        }
-    },
-
-    /**
-     * Close advanced filters
-     */
-    closeAdvancedFilters: function() {
-        const modal = document.getElementById('filtersModal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
-    },
-
-    /**
-     * Apply advanced filters
-     */
-    applyAdvancedFilters: function() {
-        this.closeAdvancedFilters();
-        this.applyFilters();
-    },
-
-    /**
-     * Clear filters
-     */
-    clearFilters: function() {
-        // Reset all checkboxes and radio buttons
-        const checkboxes = document.querySelectorAll('.my-offers-filters-modal input[type="checkbox"]');
-        checkboxes.forEach(cb => cb.checked = false);
-        
-        const radios = document.querySelectorAll('.my-offers-filters-modal input[type="radio"]');
-        radios.forEach(radio => radio.checked = false);
-        
-        // Reset price range
-        this.currentFilters.priceRange = { min: 0, max: 50000 };
-        this.initPriceRangeSliders();
-        
-        // Reset filters
-        this.currentFilters = {
-            status: 'all',
-            serviceType: [],
-            timePeriod: '',
-            priceRange: { min: 0, max: 50000 },
-            location: []
-        };
-        
-        this.applyFilters();
-    },
-
-    /**
-     * Export offers
-     */
-    exportOffers: function() {
-        console.log('Exporting offers...');
-        // Implementation for exporting offers
-        if (window.Toast) {
-            Toast.show('تم التصدير', 'جاري تصدير العروض...', 'success');
-        } else {
-            alert('جاري تصدير العروض...');
+            return `منذ ${Math.floor(diffInHours / 24 / 7)} أسابيع`;
         }
     }
 };
