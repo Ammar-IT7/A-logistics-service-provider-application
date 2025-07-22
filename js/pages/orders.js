@@ -93,6 +93,9 @@ const OrdersController = {
         this.updateStatsForRequestType(requestType);
         this.updateFiltersForRequestType(requestType);
         
+        // Re-render orders with the correct data for the selected request type
+        this.updateOrdersList();
+        
         console.log(`Switched to ${requestType} requests`);
     },
 
@@ -922,7 +925,13 @@ const OrdersController = {
     showAllOrders: function() {
         const orderCards = document.querySelectorAll('.orders-order-card');
         orderCards.forEach(card => {
-            card.style.display = 'block';
+            // Only show orders matching the current request type
+            const cardRequestType = this.getOrderRequestType(card);
+            if (cardRequestType === this.currentRequestType) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
         });
     },
 
@@ -933,6 +942,14 @@ const OrdersController = {
         const orderCards = document.querySelectorAll('.orders-order-card');
         
         orderCards.forEach(card => {
+            // First check if the card matches the current request type
+            const cardRequestType = this.getOrderRequestType(card);
+            if (cardRequestType !== this.currentRequestType) {
+                card.style.display = 'none';
+                return;
+            }
+            
+            // Then check if it matches the search term
             const title = card.querySelector('.orders-order-title').textContent.toLowerCase();
             const description = card.querySelector('.orders-order-description').textContent.toLowerCase();
             const client = card.querySelector('.orders-detail-item span').textContent.toLowerCase();
@@ -959,15 +976,24 @@ const OrdersController = {
             activeBtn.classList.add('orders-active');
         }
         
-        // Filter orders
+        // Filter orders by both status and current request type
         const orderCards = document.querySelectorAll('.orders-order-card');
         
         orderCards.forEach(card => {
-            if (status === 'all' || card.classList.contains(`orders-${status}`)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
+            let shouldShow = true;
+            
+            // Check status filter
+            if (status !== 'all' && !card.classList.contains(`orders-${status}`)) {
+                shouldShow = false;
             }
+            
+            // Check request type filter (only show orders matching current request type)
+            const cardRequestType = this.getOrderRequestType(card);
+            if (cardRequestType !== this.currentRequestType) {
+                shouldShow = false;
+            }
+            
+            card.style.display = shouldShow ? 'block' : 'none';
         });
     },
 
