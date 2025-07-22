@@ -1,5 +1,5 @@
 /**
- * Reports Controller - Modern Design with Enhanced UX
+ * Reports Controller - Modern Design with Enhanced UX for Logistics Service Providers
  */
 const ReportsController = {
     /**
@@ -203,7 +203,7 @@ const ReportsController = {
     },
 
     /**
-     * Update report data with enhanced information
+     * Update report data with enhanced information for logistics services
      */
     updateReportData: function(reportType) {
         console.log(`Updating ${reportType} report data`);
@@ -219,7 +219,7 @@ const ReportsController = {
     },
 
     /**
-     * Update summary cards with realistic data
+     * Update summary cards with realistic logistics data
      */
     updateSummaryCards: function(reportType) {
         const summaryData = {
@@ -228,6 +228,14 @@ const ReportsController = {
                 expenses: '1,234,800 ريال',
                 profit: '1,612,700 ريال',
                 margin: '56.7%'
+            },
+            'service-performance': {
+                shipments: '1,247',
+                warehouseUtilization: '85%',
+                customsClearance: '234',
+                packagingOrders: '1,856',
+                lastMileDelivery: '98.2%',
+                lcProcessing: '45'
             },
             operational: {
                 processing: '1.8 ساعة',
@@ -245,13 +253,21 @@ const ReportsController = {
                 vip: '156',
                 avgOrders: '2.3'
             },
-            performance: {
-                response: '4.6/5',
-                quality: '4.8/5',
-                satisfaction: '4.7/5',
-                accuracy: '4.9/5',
-                efficiency: '4.5/5',
-                communication: '4.4/5'
+            logistics: {
+                routes: '1,856',
+                coverage: '24',
+                vehicles: '156',
+                warehouses: '12',
+                ports: '8',
+                airports: '6'
+            },
+            compliance: {
+                safety: '100%',
+                quality: '98.7%',
+                customs: '99.2%',
+                packaging: '97.8%',
+                training: '100%',
+                certificates: '15'
             }
         };
         
@@ -267,7 +283,7 @@ const ReportsController = {
     },
 
     /**
-     * Update charts with enhanced visualizations
+     * Update charts with enhanced visualizations for logistics
      */
     updateCharts: function(reportType) {
         console.log(`Updating charts for ${reportType} report`);
@@ -277,22 +293,32 @@ const ReportsController = {
             this.updateRevenueBreakdown();
         }
         
-        // Update performance metrics with smooth animations
-        if (reportType === 'performance') {
-            this.updatePerformanceMetrics();
+        // Update logistics performance metrics
+        if (reportType === 'logistics') {
+            this.updateLogisticsMetrics();
+        }
+        
+        // Update service performance metrics
+        if (reportType === 'service-performance') {
+            this.updateServicePerformanceMetrics();
+        }
+        
+        // Update compliance metrics
+        if (reportType === 'compliance') {
+            this.updateComplianceMetrics();
         }
     },
 
     /**
-     * Update revenue breakdown with detailed data
+     * Update revenue breakdown with detailed logistics data
      */
     updateRevenueBreakdown: function() {
         const breakdownData = [
-            { label: 'خدمات الشحن الدولي', value: '1,025,100 ريال - 36% من الإيرادات', percentage: 36 },
+            { label: 'خدمات الشحن (جوي/بحري/بري)', value: '1,025,100 ريال - 36% من الإيرادات', percentage: 36 },
             { label: 'التخليص الجمركي', value: '797,250 ريال - 28% من الإيرادات', percentage: 28 },
-            { label: 'خدمات التخزين', value: '569,500 ريال - 20% من الإيرادات', percentage: 20 },
-            { label: 'خدمات التغليف', value: '341,700 ريال - 12% من الإيرادات', percentage: 12 },
-            { label: 'خدمات أخرى', value: '113,950 ريال - 4% من الإيرادات', percentage: 4 }
+            { label: 'خدمات التخزين والمستودعات', value: '569,500 ريال - 20% من الإيرادات', percentage: 20 },
+            { label: 'خدمات التغليف والتعبئة', value: '341,700 ريال - 12% من الإيرادات', percentage: 12 },
+            { label: 'التوصيل النهائي وخطابات الاعتماد', value: '113,950 ريال - 4% من الإيرادات', percentage: 4 }
         ];
         
         breakdownData.forEach((item, index) => {
@@ -311,6 +337,102 @@ const ReportsController = {
                     setTimeout(() => {
                         barFill.style.width = `${item.percentage}%`;
                     }, index * 100);
+                }
+            }
+        });
+    },
+
+    /**
+     * Update logistics performance metrics
+     */
+    updateLogisticsMetrics: function() {
+        const metricsData = [
+            { label: 'متوسط وقت النقل البري', value: '2.4 يوم', percentage: 88 },
+            { label: 'متوسط وقت النقل البحري', value: '8.2 يوم', percentage: 92 },
+            { label: 'متوسط وقت النقل الجوي', value: '1.1 يوم', percentage: 95 },
+            { label: 'كفاءة استخدام المركبات', value: '87.3%', percentage: 87 },
+            { label: 'معدل تتبع الشحنات', value: '99.5%', percentage: 100 },
+            { label: 'دقة التوقعات الزمنية', value: '94.2%', percentage: 94 }
+        ];
+        
+        metricsData.forEach((item, index) => {
+            const metricItem = document.querySelectorAll('.report-metric-item')[index];
+            if (metricItem) {
+                const label = metricItem.querySelector('.report-metric-label');
+                const value = metricItem.querySelector('.report-metric-value');
+                const barFill = metricItem.querySelector('.report-bar-fill');
+                
+                if (label) label.textContent = item.label;
+                if (value) value.textContent = item.value;
+                if (barFill) {
+                    barFill.style.width = '0%';
+                    setTimeout(() => {
+                        barFill.style.width = `${item.percentage}%`;
+                    }, index * 80);
+                }
+            }
+        });
+    },
+
+    /**
+     * Update service performance metrics
+     */
+    updateServicePerformanceMetrics: function() {
+        const metricsData = [
+            { label: 'متوسط وقت معالجة الشحنة', value: '2.3 ساعة', percentage: 85 },
+            { label: 'معدل نجاح التخليص الجمركي', value: '96.8%', percentage: 97 },
+            { label: 'كفاءة استخدام المستودعات', value: '92.4%', percentage: 92 },
+            { label: 'دقة التغليف والتعبئة', value: '99.1%', percentage: 99 },
+            { label: 'سرعة معالجة خطابات الاعتماد', value: '4.2/5', percentage: 84 },
+            { label: 'رضا العملاء عن التوصيل النهائي', value: '4.7/5', percentage: 94 }
+        ];
+        
+        metricsData.forEach((item, index) => {
+            const metricItem = document.querySelectorAll('.report-metric-item')[index];
+            if (metricItem) {
+                const label = metricItem.querySelector('.report-metric-label');
+                const value = metricItem.querySelector('.report-metric-value');
+                const barFill = metricItem.querySelector('.report-bar-fill');
+                
+                if (label) label.textContent = item.label;
+                if (value) value.textContent = item.value;
+                if (barFill) {
+                    barFill.style.width = '0%';
+                    setTimeout(() => {
+                        barFill.style.width = `${item.percentage}%`;
+                    }, index * 80);
+                }
+            }
+        });
+    },
+
+    /**
+     * Update compliance metrics
+     */
+    updateComplianceMetrics: function() {
+        const metricsData = [
+            { label: 'معدل الحوادث', value: '0.02%', percentage: 98 },
+            { label: 'التوافق مع اللوائح الجمركية', value: '99.8%', percentage: 100 },
+            { label: 'جودة خدمة العملاء', value: '4.8/5', percentage: 96 },
+            { label: 'دقة تتبع الشحنات', value: '99.9%', percentage: 100 },
+            { label: 'التوافق مع معايير ISO', value: '100%', percentage: 100 },
+            { label: 'رضا العملاء عن الجودة', value: '4.9/5', percentage: 98 }
+        ];
+        
+        metricsData.forEach((item, index) => {
+            const metricItem = document.querySelectorAll('.report-metric-item')[index];
+            if (metricItem) {
+                const label = metricItem.querySelector('.report-metric-label');
+                const value = metricItem.querySelector('.report-metric-value');
+                const barFill = metricItem.querySelector('.report-bar-fill');
+                
+                if (label) label.textContent = item.label;
+                if (value) value.textContent = item.value;
+                if (barFill) {
+                    barFill.style.width = '0%';
+                    setTimeout(() => {
+                        barFill.style.width = `${item.percentage}%`;
+                    }, index * 80);
                 }
             }
         });
@@ -368,9 +490,11 @@ const ReportsController = {
         const activeReportType = document.querySelector('.report-type.active').dataset.report;
         const reportTypes = {
             financial: 'التقرير المالي',
+            'service-performance': 'تقرير أداء الخدمات',
             operational: 'تقرير الأداء التشغيلي',
             customer: 'تقرير تحليل العملاء',
-            performance: 'تقرير مؤشرات الأداء'
+            logistics: 'التقرير اللوجستي',
+            compliance: 'تقرير التوافق والجودة'
         };
         
         Toast.show('تصدير التقرير', `جاري تحضير ${reportTypes[activeReportType]} للتصدير...`, 'info');
@@ -458,10 +582,10 @@ const ReportsController = {
     },
 
     /**
-     * Update designer notes with enhanced information
+     * Update designer notes with enhanced information for logistics
      */
     updateDesignerNotes: function() {
-        const notes = "صفحة التقارير والتحليلات تعرض بيانات شاملة ومفصلة للأداء المالي والتشغيلي. تم تصميمها بتقنية Mobile-First مع واجهة حديثة وتفاعلية، تتضمن 4 أنواع من التقارير مع إمكانية تحديد الفترة الزمنية وتصدير البيانات. جميع البيانات واقعية ومحدثة لتوفير أفضل تجربة مستخدم.";
+        const notes = "صفحة التقارير والتحليلات المحدثة لتتناسب مع احتياجات مقدمي الخدمات اللوجستية. تتضمن 6 أنواع من التقارير: مالية، أداء الخدمات، تشغيلي، تحليل العملاء، لوجستي، والتوافق والجودة. جميع البيانات واقعية ومحدثة لتوفير رؤية شاملة لأداء الخدمات اللوجستية المختلفة.";
         const notesContent = document.getElementById('designer-notes-content');
         if (notesContent) {
             notesContent.innerHTML = `<p>${notes}</p>`;

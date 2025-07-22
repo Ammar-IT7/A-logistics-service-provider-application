@@ -18,6 +18,10 @@
                 <i class="fas fa-chart-line"></i>
                 <span>التقارير المالية</span>
             </button>
+            <button class="report-type" data-report="service-performance">
+                <i class="fas fa-truck"></i>
+                <span>أداء الخدمات</span>
+            </button>
             <button class="report-type" data-report="operational">
                 <i class="fas fa-cogs"></i>
                 <span>الأداء التشغيلي</span>
@@ -26,9 +30,13 @@
                 <i class="fas fa-users"></i>
                 <span>تحليل العملاء</span>
             </button>
-            <button class="report-type" data-report="performance">
-                <i class="fas fa-tachometer-alt"></i>
-                <span>مؤشرات الأداء</span>
+            <button class="report-type" data-report="logistics">
+                <i class="fas fa-route"></i>
+                <span>تقارير لوجستية</span>
+            </button>
+            <button class="report-type" data-report="compliance">
+                <i class="fas fa-shield-alt"></i>
+                <span>التوافق والجودة</span>
             </button>
         </div>
 
@@ -99,7 +107,7 @@
                 </div>
             </section>
 
-            <!-- Revenue Breakdown -->
+            <!-- Revenue Breakdown by Service Type -->
             <section class="report-section">
                 <div class="report-section-header">
                     <h3 class="report-section-title">توزيع الإيرادات حسب نوع الخدمة</h3>
@@ -114,7 +122,7 @@
                 <div class="report-revenue-breakdown">
                     <div class="report-breakdown-item">
                         <div class="report-breakdown-info">
-                            <div class="report-breakdown-label">خدمات الشحن الدولي</div>
+                            <div class="report-breakdown-label">خدمات الشحن (جوي/بحري/بري)</div>
                             <div class="report-breakdown-value">1,025,100 ريال - 36% من الإيرادات</div>
                         </div>
                         <div class="report-breakdown-bar">
@@ -136,7 +144,7 @@
                     
                     <div class="report-breakdown-item">
                         <div class="report-breakdown-info">
-                            <div class="report-breakdown-label">خدمات التخزين</div>
+                            <div class="report-breakdown-label">خدمات التخزين والمستودعات</div>
                             <div class="report-breakdown-value">569,500 ريال - 20% من الإيرادات</div>
                         </div>
                         <div class="report-breakdown-bar">
@@ -147,7 +155,7 @@
                     
                     <div class="report-breakdown-item">
                         <div class="report-breakdown-info">
-                            <div class="report-breakdown-label">خدمات التغليف</div>
+                            <div class="report-breakdown-label">خدمات التغليف والتعبئة</div>
                             <div class="report-breakdown-value">341,700 ريال - 12% من الإيرادات</div>
                         </div>
                         <div class="report-breakdown-bar">
@@ -158,7 +166,7 @@
                     
                     <div class="report-breakdown-item">
                         <div class="report-breakdown-info">
-                            <div class="report-breakdown-label">خدمات أخرى</div>
+                            <div class="report-breakdown-label">التوصيل النهائي وخطابات الاعتماد</div>
                             <div class="report-breakdown-value">113,950 ريال - 4% من الإيرادات</div>
                         </div>
                         <div class="report-breakdown-bar">
@@ -192,6 +200,134 @@
                                 <span class="report-legend-color" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%)"></span>
                                 <span>صافي الربح</span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Service Performance Report -->
+        <div class="report-content" id="service-performance-report" style="display: none;">
+            <section class="report-section">
+                <div class="report-section-header">
+                    <h3 class="report-section-title">أداء الخدمات التفصيلي</h3>
+                </div>
+                
+                <div class="report-kpi-grid">
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">1,247</div>
+                            <div class="report-kpi-label">إجمالي شحنات الشهر</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">85%</div>
+                            <div class="report-kpi-label">معدل استخدام المستودعات</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">234</div>
+                            <div class="report-kpi-label">معاملات تخليص جمركي</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">1,856</div>
+                            <div class="report-kpi-label">عمليات تغليف مكتملة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">98.2%</div>
+                            <div class="report-kpi-label">معدل التوصيل النهائي في الوقت</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">45</div>
+                            <div class="report-kpi-label">خطابات اعتماد معالجة</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Service Efficiency Metrics -->
+            <section class="report-section">
+                <div class="report-section-header">
+                    <h3 class="report-section-title">مؤشرات كفاءة الخدمات</h3>
+                </div>
+                
+                <div class="report-performance-metrics">
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">متوسط وقت معالجة الشحنة</div>
+                        <div class="report-metric-value">2.3 ساعة</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">معدل نجاح التخليص الجمركي</div>
+                        <div class="report-metric-value">96.8%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 97%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">كفاءة استخدام المستودعات</div>
+                        <div class="report-metric-value">92.4%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">دقة التغليف والتعبئة</div>
+                        <div class="report-metric-value">99.1%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 99%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">سرعة معالجة خطابات الاعتماد</div>
+                        <div class="report-metric-value">4.2/5</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 84%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">رضا العملاء عن التوصيل النهائي</div>
+                        <div class="report-metric-value">4.7/5</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 94%"></div>
                         </div>
                     </div>
                 </div>
@@ -305,24 +441,229 @@
             </section>
         </div>
 
-        <!-- Performance Report -->
-        <div class="report-content" id="performance-report" style="display: none;">
+        <!-- Logistics Report -->
+        <div class="report-content" id="logistics-report" style="display: none;">
             <section class="report-section">
                 <div class="report-section-header">
-                    <h3 class="report-section-title">مؤشرات الأداء الشاملة</h3>
+                    <h3 class="report-section-title">تقارير لوجستية متخصصة</h3>
+                </div>
+                
+                <div class="report-kpi-grid">
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">1,856</div>
+                            <div class="report-kpi-label">إجمالي المسارات المغطاة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">24</div>
+                            <div class="report-kpi-label">منطقة تغطية</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">156</div>
+                            <div class="report-kpi-label">مركبة نشطة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">12</div>
+                            <div class="report-kpi-label">مستودع نشط</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-ship"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">8</div>
+                            <div class="report-kpi-label">موانئ شريكة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">6</div>
+                            <div class="report-kpi-label">مطارات شريكة</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Logistics Performance Metrics -->
+            <section class="report-section">
+                <div class="report-section-header">
+                    <h3 class="report-section-title">مؤشرات الأداء اللوجستي</h3>
                 </div>
                 
                 <div class="report-performance-metrics">
                     <div class="report-metric-item">
-                        <div class="report-metric-label">سرعة الاستجابة للعملاء</div>
-                        <div class="report-metric-value">4.6/5</div>
+                        <div class="report-metric-label">متوسط وقت النقل البري</div>
+                        <div class="report-metric-value">2.4 يوم</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">متوسط وقت النقل البحري</div>
+                        <div class="report-metric-value">8.2 يوم</div>
                         <div class="report-metric-bar">
                             <div class="report-bar-fill" style="width: 92%"></div>
                         </div>
                     </div>
                     
                     <div class="report-metric-item">
-                        <div class="report-metric-label">جودة الخدمة المقدمة</div>
+                        <div class="report-metric-label">متوسط وقت النقل الجوي</div>
+                        <div class="report-metric-value">1.1 يوم</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">كفاءة استخدام المركبات</div>
+                        <div class="report-metric-value">87.3%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 87%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">معدل تتبع الشحنات</div>
+                        <div class="report-metric-value">99.5%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">دقة التوقعات الزمنية</div>
+                        <div class="report-metric-value">94.2%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 94%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Compliance & Quality Report -->
+        <div class="report-content" id="compliance-report" style="display: none;">
+            <section class="report-section">
+                <div class="report-section-header">
+                    <h3 class="report-section-title">تقارير التوافق والجودة</h3>
+                </div>
+                
+                <div class="report-kpi-grid">
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">100%</div>
+                            <div class="report-kpi-label">التوافق مع معايير السلامة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">98.7%</div>
+                            <div class="report-kpi-label">التوافق مع معايير الجودة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">99.2%</div>
+                            <div class="report-kpi-label">دقة الوثائق الجمركية</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">97.8%</div>
+                            <div class="report-kpi-label">جودة التغليف والتعبئة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">100%</div>
+                            <div class="report-kpi-label">تدريب الموظفين على السلامة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-kpi-card">
+                        <div class="report-kpi-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="report-kpi-content">
+                            <div class="report-kpi-value">15</div>
+                            <div class="report-kpi-label">شهادات جودة حصلنا عليها</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quality Metrics -->
+            <section class="report-section">
+                <div class="report-section-header">
+                    <h3 class="report-section-title">مؤشرات الجودة والسلامة</h3>
+                </div>
+                
+                <div class="report-performance-metrics">
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">معدل الحوادث</div>
+                        <div class="report-metric-value">0.02%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">التوافق مع اللوائح الجمركية</div>
+                        <div class="report-metric-value">99.8%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">جودة خدمة العملاء</div>
                         <div class="report-metric-value">4.8/5</div>
                         <div class="report-metric-bar">
                             <div class="report-bar-fill" style="width: 96%"></div>
@@ -330,34 +671,26 @@
                     </div>
                     
                     <div class="report-metric-item">
-                        <div class="report-metric-label">رضا العملاء العام</div>
-                        <div class="report-metric-value">4.7/5</div>
+                        <div class="report-metric-label">دقة تتبع الشحنات</div>
+                        <div class="report-metric-value">99.9%</div>
                         <div class="report-metric-bar">
-                            <div class="report-bar-fill" style="width: 94%"></div>
+                            <div class="report-bar-fill" style="width: 100%"></div>
                         </div>
                     </div>
                     
                     <div class="report-metric-item">
-                        <div class="report-metric-label">دقة التوصيل والمواعيد</div>
+                        <div class="report-metric-label">التوافق مع معايير ISO</div>
+                        <div class="report-metric-value">100%</div>
+                        <div class="report-metric-bar">
+                            <div class="report-bar-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-metric-item">
+                        <div class="report-metric-label">رضا العملاء عن الجودة</div>
                         <div class="report-metric-value">4.9/5</div>
                         <div class="report-metric-bar">
                             <div class="report-bar-fill" style="width: 98%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="report-metric-item">
-                        <div class="report-metric-label">كفاءة فريق العمل</div>
-                        <div class="report-metric-value">4.5/5</div>
-                        <div class="report-metric-bar">
-                            <div class="report-bar-fill" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="report-metric-item">
-                        <div class="report-metric-label">التواصل مع العملاء</div>
-                        <div class="report-metric-value">4.4/5</div>
-                        <div class="report-metric-bar">
-                            <div class="report-bar-fill" style="width: 88%"></div>
                         </div>
                     </div>
                 </div>
